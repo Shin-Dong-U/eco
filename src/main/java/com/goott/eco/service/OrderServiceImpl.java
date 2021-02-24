@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<BasketVO> getBasketList(String custId) {
-		
+		System.out.println("service custID: "+custId);
 		return orderMapper.getBasketList(custId);
 	}
 

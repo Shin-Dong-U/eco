@@ -17,7 +17,7 @@ import lombok.extern.log4j.Log4j;
 
 @RequestMapping("/orders")
 @RestController
-//@Log4j
+@Log4j
 public class OrderController {
 
 	
@@ -32,8 +32,8 @@ public class OrderController {
 			produces= {"application/json; charset=UTF-8"})
 	public ResponseEntity<List<BasketVO>> getBasketList(
 			@PathVariable("custId")String custId){
-		
-		//log.info("custId: "+custId);
+		System.out.println("id: "+custId);
+		log.info("custId: "+custId);
 		return new ResponseEntity<>(orderService.getBasketList(custId),HttpStatus.OK);
 		
 	}
