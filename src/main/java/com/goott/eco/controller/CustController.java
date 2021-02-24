@@ -22,6 +22,7 @@ public class CustController {
 	public ModelAndView custList() {
 		List<Map<String, Object>> custList = service.getCustList(null);
 		System.out.println(custList.size());
+		System.out.println("GIT test");
 		ModelAndView mav = new ModelAndView("/cust/custlist");
 		return mav;
 	}
