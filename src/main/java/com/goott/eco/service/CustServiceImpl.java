@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.goott.eco.mapper.CustMapper;
+import com.goott.eco.vo.CustVO;
 
 @Service
 public class CustServiceImpl implements CustService{
@@ -17,6 +18,12 @@ public class CustServiceImpl implements CustService{
 	@Override
 	public List<Map<String, Object>> getCustList(Map<String, Object> searchInfo) {
 		return custDao.getCustList(searchInfo);
+	}
+
+	@Override
+	public CustVO getCustLogin(CustVO custVO) {
+		
+		return custDao.getCustLogin(custVO);
 	}
 
 }

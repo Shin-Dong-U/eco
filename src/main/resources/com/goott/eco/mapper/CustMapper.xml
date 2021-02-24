@@ -9,4 +9,11 @@
 		SELECT * FROM eco.cust
 	</select>
 
+	<select id="getCustLogin" resultType="com.goott.eco.vo.CustVO">
+		SELECT * FROM eco.cust 
+		WHERE memberId=#{memberId} AND password=#{password} AND member_yn='Y' 
+	</select>
+
+
+
 </mapper>
