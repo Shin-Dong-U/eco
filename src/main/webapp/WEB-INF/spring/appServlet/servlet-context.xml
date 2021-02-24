@@ -2,12 +2,10 @@
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
@@ -23,38 +21,7 @@
 	
 	<context:component-scan base-package="com.goott.eco" />
 	
-	<!-- db properties -->
-    <beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <beans:property name="location" value="/WEB-INF/properties/db.properties"/>
-        <beans:property name="fileEncoding" value="UTF-8" />
-    </beans:bean>
 	
-	<!-- Hikari -->
-	<beans:bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<beans:property name="driverClassName" value="${db.driver}"></beans:property>
-		<beans:property name="jdbcUrl" value="${db.url}"></beans:property>
-		<beans:property name="username" value="${db.username}"></beans:property>
-		<beans:property name="password" value="${db.password}"></beans:property>
-	</beans:bean>
-
-	<beans:bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-		<beans:constructor-arg ref="hikariConfig" />
-	</beans:bean>	
-	
-	<!-- sqlSessionFactory -->
-	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<beans:property name="dataSource" ref="dataSource"></beans:property>
-	</beans:bean>
-	
-	<!-- txManager -->
-	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<beans:property name="dataSource" ref="dataSource"></beans:property>
-	</beans:bean>
-	
-	<tx:annotation-driven/>
-	
-	<!-- mybatis -->
-	<mybatis-spring:scan base-package="com.goott.eco.mapper"/>
 	
 	<!-- security -->
 	<security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled"/>
