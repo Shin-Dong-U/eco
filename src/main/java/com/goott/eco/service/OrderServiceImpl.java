@@ -39,15 +39,14 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public int deleteGoodsAtBasket(String custId, Long goodsSeq) {
 		log.info("장바구니 삭제: "+custId+" / "+goodsSeq);
-		orderMapper.delGoodsAtBasket(custId,goodsSeq);
-		return 0;
+		return orderMapper.delGoodsAtBasket(custId,goodsSeq);
 	}
 
 	@Override
 	public int purGoodsAtBasket(String custId, Long goodsSeq) {
 		log.info("장바구니 구매된: "+custId+" / "+goodsSeq);
-		orderMapper.purGoodsAtBasket(custId,goodsSeq);
-		return 0;
+		
+		return orderMapper.purGoodsAtBasket(custId,goodsSeq);
 	}
 
 	@Override

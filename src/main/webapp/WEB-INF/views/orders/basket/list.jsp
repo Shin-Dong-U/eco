@@ -39,47 +39,46 @@
 <script src="/resources/basket/basket.js?ver=1"></script>
 
 <script>
-$(document).ready(function(){		
+$(document).ready(function(){
+	//showList();
+	//selectBasketGoods();
+	//delBasketGoods();
+	//purGoodsAtBasket();
+	//changeQtyAtBasket();
+	addGoodsAtBasket();
 	
-	//basketList 실행함수	
-	var basketTable =$(".basketList");
-	showList(1);
-	selectBasketGoods();
-	delBasketGoods();
+	//선택상품 장바구니에 담기
+	function addGoodsAtBasket(){
+		basketService.addGoodsAtBasket(function(){})
+	}
 	
+	//장바구니 수량변경
+	function changeQtyAtBasket(){
+		basketService.changeQtyAtBasket(function(){})
+	}
+	
+	
+	//장바구니에 구매된 상품 삭제
+	function purGoodsAtBasket(){
+		basketService.purGoodsAtBasket(function(result){})
+	}
+	
+	//장바구니에서 상품 삭제
 	function delBasketGoods(){
-		basketService.delBasketGoods(function(delBasketGoods){})
+		basketService.delBasketGoods(function(result){})
 	}
 	
+	//장바구니에서 특정상품 선택
 	function selectBasketGoods(){
-		basketService.getBasketGoods(function(basketGoods){})
+		basketService.getBasketGoods(function(){})
 	}
 	
-	function showList(page){
-		console.log("show list " + page);	
-		basketService.getBasketList(function(basketList){
-			
-			//var goodsNum = BasketList.basket_seq;
-			
-			//console.log(goodsNum);
-			
-			
-			/* for(var i = 0, len=basketList.length||0; i<len; i++){
-				console.log(list[i]);
-				str +="<tr class='oneBasket' data-bno="+basketList[i].bno+" data-writer="+basketList[i].writer+">"
-					+ 	"<th scope='row' class='boardBno'>"+basketList[i].bno+"</th>"							
-					+ 	"<td><ul class='titleBtn'>"+basketList[i].title+" ["+basketList[i].replyCnt+"]</ul></td>"
-					+	"<td>"+basketList[i].content+"</td>"
-					+	"<td>"+basketList[i].writer+"</td>"
-					+	"<td>"+transferTime.displayTime(basketList[i].regDate)+"</td>"
-					+"</tr>"
-			}   	   */
-			//basketTable.html(str);
-			
-		});//end function
-				
-	}//end showList
-	//basketList 실행 끝
+	//장바구니 리스트 보기
+	function showList(){		
+		basketService.getBasketList(function(){})
+	}
+	
+	
 });
 </script>
 </html>

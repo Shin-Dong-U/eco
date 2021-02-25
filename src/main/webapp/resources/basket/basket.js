@@ -3,107 +3,92 @@ console.log("Reply Module.........");
 var basketService=(function(){
 	
 	
-	function getBasketList(callback, error){
-		//basket: 처리할 값
-		//callback: 성공시 처리되는 함수
-		//error: 실패시 처리되는 함수
+	function getBasketList(){
 			console.log("basket List................");
 			
-			$.ajax({ //자바스크립트 객체 시작
+		$.ajax({ //자바스크립트 객체 시작
 			type:'get',						//전송유형
 			url:'/orders/basket/list/a',		//컨트롤러 메소드 호출 URL
 			//JSON.stringify()자바스크립트 객체를 JSON형식의 문자열로 변환해주는 웹브라우저 내부 메소드
 			data:JSON.stringify(),			//data키에 설정되는 값은 컨트롤러 메소드의 consumes속성 설정 값의 데이터 유형과 일치
 			contentType: "application/json; charset=utf-8", //서버에게 보내는 데이터 유형(MIME타입)
-			success:function(basketList,status,xhr){  //XHR (XML Http Request)
-				//처리 성공시 수행
-				if(callback){ //자바스크립트에서 if문은 값이 있으면 참!!!
-					callback(basketList);
-					console.log("장바구니 리스트",basketList);
-				}
-			},
-			error:function(xhr, status, er){
-				if(error){
-					erroer(er);
-				}
-			}
-				
-			})
-			}
+			success:(basketList)=>{console.log("장바구니 리스트",basketList)},
+			error:(log)=>{console.log("실패 "+log)}
+		})
+	}
 	
-	function getBasketGoods(callback, error){		
+	
+	function getBasketGoods(){		
 			console.log("basket select one goods................");
 			
-			$.ajax({ 
+		$.ajax({ 
 			type:'get',						
 			url:'/orders/basket/11',					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
-			success:function(basketGoods,status,xhr){  				
-				if(callback){ 
-					callback(basketGoods);
-					console.log("장바구니 상품",basketGoods);
-				}
-			},
-			error:function(xhr, status, er){
-				if(error){
-					erroer(er);
-				}
-			}
-				
-			})
-			}
+			success:(basketGoods)=>{console.log("장바구니 상품",basketGoods)},
+			error:(log)=>{console.log("실패 "+log)}
+		})
+	}
 	
-	function delBasketGoods(callback, error){		
+	
+	function delBasketGoods(){		
 		console.log("basket delete one goods................");
 		
 		$.ajax({ 
-		type:'get',						
-		url:'/orders/basket/sample_id/11',					
-		data:JSON.stringify(),			
-		contentType: "application/json; charset=utf-8", 
-		success:function(basketGoods,status,xhr){  				
-			if(callback){ 
-				callback(delBasketGoods);
-				console.log("장바구니에서 삭제한 상품");
-			}
-		},
-		error:function(xhr, status, er){
-			if(error){
-				erroer(er);
-			}
-		}
-			
-		})
-		}
-	
-	// 댓글등록: 사용자가 입력한 댓글을 서버의 컨트롤러로 전송
-	/*function add(reply, callback, error){
-					//reply: 처리할 값
-					//callback: 성공시 처리되는 함수
-					//error: 실패시 처리되는 함수
-		console.log("reply................");
+			type:'get',						
+			url:'/orders/basket/sample_id/9',					
+			data:JSON.stringify(),			
+			contentType: "application/json; charset=utf-8", 
+			success:(result)=>{console.log("삭제결과 "+result)},
+			error:(log)=>{console.log("실패 "+log)}
 		
-		$.ajax({ //자바스크립트 객체 시작
-			type:'post',						//전송유형: post방식
-			url:'/replies/new',					//컨트롤러 메소드 호출 URL
-			//JSON.stringify()자바스크립트 객체를 JSON형식의 문자열로 변환해주는 웹브라우저 내부 메소드
-			data:JSON.stringify(reply),			//data키에 설정되는 값은 컨트롤러 메소드의 consumes속성 설정 값의 데이터 유형과 일치
-			contentType: "application/json; charset=utf-8", //서버에게 보내는 데이터 유형(MIME타입)
-			success:function(result,status,xhr){  //XHR (XML Http Request)
-				//처리 성공시 수행
-				if(callback){ //자바스크립트에서 if문은 값이 있으면 참!!!
-					callback(result);
-				}
-			},
-			error:function(xhr, status, er){
-				if(error){
-					erroer(er);
-				}
-			}
+		})
+	}
+	
+	function purGoodsAtBasket(){		
+		console.log("basket delete purchase goods................");
+		
+		$.ajax({ 
+			type:'get',						
+			url:'/orders/basket/pur/sample_id/10',					
+			data:JSON.stringify(),			
+			contentType: "application/json; charset=utf-8", 
+			success:(result)=>{console.log("구매상품 삭제결과 "+result)},
+			error:(log)=>{console.log("실패 "+log)}
 				
 		})
-	}*/
+	}
+	
+	function changeQtyAtBasket(){		
+		console.log("basket change qty................");
+		
+		$.ajax({ 
+			type:'get',						
+			url:'/orders/basket/sample_id/10/100',					
+			data:JSON.stringify(),			
+			contentType: "application/json; charset=utf-8", 
+			success:(result)=>{console.log("상품 수량 변경 결과 "+result)},
+			error:(log)=>{console.log("실패 "+log)}
+			
+		})
+	}
+	
+	function addGoodsAtBasket(){		
+		console.log("basket add................");
+		
+		$.ajax({ 
+			type:'get',						
+			url:'/orders/basket/new/sample_id/11/33',					
+			data:JSON.stringify(),			
+			contentType: "application/json; charset=utf-8", 
+			success:(result)=>{console.log("장바구니 담기 결과 "+result)},
+			error:(log)=>{console.log("실패 "+log)}
+			
+		})
+	}
+	
+	
 	
 	
 //날짜시간 표시형식 설정: 날짜시간 형식 지정(서버와 상관 없음)
@@ -136,6 +121,9 @@ var basketService=(function(){
 	
 	
 	return {
+		addGoodsAtBasket:addGoodsAtBasket,
+		changeQtyAtBasket:changeQtyAtBasket,
+		purGoodsAtBasket:purGoodsAtBasket,
 		getBasketList:getBasketList,
 		getBasketGoods:getBasketGoods,
 		delBasketGoods:delBasketGoods,
