@@ -8,5 +8,16 @@
 </head>
 <body>
 hello goods
+
+<script>
+window.onload = function welcome(){
+	console.log('welcome');
+	hello('kk');
+}
+
+function hello(a){
+	console.log(a + 'aa');
+}
+</script>
 </body>
 </html>
