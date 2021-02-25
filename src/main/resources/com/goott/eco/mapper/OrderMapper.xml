@@ -6,7 +6,27 @@
 <mapper namespace="com.goott.eco.mapper.OrderMapper">
 	
 	<select id="getBasketList" resultType="com.goott.eco.domain.BasketVO">
-		SELECT * FROM eco.basket WHERE={custId}
+		SELECT * FROM eco.basket WHERE cust_id=#{custId} AND delete_yn='N'
 	</select>
+	
+	<select id="getGoodsInfo" resultType="com.goott.eco.domain.GoodsVOtest">
+		SELECT * FROM eco.goods WHERE goods_seq=#{goodsSeq}
+	</select>
+	
+	<update id="delGoodsAtBasket">
+		UPDATE eco.basket SET delete_yn='Y' WHERE cust_id=#{custId} AND goods_seq=#{goodsSeq}
+	</update>
+	
+	<update id="purGoodsAtBasket">
+		UPDATE eco.basket SET purchase_yn='Y' WHERE cust_id=#{custId} AND goods_seq=#{goodsSeq}
+	</update>
+	
+	<insert id="addGoodsAtBasket">
+		INSERT into eco.basket values(seq_basket_seq.nextval,#{goodsSeq},#{custId},#{qty},default,default,default,#{custId},'','')
+	</insert>
+	
+	<update id="changeQtyAtBasket">
+		UPDATE eco.basket SET qty=#{qty} WHERE cust_id=#{custId} AND goods_seq=#{goodsSeq}
+	</update>
 
 </mapper>

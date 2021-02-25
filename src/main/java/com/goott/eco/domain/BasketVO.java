@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BasketVO {
 	
-	private Long basketSeq;
-	private Long goodsSeq;
-	private String custId;
-	private Long qty;
-	private String purchaseYn;
-	private String deleteYn;
+	private long basket_seq;
+	private long goods_seq;
+	private String cust_Id;
+	private long qty;
+	private String purchase_YN;
+	private String delete_YN;
 	private Timestamp regDate;
 	private String regUser;
 	private Timestamp editDate;
