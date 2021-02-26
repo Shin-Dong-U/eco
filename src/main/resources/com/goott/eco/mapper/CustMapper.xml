@@ -15,4 +15,17 @@
 		WHERE memberId=#{memberId}
 	</select>
 
+	<!-- 로그인 -->
+	<select id="getCustLogin" resultType="com.goott.eco.domain.CustVO">
+		SELECT * FROM eco.cust 
+		WHERE memberId=#{memberId} AND password=#{password} AND member_yn='Y' 
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="joinCust">
+		INSERT INTO eco.cust 
+		VALUES(#{memberId}, #{password}, #{name}, #{phone}, #{email}, #{addr_post}, #{addr_city}, #{addr_detail}, 
+				#{birth}, #{sex}, default, default, default, #{memberId}, default, #{memberId}, default, default)
+	</insert>
+
 </mapper>

@@ -14,21 +14,23 @@ import org.springframework.web.servlet.ModelAndView;
 import com.goott.eco.domain.CustVO;
 import com.goott.eco.service.CustService;
 
+
 @RequestMapping("/cust")
 @Controller
 public class CustController {
 
 	@Autowired
-	private CustService service;
+	private CustService Custservice;
 	
 	@GetMapping("/list")
 	public ModelAndView custList() {
-		List<Map<String, Object>> custList = service.getCustList(null);
+		List<Map<String, Object>> custList = Custservice.getCustList(null);
 		System.out.println(custList.size());
 		ModelAndView mav = new ModelAndView("/cust/custlist");
 		return mav;
 	}
 	
+
 	//null값으로 , 그냥 gameInfo에 화면만 출력하게해준것
 	//http://localhost/cust/gameInfo?id=basic
 	@GetMapping("/gameInfo")
@@ -37,7 +39,7 @@ public class CustController {
 		custVO.setMemberId(id);
 		
 		
-		CustVO custId = service.getCustId(custVO);
+		CustVO custId = Custservice.getCustId(custVO);
 		
 		System.out.println("custId:" + custId);
 		
@@ -71,6 +73,10 @@ public class CustController {
 //	}
 
 
+	@GetMapping("/login1")
+	public String custLogin() {
+		return "/login1";
+	}
 
 
 
