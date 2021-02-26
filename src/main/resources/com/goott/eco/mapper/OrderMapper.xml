@@ -4,6 +4,20 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goott.eco.mapper.OrderMapper">
 	
+	<select id="selectOrdderMainNum">
+		select seq_order_seq.currval from dual
+	</select>
+	<insert id="addOrderMain">
+		insert into eco.order_main values(seq_order_seq.nextval,#{custId},default,default,#{custId},'','','','')	
+	</insert>
+	<insert id="addOrderDetail">
+		<selectKey keyProperty="order_seq" order="BEFORE" resultType="long">
+			select seq_order_seq.currval from dual
+		</selectKey>
+		insert into eco.order_detail values(order_seq,seq_order_detail_seq.nextval,#{custId},#{basketNum},default,#{custId},'','')
+	</insert>
+	
+	
 	<select id="getBasketList" resultType="com.goott.eco.domain.BasketVO">
 		SELECT * FROM eco.basket WHERE cust_id=#{custId} AND delete_yn='N'
 	</select>

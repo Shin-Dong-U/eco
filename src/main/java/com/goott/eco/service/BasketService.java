@@ -5,10 +5,7 @@ import java.util.List;
 import com.goott.eco.domain.BasketVO;
 import com.goott.eco.domain.GoodsVOtest;
 
-public interface OrderService {
-	
-	public int addOrder(List<BasketVO> basketList);
-	//
+public interface BasketService {
 	
 	public List<BasketVO> getBasketList(String custId);
 	
@@ -21,4 +18,5 @@ public interface OrderService {
 	public int addGoodsAtBasket(String custId, Long goodsSeq, Long qty);
 	
 	public int changeQtyAtBasket(String custId, Long goodsSeq, Long qty);
+
 }

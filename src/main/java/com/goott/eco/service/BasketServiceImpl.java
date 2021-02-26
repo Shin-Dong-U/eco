@@ -7,69 +7,58 @@ import org.springframework.stereotype.Service;
 
 import com.goott.eco.domain.BasketVO;
 import com.goott.eco.domain.GoodsVOtest;
-import com.goott.eco.mapper.OrderMapper;
+import com.goott.eco.mapper.BasketMapper;
 
 import lombok.extern.log4j.Log4j;
 
-
 @Service
 @Log4j
-public class OrderServiceImpl implements OrderService {
+public class BasketServiceImpl implements BasketService {
 	
-	
-	private OrderMapper orderMapper;	
+	private BasketMapper basketMapper;	
 	
 	@Autowired
-	public OrderServiceImpl(OrderMapper orderMapper) {	
-		this.orderMapper = orderMapper;
+	public BasketServiceImpl(BasketMapper basketMapper) {	
+		this.basketMapper = basketMapper;
 	}
 
-
-	@Override
-	public int addOrder(List<BasketVO> basketList) {
-		Long orderMainNum = orderMapper.addOrderMain(basketList[0].cust);
-		int result = orderMapper.addOrderDetail(custId,basketNum);
-		return result;
-	}
-	
 	@Override
 	public List<BasketVO> getBasketList(String custId) {
-		System.out.println("service custID: "+custId);
-		return orderMapper.getBasketList(custId);
+		
+		return basketMapper.getBasketList(custId);
 	}
 
 	@Override
 	public GoodsVOtest getGoodsInfo(Long goodsSeq) {
 		
-		return orderMapper.getGoodsInfo(goodsSeq);
+		return basketMapper.getGoodsInfo(goodsSeq);
 	}
 
 	@Override
 	public int deleteGoodsAtBasket(String custId, Long goodsSeq) {
 		log.info("장바구니 삭제: "+custId+" / "+goodsSeq);
-		return orderMapper.delGoodsAtBasket(custId,goodsSeq);
+		return basketMapper.delGoodsAtBasket(custId,goodsSeq);
 	}
 
 	@Override
 	public int purGoodsAtBasket(String custId, Long goodsSeq) {
 		log.info("장바구니 구매된: "+custId+" / "+goodsSeq);
 		
-		return orderMapper.purGoodsAtBasket(custId,goodsSeq);
+		return basketMapper.purGoodsAtBasket(custId,goodsSeq);
 	}
 
 	@Override
 	public int addGoodsAtBasket(String custId, Long goodsSeq, Long qty) {
 		
 		
-		return orderMapper.addGoodsAtBasket(custId,goodsSeq,qty);
+		return basketMapper.addGoodsAtBasket(custId,goodsSeq,qty);
 	}
 
 	@Override
 	public int changeQtyAtBasket(String custId, Long goodsSeq, Long qty) {
 		
 		
-		return orderMapper.changeQtyAtBasket(custId,goodsSeq,qty);
+		return basketMapper.changeQtyAtBasket(custId,goodsSeq,qty);
 	}
-
 
 }
