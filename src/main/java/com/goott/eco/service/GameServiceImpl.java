@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.goott.eco.domain.GameImageVO;
+import com.goott.eco.domain.GameItemVO;
 import com.goott.eco.mapper.GameMapper;
 
 @Service
@@ -17,6 +18,12 @@ public class GameServiceImpl implements GameService{
 	public GameImageVO getCustTreeLvl(GameImageVO lvl) {
 	
 		return gameMapper.getCustTreeLvl(lvl);
+	}
+
+	@Override
+	public GameItemVO getGameItem(GameItemVO gameItemVO) {
+		
+		return gameMapper.getGameItem(gameItemVO);
 	}
 
 
