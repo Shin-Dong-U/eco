@@ -8,5 +8,11 @@
 	<select id="getCustList" resultType="map">
 		SELECT * FROM eco.cust
 	</select>
+	
+	<select id="getCustId" resultType="com.goott.eco.domain.CustVO">
+		SELECT memberId, mytree, mymil 
+		FROM eco.cust
+		WHERE memberId=#{memberId}
+	</select>
 
 </mapper>

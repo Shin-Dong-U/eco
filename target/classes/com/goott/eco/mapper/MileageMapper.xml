@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- id를참조해서 마일리지를 가져오면돼 -->	
+<mapper namespace="com.goott.eco.mapper.MileageMapper">
+	
+	<!-- <select id="getM" resultType="map"> -->
+	<select id="getId" resultType="com.goott.eco.domain.MileageVO">
+		SELECT id, FROM eco.mileage 
+		WHERE id = #{id}; <!-- WHERE id = 'sample_id'; -->
+	</select>
+	
+<!-- <select id="getMileage" resultMap="com.goott.eco.domain.MileageVO">
+		SELECT * FROM eco.mileage
+		WHERE 
+	</select> -->
+	<select id="getMemberId" resultType="com.goott.eco.domain.MileageVO">
+		SELECT memberid, mytree, mymil 
+		FROM eco.cust
+		WHERE memberid=#{memberid}
+	</select>
+	
+</mapper>
