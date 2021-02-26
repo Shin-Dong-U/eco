@@ -40,11 +40,11 @@
 
 <script>
 $(document).ready(function(){
-	//showList();
-	//selectBasketGoods();
-	//delBasketGoods();
-	//purGoodsAtBasket();
-	//changeQtyAtBasket();
+	showList();
+	selectBasketGoods();
+	delBasketGoods();
+	purGoodsAtBasket();
+	changeQtyAtBasket();
 	addGoodsAtBasket();
 	
 	//선택상품 장바구니에 담기
