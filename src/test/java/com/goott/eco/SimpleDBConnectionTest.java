@@ -18,7 +18,7 @@ public class SimpleDBConnectionTest {
         Connection conn = DriverManager.getConnection(url, user, pw);
 
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from tb_test");
+        ResultSet rs = stmt.executeQuery("select * from cust");
         
         rs.next();
         System.out.println(rs.getString(1) + " , " + rs.getString(2));

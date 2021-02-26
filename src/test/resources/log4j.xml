@@ -34,10 +34,30 @@
 		<level value="info" />
 	</logger>
 
+		<!-- SQL 기록을 위한 추가 내용 info에서 warn-->
+	<logger name="jdbc.audit">
+		<level value="warn" />
+	</logger>
+	
+	<logger name="jdbc.resultset">
+		<level value="warn" />
+	</logger>
+	<logger name="jdbc.connection">
+		<level value="warn" />
+	</logger> 
+	
+	<!-- SQL 실행 시 수행 시간 (milliseconds) -->
+	<logger name="jdbc.sqltiming" additivity="false">
+	    <level value="info" />
+	    <appender-ref ref="console"/> 
+	</logger>
+	
+
 	<!-- Root Logger -->
 	<root>
-		<priority value="info" />
+		<!-- <priority value="info" /> -->
+		<priority value="off" />
 		<appender-ref ref="console" />
-	</root>
+	</root> 
 	
 </log4j:configuration>
