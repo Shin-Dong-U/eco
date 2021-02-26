@@ -8,5 +8,7 @@
 </head>
 <body>
 I'm gameInfopage
+
+
 </body>
 </html>
