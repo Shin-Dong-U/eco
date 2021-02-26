@@ -23,10 +23,10 @@ public class CustVO {
 	private Long sex;
 	private String company_yn;
 	private String member_yn;
-	private Timestamp regdate;
-	private String reguser;
-	private Timestamp editdate;
-	private String edituser;
-	private String mytree;
-	private int mymil;
+	private Timestamp regDate;
+	private String regUser;
+	private Timestamp editDate;
+	private String editUser;
+	private String myTree;
+	private int myMil;
 }

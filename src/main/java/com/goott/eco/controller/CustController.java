@@ -19,11 +19,11 @@ import com.goott.eco.service.CustService;
 public class CustController {
 
 	@Autowired
-	private CustService service;
+	private CustService custService;
 	
 	@GetMapping("/list")
 	public ModelAndView custList() {
-		List<Map<String, Object>> custList = service.getCustList(null);
+		List<Map<String, Object>> custList = custService.getCustList(null);
 		System.out.println(custList.size());
 		ModelAndView mav = new ModelAndView("/cust/custlist");
 		return mav;
@@ -36,8 +36,7 @@ public class CustController {
 		CustVO custVO = new CustVO();
 		custVO.setMemberId(id);
 		
-		
-		CustVO custId = service.getCustId(custVO);
+		CustVO custId = custService.getCustId(custVO);
 		
 		System.out.println("custId:" + custId);
 		
@@ -45,6 +44,10 @@ public class CustController {
 		
 		return mav;
 	}
+	
+	//만약 회원의 게임 나무레벨이 A라면, GAME_IMAGE에 있는 값을 불러와라! 
+	
+	
 	
 	
 //CustVO custId = service.getCustId(custVO);
@@ -70,6 +73,7 @@ public class CustController {
 //		
 //	}
 
+	
 
 
 
