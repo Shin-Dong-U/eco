@@ -31,7 +31,7 @@ public class BasketController {
 	
 	
 	//장바구니 리스트 조회
-	@GetMapping(value="/basket/list/{custId}",			
+	@GetMapping(value="/list/{custId}",			
 			produces= {"application/json; charset=UTF-8"})
 	public ResponseEntity<List<BasketVO>> getBasketList(
 			@PathVariable("custId")String custId){
@@ -42,7 +42,7 @@ public class BasketController {
 	}
 	
 	//장바구니  특정 상품 조회
-	@GetMapping(value="/basket/{goodsSeq}",
+	@GetMapping(value="/{goodsSeq}",
 			produces= {"application/json; charset=UTF-8"})
 	public ResponseEntity<GoodsVOtest> getBasketGoods(
 			@PathVariable("goodsSeq") long goodsSeq){
@@ -51,7 +51,7 @@ public class BasketController {
 	}
 
 	//장바구니에서 특정 상품 빼기 
-	@GetMapping(value="/basket/{custId}/{goodsSeq}",
+	@GetMapping(value="/{custId}/{goodsSeq}",
 		//	consumes= {"application/json; charset=UTF-8"},
 			produces= {"text/plain; charset=UTF-8"})
 	public ResponseEntity<String> delGoodsAtBasket(
@@ -67,7 +67,7 @@ public class BasketController {
 	}
 	
 	//장바구니에서 구매한 상품빼기
-	@GetMapping(value="/basket/pur/{custId}/{goodsSeq}",
+	@GetMapping(value="/pur/{custId}/{goodsSeq}",
 			produces= {"text/plain;charset=UTF-8"})
 	public ResponseEntity<String> purGoodsAtBasket(
 			@PathVariable("custId") String custId,
@@ -83,7 +83,7 @@ public class BasketController {
 	}
 	
 	//장바구니 수량 변경
-	@GetMapping(value="/basket/{custId}/{goodsSeq}/{qty}",
+	@GetMapping(value="/{custId}/{goodsSeq}/{qty}",
 			produces= {"text/plain; charset=UTF-8"})
 	public ResponseEntity<String> changeQtyAtBasket(
 			@PathVariable("custId") String custId,
@@ -97,7 +97,7 @@ public class BasketController {
 	}
 	
 	//선택상품 장바구니에 넣기
-	@GetMapping(value="/basket/new/{custId}/{goodsSeq}/{qty}",
+	@GetMapping(value="/new/{custId}/{goodsSeq}/{qty}",
 			produces= {"text/plain;charset=UTF-8"})
 	public ResponseEntity<String> addGoodsAtBasket(
 			@PathVariable("custId") String custId,

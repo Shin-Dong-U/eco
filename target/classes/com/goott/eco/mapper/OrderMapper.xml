@@ -5,18 +5,22 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goott.eco.mapper.OrderMapper">
 	
-	<select id="selectOrdderMainNum">
-		select seq_order_seq.currval from dual
-	</select>
-	<insert id="addOrderMain">
-		insert into eco.order_main values(seq_order_seq.nextval,#{custId},default,default,#{custId},'','','','')	
+	
+	<select id="getOrderNum" resultType="Long">
+		select seq_temp_orderNum.nextval from dual
+	</select> 
+	<insert id="addOrder">
+		<!-- <selectKey keyProperty="seq_temp_orderNum" order="BEFORE" resultType="long">
+			select seq_temp_orderNum.nextval from dual
+		</selectKey> -->
+		<!-- insert into eco.order_main values(#{orderNum},#{custId},default,default,#{custId},'','','','') -->
+		<!-- insert into eco.order_detail values(orderNum,order_seq,seq_order_detail_seq.nextval,#{custId},1,default,#{custId},'','') -->
+		insert all
+		into eco.order_main values(#{orderNum},#{custId},default,default,#{custId},'','','','')
+		into eco.order_detail values(#{orderNum},seq_order_detail_seq.nextval,#{custId},#{basketNum},default,#{custId},'','')
+		SELECT * FROM dual
 	</insert>
-	<insert id="addOrderDetail">
-		<selectKey keyProperty="order_seq" order="BEFORE" resultType="long">
-			select seq_order_seq.currval from dual
-		</selectKey>
-		insert into eco.order_detail values(order_seq,seq_order_detail_seq.nextval,#{custId},#{basketNum},default,#{custId},'','')
-	</insert>
+
 	
 	
 	<select id="getBasketList" resultType="com.goott.eco.domain.BasketVO">

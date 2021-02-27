@@ -52,17 +52,19 @@ public class OrderController {
 //	}
 	
 	//장바구니상품 주문 신청 requestbody 사용
-	@PostMapping(value="/new/",			
+	@PostMapping(value="/new",			
+			consumes= {"application/json; charset=UTF-8"},
 			produces= {"application/json; charset=UTF-8"})
 	public ResponseEntity<String> getBasketList(
 			@RequestBody List<BasketVO> basketList){
 		
 		log.info("====================================");
 		log.info("주문신청 List: "+basketList);
-		return orderService.addOrder(basketList)>0?
+		//log.info("주문신청 List[0]: "+basketList.get(0) );
+		//log.info("주문신청 List[0].cust_Id: "+basketList.get(0).getCust_Id());		
+				return orderService.addOrder(basketList)>0?
 				new ResponseEntity<>("성공",HttpStatus.OK):
-				new ResponseEntity<>("실패",HttpStatus.INTERNAL_SERVER_ERROR);
-		
+				new ResponseEntity<>("실패",HttpStatus.INTERNAL_SERVER_ERROR);	
 	}
 	
 	//장바구니  특정 상품 조회

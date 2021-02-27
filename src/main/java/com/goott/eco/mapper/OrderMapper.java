@@ -9,8 +9,12 @@ import com.goott.eco.domain.GoodsVOtest;
 
 public interface OrderMapper {
 	
-	public Long selectOrdderMainNum(String custId);
+	public Long getOrderNum();
 	
+	public int addOrder(@Param("custId") String custId,@Param("orderNum") Long orderNum,@Param("basketNum") Long basketNum);
+	
+	
+		
 	public Long addOrderMain(@Param("custId") String custId);
 	
 	public int addOrderDetail(@Param("custId") String custId, @Param("basketNum") Long basketNum);

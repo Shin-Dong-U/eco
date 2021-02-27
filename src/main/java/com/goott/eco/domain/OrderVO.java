@@ -9,18 +9,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BasketVO {
-	
-	private long basket_seq;
-	private long goods_seq;
-	private String cust_Id;
-	private long qty;
-	private String purchase_YN;
-	private String delete_YN;
+public class OrderVO {
+	private Long order_seq;
+	private String cust_id;
+	private String paied_yn;
 	private Timestamp regDate;
 	private String regUser;
 	private Timestamp editDate;
 	private String editUser;
-	private long seq_temp_orderNum;
-
+	private int status;
+	private String ori_number;
 }

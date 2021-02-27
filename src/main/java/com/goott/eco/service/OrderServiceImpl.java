@@ -27,9 +27,15 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public int addOrder(List<BasketVO> basketList) {
-		Long orderMainNum = orderMapper.addOrderMain(basketList[0].cust);
-		int result = orderMapper.addOrderDetail(custId,basketNum);
-		return result;
+		String custId=basketList.get(0).getCust_Id();
+		Long orderNum = orderMapper.getOrderNum();
+		for(int i=0; i<basketList.size(); i++) {
+			Long basketNum=basketList.get(i).getBasket_seq();
+			orderMapper.addOrder(custId,orderNum,basketNum);	
+		};
+		
+//		
+		return 0;
 	}
 	
 	@Override
