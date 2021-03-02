@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
-@ComponentScan(basePackages= {"org.goott.eco"})
+@ComponentScan(basePackages= {"com.goott.eco"})
 public class ServletConfig implements WebMvcConfigurer{
 	
 	@Bean(name = "multipartResolver")

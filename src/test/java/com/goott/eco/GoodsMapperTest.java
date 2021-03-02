@@ -1,5 +1,8 @@
 package com.goott.eco;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +37,11 @@ public class GoodsMapperTest {
 	@Test
 	public void getGoodsListTest() {
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("goods_seq", 2);
-		List<Map<String, Object>> goodsList = dao.getGoodsList(param);
-		log.info(goodsList.size());
+		param.put("goods_seq", null);
+		List<Map<String, Object>> goodsList = dao.getGoodsList(null);
+		assertThat(goodsList.size(), is (0));
+		
+		goodsList = dao.getGoodsList(param);
+		assertThat(goodsList.size(), is (0));
 	}
 }

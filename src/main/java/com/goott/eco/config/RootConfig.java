@@ -5,12 +5,17 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -19,7 +24,7 @@ import com.zaxxer.hikari.HikariDataSource;
  * 테스트중인 클래스입니다.
  */
 @Configuration
-@ComponentScan(basePackages = {"com.goott.eco"})
+//@ComponentScan(basePackages = {"com.goott.eco"})
 @MapperScan(basePackages= {"com.goott.eco.mapper"})
 public class RootConfig {
 	
@@ -63,6 +68,10 @@ public class RootConfig {
 	public SqlSessionFactory sqlSessionFactory() throws Exception {
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setDataSource(dataSource());
+		
+		Resource resource = new ClassPathResource("com/goott/eco/mapper/MybatisConfig.xml");
+		sqlSessionFactory.setConfigLocation(resource);
+		
 		return (SqlSessionFactory)sqlSessionFactory.getObject();
 	}
 }
