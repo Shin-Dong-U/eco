@@ -19,4 +19,9 @@ public class PageController {
 		log.info("list페이지 이동");
 		
 	}
+	@GetMapping("order/pay")
+	public void pay(Model model) {
+		log.info("pay페이지 이동");
+		
+	}
 }

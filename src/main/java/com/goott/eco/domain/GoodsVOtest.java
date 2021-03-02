@@ -26,4 +26,5 @@ public class GoodsVOtest {
 	private Timestamp editDate;
 	private String danger_YN;
 	private String sale_YN;
+	private String req_option;
 }
