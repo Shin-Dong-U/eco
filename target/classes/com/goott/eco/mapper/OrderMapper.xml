@@ -46,6 +46,10 @@
 	]]>
 	</select>
 	
+	<!--결제완료 업데이트  -->
+	<update id="paidUpdate">
+		update eco.order_main set order_status = 3 WHERE cust_id=#{cust_id} and order_seq=#{order_seq}
+	</update>
 	
 
 </mapper>

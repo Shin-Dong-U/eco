@@ -11,5 +11,7 @@ public interface OrderService {
 	
 	public List<GoodsVOtest> getOrderList(String custId);
 	
+	public int paidUpdate(String cust_id, Long order_seq);
+	
 	
 }

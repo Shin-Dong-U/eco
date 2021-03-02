@@ -10,4 +10,9 @@ import lombok.NoArgsConstructor;
 public class PaymentVO {
 
 	private String imp_uid;
+	private Long paid_amount;
+	private String status;
+	private boolean success;
+	private CustomDataVO custom_data;
+	
 }
