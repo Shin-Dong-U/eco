@@ -21,7 +21,7 @@ public interface OrderMapper {
 	
 	public int upOrderStatus(Long order_seq);
 	
-	
+	public int paidUpdate(@Param("cust_id")String cust_id,@Param("order_seq") Long order_seq);
 	
 //	public Long getOrderNum();
 //	

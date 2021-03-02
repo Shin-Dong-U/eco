@@ -7,12 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentVO {
-
-	private String imp_uid;
-	private Long paid_amount;
-	private String status;
-	private boolean success;
-	private CustomDataVO custom_data;
-	
+public class CustomDataVO {
+	private String cust_id;
+	private Long order_seq;
 }

@@ -54,6 +54,13 @@ public class OrderServiceImpl implements OrderService {
 		List<GoodsVOtest> result = orderMapper.getOrderList(cust_Id);
 		log.info(result);
 		return result;
+	}
+
+
+	@Override
+	public int paidUpdate(String cust_id,Long order_seq) {
+		
+		return orderMapper.paidUpdate(cust_id,order_seq);
 	}	
 
 

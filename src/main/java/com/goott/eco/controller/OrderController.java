@@ -1,5 +1,6 @@
 package com.goott.eco.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,28 @@ public class OrderController {
 			produces= {"application/json; charset=UTF-8"})
 	public ResponseEntity<String> payments(@RequestBody PaymentVO payment){
 		log.info("결제완료 컨트롤러: "+payment);
+	
+		
+		log.info("Imp_uid: "+payment.getImp_uid());
+		log.info("Paid_amount: "+payment.getPaid_amount());
+		log.info("Status(): "+payment.getStatus());
+		log.info("Success(): "+payment.isSuccess());
+		
+		String imp_uid = payment.getImp_uid();
+		Long paid_amount = payment.getPaid_amount();
+		String status = payment.getStatus();
+		Boolean success = payment.isSuccess();
+		String cust_id = payment.getCustom_data().getCust_id();
+		Long order_seq = payment.getCustom_data().getOrder_seq();
+		log.info("cust_id: "+cust_id);
+		log.info("order_seq: "+order_seq);
+	
+		if(success==true && status.equals("paid") && paid_amount==1000) {
+			log.info("결제완료");
+			//ordermain의 orderstatus 3으로 업데이트
+			orderService.paidUpdate(cust_id,order_seq);
+		}
+		
 		return new ResponseEntity<>("성공",HttpStatus.OK);
 	}
 	
