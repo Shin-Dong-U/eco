@@ -45,6 +45,12 @@
 			<version>${org.aspectj-version}</version>
 		</dependency>	
 		
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency> 	
+		
 		
 		<!-- Logging -->
 		<dependency>
@@ -105,18 +111,19 @@
 		</dependency>
 				
 		<!-- Servlet -->
-		<!-- <dependency>
+		<dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>javax.servlet-api</artifactId>
-		    <version>3.1.0</version>
+		    <version>4.0.1</version>
 		    <scope>provided</scope>
-		</dependency> -->
+		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 			<scope>provided</scope>
-		</dependency>
+		</dependency>--> 
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
@@ -240,6 +247,26 @@
 		    <artifactId>lombok</artifactId>
 		    <version>1.18.2</version>
 		    <scope>provided</scope>
+		</dependency>
+		
+		<!-- ThumbNailImage -->
+		<dependency>
+		    <groupId>net.coobird</groupId>
+		    <artifactId>thumbnailator</artifactId>
+		    <version>0.4.13</version>
+		</dependency>
+	
+		<!-- Quartz -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz-jobs</artifactId>
+			<version>2.3.0</version>
 		</dependency>
 	
 		<!-- Test -->
