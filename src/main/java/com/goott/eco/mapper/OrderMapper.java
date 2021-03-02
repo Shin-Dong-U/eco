@@ -4,28 +4,33 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.goott.eco.domain.BasketVO;
+import com.goott.eco.domain.BasketDetailVO;
 import com.goott.eco.domain.GoodsVOtest;
 
 public interface OrderMapper {
 	
-	public Long selectOrdderMainNum(String custId);
+	public int addOrderMain(String cust_id);
 	
-	public Long addOrderMain(@Param("custId") String custId);
+	public Long getOrderSeq(String cust_id);
 	
-	public int addOrderDetail(@Param("custId") String custId, @Param("basketNum") Long basketNum);
-	//
-	public List<BasketVO> getBasketList(String custId);
+	public int addOrderDetail(
+			@Param("cust_id") String cust_id,
+			@Param("order_seq")Long order_seq,
+			@Param("basket_seq") Long basket_seq
+			,@Param("goods_seq") Long goods_seq);
 	
-	public GoodsVOtest getGoodsInfo(Long goodsSeq);
+	public int upOrderStatus(Long order_seq);
 	
-	public int delGoodsAtBasket(@Param("custId") String custId, @Param("goodsSeq") Long goodsSeq);
 	
-	public int purGoodsAtBasket(@Param("custId") String custId, @Param("goodsSeq") Long goodsSeq);
 	
-	public int addGoodsAtBasket(@Param("custId") String custId, @Param("goodsSeq") Long goodsSeq, @Param("qty") Long qty);
+//	public Long getOrderNum();
+//	
+//	public int addOrder(@Param("custId") String custId,@Param("orderNum") Long orderNum,@Param("basketNum") Long basketNum);
+//	
+	public List<GoodsVOtest> getOrderList(String cust_id);
 	
-	public int changeQtyAtBasket(@Param("custId") String custId, @Param("goodsSeq") Long goodsSeq, @Param("qty") Long qty);
+	public List<GoodsVOtest> getGoodsNumList (String custId);
+	
 	
 
 }

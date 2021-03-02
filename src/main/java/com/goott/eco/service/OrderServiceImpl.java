@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.goott.eco.domain.BasketVO;
+import com.goott.eco.domain.BasketDetailVO;
 import com.goott.eco.domain.GoodsVOtest;
 import com.goott.eco.mapper.OrderMapper;
 
@@ -26,50 +26,35 @@ public class OrderServiceImpl implements OrderService {
 
 
 	@Override
-	public int addOrder(List<BasketVO> basketList) {
-		Long orderMainNum = orderMapper.addOrderMain(basketList[0].cust);
-		int result = orderMapper.addOrderDetail(custId,basketNum);
-		return result;
+	public int addOrder(List<BasketDetailVO> basketList,String cust_id) {		
+		int addOrderMain = orderMapper.addOrderMain(cust_id);
+		log.info("addOrderMain: "+addOrderMain);
+		
+		Long order_seq = orderMapper.getOrderSeq(cust_id);
+		log.info("order_seq: "+order_seq);
+		BasketDetailVO basket = null;
+		for(int i=0; i<basketList.size(); i++) {
+			basket = basketList.get(i);
+			log.info("basket: "+basket);
+			log.info("getBasket_seq: "+ basket.getBasket_seq());
+			Long basket_seq = basket.getBasket_seq();
+			Long goods_seq = basket.getGoods_seq();
+			int addOrderDetail = orderMapper.addOrderDetail(cust_id,order_seq,basket_seq,goods_seq);
+			log.info("addOrderDetail: "+ addOrderDetail);
+		}
+		int upOrderStatus = orderMapper.upOrderStatus(order_seq);
+		log.info("upOrderStatus: "+upOrderStatus);
+		
+	
+		return 0;
 	}
 	
 	@Override
-	public List<BasketVO> getBasketList(String custId) {
-		System.out.println("service custID: "+custId);
-		return orderMapper.getBasketList(custId);
-	}
-
-	@Override
-	public GoodsVOtest getGoodsInfo(Long goodsSeq) {
-		
-		return orderMapper.getGoodsInfo(goodsSeq);
-	}
-
-	@Override
-	public int deleteGoodsAtBasket(String custId, Long goodsSeq) {
-		log.info("장바구니 삭제: "+custId+" / "+goodsSeq);
-		return orderMapper.delGoodsAtBasket(custId,goodsSeq);
-	}
-
-	@Override
-	public int purGoodsAtBasket(String custId, Long goodsSeq) {
-		log.info("장바구니 구매된: "+custId+" / "+goodsSeq);
-		
-		return orderMapper.purGoodsAtBasket(custId,goodsSeq);
-	}
-
-	@Override
-	public int addGoodsAtBasket(String custId, Long goodsSeq, Long qty) {
-		
-		
-		return orderMapper.addGoodsAtBasket(custId,goodsSeq,qty);
-	}
-
-	@Override
-	public int changeQtyAtBasket(String custId, Long goodsSeq, Long qty) {
-		
-		
-		return orderMapper.changeQtyAtBasket(custId,goodsSeq,qty);
-	}
+	public List<GoodsVOtest> getOrderList(String cust_Id) {
+		List<GoodsVOtest> result = orderMapper.getOrderList(cust_Id);
+		log.info(result);
+		return result;
+	}	
 
 
 }

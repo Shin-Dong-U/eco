@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.goott.eco.domain.BasketVO;
+import com.goott.eco.domain.BasketDetailVO;
 import com.goott.eco.domain.GoodsVOtest;
 import com.goott.eco.service.BasketService;
 
@@ -31,83 +31,86 @@ public class BasketController {
 	
 	
 	//장바구니 리스트 조회
-	@GetMapping(value="/basket/list/{custId}",			
+	@GetMapping(value="/list/{cust_id}",			
 			produces= {"application/json; charset=UTF-8"})
-	public ResponseEntity<List<BasketVO>> getBasketList(
-			@PathVariable("custId")String custId){
+	public ResponseEntity<List<BasketDetailVO>> getBasketList(
+			@PathVariable("cust_id")String cust_id){
 		
-		log.info("custId: "+custId);
-		return new ResponseEntity<>(basketService.getBasketList(custId),HttpStatus.OK);
+		log.info("custId: "+cust_id);
+		List<BasketDetailVO> result = basketService.getBasketList(cust_id);
+		log.info("jsp로 넘겨질 데이터: "+result);
+		
+		return new ResponseEntity<>(result,HttpStatus.OK);
 		
 	}
 	
 	//장바구니  특정 상품 조회
-	@GetMapping(value="/basket/{goodsSeq}",
+	@GetMapping(value="/{goods_seq}",
 			produces= {"application/json; charset=UTF-8"})
 	public ResponseEntity<GoodsVOtest> getBasketGoods(
-			@PathVariable("goodsSeq") long goodsSeq){
-		log.info("선택 상품번호: "+goodsSeq);
-		return new ResponseEntity<>(basketService.getGoodsInfo(goodsSeq),HttpStatus.OK);
+			@PathVariable("goods_seq") long goods_seq){
+		log.info("선택 상품번호: "+goods_seq);
+		return new ResponseEntity<>(basketService.getGoodsInfo(goods_seq),HttpStatus.OK);
 	}
 
 	//장바구니에서 특정 상품 빼기 
-	@GetMapping(value="/basket/{custId}/{goodsSeq}",
+	@GetMapping(value="/{cust_id}/{goods_seq}",
 		//	consumes= {"application/json; charset=UTF-8"},
 			produces= {"text/plain; charset=UTF-8"})
 	public ResponseEntity<String> delGoodsAtBasket(
-			@PathVariable("custId") String custId,
-			@PathVariable("goodsSeq") Long goodsSeq){
+			@PathVariable("cust_id") String cust_id,
+			@PathVariable("goods_seq") Long goods_seq){
 		
-		log.info("장바구니 소유id: "+custId);
-		log.info("장바구니 제거상품 번호"+goodsSeq);
+		log.info("장바구니 소유id: "+cust_id);
+		log.info("장바구니 제거상품 번호"+goods_seq);
 		
-		return basketService.deleteGoodsAtBasket(custId,goodsSeq)>0? //insert,update,delete는 행의 갯수를 반환
+		return basketService.deleteGoodsAtBasket(cust_id,goods_seq)>0? //insert,update,delete는 행의 갯수를 반환
 				new ResponseEntity<>("성공",HttpStatus.OK):
 				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	//장바구니에서 구매한 상품빼기
-	@GetMapping(value="/basket/pur/{custId}/{goodsSeq}",
+	@GetMapping(value="/pur/{cust_id}/{goods_seq}",
 			produces= {"text/plain;charset=UTF-8"})
 	public ResponseEntity<String> purGoodsAtBasket(
-			@PathVariable("custId") String custId,
-			@PathVariable("goodsSeq") Long goodsSeq) {
+			@PathVariable("cust_id") String cust_id,
+			@PathVariable("goods_seq") Long goods_seq) {
 		
-		log.info("장바구니 소유id: "+custId);
-		log.info("장바구니 구매된 상품 번호"+goodsSeq);
+		log.info("장바구니 소유id: "+cust_id);
+		log.info("장바구니 구매된 상품 번호"+goods_seq);
 		
-		return basketService.purGoodsAtBasket(custId,goodsSeq)>0?
+		return basketService.purGoodsAtBasket(cust_id,goods_seq)>0?
 				new ResponseEntity<>("성공",HttpStatus.OK):
 				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		
 	}
 	
 	//장바구니 수량 변경
-	@GetMapping(value="/basket/{custId}/{goodsSeq}/{qty}",
+	@GetMapping(value="/{cust_id}/{goods_seq}/{qty}",
 			produces= {"text/plain; charset=UTF-8"})
 	public ResponseEntity<String> changeQtyAtBasket(
-			@PathVariable("custId") String custId,
-			@PathVariable("goodsSeq") Long goodsSeq,
+			@PathVariable("cust_id") String cust_id,
+			@PathVariable("goods_seq") Long goods_seq,
 			@PathVariable("qty") Long qty){
-		log.info("장바구니 수량변경  소유 id: "+custId+"변경 아이템: "+goodsSeq+"변경 수량: "+qty);
+		log.info("장바구니 수량변경  소유 id: "+cust_id+"변경 아이템: "+goods_seq+"변경 수량: "+qty);
 		
-		return basketService.changeQtyAtBasket(custId,goodsSeq,qty)>0?
+		return basketService.changeQtyAtBasket(cust_id,goods_seq,qty)>0?
 				new ResponseEntity<>("성공",HttpStatus.OK):
 				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	//선택상품 장바구니에 넣기
-	@GetMapping(value="/basket/new/{custId}/{goodsSeq}/{qty}",
+	@GetMapping(value="/new/{cust_id}/{goods_seq}/{qty}",
 			produces= {"text/plain;charset=UTF-8"})
 	public ResponseEntity<String> addGoodsAtBasket(
-			@PathVariable("custId") String custId,
-			@PathVariable("goodsSeq") Long goodsSeq,
+			@PathVariable("cust_id") String cust_id,
+			@PathVariable("goods_seq") Long goods_seq,
 			@PathVariable("qty") Long qty){
-		log.info("장바구니 추가 소유 id: "+ custId);
-		log.info("장바구니 추가 상품번호: "+goodsSeq);
+		log.info("장바구니 추가 소유 id: "+ cust_id);
+		log.info("장바구니 추가 상품번호: "+goods_seq);
 		log.info("장바구니 추가 상품번호: "+qty);
 		
-		return basketService.addGoodsAtBasket(custId,goodsSeq,qty)>0?
+		return basketService.addGoodsAtBasket(cust_id,goods_seq,qty)>0?
 				new ResponseEntity<>("성공",HttpStatus.OK):
 				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}

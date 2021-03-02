@@ -3,16 +3,17 @@ console.log("Reply Module.........");
 var basketService=(function(){
 	
 	
-	function getBasketList(){
+	function getBasketList(cust_id,callback){
 			console.log("basket List................");
 			
 		$.ajax({ //자바스크립트 객체 시작
 			type:'get',						//전송유형
-			url:'/basket/basket/list/a',		//컨트롤러 메소드 호출 URL
+			url:'/basket/list/'+cust_id,		//컨트롤러 메소드 호출 URL
 			//JSON.stringify()자바스크립트 객체를 JSON형식의 문자열로 변환해주는 웹브라우저 내부 메소드
 			data:JSON.stringify(),			//data키에 설정되는 값은 컨트롤러 메소드의 consumes속성 설정 값의 데이터 유형과 일치
 			contentType: "application/json; charset=utf-8", //서버에게 보내는 데이터 유형(MIME타입)
-			success:(basketList)=>{console.log("장바구니 리스트",basketList)},
+			success:(basketList)=>{console.log("장바구니 리스트",basketList),
+				callback(basketList)},	
 			error:(log)=>{console.log("실패 "+log)}
 		})
 	}
@@ -23,7 +24,7 @@ var basketService=(function(){
 			
 		$.ajax({ 
 			type:'get',						
-			url:'/basket/basket/11',					
+			url:'/basket/11',					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
 			success:(basketGoods)=>{console.log("장바구니 상품",basketGoods)},
@@ -32,12 +33,12 @@ var basketService=(function(){
 	}
 	
 	
-	function delBasketGoods(){		
+	function delBasketGoods(cust_id,goods_seq){		
 		console.log("basket delete one goods................");
 		
 		$.ajax({ 
 			type:'get',						
-			url:'/basket/basket/sample_id/9',					
+			url:'/basket/nana/6',					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
 			success:(result)=>{console.log("삭제결과 "+result)},
@@ -51,7 +52,7 @@ var basketService=(function(){
 		
 		$.ajax({ 
 			type:'get',						
-			url:'/basket/basket/pur/sample_id/10',					
+			url:'/basket/pur/nana/6',					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
 			success:(result)=>{console.log("구매상품 삭제결과 "+result)},
@@ -65,7 +66,7 @@ var basketService=(function(){
 		
 		$.ajax({ 
 			type:'get',						
-			url:'/basket/basket/sample_id/10/100',					
+			url:'/basket/nana/6/100',					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
 			success:(result)=>{console.log("상품 수량 변경 결과 "+result)},
@@ -79,7 +80,7 @@ var basketService=(function(){
 		
 		$.ajax({ 
 			type:'get',						
-			url:'/basket/basket/new/sample_id/11/33',					
+			url:'/basket/new/hoya/4/33',					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
 			success:(result)=>{console.log("장바구니 담기 결과 "+result)},
