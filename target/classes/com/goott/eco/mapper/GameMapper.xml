@@ -6,10 +6,16 @@
 <mapper namespace="com.goott.eco.mapper.GameMapper">
 	
 	
-	
+	<!-- Show CustStatus -->
 	<select id="getCustStatus" resultType="com.goott.eco.domain.CustVO">
 		SELECT * FROM eco.cust 
 		WHERE memberid=#{memberid}
+	</select>
+	
+	<!-- ShowItem -->
+	<select id="getItem" resultType="com.goott.eco.domain.GameItemVO">
+		SELECT * FROM eco.game_item 
+		WHERE item_seq=#{item_seq}
 	</select>
 	
 	
@@ -18,12 +24,6 @@
 		SELECT mil_level, img_src 
 		FROM eco.game_image
 		WHERE mil_level=#{mil_level}
-	</select>
-	
-	<!-- 이거는 집에서 버튼까지 만들어보기! 버튼만들어서, 클릭  -->
-	<select id="getGameItem" resultType="com.goott.eco.domain.GameImageVO">
-		SELECT * FROM eco.game_item
-		WHERE item_name=#{item_name};
 	</select>
 	
 	

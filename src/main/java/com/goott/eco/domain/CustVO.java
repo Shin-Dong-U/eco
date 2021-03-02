@@ -29,6 +29,8 @@ public class CustVO {
 	private String editUser;
 	private String myTree;
 	private Long myMil;
+	private Long bar_status;
+	private String admin_yn;
 	
 /*	
 	public CustVO() {

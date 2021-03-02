@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.goott.eco.domain.CustVO;
 import com.goott.eco.domain.GameItemVO;
 import com.goott.eco.service.GameService;
 
 
-@RequestMapping("/replies/*")
+@RequestMapping("/game/*")
 @RestController
 //@AllArgsConstructor
 public class GameRestController {
@@ -27,7 +26,6 @@ public class GameRestController {
 	private GameService gameService;
 	
 	@Autowired
-
 	public GameRestController(GameService gameService) {
 		this.gameService = gameService;
 	}
@@ -50,39 +48,64 @@ public class GameRestController {
 	
 	
 	
-	
+	//CustController_ @GetMapping("/game/list")
 	//http://localhost/cust/game/list
 	//get : custVO에서 사용자 아이디에따른 전부의 정보를 가져온후,->  myTree상태조회 하는 로직 
-	//장바구니 리스트 조회
+	//get_CustStatus
 	@GetMapping(value="/list/{memberId}",			
-			    produces= {"application/json; charset=UTF-8"})
+			    produces= {"application/json; charset=UTF-8"}) //처리결과반환해주는거-내가 웹브라우저로 전달해주는거 and consumes -> 내가 웹 브라우저로부터받는거
 	public ResponseEntity<List<CustVO>> getCustStatus(
 			@PathVariable("memberId") String memberId){
 		
-			System.out.println("custId: "+memberId);
+			System.out.println("memberId: "+memberId);
 			List<CustVO> result = gameService.getCustStatus(memberId);
 			System.out.println("gameService: "+result);
 			return new ResponseEntity<>(result,HttpStatus.OK);
-		
 	}
-
+	
+	//CustController_ @GetMapping("/game/list")
 	//post로 변경하기 -- 버튼으로 만들어서 3개아이템 가져오기해보기
-	//http://localhost/game/game?item=물
-	@GetMapping("/itembutton")
-	public ModelAndView itemButton(String item) {
+	//url주소 -> http://localhost/cust/game/item
+	@GetMapping(value="/{item_seq}",			
+				produces= {"application/json; charset=UTF-8"})
+	public ResponseEntity<List<GameItemVO>> getItem(
+			@PathVariable("item_seq") Long item_seq){
 		
-		GameItemVO gameitemVO = new GameItemVO(); 
-		gameitemVO.setItem_name(item);
+		System.out.println("item_seq :" + item_seq);
 		
-		GameItemVO gameitem = gameService.getGameItem(gameitemVO);
+		List<GameItemVO> result =  gameService.getItem(item_seq);
 		
-		System.out.println("gameitem :" + gameitem);
+		System.out.println("gameService:" + result);
 		
-		ModelAndView mav =new ModelAndView("/game/item");
-		
-		return mav;
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
+	//마일리지가 차감 / 나무 체크,변화 / 상태바 체크, 변화 
+	//@PathVariable : 366pg_url상에 경로의 일부를 파라미터로사용할 수 있다. 
+	@GetMapping(value="/{myMil}/{myTree}/{bar_status}",	//nana의 마일리지 		
+			produces= {"application/json; charset=UTF-8"})
+	public ResponseEntity<GameItemVO> clickItem(
+		@PathVariable("myMil") Long myMil,
+		@PathVariable("myTree") String myTree,
+		@PathVariable("bar_status") Long bar_status){
+	
+	System.out.println("myMil :" + myMil);
+	System.out.println("myTree :" + myTree);
+	System.out.println("bar_status :" + bar_status);
+	
+	//GameItemVO result =  gameService.getItem(myMil,myTree,bar_status);
+	
+	
+	
+	//여기 아랫부분부터 다시체크
+	//System.out.println("gameService:" + result);
+	
+	//return new ResponseEntity<>(result, HttpStatus.OK);
+	return "";
+}
+	
+	
+	
 	
 	
 	//Cust의 Tree레벨에 따른 GameImage불러오기위해 1_lvl일경우 1_sesources를 불러온다. 

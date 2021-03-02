@@ -8,11 +8,13 @@ import com.goott.eco.domain.GameItemVO;
 
 public interface GameMapper {
 	
+	//Show CustStatus
 	public List<CustVO> getCustStatus(String memberId);
-	
+	//ShowItem
+	public List<GameItemVO> getItem(Long item_seq);
+
 	public GameImageVO getCustTreeLvl(GameImageVO gameImageVO);  
 	
-	public GameItemVO getGameItem(GameItemVO gameItemVO );
 
 	
 	

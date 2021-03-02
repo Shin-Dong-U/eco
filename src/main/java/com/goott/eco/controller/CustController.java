@@ -36,6 +36,17 @@ public class CustController {
 		System.out.println("list페이지 이동");
 	}
 	
+//	@GetMapping("/game/item")
+//	public void item(Model model) {
+//		System.out.println("item페이지이동");
+//	}
+	
+	
+	
+	
+	
+	
+	
 	//null값으로 , 그냥 gameInfo에 화면만 출력하게해준것
 	//http://localhost/cust/gameInfo?id=basic
 	@GetMapping("/gameInfo")

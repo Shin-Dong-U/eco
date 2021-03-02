@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.goott.eco.domain.GameImageVO;
-import com.goott.eco.domain.GameItemVO;
+//import com.goott.eco.domain.GameItemVO;
 import com.goott.eco.service.GameService;
 
 @RequestMapping("/game")
@@ -48,20 +48,20 @@ public class GameController {
 	
 	//post로 변경하기 -- 버튼으로 만들어서 3개아이템 가져오기해보기
 	//http://localhost/game/game?item=물
-	@GetMapping("/itembutton")
-	public ModelAndView itemButton(String item) {
-		
-		GameItemVO gameitemVO = new GameItemVO(); 
-		gameitemVO.setItem_name(item);
-		
-		GameItemVO gameitem = gameService.getGameItem(gameitemVO);
-		
-		System.out.println("gameitem :" + gameitem);
-		
-		ModelAndView mav =new ModelAndView("/game/item");
-		
-		return mav;
-	}
+//	@GetMapping("/itembutton")
+//	public ModelAndView itemButton(String item) {
+//		
+//		GameItemVO gameitemVO = new GameItemVO(); 
+//		gameitemVO.setItem_name(item);
+//		
+//		GameItemVO gameitem = gameService.getGameItem(gameitemVO);
+//		
+//		System.out.println("gameitem :" + gameitem);
+//		
+//		ModelAndView mav =new ModelAndView("/game/item");
+//		
+//		return mav;
+//	}
 
 
 }
