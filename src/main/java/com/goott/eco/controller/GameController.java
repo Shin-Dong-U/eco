@@ -1,7 +1,7 @@
 package com.goott.eco.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+//import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,7 +11,7 @@ import com.goott.eco.domain.GameItemVO;
 import com.goott.eco.service.GameService;
 
 @RequestMapping("/game")
-@Controller
+//@Controller
 public class GameController {
 
 	@Autowired

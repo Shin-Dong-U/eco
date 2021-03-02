@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 //import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.goott.eco.domain.CustVO;
 import com.goott.eco.service.CustService;
 
-@RequestMapping("/cust")
+@RequestMapping("/cust/*")
 @Controller
 public class CustController {
 
@@ -27,6 +28,12 @@ public class CustController {
 		System.out.println(custList.size());
 		ModelAndView mav = new ModelAndView("/cust/custlist");
 		return mav;
+	}
+	
+	
+	@GetMapping("/game/list")
+	public void list(Model model) {
+		System.out.println("list페이지 이동");
 	}
 	
 	//null값으로 , 그냥 gameInfo에 화면만 출력하게해준것

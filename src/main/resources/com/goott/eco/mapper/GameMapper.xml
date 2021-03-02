@@ -5,6 +5,14 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goott.eco.mapper.GameMapper">
 	
+	
+	
+	<select id="getCustStatus" resultType="com.goott.eco.domain.CustVO">
+		SELECT * FROM eco.cust 
+		WHERE memberid=#{memberid}
+	</select>
+	
+	
 	<!-- Cust의 Tree레벨에 따른 GameImage불러오기 -->
 	<select id="getCustTreeLvl" resultType="com.goott.eco.domain.GameImageVO">
 		SELECT mil_level, img_src 
