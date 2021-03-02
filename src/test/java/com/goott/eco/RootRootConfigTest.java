@@ -32,6 +32,7 @@ public class RootRootConfigTest {
 	@Setter(onMethod_ = { @Autowired })
 	private SqlSessionFactory sqlSessionFactory;
 	
+	//connection pool test
 	@Test
 	public void testDataSource() {
 		try(Connection con = dataSource.getConnection()){
@@ -41,6 +42,18 @@ public class RootRootConfigTest {
 		}
 	}
 	
+	@Test
+	public void testMyBatis() {
+		try(SqlSession session = sqlSessionFactory.openSession();
+			Connection con = session.getConnection();	){
+			log.info(con);
+			log.info(session);
+		}catch(Exception e) {
+			fail(e.getMessage());
+		}
+	}
+
+	/*
 	@Autowired
 	private CustMapper custMapper;
 	
@@ -59,4 +72,5 @@ public class RootRootConfigTest {
 		log.info(custMapper.getClass().getName());
 		log.info("custlist size : " + custMapper.getCustList(null).size());
 	}
+	*/
 }

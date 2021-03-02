@@ -5,62 +5,73 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-/*
- * 테스트중인 클래스입니다.
- */
-//@Configuration
-//@ComponentScan(basePackages = {"com.goott.eco"})
-//@MapperScan(basePackages= {"com.goott.eco.mapper"})
+
+@Configuration
+@EnableAspectJAutoProxy
+@EnableTransactionManagement
+@EnableScheduling
+@ComponentScan(basePackages = {"com.goott.eco"})
+@MapperScan(basePackages= {"com.goott.eco.mapper"})
 public class RootConfig {
 	
+	@Autowired
+	private ApplicationContext context;
+	
 	//todo. db.properties로 주입 
-//	private String jdbcDriver = "oracle.jdbc.OracleDriver";
-//	private String jdbcUrl = "jdbc:oracle:thin:@172.16.5.1:1521:orcl";
-//	private String jdbcUserName = "eco";
-//	private String jdbcPassword = "eco1234";
-//	
-//	@Value("#{db.driver}")
-//	private String jdbcDriver;
-//	@Value("#{db.url}")
-//	private String jdbcUrl;
-//	@Value("#{db.username}")
-//	private String jdbcUserName;
-//	@Value("#db.password}")
-//	private String jdbcPassword;
-//	@Bean
-//	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-//		PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
-//		configurer.setLocation(new ClassPathResource("properties/db.properties"));
-//		
-//		return configurer;
-//	}
-//	
-//	
-//	@Bean
-//	public DataSource dataSource() {
-//		HikariConfig hikariConfig = new HikariConfig();
-//		hikariConfig.setDriverClassName(jdbcDriver);
-//		hikariConfig.setJdbcUrl(jdbcUrl);
-//		hikariConfig.setUsername(jdbcUserName);
-//		hikariConfig.setPassword(jdbcPassword);
-//		
-//		return new HikariDataSource(hikariConfig);
-//	}
-//	
-//	@Bean
-//	public SqlSessionFactory sqlSessionFactory() throws Exception {
-//		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
-//		sqlSessionFactory.setDataSource(dataSource());
-//		return (SqlSessionFactory)sqlSessionFactory.getObject();
-//	}
+	private String jdbcDriver = "net.sf.log4jdbc.sql.jdbcapi.DriverSpy";
+	private String jdbcUrl = "jdbc:log4jdbc:oracle:thin:@studydb.csm9yowkmr1i.ap-northeast-2.rds.amazonaws.com:1521:orcl";
+	private String jdbcUserName = "eco";
+	private String jdbcPassword = "eco123456789";
+	
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+		PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
+		configurer.setLocation(new ClassPathResource("db.properties"));
+		return configurer;
+	}
+	
+	
+	@Bean
+	public DataSource dataSource() {
+		HikariConfig hikariConfig = new HikariConfig();
+		hikariConfig.setDriverClassName(jdbcDriver);
+		hikariConfig.setJdbcUrl(jdbcUrl);
+		hikariConfig.setUsername(jdbcUserName);
+		hikariConfig.setPassword(jdbcPassword);
+		
+		return new HikariDataSource(hikariConfig);
+	}
+	
+	@Bean
+	public SqlSessionFactory sqlSessionFactory() throws Exception {
+		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
+		sqlSessionFactory.setDataSource(dataSource());
+		
+		Resource resource = new ClassPathResource("com/goott/eco/mapper/MybatisConfig.xml");
+		sqlSessionFactory.setConfigLocation(resource);
+		
+		return (SqlSessionFactory)sqlSessionFactory.getObject();
+	}
+	
+	@Bean
+	public DataSourceTransactionManager txManager() {
+		return new DataSourceTransactionManager(dataSource());
+	}
 }
