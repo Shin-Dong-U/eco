@@ -5,30 +5,11 @@
 <mapper namespace="com.goott.eco.mapper.DeliveryMapper">
 	
 	<select id="getdelivery" resultType="com.goott.eco.domain.DeliveryVO">
-		SELECT * FROM eco.delivery_main
+		SELECT * FROM eco.delivery_main where invoice_no in
+		(SELECT invoice_no from eco.delivery_main where invoice_no=#{invocie_no});
 	</select>
 
-	<insert id="insert">
-		insert into delivery_main (delivery_seq, invoice_no, delivery_status, default, default,
-		                        default, default, sender_name, sender_phone, sender_addr_post, 
-		                        sender_addr_city, sender_addr_detail, cust_name, cust_phone, 
-		                        cust_addr_post, cust_addr_city, cust_addr_detail, delivery_company)
-		values (seq_delivery_seq.nextval, #{delivery_seq},#{invoice_no},#{delivery_status}, default, default, 
-		        default, default, #{sender_name},#{sender_phone},#{sender_addr_post},#{sender_addr_city},#{sender_addr_detail},
-		        #{cust_name},#{cust_phone},#{cust_addr_post},#{cust_addr_city},#{cust_addr_detail},#{delivery_company} )
-	</insert>
-	
-	<select id="read" resultType="com.goott.eco.domain.DeliveryVO">
-		select * from eco.delivery_main 
-		where delivery_seq = #{delivery_seq}
-	</select>
-	
-	<update id="update">
-		update delibery_main
-		set delivery_status= #{delivery_status},
-		where delivery_status =  #{a}, #{b}, #{c}, #{d}, #{e},
-		)
-	</update>
+
 	
 	
 </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Select;
 
 import com.goott.eco.domain.DeliveryVO;
+import com.goott.eco.domain.OrderVO;
 
 public interface DeliveryMapper {
 	
@@ -15,5 +16,6 @@ public interface DeliveryMapper {
 	
 	public DeliveryVO read(Long delivery_seq); 
 	
-	public int update(DeliveryVO delivery);
+	
+	//public List<DeliveryVO> getOrderList(String order_seq);
 }

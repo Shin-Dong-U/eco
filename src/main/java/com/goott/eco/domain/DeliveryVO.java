@@ -15,7 +15,9 @@ public class DeliveryVO {
 
 	private String delivery_seq;
 	private String invoice_no;
+	private String order_seq;
 	private String delivery_status;
+	private long delivery_company;
 	private Timestamp regdate;
 	private String reguser;
 	private Timestamp editdate;
@@ -30,20 +32,23 @@ public class DeliveryVO {
 	private String cust_addr_post;
 	private String cust_addr_city;
 	private String cust_addr_detail;
-	private long delivery_company;
+
+
 	
 	public DeliveryVO() {
 		
 	}
 
-	public DeliveryVO(String delivery_seq, String invoice_no, String delivery_status, Timestamp regdate, String reguser,
-			Timestamp editdate, String edituser, String sender_name, String sender_phone, String sender_addr_post,
-			String sender_addr_city, String sender_adr_detail, String cust_name, String cust_phone,
-			String cust_addr_post, String cust_addr_city, String cust_addr_detail, long delivery_company) {
+	public DeliveryVO(String delivery_seq, String invoice_no, String order_seq, String delivery_status,long delivery_company, 
+			Timestamp regdate, String reguser, Timestamp editdate, String edituser, String sender_name, 
+			String sender_phone, String sender_addr_post, String sender_addr_city, String sender_adr_detail, String cust_name, String cust_phone,
+			String cust_addr_post, String cust_addr_city, String cust_addr_detail) {
 		
 		this.delivery_seq = delivery_seq;
 		this.invoice_no = invoice_no;
+		this.order_seq = order_seq;
 		this.delivery_status = delivery_status;
+		this.delivery_company = delivery_company;
 		this.regdate = regdate;
 		this.reguser = reguser;
 		this.editdate = editdate;
@@ -58,7 +63,7 @@ public class DeliveryVO {
 		this.cust_addr_post = cust_addr_post;
 		this.cust_addr_city = cust_addr_city;
 		this.cust_addr_detail = cust_addr_detail;
-		this.delivery_company = delivery_company;
+		
 	}
 
 	public String getDelivery_seq() {
@@ -77,12 +82,28 @@ public class DeliveryVO {
 		this.invoice_no = invoice_no;
 	}
 
+	public String getOrder_seq() {
+		return order_seq;
+	}
+
+	public void setOrder_seq(String order_seq) {
+		this.order_seq = order_seq;
+	}
+
 	public String getDelivery_status() {
 		return delivery_status;
 	}
 
 	public void setDelivery_status(String delivery_status) {
 		this.delivery_status = delivery_status;
+	}
+
+	public long getDelivery_company() {
+		return delivery_company;
+	}
+
+	public void setDelivery_company(long delivery_company) {
+		this.delivery_company = delivery_company;
 	}
 
 	public Timestamp getRegdate() {
@@ -197,14 +218,6 @@ public class DeliveryVO {
 		this.cust_addr_detail = cust_addr_detail;
 	}
 
-	public long getDelivery_company() {
-		return delivery_company;
-	}
-
-	public void setDelivery_company(long delivery_company) {
-		this.delivery_company = delivery_company;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -220,6 +233,7 @@ public class DeliveryVO {
 		result = prime * result + ((editdate == null) ? 0 : editdate.hashCode());
 		result = prime * result + ((edituser == null) ? 0 : edituser.hashCode());
 		result = prime * result + ((invoice_no == null) ? 0 : invoice_no.hashCode());
+		result = prime * result + ((order_seq == null) ? 0 : order_seq.hashCode());
 		result = prime * result + ((regdate == null) ? 0 : regdate.hashCode());
 		result = prime * result + ((reguser == null) ? 0 : reguser.hashCode());
 		result = prime * result + ((sender_addr_city == null) ? 0 : sender_addr_city.hashCode());
@@ -291,6 +305,11 @@ public class DeliveryVO {
 				return false;
 		} else if (!invoice_no.equals(other.invoice_no))
 			return false;
+		if (order_seq == null) {
+			if (other.order_seq != null)
+				return false;
+		} else if (!order_seq.equals(other.order_seq))
+			return false;
 		if (regdate == null) {
 			if (other.regdate != null)
 				return false;
@@ -328,8 +347,21 @@ public class DeliveryVO {
 			return false;
 		return true;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "DeliveryVO [delivery_seq=" + delivery_seq + ", invoice_no=" + invoice_no + ", order_seq=" + order_seq
+				+ ", delivery_status=" + delivery_status + ", delivery_company=" + delivery_company + ", regdate="
+				+ regdate + ", reguser=" + reguser + ", editdate=" + editdate + ", edituser=" + edituser
+				+ ", sender_name=" + sender_name + ", sender_phone=" + sender_phone + ", sender_addr_post="
+				+ sender_addr_post + ", sender_addr_city=" + sender_addr_city + ", sender_adr_detail="
+				+ sender_adr_detail + ", cust_name=" + cust_name + ", cust_phone=" + cust_phone + ", cust_addr_post="
+				+ cust_addr_post + ", cust_addr_city=" + cust_addr_city + ", cust_addr_detail=" + cust_addr_detail
+				+ "]";
+	}
+
+
+
 	
 	
 	
