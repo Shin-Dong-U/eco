@@ -57,14 +57,14 @@
                             <a href="index.html" class="nav-item nav-link">Home</a>
                             <a href="product-list.html" class="nav-item nav-link">Products</a>
                             <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
-                            <a href="cart.html" class="nav-item nav-link active">Cart</a>
+                            <a href="cart.html" class="nav-item nav-link">Cart</a>
                             <a href="checkout.html" class="nav-item nav-link">Checkout</a>
                             <a href="my-account.html" class="nav-item nav-link">My Account</a>
                             <div class="nav-item dropdown">
-                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
+                                <a href="" class="nav-link dropdown-toggle active" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
                                     <a href="wishlist.html" class="dropdown-item">Wishlist</a>
-                                    <a href="login.html" class="dropdown-item">Login & Register</a>
+                                    <a href="login.html" class="dropdown-item active">Login & Register</a>
                                     <a href="contact.html" class="dropdown-item">Contact Us</a>
                                 </div>
                             </div>
@@ -116,7 +116,7 @@
                 </div>
             </div>
         </div>
-        <!-- Bottom Bar End -->
+        <!-- Bottom Bar End --> 
         
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-wrap">
@@ -124,147 +124,68 @@
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="">Home</a></li>
                     <li class="breadcrumb-item"><a href="">Products</a></li>
-                    <li class="breadcrumb-item active">Cart</li>
+                    <li class="breadcrumb-item active">Login & Register</li>
                 </ul>
             </div>
         </div>
         <!-- Breadcrumb End -->
         
-        <!-- Cart Start -->
-        <div class="cart-page">
+        <!-- Login Start -->
+        <div class="login">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-8">
-                        <div class="cart-page-inner">
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                            <th>Remove</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="align-middle">
-                                        <tr>
-                                            <td>
-                                                <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-1.jpg" alt="Image"></a>
-                                                    <p>Product Name</p>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td>
-                                                <div class="qty">
-                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input type="text" value="1">
-                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td><button><i class="fa fa-trash"></i></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-2.jpg" alt="Image"></a>
-                                                    <p>Product Name</p>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td>
-                                                <div class="qty">
-                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input type="text" value="1">
-                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td><button><i class="fa fa-trash"></i></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-3.jpg" alt="Image"></a>
-                                                    <p>Product Name</p>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td>
-                                                <div class="qty">
-                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input type="text" value="1">
-                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td><button><i class="fa fa-trash"></i></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-4.jpg" alt="Image"></a>
-                                                    <p>Product Name</p>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td>
-                                                <div class="qty">
-                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input type="text" value="1">
-                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td><button><i class="fa fa-trash"></i></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-5.jpg" alt="Image"></a>
-                                                    <p>Product Name</p>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td>
-                                                <div class="qty">
-                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input type="text" value="1">
-                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td><button><i class="fa fa-trash"></i></button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    <div class="col-lg-6">    
+                        <div class="register-form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>First Name</label>
+                                    <input class="form-control" type="text" placeholder="First Name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Last Name"</label>
+                                    <input class="form-control" type="text" placeholder="Last Name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>E-mail</label>
+                                    <input class="form-control" type="text" placeholder="E-mail">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Mobile No</label>
+                                    <input class="form-control" type="text" placeholder="Mobile No">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Password</label>
+                                    <input class="form-control" type="text" placeholder="Password">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Retype Password</label>
+                                    <input class="form-control" type="text" placeholder="Password">
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn">Submit</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="cart-page-inner">
+                    <div class="col-lg-6">
+                        <div class="login-form">
                             <div class="row">
+                                <div class="col-md-6">
+                                    <label>E-mail / Username</label>
+                                    <input class="form-control" type="text" placeholder="E-mail / Username">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Password</label>
+                                    <input class="form-control" type="text" placeholder="Password">
+                                </div>
                                 <div class="col-md-12">
-                                    <div class="coupon">
-                                        <input type="text" placeholder="Coupon Code">
-                                        <button>Apply Code</button>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="newaccount">
+                                        <label class="custom-control-label" for="newaccount">Keep me signed in</label>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="cart-summary">
-                                        <div class="cart-content">
-                                            <h1>Cart Summary</h1>
-                                            <p>Sub Total<span>$99</span></p>
-                                            <p>Shipping Cost<span>$1</span></p>
-                                            <h2>Grand Total<span>$100</span></h2>
-                                        </div>
-                                        <div class="cart-btn">
-                                            <button>Update Cart</button>
-                                            <button>Checkout</button>
-                                        </div>
-                                    </div>
+                                    <button class="btn">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -272,7 +193,7 @@
                 </div>
             </div>
         </div>
-        <!-- Cart End -->
+        <!-- Login End -->
         
         <!-- Footer Start -->
         <div class="footer">

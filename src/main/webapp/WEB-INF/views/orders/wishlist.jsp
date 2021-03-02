@@ -57,13 +57,13 @@
                             <a href="index.html" class="nav-item nav-link">Home</a>
                             <a href="product-list.html" class="nav-item nav-link">Products</a>
                             <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
-                            <a href="cart.html" class="nav-item nav-link active">Cart</a>
+                            <a href="cart.html" class="nav-item nav-link">Cart</a>
                             <a href="checkout.html" class="nav-item nav-link">Checkout</a>
                             <a href="my-account.html" class="nav-item nav-link">My Account</a>
                             <div class="nav-item dropdown">
-                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
+                                <a href="" class="nav-link dropdown-toggle active" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
-                                    <a href="wishlist.html" class="dropdown-item">Wishlist</a>
+                                    <a href="wishlist.html" class="dropdown-item active">Wishlist</a>
                                     <a href="login.html" class="dropdown-item">Login & Register</a>
                                     <a href="contact.html" class="dropdown-item">Contact Us</a>
                                 </div>
@@ -116,7 +116,7 @@
                 </div>
             </div>
         </div>
-        <!-- Bottom Bar End -->
+        <!-- Bottom Bar End --> 
         
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-wrap">
@@ -124,18 +124,18 @@
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="">Home</a></li>
                     <li class="breadcrumb-item"><a href="">Products</a></li>
-                    <li class="breadcrumb-item active">Cart</li>
+                    <li class="breadcrumb-item active">Wishlist</li>
                 </ul>
             </div>
         </div>
         <!-- Breadcrumb End -->
         
-        <!-- Cart Start -->
-        <div class="cart-page">
+        <!-- Wishlist Start -->
+        <div class="wishlist-page">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="cart-page-inner">
+                <div class="wishlist-page-inner">
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead class="thead-dark">
@@ -143,7 +143,7 @@
                                             <th>Product</th>
                                             <th>Price</th>
                                             <th>Quantity</th>
-                                            <th>Total</th>
+                                            <th>Add to Cart</th>
                                             <th>Remove</th>
                                         </tr>
                                     </thead>
@@ -151,7 +151,7 @@
                                         <tr>
                                             <td>
                                                 <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-1.jpg" alt="Image"></a>
+                                                    <a href=""><img src="/resources/template/img/product-6.jpg" alt="Image"></a>
                                                     <p>Product Name</p>
                                                 </div>
                                             </td>
@@ -163,13 +163,13 @@
                                                     <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                                 </div>
                                             </td>
-                                            <td>$99</td>
+                                            <td><button class="btn-cart">Add to Cart</button></td>
                                             <td><button><i class="fa fa-trash"></i></button></td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-2.jpg" alt="Image"></a>
+                                                    <a href=""><img src="/resources/template/img/product-7.jpg" alt="Image"></a>
                                                     <p>Product Name</p>
                                                 </div>
                                             </td>
@@ -181,13 +181,13 @@
                                                     <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                                 </div>
                                             </td>
-                                            <td>$99</td>
+                                            <td><button class="btn-cart">Add to Cart</button></td>
                                             <td><button><i class="fa fa-trash"></i></button></td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-3.jpg" alt="Image"></a>
+                                                    <a href=""><img src="/resources/template/img/product-8.jpg" alt="Image"></a>
                                                     <p>Product Name</p>
                                                 </div>
                                             </td>
@@ -199,13 +199,13 @@
                                                     <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                                 </div>
                                             </td>
-                                            <td>$99</td>
+                                            <td><button class="btn-cart">Add to Cart</button></td>
                                             <td><button><i class="fa fa-trash"></i></button></td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-4.jpg" alt="Image"></a>
+                                                    <a href=""><img src="/resources/template/img/product-9.jpg" alt="Image"></a>
                                                     <p>Product Name</p>
                                                 </div>
                                             </td>
@@ -217,13 +217,13 @@
                                                     <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                                 </div>
                                             </td>
-                                            <td>$99</td>
+                                            <td><button class="btn-cart">Add to Cart</button></td>
                                             <td><button><i class="fa fa-trash"></i></button></td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-5.jpg" alt="Image"></a>
+                                                    <a href=""><img src="/resources/template/img/product-10.jpg" alt="Image"></a>
                                                     <p>Product Name</p>
                                                 </div>
                                             </td>
@@ -235,7 +235,7 @@
                                                     <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                                 </div>
                                             </td>
-                                            <td>$99</td>
+                                            <td><button class="btn-cart">Add to Cart</button></td>
                                             <td><button><i class="fa fa-trash"></i></button></td>
                                         </tr>
                                     </tbody>
@@ -243,36 +243,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="cart-page-inner">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="coupon">
-                                        <input type="text" placeholder="Coupon Code">
-                                        <button>Apply Code</button>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="cart-summary">
-                                        <div class="cart-content">
-                                            <h1>Cart Summary</h1>
-                                            <p>Sub Total<span>$99</span></p>
-                                            <p>Shipping Cost<span>$1</span></p>
-                                            <h2>Grand Total<span>$100</span></h2>
-                                        </div>
-                                        <div class="cart-btn">
-                                            <button>Update Cart</button>
-                                            <button>Checkout</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-        <!-- Cart End -->
+        <!-- Wishlist End -->
         
         <!-- Footer Start -->
         <div class="footer">
