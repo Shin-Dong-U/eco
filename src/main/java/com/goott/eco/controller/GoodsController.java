@@ -23,4 +23,10 @@ public class GoodsController {
 		System.out.println(goodsService.getGoodsList(null).size());
 		return mav;
 	}
+	
+	@GetMapping("/list2")
+	public String goodsList2(HttpServletRequest request, HttpServletResponse response) {
+		
+		return "/goods/goodslist";
+	}
 }

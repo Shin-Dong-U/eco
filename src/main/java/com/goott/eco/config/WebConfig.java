@@ -1,5 +1,8 @@
 package com.goott.eco.config;
 
+import javax.servlet.Filter;
+
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer{
@@ -19,6 +22,15 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 		return new String[] {"/"};
 	}
 
+	@Override
+	protected Filter[] getServletFilters() {
+		CharacterEncodingFilter cef = new CharacterEncodingFilter();
+		cef.setEncoding("UTF-8");
+		cef.setForceEncoding(true);
+		
+		return new Filter[] { cef };
+	}
+	
 //	ServletRegistration 클래스는 servlet 3.0이상 필요(pom 수정 필요)
 //	@Override
 //	protected void customizeRegistration(ServletRegistration.Dynamic registration) {
