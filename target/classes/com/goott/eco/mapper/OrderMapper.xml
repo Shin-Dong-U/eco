@@ -4,42 +4,52 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goott.eco.mapper.OrderMapper">
 	
-	<select id="selectOrdderMainNum">
-		select seq_order_seq.currval from dual
-	</select>
+	
+	<!-- <select id="getOrderNum" resultType="Long">
+		select seq_temp_orderNum.nextval from dual
+	</select> 
+	
+
+	<select id="getGoodsNumList" resultType="com.goott.eco.domain.GoodsVOtest">
+		SELECT *FROM GOODS
+		WHERE GOODS_SEQ IN (
+			SELECT GOODS_SEQ FROM ORDER_DETAIL 
+			WHERE order_seq =(SELECT order_seq 
+		  		FROM order_main 
+		  		where cust_id={cust_id} and order_status=0))
+	</select> -->
+	
+	<!--주문하기  시작 -->
 	<insert id="addOrderMain">
-		insert into eco.order_main values(seq_order_seq.nextval,#{custId},default,default,#{custId},'','','','')	
+		INSERT INTO eco.order_main values(seq_order_seq.nextval,#{cust_id},default,default,'',default,#{cust_id},'','')
 	</insert>
+	<select id="getOrderSeq" resultType="Long">
+		select order_seq from order_main where cust_id=#{cust_id} and order_status=0
+	</select>
 	<insert id="addOrderDetail">
-		<selectKey keyProperty="order_seq" order="BEFORE" resultType="long">
-			select seq_order_seq.currval from dual
-		</selectKey>
-		insert into eco.order_detail values(order_seq,seq_order_detail_seq.nextval,#{custId},#{basketNum},default,#{custId},'','')
+		INSERT INTO eco.order_detail values(#{order_seq},#{basket_seq},#{goods_seq},default,#{cust_id},'','')
 	</insert>
+	<update id="upOrderStatus">
+		UPDATE  eco.order_main SET ORDER_STATUS = 1 WHERE order_seq = #{order_seq}
+	</update>
+	<!--주문하기  끝 -->
 	
-	
-	<select id="getBasketList" resultType="com.goott.eco.domain.BasketVO">
-		SELECT * FROM eco.basket WHERE cust_id=#{custId} AND delete_yn='N'
+	<!--주문리스트  -->
+	<select id="getOrderList" resultType="com.goott.eco.domain.GoodsVOtest">
+	<![CDATA[	
+		SELECT *FROM GOODS
+		WHERE GOODS_SEQ IN (
+			SELECT GOODS_SEQ FROM ORDER_DETAIL 
+			WHERE order_seq =(SELECT order_seq 
+		  		FROM order_main 
+		  		where cust_id=#{cust_id}))
+	]]>
 	</select>
 	
-	<select id="getGoodsInfo" resultType="com.goott.eco.domain.GoodsVOtest">
-		SELECT * FROM eco.goods WHERE goods_seq=#{goodsSeq}
-	</select>
-	
-	<update id="delGoodsAtBasket">
-		UPDATE eco.basket SET delete_yn='Y' WHERE cust_id=#{custId} AND goods_seq=#{goodsSeq}
+	<!--결제완료 업데이트  -->
+	<update id="paidUpdate">
+		update eco.order_main set order_status = 3 WHERE cust_id=#{cust_id} and order_seq=#{order_seq}
 	</update>
 	
-	<update id="purGoodsAtBasket">
-		UPDATE eco.basket SET purchase_yn='Y' WHERE cust_id=#{custId} AND goods_seq=#{goodsSeq}
-	</update>
-	
-	<insert id="addGoodsAtBasket">
-		INSERT into eco.basket values(seq_basket_seq.nextval,#{goodsSeq},#{custId},#{qty},default,default,default,#{custId},'','')
-	</insert>
-	
-	<update id="changeQtyAtBasket">
-		UPDATE eco.basket SET qty=#{qty} WHERE cust_id=#{custId} AND goods_seq=#{goodsSeq}
-	</update>
 
 </mapper>

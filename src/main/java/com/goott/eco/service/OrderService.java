@@ -2,23 +2,16 @@ package com.goott.eco.service;
 
 import java.util.List;
 
-import com.goott.eco.domain.BasketVO;
+import com.goott.eco.domain.BasketDetailVO;
 import com.goott.eco.domain.GoodsVOtest;
 
 public interface OrderService {
 	
-	public int addOrder(List<BasketVO> basketList);
-	//
+	public int addOrder(List<BasketDetailVO> basketList,String cust_Id);
 	
-	public List<BasketVO> getBasketList(String custId);
+	public List<GoodsVOtest> getOrderList(String custId);
 	
-	public GoodsVOtest getGoodsInfo(Long goodsSeq);
+	public int paidUpdate(String cust_id, Long order_seq);
 	
-	public int deleteGoodsAtBasket(String custId,Long goodsSeq);
 	
-	public int purGoodsAtBasket(String custId, Long goodsSeq);
-	
-	public int addGoodsAtBasket(String custId, Long goodsSeq, Long qty);
-	
-	public int changeQtyAtBasket(String custId, Long goodsSeq, Long qty);
 }

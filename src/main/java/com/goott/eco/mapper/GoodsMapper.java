@@ -5,4 +5,5 @@ import java.util.Map;
 
 public interface GoodsMapper {
 	public List<Map<String, Object>> getGoodsList(Map<String, Object> search);
+	public void test(Map<String, Object> param);
 }
