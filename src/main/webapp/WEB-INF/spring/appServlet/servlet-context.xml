@@ -35,6 +35,6 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<!-- <default-servlet-handler /> -->    
+	<default-servlet-handler /> 
 	
 </beans:beans>

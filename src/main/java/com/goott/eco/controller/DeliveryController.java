@@ -31,24 +31,26 @@ public class DeliveryController {
 	@GetMapping(value="/list/{invoice_no}",
 			produces= {"application/json; charset=UTF-8"})
 	public ResponseEntity<List<DeliveryVO>> getDeliveryList(
-			@PathVariable("invoice_no")String invoice_no){
+			@PathVariable("invoice_no")Long invoice_no){
 
 		System.out.println("송장번호: "+ invoice_no);
 		return new ResponseEntity<>(deliveryService.getDeliveryList(invoice_no),HttpStatus.OK);
 	}
 	
+	//결제완료된(3) 주문 리스트
+	@GetMapping(value="/list",
+			produces= {"application/json; charset=UTF-8"})
+	public ResponseEntity<List> getDeliveryList(
+	
+		System.out.println("주문상태: " + );
+		
+	}
+			
 	
 	
-//	//주문한 배송정보 조회
-//	@GetMapping(value="/{order_seq}",
-//			produces= {"application/json; charset=UTF-8"})
-//	public ResponseEntity<List<DeliveryVO>> getOrderList(
-//			@PathVariable("order_seq")String order_seq){
-//
-//		System.out.println("주문번호: "+ order_seq);
-//		return new ResponseEntity<>(deliveryService.getOrderList(order_seq),HttpStatus.OK);
-//
-//	}
+			
+	
+	
 
 }
 	

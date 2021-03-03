@@ -25,17 +25,18 @@ public class DeliveryServiceImpl implements DeliveryService{
 	
 	//배송 리스트 조회 
 	@Override
-	public List<DeliveryVO> getDeliveryList(String invoice_no) {
+	public List<DeliveryVO> getDeliveryList(Long invoice_no) {
 		
 		return deliveryMapper.getDeliveryList(invoice_no);
 	}
+
+	//결제완료된(3) 주문 리스트
+	@Override
+	public List<DeliveryVO> getDeliveryList( ) {
+		return deliveryMapper.getDeliveryList();
 	
-//	//주문한 배송정보 조회
-//	@Override
-//	public List<OrderVO> getOrderList(String order_seq) {
-//		
-//		return deliveryMapper.getOrderList(order_seq);
-//	}
+	}
+	
 
 
 }

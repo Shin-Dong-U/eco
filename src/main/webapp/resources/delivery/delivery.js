@@ -6,10 +6,9 @@ var deliveryService=(function(){
 	function getdeliveryList(invoice_no,callback){
 			console.log("delivery List................");
 			
-		$.ajax({ //자바스크립트 객체 시작
+		$.ajax({ 
 			type:'get',					
 			url:'/delivery/list/'+invocie_no,	
-			//JSON.stringify()자바스크립트 객체를 JSON형식의 문자열로 변환해주는 웹브라우저 내부 메소드
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
 			success:(deliveryList)=>{console.log("배송 리스트",deliveryList),
@@ -18,20 +17,23 @@ var deliveryService=(function(){
 		})
 	}
 	
-	//주문한 배송정보 조회
-	function getOrderList(){		
-			console.log("selected order delivery................");
+	
+	//결제완료된(3) 주문 리스트
+	function getorderList(order_status,callback){
+			console.log("3 ordered List................");
 			
 		$.ajax({ 
-			type:'get',						
-			url:'/order/list',					
+			type:'get',					
+			url:'/delivery/list/',	
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
-			success:(orderList)=>{console.log("주문한 배송리스트",orderList)},
+			success:(orderList)=>{console.log("결제완료된 주문리스트",deliveryList),
+				callback(deliveryList)},
 			error:(log)=>{console.log("실패 "+log)}
 		})
 	}
 	
+
 		function displayTime(timeValue){
 		var today = new Date();
 		
@@ -61,7 +63,6 @@ var deliveryService=(function(){
 	return {
 	
 		getDeliveryList:getDeliveryList,
-		getOrderList:getOrderList,
 		displayTime:displayTime
 	};
 	
