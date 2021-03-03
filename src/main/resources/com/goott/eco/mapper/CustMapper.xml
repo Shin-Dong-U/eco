@@ -10,7 +10,7 @@
 	</select>
 	
 	<select id="getCustId" resultType="com.goott.eco.domain.CustVO">
-		SELECT memberId, myTree, myMil 
+		SELECT memberId, myTree, myMil, bar_status 
 		FROM eco.cust
 		WHERE memberId=#{memberId}
 	</select>

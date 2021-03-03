@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustVO {
+
 	private String memberId;	// 아이디
 	private String password;	// 비밀번호
 	private String name;		// 이름
@@ -31,5 +32,5 @@ public class CustVO {
 	private Long myMil;         // Mileage정보 
 	private Long bar_status;	// Mileage상태 bar 0~9
 	private String admin_yn;	// 일반 사용자 or 관리자 [y]-admin [n]-user
-	//test
+
 }

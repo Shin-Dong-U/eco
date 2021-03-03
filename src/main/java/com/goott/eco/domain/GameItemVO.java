@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GameItemVO {
 
+	private Long item_seq;
 	private String item_name;
 	private Long item_price;
 	private String item_memo;
