@@ -83,7 +83,7 @@ $(document).ready(function(){
 	
 	//장바구니 리스트 보기
 	function showList(){		
-		basketService.getBasketList("nana",function(basketList){
+		basketService.getBasketList("basic",function(basketList){
 			var basketListTable=$(".basketList");
 			var str="";
 			for(var i=0,len=basketList.length||0;i<len;i++){

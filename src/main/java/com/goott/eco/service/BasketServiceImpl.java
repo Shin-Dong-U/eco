@@ -1,11 +1,13 @@
 package com.goott.eco.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.goott.eco.domain.BasketDetailVO;
+import com.goott.eco.domain.CartVO;
 import com.goott.eco.domain.GoodsVOtest;
 import com.goott.eco.mapper.BasketMapper;
 
@@ -23,7 +25,7 @@ public class BasketServiceImpl implements BasketService {
 	}
 
 	@Override
-	public List<BasketDetailVO> getBasketList(String cust_id) {
+	public List<HashMap<String,Object>> getBasketList(String cust_id) {
 		
 		return basketMapper.getBasketList(cust_id);
 	}
