@@ -6,31 +6,47 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+//import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+//import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.goott.eco.domain.CustVO;
 import com.goott.eco.service.CustService;
 
-
-@RequestMapping("/cust")
+@RequestMapping("/cust/*")
 @Controller
 public class CustController {
 
 	@Autowired
-	private CustService Custservice;
+	private CustService custService;
 	
 	@GetMapping("/list")
 	public ModelAndView custList() {
-		List<Map<String, Object>> custList = Custservice.getCustList(null);
+		List<Map<String, Object>> custList = custService.getCustList(null);
 		System.out.println(custList.size());
 		ModelAndView mav = new ModelAndView("/cust/custlist");
 		return mav;
 	}
 	
-
+	
+	@GetMapping("/game/list")
+	public void list(Model model) {
+		System.out.println("list페이지 이동");
+	}
+	
+//	@GetMapping("/game/item")
+//	public void item(Model model) {
+//		System.out.println("item페이지이동");
+//	}
+	
+	
+	
+	
+	
+	
+	
 	//null값으로 , 그냥 gameInfo에 화면만 출력하게해준것
 	//http://localhost/cust/gameInfo?id=basic
 	@GetMapping("/gameInfo")
@@ -38,8 +54,7 @@ public class CustController {
 		CustVO custVO = new CustVO();
 		custVO.setMemberId(id);
 		
-		
-		CustVO custId = Custservice.getCustId(custVO);
+		CustVO custId = custService.getCustId(custVO);
 		
 		System.out.println("custId:" + custId);
 		
@@ -47,6 +62,10 @@ public class CustController {
 		
 		return mav;
 	}
+	
+	//만약 회원의 게임 나무레벨이 A라면, GAME_IMAGE에 있는 값을 불러와라! 
+	
+	
 	
 	
 //CustVO custId = service.getCustId(custVO);
@@ -72,11 +91,8 @@ public class CustController {
 //		
 //	}
 
+	
 
-	@GetMapping("/login1")
-	public String custLogin() {
-		return "/login1";
-	}
 
 
 
