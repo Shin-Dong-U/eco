@@ -147,7 +147,7 @@
                                             <th>Remove</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="align-middle">
+                                    <tbody class="align-middle basketList">
                                         <tr>
                                             <td>
                                                 <div class="img">
@@ -155,7 +155,7 @@
                                                     <p>Product Name</p>
                                                 </div>
                                             </td>
-                                            <td>$99</td>
+                                            <td><span>99</span></td>
                                             <td>
                                                 <div class="qty">
                                                     <button class="btn-minus"><i class="fa fa-minus"></i></button>
@@ -163,17 +163,17 @@
                                                     <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                                 </div>
                                             </td>
-                                            <td>$99</td>
+                                            <td><span class="calPrice0">99</span></td>                                           
                                             <td><button><i class="fa fa-trash"></i></button></td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-2.jpg" alt="Image"></a>
+                                                    <a href=""><img src="/resources/template/img/product-1.jpg" alt="Image"></a>
                                                     <p>Product Name</p>
                                                 </div>
                                             </td>
-                                            <td>$99</td>
+                                            <td><span>99</span></td>
                                             <td>
                                                 <div class="qty">
                                                     <button class="btn-minus"><i class="fa fa-minus"></i></button>
@@ -181,17 +181,17 @@
                                                     <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                                 </div>
                                             </td>
-                                            <td>$99</td>
+                                            <td><span class="calPrice0">99</span></td>                                           
                                             <td><button><i class="fa fa-trash"></i></button></td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-3.jpg" alt="Image"></a>
+                                                    <a href=""><img src="/resources/template/img/product-1.jpg" alt="Image"></a>
                                                     <p>Product Name</p>
                                                 </div>
                                             </td>
-                                            <td>$99</td>
+                                            <td><span>99</span></td>
                                             <td>
                                                 <div class="qty">
                                                     <button class="btn-minus"><i class="fa fa-minus"></i></button>
@@ -199,46 +199,13 @@
                                                     <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                                 </div>
                                             </td>
-                                            <td>$99</td>
+                                            <td><span class="calPrice0">99</span></td>                                           
                                             <td><button><i class="fa fa-trash"></i></button></td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-4.jpg" alt="Image"></a>
-                                                    <p>Product Name</p>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td>
-                                                <div class="qty">
-                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input type="text" value="1">
-                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td><button><i class="fa fa-trash"></i></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-5.jpg" alt="Image"></a>
-                                                    <p>Product Name</p>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td>
-                                                <div class="qty">
-                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input type="text" value="1">
-                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td><button><i class="fa fa-trash"></i></button></td>
-                                        </tr>
+                                      
+                                                                         
                                     </tbody>
+                                    
                                 </table>
                             </div>
                         </div>
@@ -256,12 +223,12 @@
                                     <div class="cart-summary">
                                         <div class="cart-content">
                                             <h1>Cart Summary</h1>
-                                            <p>Sub Total<span>$99</span></p>
-                                            <p>Shipping Cost<span>$1</span></p>
-                                            <h2>Grand Total<span>$100</span></h2>
+                                            <p>Sub Total<span class="subTotalPrice">99</span></p>
+                                            <p>Shipping Cost<span class="shippingCost">1</span></p>
+                                            <h2>Grand Total<span class="grandTotalPrice">100</span></h2>
                                         </div>
                                         <div class="cart-btn">
-                                            <button>Update Cart</button>
+                                            <button class="cartUpBtn">Update Cart</button>
                                             <button>Checkout</button>
                                         </div>
                                     </div>
@@ -373,6 +340,48 @@
         <script src="/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
-        <script src="/resources/template/js/main.js"></script>
+        <script src="/resources/template/js/main.js?var=1"></script>
+        <script src="/resources/basket/basket.js?ver=4"></script>
+		<script src="/resources/basket/transferTime.js"></script>
     </body>
+    
+    <script>
+    $(document).ready(function(){
+    	showList();
+    	
+    });
+    
+  //장바구니 리스트 보기
+		function showList(){		
+			basketService.getBasketList("nana",function(basketList){
+				var basketListTable=$(".basketList");
+				var str="";
+				console.log(basketList);
+				for(var i=0,len=basketList.length||0;i<len;i++){
+					
+					str+="<tr data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"
+		                +"   <td>"
+		                +"        <div class='img'>"
+		                +"            <a href=''><img src='/resources/template/img/product-1.jpg' alt='Image'></a>"
+		                //"+basketList[i].IMG_URL+"
+		                +"            <p>"+basketList[i].GOODS_NAME+"</p>"
+		                +"        </div>"
+		                +"    </td>"
+		                +"    <td><span>"+basketList[i].PRICE+"</span></td>"
+		                +"    <td>"
+		                +"        <div class='qty'>"
+		                +"            <button class='btn-minus'><i class='fa fa-minus'></i></button>"
+		                +"            <input type='text' value="+basketList[i].QTY+">"
+		                +"            <button class='btn-plus'><i class='fa fa-plus'></i></button>"
+		                +"        </div>"
+		                +"    </td>"
+		                +"    <td><span class='calPrice"+[i]+"'>"+basketList[i].PRICE+"</span></td>"                                           
+		                +"    <td><button><i class='fa fa-trash'></i></button></td>"
+               		    +"</tr>"
+						
+				}
+				//basketListTable.html(str);
+			})
+		}
+    </script>
 </html>

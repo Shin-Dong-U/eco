@@ -1,6 +1,8 @@
 package com.goott.eco.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.goott.eco.domain.BasketDetailVO;
 import com.goott.eco.domain.GoodsVOtest;
 import com.goott.eco.service.BasketService;
 
@@ -33,12 +34,15 @@ public class BasketController {
 	//장바구니 리스트 조회
 	@GetMapping(value="/list/{cust_id}",			
 			produces= {"application/json; charset=UTF-8"})
-	public ResponseEntity<List<BasketDetailVO>> getBasketList(
+	public ResponseEntity<List<HashMap<String,Object>>> getBasketList(
 			@PathVariable("cust_id")String cust_id){
 		
 		log.info("custId: "+cust_id);
-		List<BasketDetailVO> result = basketService.getBasketList(cust_id);
+		List<HashMap<String,Object>> result = basketService.getBasketList(cust_id);
 		log.info("jsp로 넘겨질 데이터: "+result);
+		log.info("jsp로 넘겨질 데이터1: "+result.get(0));
+		log.info("jsp로 넘겨질 데이터2: "+result.get(1));
+		log.info("jsp로 넘겨질 데이터3: "+result.get(1).get("IMG_URL"));
 		
 		return new ResponseEntity<>(result,HttpStatus.OK);
 		

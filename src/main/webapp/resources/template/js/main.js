@@ -204,18 +204,51 @@
     $('.qty button').on('click', function () {
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
+        var totalPrice=1;
         if ($button.hasClass('btn-plus')) {
-            var newVal = parseFloat(oldValue) + 1;
+            var newVal = Number(parseFloat(oldValue) + 1);
+            var goodsPrice=Number($button.parentsUntil("tr").prev().children("span").text());
+            console.log("goodsprice: "+goodsPrice);
+            $button.parentsUntil("tr").prev().children("span").css({"border": "2px solid red"});
+            
+            totalPrice=goodsPrice*newVal;
+            console.log(totalPrice+"="+goodsPrice+"*"+newVal);
+            
+           
         } else {
             if (oldValue > 0) {
                 var newVal = parseFloat(oldValue) - 1;
+                var goodsPrice=Number($button.parentsUntil("tr").prev().children("span").text());
+                totalPrice=goodsPrice*newVal;
+                console.log(totalPrice+"="+goodsPrice+"*"+newVal);
             } else {
                 newVal = 0;
             }
         }
         $button.parent().find('input').val(newVal);
+        $button.parentsUntil("tr").next().children("span").css({"border": "2px solid teal"});
+        $button.parentsUntil("tr").next().children("span").text(totalPrice);
+       
     });
     
+    $('.cartUpBtn').on('click', function () {
+    	 var subCacul=0;
+    	 console.log("row1: "+$("tbody tr").length,typeof($("tbody tr").length));
+    	 var loopCnt = Number($("tbody tr").length);
+         for(var i=0; i<loopCnt;i++){
+         subCacul=Number($(".calPrice"+[i]).text())+Number(subCacul);  	
+         console.log("subCacul: "+subCacul);
+         console.log("타입체크1: "+typeof(Number($(".calPrice"+[i]).text())));
+         console.log("타입체크2: "+typeof(Number(subCacul)));
+         console.log("타입체크3: "+typeof(subCacul));
+         }
+         
+         console.log("update cart: "+subCacul,typeof(subCacul));
+         $(".subTotalPrice").text(subCacul);
+    	var totalPrice = subCacul+Number($(".shippingCost").text());
+    	console.log($(".shippingCost").text());
+    	$(".grandTotalPrice").text(totalPrice);
+    });
     
     // Shipping address show hide
     $('.checkout #shipto').change(function () {
