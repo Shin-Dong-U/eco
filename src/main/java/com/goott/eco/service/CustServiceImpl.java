@@ -44,8 +44,7 @@ public class CustServiceImpl implements CustService{
 		memberVO.setCustVO(custDao.getCust(memberId));
 		
 		if(memberVO.getCustVO().getCompany_yn().equals("Y")) {
-			Long comp_seq =	compDao.getCompany_seq(memberId);
-			memberVO.setCompVO(compDao.getCompany(comp_seq));
+			memberVO.setCompVO(compDao.getCompany(memberId));
 		}
 		return memberVO;
 	}

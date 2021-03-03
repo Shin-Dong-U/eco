@@ -6,5 +6,5 @@ import lombok.Data;
 public class MemberVO {
 	private CustVO custVO;
 	private CompanyVO compVO;
-
+	private AdminVO adminVO;
 }

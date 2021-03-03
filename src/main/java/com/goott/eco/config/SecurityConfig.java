@@ -12,11 +12,11 @@ import com.goott.eco.security.CustomLoginSuccessHandler;
 
 import lombok.extern.log4j.Log4j;
 
-@Configuration
-@EnableWebSecurity
-@Log4j
+//@Configuration
+//@EnableWebSecurity
+//@Log4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
-	
+	/*
 	@Override
 	public void configure(HttpSecurity http) throws Exception{
 		http.authorizeRequests()
@@ -41,4 +41,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public AuthenticationSuccessHandler loginSuccessHandler() {
 		return new CustomLoginSuccessHandler();
 	}
+	*/
 }

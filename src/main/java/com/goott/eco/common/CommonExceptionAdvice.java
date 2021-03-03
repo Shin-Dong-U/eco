@@ -9,6 +9,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import lombok.extern.log4j.Log4j;
 
+
 @ControllerAdvice //이 클래스의 객체가 스프링의 컨트롤러에서 발생된 예외를 처리하는 컨트롤러클래스 임을 선언
 @Log4j
 public class CommonExceptionAdvice {

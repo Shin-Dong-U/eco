@@ -10,17 +10,20 @@
 	</select>
 	
 	<!-- 업체 pk찾기 -->
+	<!-- 	
 	<select id="getCompany_seq" resultType="Long">
 		SELECT a.comp_seq
 		FROM eco.company a 
 		INNER JOIN eco.cust b ON (a.cust_Id = b.memberId)
 		WHERE memberId = #{memberId} AND member_yn='N'
 	</select>
+	-->
+	
 	
 	<!-- 특정 업체 정보가져오기 -->
 	<select id="getCompany" resultType="com.goott.eco.domain.CompanyVO">
 		SELECT * FROM eco.company
-		WHERE comp_seq=#{comp_seq}
+		WHERE memberId=#{memberId}
 	</select>
 	
 	<!-- 회원 가입 -->

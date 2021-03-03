@@ -9,7 +9,7 @@ var custRest=(function(){
 		
 		$.ajax({
 			type:"post",
-			url:"/cust/rest/login",
+			url:"/cust/login",
 			data:JSON.stringify(customer),
 			contentType:"application/json; charset=UTF-8",
 
@@ -38,7 +38,7 @@ var custRest=(function(){
 	function getCust(memberId, callback, error){
 		$.ajax({
 			type:"post",
-			url:"/cust/rest/get/"+memberId,
+			url:"/cust/get/"+memberId,
 			data:JSON.stringify(memberId),
 			contentType:"application/json; charset=UTF-8",
 			success:function(data){
@@ -67,7 +67,7 @@ var custRest=(function(){
 		
 		$.ajax({
 			type:"put",
-			url:"/cust/rest/join",
+			url:"/cust/join",
 			data:JSON.stringify(member),
 			contentType:"application/json; charset=UTF-8",
 			
@@ -93,7 +93,7 @@ var custRest=(function(){
 		
 		$.ajax({
 			type:"put",
-			url:"/cust/rest/modify",
+			url:"/cust/modify",
 			data:JSON.stringify(member),
 			contentType:"application/json; charset=UTF-8",
 			
@@ -119,7 +119,7 @@ var custRest=(function(){
 		
 		$.ajax({
 			type:"put",
-			url:"/cust/rest/delete/"+memberId,
+			url:"/cust/delete/"+memberId,
 			data:JSON.stringify(memberId),
 			contentType:"application/json; charset=UTF-8",
 			
