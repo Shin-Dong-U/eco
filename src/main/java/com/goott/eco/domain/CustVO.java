@@ -27,8 +27,9 @@ public class CustVO {
 	private String regUser;     // 가입한 회원
 	private Timestamp editDate; // 수정 날짜
 	private String editUser;    // 수정한 회원
-	private String myTree;      // Tree 정보 [A]-새싹 [E]-나무
+	private Long myTree;      // Tree 정보 [A]-새싹 [E]-나무
 	private Long myMil;         // Mileage정보 
 	private Long bar_status;	// Mileage상태 bar 0~9
 	private String admin_yn;	// 일반 사용자 or 관리자 [y]-admin [n]-user
+	//test
 }
