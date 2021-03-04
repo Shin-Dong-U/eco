@@ -19,17 +19,17 @@ public class PageController {
 		log.info("list페이지 이동");
 		return "orders/basket/list";
 	}
-//	@GetMapping("/orders/order/checkout")
-//	public void checkout(Model model) {
-//		log.info("checkout페이지 이동");
-//		
-//	}
-//	
-//	@GetMapping("/orders/order/pay")
-//	public void pay(Model model) {
-//		log.info("pay페이지 이동");
-//		
-//	}
+	@GetMapping("/orders/order/checkout")
+	public void checkout(Model model) {
+		log.info("checkout페이지 이동");
+		
+	}
+	
+	@GetMapping("/orders/order/pay")
+	public String pay(Model model) {
+		log.info("pay페이지 이동");
+		return "orders/order/pay";
+	}
 //	
 //	@GetMapping("/home/contact")
 //	public void contact(Model model) {

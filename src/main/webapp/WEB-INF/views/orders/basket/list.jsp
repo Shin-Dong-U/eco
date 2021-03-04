@@ -148,7 +148,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="align-middle basketList">
-                                        <tr>
+                                        <!-- <tr>
                                             <td>
                                                 <div class="img">
                                                     <a href=""><img src="/resources/template/img/product-1.jpg" alt="Image"></a>
@@ -165,43 +165,8 @@
                                             </td>
                                             <td><span class="calPrice0">99</span></td>                                           
                                             <td><button><i class="fa fa-trash"></i></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-1.jpg" alt="Image"></a>
-                                                    <p>Product Name</p>
-                                                </div>
-                                            </td>
-                                            <td><span>99</span></td>
-                                            <td>
-                                                <div class="qty">
-                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input type="text" value="1">
-                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                                </div>
-                                            </td>
-                                            <td><span class="calPrice0">99</span></td>                                           
-                                            <td><button><i class="fa fa-trash"></i></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-1.jpg" alt="Image"></a>
-                                                    <p>Product Name</p>
-                                                </div>
-                                            </td>
-                                            <td><span>99</span></td>
-                                            <td>
-                                                <div class="qty">
-                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input type="text" value="1">
-                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                                </div>
-                                            </td>
-                                            <td><span class="calPrice0">99</span></td>                                           
-                                            <td><button><i class="fa fa-trash"></i></button></td>
-                                        </tr>
+                                        </tr> -->
+                                        
                                       
                                                                          
                                     </tbody>
@@ -341,7 +306,7 @@
         
         <!-- Template Javascript -->
         <script src="/resources/template/js/main.js?var=1"></script>
-        <script src="/resources/basket/basket.js?ver=4"></script>
+        <script src="/resources/basket/basket.js?ver=5"></script>
 		<script src="/resources/basket/transferTime.js"></script>
     </body>
     
@@ -349,7 +314,55 @@
     $(document).ready(function(){
     	showList();
     	
+    	
+    	//purGoodsAtBasket();
+    	
+    	//addGoodsAtBasket();
+    	
     });
+    
+  	//상품제목 <p>클릭시
+  	$('.basketList').on('click', "p",function () {
+  		var goods_seq =  $(this).data("goods_seq");
+    	console.log("버튼클릭: "+goods_seq);
+      //현재 버튼클릭시 해당 goods_seq선택가능-->Ajax로 연동
+		selectBasketGoods(goods_seq);    
+    });
+	$('.basketList').on('click',".delbasketBtn",function(){
+		//var goods_seq =  $(this).parents("td").children("p").data("goods_seq");
+		var goods_seq =  $(this).data("goods_seq");
+		console.log("삭제버튼클릭: "+goods_seq);
+		delBasketGoods("nana",goods_seq);
+		showList();
+	});
+  	
+  	
+	//선택상품 장바구니에 담기
+	function addGoodsAtBasket(){
+		basketService.addGoodsAtBasket(function(){})
+	}
+	
+	//장바구니 수량변경
+	function changeQtyAtBasket(cust_id,goods_seq,qty){
+		basketService.changeQtyAtBasket(cust_id,goods_seq,qty,function(){})
+	}
+	
+	
+	//장바구니에 구매된 상품 삭제
+	function purGoodsAtBasket(){
+		basketService.purGoodsAtBasket(function(result){})
+	}
+	
+	//장바구니에서 상품 삭제
+	function delBasketGoods(cust_id,goods_seq){
+		basketService.delBasketGoods(cust_id,goods_seq,function(result){})
+	}
+	
+	//장바구니에서 특정상품 선택
+	function selectBasketGoods(goods_seq){
+		basketService.getBasketGoods(goods_seq,function(){})
+	}
+    
     
   //장바구니 리스트 보기
 		function showList(){		
@@ -358,29 +371,30 @@
 				var str="";
 				console.log(basketList);
 				for(var i=0,len=basketList.length||0;i<len;i++){
-					
-					str+="<tr data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"
+					 //"+basketList[i].IMG_URL+"
+					str+="<tr >"
 		                +"   <td>"
 		                +"        <div class='img'>"
-		                +"            <a href=''><img src='/resources/template/img/product-1.jpg' alt='Image'></a>"
-		                //"+basketList[i].IMG_URL+"
-		                +"            <p>"+basketList[i].GOODS_NAME+"</p>"
+		                +"            <a href=''><img src='/resources/template/img/product-1.jpg' alt='Image'></a>"		               
+		                +"            <p data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"+basketList[i].GOODS_NAME+"</p>"
 		                +"        </div>"
 		                +"    </td>"
 		                +"    <td><span>"+basketList[i].PRICE+"</span></td>"
 		                +"    <td>"
 		                +"        <div class='qty'>"
 		                +"            <button class='btn-minus'><i class='fa fa-minus'></i></button>"
-		                +"            <input type='text' value="+basketList[i].QTY+">"
+		                +"            <input type='text' value='"+basketList[i].QTY+"'>"
 		                +"            <button class='btn-plus'><i class='fa fa-plus'></i></button>"
 		                +"        </div>"
 		                +"    </td>"
 		                +"    <td><span class='calPrice"+[i]+"'>"+basketList[i].PRICE+"</span></td>"                                           
-		                +"    <td><button><i class='fa fa-trash'></i></button></td>"
+		                +"    <td><button class='delbasketBtn' data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"
+		                +"		<i class='fa fa-trash'></i></button>"
+		                +"	  </td>"
                		    +"</tr>"
 						
 				}
-				//basketListTable.html(str);
+				basketListTable.html(str);
 			})
 		}
     </script>

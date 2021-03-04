@@ -19,15 +19,15 @@ var basketService=(function(){
 	}
 	
 	
-	function getBasketGoods(){		
+	function getBasketGoods(goods_seq){		
 			console.log("basket select one goods................");
 			
 		$.ajax({ 
 			type:'get',						
-			url:'/basket/11',					
+			url:'/basket/'+goods_seq,					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
-			success:(basketGoods)=>{console.log("장바구니 상품",basketGoods)},
+			success:(basketGoods)=>{console.log("장바구니 상품선택",basketGoods)},
 			error:(log)=>{console.log("실패 "+log)}
 		})
 	}
@@ -38,7 +38,7 @@ var basketService=(function(){
 		
 		$.ajax({ 
 			type:'get',						
-			url:'/basket/nana/6',					
+			url:'/basket/'+cust_id+'/'+goods_seq,					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
 			success:(result)=>{console.log("삭제결과 "+result)},
@@ -61,12 +61,12 @@ var basketService=(function(){
 		})
 	}
 	
-	function changeQtyAtBasket(){		
+	function changeQtyAtBasket(cust_id,goods_seq,qty,callback){		
 		console.log("basket change qty................");
 		
 		$.ajax({ 
 			type:'get',						
-			url:'/basket/nana/6/100',					
+			url:'/basket/'+cust_id+'/'+goods_seq+'/'+qty,					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
 			success:(result)=>{console.log("상품 수량 변경 결과 "+result)},
