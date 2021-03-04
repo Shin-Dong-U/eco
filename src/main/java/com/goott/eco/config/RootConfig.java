@@ -57,6 +57,7 @@ public class RootConfig {
 		hikariConfig.setJdbcUrl(jdbcUrl);
 		hikariConfig.setUsername(jdbcUserName);
 		hikariConfig.setPassword(jdbcPassword);
+		hikariConfig.setMaximumPoolSize(3); //자원줄이기
 		
 		return new HikariDataSource(hikariConfig);
 	}

@@ -38,7 +38,7 @@
 		      <th scope="col">가격</th>
 		      <th scope="col">메모</th>
 		      <!-- <th><button type="submit" class="btn_">선택</button></th> -->
-		      <th><button id="clickItem" class="btn_item">선택</button></th>
+		      <th><button id="updateWater" class="btn_item">선택</button></th>
 		    </tr>
 		  </thead>
 		
@@ -54,23 +54,51 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/resources/js/game.js?var=7"></script>
 
+<!-- 
 <script>
+//3-1 아이템선택버튼 클릭 -> 마일리지 히스토리에 저장()
 //클릭했을때  , ajax로가서 로직이 진행이돼_마일리지가 차감 / 나무 체크,변화 / 상태바 체크, 변화 
-var clickItem=$("#clickItem");	
-clickItem.on("click",function(e){
+var updateWater=$("#updateWater");	
+updateWater.on("click",function(e){
 	
 	alert("-200원이 차감되었습니다......마일리지가 차감 / 나무 체크,변화 / 상태바 체크, 변화 ");
-	gameService.getItem(function(){})
+	var memberid="nana";
+	gameService.updateWater(
+			memberid,
+			function(result){
+				alert("success");
+				}
+			);
+});
+
+/* 
+3-1 아이템선택버튼 클릭 -> 마일리지 히스토리에 정보저장()
+3-2 update_custStatus(bar_status, mytree,mymil)
+*/ 
+</script>
+ -->
+<script>
+var updateWater=$("#updateWater");	
+updateWater.on("click",function(e){
 	
+	alert("-200원이 차감되었습니다......마일리지가 차감 / 나무 체크,변화 / 상태바 체크, 변화 ");
+	var memberid="nana";
+	gameService.clickItem(
+			memberid,
+			function(result){
+				alert("success");
+				}
+			);
 });
 </script>
-
+ 
+ 
 <script>
 $(document).ready(function(){
 	showStatus();
 	showItems();
 
-	//게임관련 아이템 ()
+	//2. 게임관련 아이템 ()
 	function showItems(){	
 	var showItems1=$(".showItems");	
 		gameService.getItem(5,function(gameItems){
@@ -91,10 +119,10 @@ $(document).ready(function(){
 //					+"  <td><input type='checkbox'  checked></td>"
 			}
 			showItems1.html(str);
-		})
+		});
 	}
 
-	//고객상태 보기()
+	//1. 고객상태 보기()
 	function showStatus(){	
 	var custStatus1=$(".custStatus");	
 		gameService.getCustStatus("nana",function(custStatus){

@@ -6,25 +6,68 @@
 <mapper namespace="com.goott.eco.mapper.GameMapper">
 	
 	
-	<!-- Show CustStatus -->
+<!-- 1. Show CustStatus 고객게임상태 정보불러오기-->
 	<select id="getCustStatus" resultType="com.goott.eco.domain.CustVO">
 		SELECT * FROM eco.cust 
 		WHERE memberid=#{memberid}
 	</select>
 	
-	<!-- ShowItem -->
+<!-- 2. ShowItem 아이템 ex.물에 대한 아이템 불러오기 -->
 	<select id="getItem" resultType="com.goott.eco.domain.GameItemVO">
 		SELECT * FROM eco.game_item 
 		WHERE item_seq=#{item_seq}
 	</select>
 	
+<!-- 3-1 insert_마일리지 출금내역/ -->
+	<insert id="insertWater">
+		INSERT INTO eco.mileage 
+		VALUES (eco.seq_MAILEAGE_SEQ.nextval, #{memberid},1, 200*(-1), '-200원이차감됩니다.','jek',default,'매니저',default)
+	</insert>		
+<!-- 3-2 cust테이블에있는 게이지바증가, 마일리지 -200원차감, 나무상태증가 불러오기 -->
+	<update id="updateWater">
+		UPDATE eco.CUST
+		SET mymil = mymil-200,
+		bar_status=bar_status+2,
+		mytree=mytree+1
+		WHERE memberid=#{memberid}
+	</update>
 	
-	<!-- Cust의 Tree레벨에 따른 GameImage불러오기 -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+<!-- Cust의 Tree레벨에 따른 GameImage불러오기 -->
 	<select id="getCustTreeLvl" resultType="com.goott.eco.domain.GameImageVO">
 		SELECT mil_level, img_src 
 		FROM eco.game_image
 		WHERE mil_level=#{mil_level}
 	</select>
+	
+	
+	
+
+	
+<!-- selectWaterItem -->
+<!--<select id="selectWater" resultType="com.goott.eco.domain.ItemVO">
+		SELECT item_price*(-1) 
+		FROM eco.game_item
+		WHERE item_seq=5
+	</select> -->
+	
+
+<!-- selectItemImage -->
+	<select id="selectImage"  resultType="com.goott.eco.domain.GameImageVO">
+		SELECT img_src, strd_memo 
+		FROM game_image
+		WHERE mil_level=#{mil_level}
+	</select>
+	
+	
 	
 	
 	

@@ -9,6 +9,6 @@ import lombok.extern.log4j.Log4j;
 @Configuration
 @EnableWebSecurity
 @Log4j
-public class SecurityIntializer extends AbstractSecurityWebApplicationInitializer{
+public class SecurityIntializer {//extends AbstractSecurityWebApplicationInitializer{
 
 }

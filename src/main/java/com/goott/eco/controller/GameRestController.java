@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,29 +30,12 @@ public class GameRestController {
 	public GameRestController(GameService gameService) {
 		this.gameService = gameService;
 	}
-	//Cust 레벨받아오기
-	//http://localhost/controller/replies/lvl?lvl=3
-//	@GetMapping(value="/{lvl}",
-//			consumes = "application/json; charset=UTF-8",
-//			produces = "text/plain; charset=UTF-8 " )
-											//처리결과반환해주는거-내가 웹브라우저로 전달해주는거 and consumes -> 내가 웹 브라우저로부터받는거 
-//	public ResponseEntity<String> get(@RequestBody CustVO custVO,
-//									  @PathVariable("myTree") String myTree){	
-											//public ModelAndView custId(String lvl) {
-		
-		
-//		custVO.setMyTree(myTree);
-//		System.out.println("get:" + myTree);
-											//return new ResponseEntity<>(gameService.get(lvl),HttpStatus.OK);
-//		return new ResponseEntity<>(gameService.getCustTreeLvl(myTree);
-//	}
-	
-	
-	
+
+	//고객게임상태 정보불러오기
 	//CustController_ @GetMapping("/game/list")
 	//http://localhost/cust/game/list
 	//get : custVO에서 사용자 아이디에따른 전부의 정보를 가져온후,->  myTree상태조회 하는 로직 
-	//get_CustStatus
+	//1. get_CustStatus
 	@GetMapping(value="/list/{memberId}",			
 			    produces= {"application/json; charset=UTF-8"}) //처리결과반환해주는거-내가 웹브라우저로 전달해주는거 and consumes -> 내가 웹 브라우저로부터받는거
 	public ResponseEntity<List<CustVO>> getCustStatus(
@@ -63,9 +47,10 @@ public class GameRestController {
 			return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 	
+	//아이템 ex.물에 대한 아이템 불러오기
 	//CustController_ @GetMapping("/game/list")
 	//post로 변경하기 -- 버튼으로 만들어서 3개아이템 가져오기해보기
-	//url주소 -> http://localhost/cust/game/item
+	//2. url주소 -> http://localhost/cust/game/item
 	@GetMapping(value="/{item_seq}",			
 				produces= {"application/json; charset=UTF-8"})
 	public ResponseEntity<List<GameItemVO>> getItem(
@@ -79,30 +64,39 @@ public class GameRestController {
 		
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-
-	//마일리지가 차감 / 나무 체크,변화 / 상태바 체크, 변화 
-	//@PathVariable : 366pg_url상에 경로의 일부를 파라미터로사용할 수 있다. 
-	@GetMapping(value="/{myMil}/{myTree}/{bar_status}",	//nana의 마일리지 		
+/*	
+	//아이템선택버튼 클릭 -> 마일리지 히스토리에 저장이된다.
+	//3. insert는 post이다 
+	@PostMapping(value="/{memberid}",
 			produces= {"application/json; charset=UTF-8"})
-	public ResponseEntity<GameItemVO> clickItem(
-		@PathVariable("myMil") Long myMil,
-		@PathVariable("myTree") String myTree,
-		@PathVariable("bar_status") Long bar_status){
+	//컨트롤러에는 꼭 ResponseEntity <반환타입 명시해줘야한다.>
+	public ResponseEntity<Integer> updateWater(@PathVariable("memberid") String memberid){
+		System.out.println("memberId: "+memberid);
+		int result = gameService.insertWater(memberid);
+		System.out.println("result: "+result);
+		return result==1? //insert
+				new ResponseEntity<>(1, HttpStatus.OK):
+				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}	
+*/	
+	//3-1아이템선택버튼 클릭 -> 마일리지 히스토리에 저장이된다.(insert는 post이다 )
+	//3-2 update_custStatus(bar_status, mytree,mymil)
+	@PostMapping(value="/{memberid}",
+			produces= {"application/json; charset=UTF-8"})
+	//컨트롤러에는 꼭 ResponseEntity <반환타입 명시해줘야한다.>
+	public ResponseEntity<Integer> updateWater(@PathVariable("memberid") String memberid){
+		System.out.println("memberId: "+memberid);
+		
+		int result = gameService.updateWater(memberid);
+		System.out.println("result: "+result);
+		
+		return result==1? //insert,update
+				new ResponseEntity<>(1, HttpStatus.OK):
+				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}	
 	
-	System.out.println("myMil :" + myMil);
-	System.out.println("myTree :" + myTree);
-	System.out.println("bar_status :" + bar_status);
-	
-	//GameItemVO result =  gameService.getItem(myMil,myTree,bar_status);
 	
 	
-	
-	//여기 아랫부분부터 다시체크
-	//System.out.println("gameService:" + result);
-	
-	//return new ResponseEntity<>(result, HttpStatus.OK);
-	return null;
-}
 	
 	
 	
