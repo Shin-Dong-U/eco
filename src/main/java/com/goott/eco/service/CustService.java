@@ -14,7 +14,7 @@ public interface CustService {
 	public CustVO getCustId(CustVO custVO);
 
 	/* 특정 회원 정보 가져오기 */
-	public MemberVO getCust(String memberId);
+	public MemberVO getCust(MemberVO memberVO);
 	
 	/* 로그인 */
 	public CustVO getCustLogin(CustVO custVO);

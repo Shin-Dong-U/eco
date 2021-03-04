@@ -23,7 +23,7 @@
 	<!-- 특정 업체 정보가져오기 -->
 	<select id="getCompany" resultType="com.goott.eco.domain.CompanyVO">
 		SELECT * FROM eco.company
-		WHERE memberId=#{memberId}
+		WHERE cust_id=#{memberId}
 	</select>
 	
 	<!-- 회원 가입 -->

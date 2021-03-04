@@ -39,12 +39,12 @@ public class CustServiceImpl implements CustService{
 	
 	/* 특정 회원 정보 가져오기 */
 	@Override
-	public MemberVO getCust(String memberId) {
-		MemberVO memberVO = new MemberVO();
-		memberVO.setCustVO(custDao.getCust(memberId));
-		
+	public MemberVO getCust(MemberVO memberVO) {
+		//MemberVO memberVO = new MemberVO();
+		//memberVO.setCustVO(custDao.getCust(memberId));
+		memberVO.setCustVO(custDao.getCust(memberVO.getCustVO().getMemberId()));
 		if(memberVO.getCustVO().getCompany_yn().equals("Y")) {
-			memberVO.setCompVO(compDao.getCompany(memberId));
+			memberVO.setCompVO(compDao.getCompany(memberVO.getCustVO().getMemberId()));
 		}
 		return memberVO;
 	}

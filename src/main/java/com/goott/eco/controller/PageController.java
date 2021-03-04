@@ -84,7 +84,7 @@ public class PageController {
 	public void custList() {
 
 	}
-	
+
 	
 	
 	@GetMapping("/game/item")

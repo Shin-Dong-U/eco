@@ -4,12 +4,31 @@
 
 <mapper namespace="com.goott.eco.mapper.AdminMapper">
 	
-	<!-- 특정 관리자 정보 가져오기 -->
-	<select id="getAdmin" resultType="com.goott.eco.domain.AdminVO">
-		SELECT * FROM eco.Admin
+	<!-- 모든 관리자 정보 가져오기 -->
+	<select id="getAdminList" resultType="map">
+		SELECT /*+ Index_DESC(a regIndex) */ a.*, b.acc_level
+		FROM eco.cust a INNER JOIN eco.admin b
+		ON (a.memberId = b.cust_Id)
+		WHERE admin_yn='Y'
+		<!-- OFFSET #{startRowno} ROWS FETCH FIRST #{amount} ROWS ONLY -->
 	</select>
 	
-	<!-- 회원 정보 가져오기-페이징&검색 -->
-
+	<!-- 모든 업체 정보 가져오기 -->
+	<select id="getCompanyList" resultType="map">
+		SELECT /*+ Index_DESC(a regIndex) */ a.*, 
+		b.comp_seq, b.comp_name, b.corp_num, b.confirm_yn, b.memo
+		FROM eco.cust a INNER JOIN eco.company b
+		ON (a.memberId = b.cust_Id)
+		where company_yn='Y'
+		<!-- OFFSET #{startRowno} ROWS FETCH FIRST #{amount} ROWS ONLY -->
+	</select>
+	
+	<!-- 모든 일반사용자 정보 가져오기 -->
+	<select id="getCustList" resultType="map">
+		SELECT /*+ Index_DESC(a regIndex) */ a.*
+		FROM eco.cust a
+		where company_yn='N' AND admin_yn='N'
+		<!-- OFFSET #{startRowno} ROWS FETCH FIRST #{amount} ROWS ONLY -->
+	</select>
 	
 </mapper>

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,12 +24,17 @@ public class CustController {
 
 	@Autowired
 	private CustService custService;
+	
 	/* 특정 회원 정보 가져오기 */
-	@PostMapping(value="/get/{memberId}", produces="application/json; charset=UTF-8")
+	@GetMapping(value="/get/{memberId}", 
+			produces={"application/json; charset=UTF-8", "text/html; charset=utf-8"})
 	public ResponseEntity<Map<String,MemberVO>> getMember(@PathVariable("memberId") String memberId){
 		Map<String,MemberVO> memberMap = new HashMap<String,MemberVO>();
 		MemberVO memberVO = new MemberVO();
-		memberVO = custService.getCust(memberId);
+		
+		memberVO.getCustVO().setMemberId(memberId);
+	
+		memberVO = custService.getCust(memberVO);
 		memberMap.put("memberVO", memberVO);
 		return new ResponseEntity<>(memberMap, HttpStatus.OK);
 	}
@@ -56,11 +62,11 @@ public class CustController {
 	/* 회원 수정 - cust와 company */
 	@PutMapping(value="/modify", produces="application/json; charset=UTF-8")
 	public ResponseEntity<String> modifyCust(@RequestBody MemberVO memberVO){
-		System.out.println("memberVO: "+memberVO);
-				
+		custService.modifyCust(memberVO);
+
 		return custService.modifyCust(memberVO) == 1
-				?new ResponseEntity<>("success",HttpStatus.OK)
-				:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			?new ResponseEntity<>("success",HttpStatus.OK)
+			:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	/* 회원 탈퇴 */
@@ -69,8 +75,8 @@ public class CustController {
 		System.out.println("memberId: "+memberId);
 		
 		return custService.deleteCust(memberId) == 1
-				?new ResponseEntity<>("success",HttpStatus.OK)
-				:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			?new ResponseEntity<>("success",HttpStatus.OK)
+			:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	
