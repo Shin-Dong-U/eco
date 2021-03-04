@@ -1,15 +1,16 @@
 package com.goott.eco.mapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.goott.eco.domain.BasketDetailVO;
 import com.goott.eco.domain.GoodsVOtest;
 
 public interface BasketMapper {
 	
-	public List<BasketDetailVO> getBasketList(String cust_id);
+	public List<HashMap<String,Object>> getBasketList(String cust_id);
 	
 	public GoodsVOtest getGoodsInfo(Long goods_seq);
 	

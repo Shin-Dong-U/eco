@@ -5,15 +5,14 @@ import java.util.List;
 import org.apache.ibatis.annotations.Select;
 
 import com.goott.eco.domain.DeliveryVO;
+import com.goott.eco.domain.OrderVO;
 
 public interface DeliveryMapper {
 	
-	//@Select("select * from delivery")
-	public List<DeliveryVO> getDeliveryList(String delivery_seq);
+
+	public List<DeliveryVO> getDeliveryList(Long invoice_no);
 	
-	public void insert(DeliveryVO delivery);
+	public List<DeliveryVO> getDeliveryList( );
 	
-	public DeliveryVO read(Long delivery_seq); 
-	
-	public int update(DeliveryVO delivery);
+
 }

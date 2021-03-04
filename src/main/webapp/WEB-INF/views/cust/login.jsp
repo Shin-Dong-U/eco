@@ -1,56 +1,297 @@
-<%@ include file="../include/header.jsp" %>
-	  
-	<section id="form">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-4 ">
-					<div class="login-form">
-						<h2>Login to your account</h2>
-						<form action="/">
-							<input type="text" id="memberId" name="memberId"placeholder="id"   />
-							<input type="password" id="password" name="password" placeholder="Password" />
-							<span>
-								<input type="checkbox" class="checkbox">Keep me signed in
-							</span>
-							<button type="button" id="btn_submit" class="btn btn-default">Login</button>
-							<div class="loginChat">
-							
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>		
-	</section>
-	
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로그인page</title>
+<style>
+	.d1{
+		border:2px solid gray;  
+		margin:auto;
+		text-align:center;
+		width:80%;
+	}
+	/* The Modal (background) */
+	.modal{
+		display: none; /* Hidden by default */
+		position: fixed; /* Stay in place */
+		z-index: 1; /* Sit on top */
+		left: 0;
+		top: 0;
+		width: 100%; /* Full width */
+		height: 100%; /* Full height */
+		overflow: auto; /* Enable scroll if needed */
+		background-color: rgb(0,0,0); /* Fallback color */
+		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+	/* Modal Content Box Title */
+	.modal-content {
+		background-color: #fefefe;
+		margin: 15% auto; /* 15% from the top and centered */
+		padding: 20px;
+		border: 1px solid #888;
+		width: 50%; /* Could be more or less, depending on screen size */                          
+	}
+	/* The Close Button */
+	.close {
+		color: #aaa;
+		float: right;
+		font-size: 28px;
+		font-weight: bold;
+	}
+	.close:hover, .close:focus {
+		color: black;
+		text-decoration: none;
+		cursor: pointer;
+	}
 
-<script type="text/javascript" src="/resources/vender/ajax/custLogin.js"></script>
+</style>
+
+
+</head>
+<body>
+<!-- 로그인 form 시작 -->
+<div class="d1">
+	<h1>로그인</h1><hr/>
+	<form id="form_loging">
+		<input type="text" id="memberId" name="memberId" placeholder="id" /><p/>
+		<input type="password" id="password" name="password" placeholder="Password" /><p/>
+		<button  id="btn_submit" class="btn btn-default">Login</button><p/>
+		<div class="loginChat"></div>
+	</form>
+	<input type="button" id="btn_join" value="회원가입 TEST" /><br/>
+	<input type="button" id="btn_modify" value="회원 수정TEST" /><br/>
+	<input type="button" id="btn_delete" value="회원 탈퇴TEST" /><br/>
+	<input type="button" id="btn_get" value="회원 정보TEST" /><br/>
+</div><br/>
+<div class="chatTest">
+
+</div>
+<!-- 로그인 form  끝-->
+
+<!-- <form id="reg_member" method="post" action="/regMember">
+	<input type="button" id="btn_regMember" value="회원가입하기" />
+</form> -->
+
+<!-- modal 시작 -->
+<!-- 
+<div class="d1">
+	<h1>회원가입</h1><hr/><input type="button" id="btn_regMember" value="회원가입하기" />
+	<div id="modal" class="modal">
+		<div id="modal-content" class="modal-content">
+			<span id="close-modal" class="close">&times;</span> 
+			<form id="frm_joinUser" action="/regUser">
+				<h1>회원가입</h1><hr/>
+				<input type="text" 		data-type="memberId" 	id="memberId" 		name="memberId" 		placeholder="id">		<br/>
+				<input type="password"	data-type="password" 	id="password" 		name="password" 		placeholder="password">	<br/>
+				<input type="text" 		data-type="name" 		id="name" 			name="name" 			placeholder="name" />	<br/>
+				<input type="text" 		data-type="phone" 		id="phone" 			name="phone" 			placeholder="phone" />	<br/>
+				<input type="text" 		data-type="email" 		id="email" 			name="email" 			placeholder="email" />	<br/>
+				<input type="text" 		data-type="addr_post" 	id="addr_post" 		name="addr_post" 		placeholder="post" />	<br/>
+				<input type="text" 		data-type="addr_city" 	id="addr_city" 		name="addr_city" 		placeholder="city" />	<br/>
+				<input type="text" 		data-type="addr_detail" id="addr_detail"	name="addr_detail" 		placeholder="detail" />	<br/>
+				<input type="date" 		data-type="birth" 		id="birth"			name='userBirthday' 	value='1999-03-30'/>	<br/>
+				<input type="radio"		data-type="sex"			id="sex_m" 			name="sex" 				value="1" checked>male	
+				<input type="radio"		data-type="sex"			id="sex_f" 			name="sex" 				value="2" >female		<br/>
+				<input type="radio"		data-type="company_yn"	id="company_n" name="company_yn" value="N" checked >USER 
+				<input type="radio"		data-type="company_yn"	id="company_y" name="company_yn" value="Y" >COMPANY					<br/>
+			
+				<input type="button" id="btn_regSubmit" value="회원 가입">
+				<input type="reset" value="리셋">
+			</form>
+
+		</div>
+	</div>
+</div>
+ -->
+<!-- modal 끝 -->
+
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
+<script type="text/javascript" src="/resources/cust/custRest.js?v=<%=System.currentTimeMillis() %>"></script>
 <script>
-var memberId = $("#memberId");
-var password = $("#password");
-var loginChat = $("#loginChat");
-var btn_submit = $("btn_submit");
-$("#btn_submit").on("click",function(){
-	checkLogin();
+var form_loing=$("#form_loging");
+
+/* 로그인 클릭시 일어나는 이벤트 */
+$("#btn_submit").on("click",function(e){
+	e.preventDefault();
+	
+	var memberId = $("#memberId").val();
+	var password = $("#password").val();
+	
+	alert("memberId: "+memberId+" password: "+password);
+	
+	checkLogin(memberId,password);
 });
 
-function checkLogin(){
-	custLogin.getCust(
+/* 로그인 아작스  */
+function checkLogin(memberId,password){
+	custRest.getCustLogin(
 	{
 		memberId:memberId,
 		password:password
 	},
-	function(loginChat,cust){
+	function(custVO){
 		var str="";
-		if(cust != null ){
-			str+="<p>"+cust.memberId+"님이 로그인하셨습니다.</p>";
+		if(custVO != null){
+			$(".loginChat").html("<p>"+custVO.memberId+"님이 로그인하셨습니다.</p>");
 		}
-		replyChat.html(str);
 	});
 }
+
+/* 회원가입 클릭시 일어나는 이벤트  */
+var modal = $(".modal");
+$("#btn_regMember").on("click",function(){
+	checkModal();
+});
+
+/* 모달 생성 */
+function checkModal(){
+	document.getElementById("modal").style.display="block";
+}
+/* 모달 닫기 */
+$("#close-modal").on("click",function(){
+	document.getElementById("modal").style.display="none";
+});
+
+/* 가입 버튼  */
+$("#btn_regSubmit").on("click",function(e){
+	e.preventDefault();
+	regUser();
+});
+
+
+/* 회원가입 아작스  */
+/* test 클릭시 일어나는 이벤트 */
+$("#btn_join").on("click",function(e){
+	e.preventDefault();
+	joinTest();
+});
+
+function joinTest(){
+	var custVO={	 
+			"memberId":"compD",
+		 	"password":"1234",
+			"name":"compD",
+			"phone":"01012345678",
+			"email":"D@google.com",
+			"addr_post":"123456",
+			"addr_city":"천안",
+			"addr_detail":"두정동",
+			"birth":"200110",
+			"sex":1,
+		    "company_yn":"Y"};
+	var compVO={
+			"cust_id":"compD",
+			"comp_name":"compD",
+			"comp_num":"000000002",
+			"addr_post":"465879",
+			"addr_city":"전주",
+			"addr_detail":"둔산동",
+			"confirm_yn":"N",
+			"memo":"가구 회사"
+	};
+	custRest.joinMember(
+		memberVO={custVO:custVO, compVO:compVO },
+	function(data){
+		alert("성공"+data);
+	});
+}
+
+/* 회원 수정  */
+$("#btn_modify").on("click",function(e){
+	e.preventDefault();
+	modifyTest();
+});
+
+function modifyTest(){
+	var custVO={	 
+			"memberId":"compA",
+		 	"password":"1234",
+			"phone":"01012345678",
+			"email":"compA@goott.com",
+			"addr_post":"123456",
+			"addr_city":"천안",
+			"addr_detail":"두정동",
+			"company_yn":"Y",
+			"sex":2,
+		    "company_yn":"Y",
+			"editUser":"Admin0"};
+	var compVO={
+			"comp_seq":1,
+			"addr_post":"123456",
+			"addr_city":"천안",
+			"addr_detail":"두정동",
+			"editUser":"Admin0",
+			"memo":"가구 회사(수정완료)"
+	};
+	custRest.modifyMember(
+		memberVO={custVO:custVO, compVO:compVO },
+		
+		function(data){
+			alert("성공"+data);
+		}
+	);
+}
+
+
+/* 회원 탈퇴 */
+$("#btn_delete").on("click",function(e){
+	e.preventDefault();
+	deleteTest();
+});
+
+function deleteTest(){
+	var memberId='compA'
+	custRest.deleteMember(memberId,
+		function(data){
+			alert("성공"+data);
+		}
+	);
+}
+
+
+/* 회원 정보가져오기 */
+
+var chatTest=$(".chatTest");
+
+$("#btn_get").on("click",function(e){
+	e.preventDefault();
+	getTest();
+});
+
+function getTest(){
+	var memberId='sam'
+	custRest.getCust(
+		memberId,
+		function(memberVO){
+			alert("성공"+memberVO.custVO.memberId);
+		}
+	);
+}
+
+
+
+/* 로그인 아작스  */
+/*
+function regUser(){
+	var memberId = $("#memberId").val();
+	var password = $("#password").val();
+	var phone = $("#phone").val();
+	var email = $("#email").val();
+	var addr_post = $("#addr_post").val();
+	var addr_city = $("#addr_city").val();
+	var addr_detail = $("#addr_detail").val();
+	var birth = $("#birth").val();
+	var sex = $("#sex").val();
+	var company_yn = $("#company_yn").val();
+	var member_yn = $("#member_yn").val();
+
+} 
+*/
+
 </script>	
-	
-	
-	
-<%@ include file="../include/footer.jsp" %>
+
+</body>
+</html>

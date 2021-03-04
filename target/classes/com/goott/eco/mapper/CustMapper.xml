@@ -10,22 +10,46 @@
 	</select>
 	
 	<select id="getCustId" resultType="com.goott.eco.domain.CustVO">
-		SELECT memberId, mytree, mymil, bar_status 
+		SELECT memberId, myTree, myMil, bar_status 
 		FROM eco.cust
 		WHERE memberId=#{memberId}
 	</select>
-
+	
+	<!-- 특정 회원정보 가져오기 -->
+	<select id="getCust" resultType="com.goott.eco.domain.CustVO">
+		SELECT * 
+		FROM eco.cust
+		WHERE memberId=#{memberId}
+	</select>
+	
 	<!-- 로그인 -->
 	<select id="getCustLogin" resultType="com.goott.eco.domain.CustVO">
-		SELECT * FROM eco.cust 
+		SELECT memberId FROM eco.cust 
 		WHERE memberId=#{memberId} AND password=#{password} AND member_yn='Y' 
 	</select>
 	
 	<!-- 회원가입 -->
 	<insert id="joinCust">
 		INSERT INTO eco.cust 
-		VALUES(#{memberId}, #{password}, #{name}, #{phone}, #{email}, #{addr_post}, #{addr_city}, #{addr_detail}, 
-				#{birth}, #{sex}, default, default, default, #{memberId}, default, #{memberId}, default, default)
+		VALUES(
+		#{memberId}, #{password}, #{name}, #{phone}, #{email}, #{addr_post}, #{addr_city}, 
+		#{addr_detail}, #{birth}, #{sex}, #{company_yn}, default, default, 
+		#{memberId}, default, #{memberId}, default, default, default, default
+		)
 	</insert>
-
+	
+	<!-- 회원수정 -->
+	<update id="modifyCust">
+		UPDATE eco.cust
+		SET password=#{password}, phone=#{phone}, addr_post=#{addr_post}, addr_city=#{addr_city}, addr_detail=#{addr_detail},
+			company_yn=#{company_yn}, editUser=#{editUser}, editDate=default
+		WHERE memberId=#{memberId}
+	</update>
+	
+	<!-- 회원삭제 -->
+	<update id="deleteCust">
+		UPDATE eco.cust
+		SET member_yn = 'N'
+		WHERE memberId = #{memberId}
+	</update>
 </mapper>

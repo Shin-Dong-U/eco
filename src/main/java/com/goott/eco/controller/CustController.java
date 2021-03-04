@@ -5,13 +5,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-//import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.goott.eco.domain.CustVO;
 import com.goott.eco.service.CustService;
 
@@ -30,6 +27,7 @@ public class CustController {
 		return mav;
 	}
 	
+
 	
 	@GetMapping("/game/list")
 	public void list(Model model) {
@@ -40,15 +38,9 @@ public class CustController {
 //	public void item(Model model) {
 //		System.out.println("item페이지이동");
 //	}
-	
-	
-	
-	
-	
-	
-	
 	//null값으로 , 그냥 gameInfo에 화면만 출력하게해준것
 	//http://localhost/cust/gameInfo?id=basic
+
 	@GetMapping("/gameInfo")
 	public ModelAndView custId(String id) {
 		CustVO custVO = new CustVO();
@@ -63,6 +55,19 @@ public class CustController {
 		return mav;
 	}
 	
+
+	/* 로그인 페이지 이동 */
+	@GetMapping("/login")
+	public void custLogin() {
+		
+	}
+	
+	/* 관리자 페이지 이동 */
+	@GetMapping("/admin")
+	public void admin() {
+		
+	}
+
 	//만약 회원의 게임 나무레벨이 A라면, GAME_IMAGE에 있는 값을 불러와라! 
 	
 	
@@ -90,9 +95,6 @@ public class CustController {
 //		//ModelAndView mav = new ModelAndView("/cust/gameInfo");
 //		
 //	}
-
-	
-
 
 
 

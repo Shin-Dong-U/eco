@@ -5,9 +5,13 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goott.eco.mapper.BasketMapper">
 	
-	<select id="getBasketList" resultType="com.goott.eco.domain.BasketDetailVO">
-		SELECT *FROM BASKET_DETAIL WHERE BASKET_SEQ IN
-		(SELECT BASKET_SEQ FROM BASKET WHERE cust_id =#{cust_id})
+	<select id="getBasketList" resultType="hashMap">
+		SELECT a.basket_seq,a.qty,b.goods_seq,b.goods_name, b.price,c.img_url 
+		FROM ECO.BASKET_detail a LEFT OUTER JOIN ECO.GOODS b
+		ON a.goods_seq = b.goods_seq
+		LEFT OUTER JOIN ECO.GOODS_DETAIL_IMG c 
+		ON a.goods_seq = c.goods_seq
+		WHERE a.BASKET_SEQ IN (SELECT basket.basket_seq FROM ECO.basket where cust_id=#{cust_id})
 	</select>
 	
 	<select id="getGoodsInfo" resultType="com.goott.eco.domain.GoodsVOtest">
