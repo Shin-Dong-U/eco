@@ -11,7 +11,7 @@
 		ON a.goods_seq = b.goods_seq
 		LEFT OUTER JOIN ECO.GOODS_DETAIL_IMG c 
 		ON a.goods_seq = c.goods_seq
-		WHERE a.BASKET_SEQ IN (SELECT basket.basket_seq FROM ECO.basket where cust_id=#{cust_id})
+		WHERE a.BASKET_SEQ IN (SELECT basket.basket_seq FROM ECO.basket where cust_id=#{cust_id} AND delete_yn='N')
 	</select>
 	
 	<select id="getGoodsInfo" resultType="com.goott.eco.domain.GoodsVOtest">
