@@ -13,6 +13,28 @@ import lombok.extern.log4j.Log4j;
 @CrossOrigin(origins ="http://localhost:3000")
 //@RequestMapping("/orders/*")
 public class PageController {
+	
+	@GetMapping("/deli/delilist")
+	public String list3(Model model) {
+		log.info("alldelivery페이지 이동");
+		return "deli/delilist";
+	}
+	
+//	@GetMapping("/deli/delilist")
+//	public String list1(Model model) {
+//		log.info("invoice_delivery페이지 이동");
+//		return "deli/delilist";
+//	}
+	@GetMapping("/paidGoods/list")
+	public String list4(Model model) {
+		log.info("paidGoods페이지 이동");
+		return "paidGoods/list";
+	}
+//	@GetMapping("/deli/delilist")
+//	public String list2(Model model) {
+//		log.info("myDeliveryList페이지 이동");
+//		return  "deli/delilist";
+//	}
 
 	@GetMapping("/orders/basket/list")
 	public void list(Model model) {

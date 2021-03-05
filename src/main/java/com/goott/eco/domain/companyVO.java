@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class companyVO {
+public class CompanyVO {
 
 	private long comp_seq;
 	private String cust_id;
@@ -135,7 +135,7 @@ public class companyVO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		companyVO other = (companyVO) obj;
+		CompanyVO other = (CompanyVO) obj;
 		if (addr_city == null) {
 			if (other.addr_city != null)
 				return false;

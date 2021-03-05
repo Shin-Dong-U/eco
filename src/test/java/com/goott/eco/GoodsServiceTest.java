@@ -1,16 +1,12 @@
 package com.goott.eco;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.goott.eco.config.RootConfig;
 import com.goott.eco.config.ServletConfig;
-import com.goott.eco.config.WebConfig;
-import com.goott.eco.service.GoodsService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -19,10 +15,10 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration(classes = {RootConfig.class, ServletConfig.class})
 @Log4j
 public class GoodsServiceTest {
-	@Autowired private GoodsService service;
-	
-	@Test(expected=Exception.class)
-	public void txTest() {
-		service.txTest();
-	}
+//	@Autowired private GoodsService service;
+//	
+//	@Test(expected=Exception.class)
+//	public void txTest() {
+//		service.txTest();
+//	}
 }

@@ -12,25 +12,25 @@ import com.goott.eco.mapper.GoodsMapper;
 
 @Transactional
 @Service
-public class GoodsServiceimpl implements GoodsService{
+public class GoodsServiceimpl{
 
-	@Autowired private GoodsMapper goodsDao; 
-	
-	@Override
-	public void txTest() {
-		Map<String, Object> goodMap = new HashMap<String, Object>();
-		goodMap.put("no", 1);
-		goodMap.put("val", "1");
-		Map<String, Object> badMap = new HashMap<String, Object>();
-		badMap.put("no", 2);
-		badMap.put("val", "555555555555555555555555555555555555555555555151513153111");
-		goodsDao.test(goodMap);
-		goodsDao.test(badMap);
-	}
-	
-	@Override
-	public List<Map<String, Object>> getGoodsList(Map<String, Object> search) {
-		return goodsDao.getGoodsList(search);
-	}
-
+//	@Autowired private GoodsMapper goodsDao; 
+//	
+//	@Override
+//	public void txTest() {
+//		Map<String, Object> goodMap = new HashMap<String, Object>();
+//		goodMap.put("no", 1);
+//		goodMap.put("val", "1");
+//		Map<String, Object> badMap = new HashMap<String, Object>();
+//		badMap.put("no", 2);
+//		badMap.put("val", "555555555555555555555555555555555555555555555151513153111");
+//		goodsDao.test(goodMap);
+//		goodsDao.test(badMap);
+//	}
+//	
+//	//Override
+//	//ublic List<Map<String, Object>> getGoodsList(Map<String, Object> search) {
+//	//	return goodsDao.getGoodsList(search);
+//	//
+//    //
 }

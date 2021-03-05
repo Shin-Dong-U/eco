@@ -17,8 +17,8 @@ import com.goott.eco.domain.CustVO;
 import com.goott.eco.domain.MemberVO;
 import com.goott.eco.service.CustService;
 
-@RestController
-@RequestMapping("/cust/rest/*")
+//@RestController
+//@RequestMapping("/cust/rest/*")
 public class RestCustController {
 		@Autowired
 		private CustService custService;
