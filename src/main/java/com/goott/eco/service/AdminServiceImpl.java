@@ -11,11 +11,19 @@ import com.goott.eco.domain.GoodsVO;
 import com.goott.eco.mapper.GoodsMapper;
 import com.goott.eco.util.GoodsSampleDataMaker;
 
+import java.util.HashMap;
+import java.util.List;
+
+import com.goott.eco.mapper.AdminMapper;
+
 @Service
 public class AdminServiceImpl implements AdminService{
+	@Autowired 
+	private AdminMapper adminDao;
 	
-	@Autowired private GoodsMapper goodsDao;
-
+	@Autowired 
+	private GoodsMapper goodsDao;
+	
 	@Transactional
 	@Override
 	public int getSampleData() throws Exception {
@@ -44,6 +52,23 @@ public class AdminServiceImpl implements AdminService{
 		
 		
 		return 0;
+	}
+	/* 모든 관리자 정보 가져오기 */
+	@Override
+	public List<HashMap<String, Object>> getAdminList() {
+		return adminDao.getAdminList();
+	}
+	
+	/* 모든 업체 정보 가져오기 */
+	@Override
+	public List<HashMap<String, Object>> getCompanyList() {
+		return adminDao.getCompanyList();
+	}
+
+	/* 모든 일반사용자 정보 가져오기 */
+	@Override
+	public List<HashMap<String, Object>> getCustList() {
+		return adminDao.getCustList();
 	}
 
 }

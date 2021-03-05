@@ -1,10 +1,10 @@
-package com.goott.eco.service;
+package com.goott.eco.mapper;
 
 import java.util.HashMap;
 import java.util.List;
 
-public interface AdminService {
-	public int getSampleData() throws Exception ;
+public interface AdminMapper {
+	
 	/* 모든 관리자 정보 가져오기 */
 	public List<HashMap<String, Object>> getAdminList(); //(PageDTO page);
 	
@@ -13,4 +13,6 @@ public interface AdminService {
 	
 	/* 모든 일반사용자 정보 가져오기 */
 	public List<HashMap<String, Object>> getCustList(); //(PageDTO page);
+	
+	
 }

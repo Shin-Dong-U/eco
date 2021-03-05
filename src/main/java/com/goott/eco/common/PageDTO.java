@@ -16,7 +16,10 @@ public class PageDTO {
 	
 	private int pagingNomCnt;	//화면 하단에 출력할 페이지 번호 개수
 	private int realEnd;
-	public PageDTO() {}
+
+	public PageDTO() {
+	}
+
 
 	public PageDTO(Criteria cri, int total) {
 		this.cri = cri;
@@ -30,11 +33,14 @@ public class PageDTO {
 //		System.out.println("pageNum: "+cri.getPageNum());
 //		System.out.println("startPage: "+startPage);
 //		System.out.println("endPage: "+endPage);
+
 		
 		
 		//전체 행 개수를 고려한 총 페이지 개수(마지막 페이지 번호)
 		realEnd = (int)(Math.ceil((total*1.0)/cri.getAmount()));
+
 //		System.out.println("realEnd: "+realEnd);
+
 		
 		//계산된 끝 페이징 번호가 실제 마지막 페이지 번호보다 크면, endPage 값을 realEnd로 대체
 		if(realEnd < this.endPage) {
@@ -44,7 +50,9 @@ public class PageDTO {
 		this.prev=this.startPage >1;
 		this.next= this.endPage<realEnd;
 		this.startRowno = (cri.getPageNum() * cri.getAmount() ) - (cri.getAmount());
+
 //		System.out.println("realEnd: "+prev);
 //		System.out.println("realEnd: "+next);
 	}
 }
+

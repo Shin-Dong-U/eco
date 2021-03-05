@@ -42,7 +42,7 @@
 	<update id="modifyCust">
 		UPDATE eco.cust
 		SET password=#{password}, phone=#{phone}, addr_post=#{addr_post}, addr_city=#{addr_city}, addr_detail=#{addr_detail},
-			company_yn=#{company_yn}, editUser=#{editUser}, editDate=default
+			company_yn=#{company_yn}, editUser=#{memberId}, editDate=default
 		WHERE memberId=#{memberId}
 	</update>
 	

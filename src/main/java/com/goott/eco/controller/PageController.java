@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 
 import lombok.extern.log4j.Log4j;
 
@@ -30,6 +30,7 @@ public class PageController {
 		log.info("pay페이지 이동");
 		return "orders/order/pay";
 	}
+
 //	
 //	@GetMapping("/home/contact")
 //	public void contact(Model model) {
@@ -69,6 +70,31 @@ public class PageController {
 //		log.info("wishlist페이지 이동");
 //		
 //	}
+
+	/* 로그인 페이지 이동 */
+	@GetMapping("/cust/login")
+	public void custLogin() {
+		
+	}
+	/* 관리자 페이지 이동 */
+	@GetMapping("/admin/admin")
+	public void admin() {
+		
+	}
+	/* list 페이지 이동 */
+	@GetMapping("/cust/list")
+	public void custList() {
+
+	}
+
+	@GetMapping("/game/item")
+	public void item(Model model) {
+		System.out.println("item페이지이동");
+	}
+	
+	
+	
+
 	/*
 	 * @GetMapping("/goods/detail") public void goodsDetail(Model model) {
 	 * log.info("상품상세페이지이동"); }

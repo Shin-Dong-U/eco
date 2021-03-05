@@ -9,7 +9,7 @@ var custRest=(function(){
 		
 		$.ajax({
 			type:"post",
-			url:"/cust/rest/login",
+			url:"/cust/login",
 			data:JSON.stringify(customer),
 			contentType:"application/json; charset=UTF-8",
 
@@ -37,10 +37,10 @@ var custRest=(function(){
 	/* 특정 회원 정보 가져오기 */
 	function getCust(memberId, callback, error){
 		$.ajax({
-			type:"post",
-			url:"/cust/rest/get/"+memberId,
-			data:JSON.stringify(memberId),
-			contentType:"application/json; charset=UTF-8",
+			type:"get",
+			url:"/cust/get/"+memberId,
+			//data:JSON.stringify(),
+			//contentType:"text/html; charset=utf-8",
 			success:function(data){
 				console.log("data: "+data);
 				if(callback){
@@ -67,14 +67,15 @@ var custRest=(function(){
 		
 		$.ajax({
 			type:"put",
-			url:"/cust/rest/join",
+			url:"/cust/join",
 			data:JSON.stringify(member),
 			contentType:"application/json; charset=UTF-8",
 			
 			success:function(data){
 				if(callback){
+					console.log("restCust.ajax실행중 joinCust 완료: "+data);
 					callback(data);
-					console.log("restCust.ajax실행중 joinCust 완료");
+					
 				}
 			},
 			error:function(xhr,status,err){
@@ -93,14 +94,14 @@ var custRest=(function(){
 		
 		$.ajax({
 			type:"put",
-			url:"/cust/rest/modify",
+			url:"/cust/modify",
 			data:JSON.stringify(member),
 			contentType:"application/json; charset=UTF-8",
 			
 			success:function(data){
 				if(callback){
 					callback(data);
-					console.log("restCust.ajax실행중 modifyMember완료");
+					console.log("restCust.ajax실행중 modifyMember완료: "+data);
 				}
 			},
 			error:function(xhr,status,err){
@@ -119,7 +120,7 @@ var custRest=(function(){
 		
 		$.ajax({
 			type:"put",
-			url:"/cust/rest/delete/"+memberId,
+			url:"/cust/delete/"+memberId,
 			data:JSON.stringify(memberId),
 			contentType:"application/json; charset=UTF-8",
 			

@@ -18,7 +18,7 @@ public class Criteria {
 	public Criteria() {
 		this(1,20);	//게시물 번호를 입력
 	}
-	
+
 	public Criteria(int pageNum, int amount) {
 		this.pageNum = pageNum;
 		this.amount = amount;
@@ -28,4 +28,6 @@ public class Criteria {
 	public String[] getTypeArr() {
 		return CustType == null ? new String[] {} : CustType.split("");
 	}
+
 }
+
