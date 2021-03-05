@@ -7,21 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.goott.eco.config.RootConfig;
-import com.goott.eco.config.ServletConfig;
-import com.goott.eco.config.WebConfig;
-import com.goott.eco.domain.GoodsThumbNailVO;
 import com.goott.eco.domain.GoodsVO;
 import com.goott.eco.mapper.GoodsMapper;
 
@@ -87,7 +79,7 @@ public class GoodsMapperTest {
 	
 	@Test
 	public void insertGoodsThumbNailTest() {
-		GoodsThumbNailVO vo = new GoodsThumbNailVO();
+		GoodsVO vo = new GoodsVO();
 		vo.setGoods_seq(2);
 		dao.insertGoodsThumbNail(vo);
 	}

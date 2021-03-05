@@ -13,7 +13,6 @@ import org.jsoup.select.Elements;
 import org.junit.runner.RunWith;
 
 import com.goott.eco.config.RootConfig;
-import com.goott.eco.domain.GoodsThumbNailVO;
 import com.goott.eco.domain.GoodsVO;
 
 import lombok.Getter;
@@ -41,11 +40,10 @@ public class GoodsSampleDataMaker {
 	
 	private String listUrl = "https://www.coupang.com/np/search?q=";
 	private String searchStr;
-	private String pageQuery = "&page=1&listSize=100";
+	private String pageQuery = "&listSize=100&page=";
+	private int currPage = 1;
 	
 	private String detailUrl = "https://www.coupang.com/vp/products/";
-	
-	private String[] products;//상품 pk값들이 담길 리스트
 	
 	private Document doc;
 	
@@ -57,21 +55,25 @@ public class GoodsSampleDataMaker {
 		this.searchStr =  URLEncoder.encode(searchStr, CHAR_SET);
 	}
 	
+	public void setCurrPage(int currPage) {
+		this.currPage = currPage;
+	}
+	
 	
 	public static void main(String[] args) throws IOException {
 		GoodsSampleDataMaker maker = new GoodsSampleDataMaker();
 //		System.out.println(URLEncoder.encode("친환경", maker.CHAR_SET));
-		maker.getProductIdList();
+		String[] products = maker.getProductIdList();
 		
-		String tmpUrl = maker.getProductDetailUrl(maker.products[0]);
+		String tmpUrl = maker.getProductDetailUrl(products[0]);
 		maker.getProductInfo(tmpUrl);
 		
 		
 	}
 	
 	//조회 된 상품 pk 값을 list에 담는다. 
-	public void getProductIdList() throws IOException{
-		this.doc = Jsoup.connect(this.listUrl + this.searchStr + this.pageQuery).get();
+	public String[] getProductIdList() throws IOException{
+		this.doc = Jsoup.connect(this.listUrl + this.searchStr + this.pageQuery + this.currPage).get();
 		
 		String productsStr = doc.getElementById("productList").attr("data-products");
 //		System.out.println(productsStr);
@@ -79,9 +81,10 @@ public class GoodsSampleDataMaker {
 		productsStr = productsStr.substring(productsStr.indexOf(":[") + 2, productsStr.length() -3).replaceAll(" ", "");
 //		System.out.println(productsStr);
 		
-		
-		this.products = productsStr.split(","); 
+		String[] products = productsStr.split(","); 
 //		System.out.println(Arrays.toString(products));
+		
+		return products;
 	}
 	
 	//상품 상세 페이지 url 리턴
@@ -91,21 +94,21 @@ public class GoodsSampleDataMaker {
 	}
 	
 	//상품 정보 획득 
-	public void getProductInfo(String url) throws IOException {
+	public GoodsVO getProductInfo(String url) throws IOException {
  		this.doc = Jsoup.connect(url).get();
  		
 		
 		String goodsName = doc.select(".prod-buy-header__title").text();
-		System.out.println(goodsName);
+//		System.out.println(goodsName);
 		
 		String tmpPrice = doc.select(".total-price > strong").text();
-		System.out.println(tmpPrice);
+//		System.out.println(tmpPrice);
 		int price = convertPriceStrToInt(tmpPrice);
-		System.out.println(price);
+//		System.out.println(price);
 		
 		
 		String imgUrl = doc.select("#repImageContainer > .prod-image__detail").attr("src");
-		System.out.println(imgUrl);
+//		System.out.println(imgUrl);
 		
 		GoodsVO goodsVO = new GoodsVO();
 		goodsVO.setGoods_name(goodsName);
@@ -115,9 +118,10 @@ public class GoodsSampleDataMaker {
 		goodsVO.setReq_option("N");
 		goodsVO.setReguser("SYSTEM");
 		
-		GoodsThumbNailVO thumbVO = new GoodsThumbNailVO();
-		thumbVO.setImg_url(imgUrl);
+		goodsVO.setImg_url(imgUrl);
+		goodsVO.setMain_yn("Y");
 		
+		return goodsVO;
 	}
 	
 	//가격 문자열 파싱 ex)(String)"13,500원" -> (int)13500  
@@ -130,7 +134,13 @@ public class GoodsSampleDataMaker {
 		}
 		
 		String tmpPrice = sb.toString();
-		if(tmpPrice.length() == 0) { tmpPrice = "0"; }
+		if(tmpPrice.length() == 0) { 
+			tmpPrice = "0"; 
+		}else if(tmpPrice.length() > 1 && tmpPrice.charAt(0) == '0') {
+			tmpPrice = "0";
+		}else if(tmpPrice.length() > 9) {
+			tmpPrice = "0";
+		}
 		
 		return Integer.parseInt(tmpPrice); 
 	}
