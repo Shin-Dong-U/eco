@@ -3,10 +3,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.goott.eco.mapper.AdminMapper">
-	
+
+
 	<!-- 모든 관리자 정보 가져오기 -->
-	<select id="getAdminList" resultType="map">
-		SELECT /*+ Index_DESC(a regIndex) */ a.*, b.acc_level
+	<select id="getAdminList" resultType="java.util.Map">
+		SELECT /*+ Index_DESC(a regIndex) */ 
+		a.memberId, a.password, a.name, a.phone , a.email, a.addr_post,
+		a.addr_city, a.addr_detail, a.birth, a.sex, a.company_yn,
+		to_char(a.regDate, 'YYYY-MM-DD')as regDate,
+		to_char(a.editDate, 'YYYY-MM-DD') as editDate,
+		a.editUser, a.regUser, a.member_yn, a.admin_yn,
+		a.myTree, a.myMil, a.bar_status,
+		b.acc_level 
 		FROM eco.cust a INNER JOIN eco.admin b
 		ON (a.memberId = b.cust_Id)
 		WHERE admin_yn='Y'
@@ -14,8 +22,14 @@
 	</select>
 	
 	<!-- 모든 업체 정보 가져오기 -->
-	<select id="getCompanyList" resultType="map">
-		SELECT /*+ Index_DESC(a regIndex) */ a.*, 
+	<select id="getCompanyList" resultType="java.util.Map">
+		SELECT /*+ Index_DESC(a regIndex) */ 
+		a.memberId, a.password, a.name, a.phone , a.email, a.addr_post,
+		a.addr_city, a.addr_detail, a.birth, a.sex, a.company_yn,
+		to_char(a.regDate, 'YYYY-MM-DD')as regDate,
+		to_char(a.editDate, 'YYYY-MM-DD') as editDate,
+		a.editUser, a.regUser, a.member_yn, a.admin_yn,
+		a.myTree, a.myMil, a.bar_status,
 		b.comp_seq, b.comp_name, b.corp_num, b.confirm_yn, b.memo
 		FROM eco.cust a INNER JOIN eco.company b
 		ON (a.memberId = b.cust_Id)
@@ -24,11 +38,15 @@
 	</select>
 	
 	<!-- 모든 일반사용자 정보 가져오기 -->
-	<select id="getCustList" resultType="map">
-		SELECT /*+ Index_DESC(a regIndex) */ a.*
+ 	<select id="getCustList" resultType="java.util.Map">
+		SELECT /*+ Index_DESC(a regIndex) */
+		MEMBERID, PASSWORD, NAME, PHONE, EMAIL, ADDR_POST,
+		ADDR_CITY, ADDR_DETAIL, BIRTH, SEX, COMPANY_YN, 
+		to_char(REGDATE, 'YYYY-MM-DD') as REGDATE,
+		to_char(EDITDATE, 'YYYY-MM-DD') as EDITDATE,
+		REGUSER, EDITUSER, MEMBER_YN, MYTREE, MYMIL, BAR_STATUS, ADMIN_YN
 		FROM eco.cust a
 		where company_yn='N' AND admin_yn='N'
 		<!-- OFFSET #{startRowno} ROWS FETCH FIRST #{amount} ROWS ONLY -->
 	</select>
-	
 </mapper>

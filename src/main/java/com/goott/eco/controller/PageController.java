@@ -75,7 +75,7 @@ public class PageController {
 		
 	}
 	/* 관리자 페이지 이동 */
-	@GetMapping("/cust/admin")
+	@GetMapping("/admin/admin")
 	public void admin() {
 		
 	}

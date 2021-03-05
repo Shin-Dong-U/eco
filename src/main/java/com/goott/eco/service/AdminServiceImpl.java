@@ -1,7 +1,7 @@
 package com.goott.eco.service;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,21 +13,21 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired 
 	private AdminMapper adminDao;
 
+	/* 모든 관리자 정보 가져오기 */
 	@Override
-	public Map<String, Object> getAdminList() {
-		// TODO Auto-generated method stub
+	public List<HashMap<String, Object>> getAdminList() {
 		return adminDao.getAdminList();
 	}
 	
+	/* 모든 업체 정보 가져오기 */
 	@Override
-	public Map<String, Object> getCompanyList() {
-		// TODO Auto-generated method stub
+	public List<HashMap<String, Object>> getCompanyList() {
 		return adminDao.getCompanyList();
 	}
 
+	/* 모든 일반사용자 정보 가져오기 */
 	@Override
-	public Map<String, Object> getCustList() {
-		// TODO Auto-generated method stub
+	public List<HashMap<String, Object>> getCustList() {
 		return adminDao.getCustList();
 	}
 

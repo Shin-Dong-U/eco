@@ -1,8 +1,8 @@
 package com.goott.eco.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,32 +22,39 @@ public class AdminController {
 	
 	
 	/* 모든 일반 사용자 회원 정보 가져오기  */
-	@GetMapping(value="/getCust")
-	public ResponseEntity<Map<String, Object>> getCustList(){
-		Map<String, Object> custMap = adminService.getCustList();	
-		return new ResponseEntity<>(custMap, HttpStatus.OK);
+	@GetMapping(value="/getCust/{cust}",produces={"application/json; charset=UTF-8"})
+	public ResponseEntity<List<HashMap<String,Object>>> getCustList(){
+		/* TEST형식 */
+		List<HashMap<String, Object>> custList = adminService.getCustList();
+		System.out.println("controller: "+ custList);
+
+		
+		return new ResponseEntity<>(custList, HttpStatus.OK);
 		
 	}
 	
-	
-	/* 모든 관리자  회원 정보 가져오기  */
-	@GetMapping(value="/getAdmin")
-	public ResponseEntity<List<Map<String, Object>>> getAdminList(){
-		List<Map<String, Object>> custMap = new ArrayList<Map<String, Object>>();
-		///custMap = adminService.getAdminList();
-		return null;
+	/* 모든 관리자 정보 가져오기 */
+	@GetMapping(value="/getAdmin/{cust}",produces={"application/json; charset=UTF-8"})
+	public ResponseEntity<List<HashMap<String, Object>>> getAdminList(){
+		/* TEST형식 */
+		List<HashMap<String, Object>> adminList = new ArrayList<>();
+		adminList=adminService.getAdminList();
+		System.out.println("test: "+adminList);
 		
+		
+		return new ResponseEntity<>(adminService.getAdminList(), HttpStatus.OK);
 	}
 	
 	/* 모든 업체 회원 정보 가져오기  */
-	@GetMapping(value="/getCompany")
-	public ResponseEntity<List<Map<String, Object>>> getCompanyList(){
-		List<Map<String, Object>> custMap = new ArrayList<Map<String, Object>>();
-		//custMap = adminService.getCompanyList();
+	@GetMapping(value="/getCompany/{cust}",produces={"application/json; charset=UTF-8"})
+	public ResponseEntity<List<HashMap<String, Object>>> getCompanyList(){
+		/* TEST형식 */
+		List<HashMap<String, Object>> companyList = new ArrayList<>();
+		companyList=adminService.getCompanyList();
+		System.out.println("test: "+companyList);
 		
-		return null;
+		
+		return new ResponseEntity<>(companyList, HttpStatus.OK);
 		
 	}
-	
-
 }
