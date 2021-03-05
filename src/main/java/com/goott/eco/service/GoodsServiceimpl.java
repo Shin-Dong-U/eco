@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.goott.eco.domain.GoodsVO;
 import com.goott.eco.mapper.GoodsMapper;
 
 @Transactional
@@ -31,6 +32,17 @@ public class GoodsServiceimpl implements GoodsService{
 	@Override
 	public List<Map<String, Object>> getGoodsList(Map<String, Object> search) {
 		return goodsDao.getGoodsList(search);
+	}
+
+//	@Override
+//	public int insertGoods(Map<String, Object> param) {
+//		goodsDao.insertGoods(param);
+//		return 0;
+//	}
+	@Override
+	public int insertGoods(GoodsVO vo) {
+		goodsDao.insertGoods(vo);
+		return 0;
 	}
 
 }

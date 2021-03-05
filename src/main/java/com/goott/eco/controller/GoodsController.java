@@ -20,7 +20,8 @@ public class GoodsController {
 	@GetMapping("/list")
 	public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("/goods/goodslist");
-		System.out.println(goodsService.getGoodsList(null).size());
+		int size = goodsService.getGoodsList(null).size();
+		System.out.println(size);
 		return mav;
 	}
 	
