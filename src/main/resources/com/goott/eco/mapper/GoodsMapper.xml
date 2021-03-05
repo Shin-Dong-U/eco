@@ -9,19 +9,19 @@
 		INSERT INTO TB_TEST VALUES(#{no}, #{val})
 	</insert>
 	
-	<select id="goodsListCount" resultType="int" parameterType="map">
+	<select id="totalCountGoodsList" resultType="int" parameterType="com.goott.eco.common.Criteria">
 		SELECT COUNT(*) FROM GOODS  
 		WHERE
 			1=1
 			<if test="category != null and category != ''">
 			AND CATEGORY = #{category}	
 			</if>
-			<if test="name != null and name != ''">
-			AND GOODS_NAME LIKE '%#{name}%'
+			<if test="keyword != null and keyword != ''">
+			AND GOODS_NAME LIKE '%#{keyword}%'
 			</if>
 	</select>
 	
-	<select id="getGoodsList" resultType="map" parameterType="map">
+	<select id="goodsList" resultType="map" parameterType="map">
 		SELECT 
 			  G.GOODS_SEQ, G.GOODS_NAME, G.PRICE, G.ECO_SCORE
 			, GTN.IMG_URL
@@ -33,10 +33,11 @@
 			<if test="category != null and category != ''">
 			AND CATEGORY = #{category}	
 			</if>
-			<if test="name != null and name != ''">
-			AND GOODS_NAME LIKE '%#{name}%'
+			<if test="keyword != null and keyword != ''">
+			AND GOODS_NAME LIKE '%#{keyword}%'
 			</if>
-		OFFSET 0 ROWS FETCH FIRST 100 ROWS ONLY
+		ORDER BY G.GOODS_SEQ
+		OFFSET #{start} ROWS FETCH FIRST #{amount} ROWS ONLY
 	</select>
 	
 	<select id="insertGoods" statementType="CALLABLE" parameterType="com.goott.eco.domain.GoodsVO">

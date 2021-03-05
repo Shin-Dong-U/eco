@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.goott.eco.common.Criteria;
+import com.goott.eco.common.PageDTO;
 import com.goott.eco.domain.GoodsVO;
 import com.goott.eco.mapper.GoodsMapper;
 
@@ -30,8 +32,19 @@ public class GoodsServiceimpl implements GoodsService{
 	}
 	
 	@Override
-	public List<Map<String, Object>> getGoodsList(Map<String, Object> search) {
-		return goodsDao.getGoodsList(search);
+	public Map<String, Object> goodsList(Criteria cri) {
+		Map<String, Object> resMap = new HashMap<>();
+		
+		cri.validCategory();
+		int cnt = goodsDao.totalCountGoodsList(cri);
+		
+		List<Map<String, Object>> goodsList = goodsDao.goodsList(cri);
+		resMap.put("goodsList", goodsList);
+		
+		PageDTO page = new PageDTO(cri, cnt);
+		resMap.put("page", page);
+		
+		return resMap;
 	}
 
 //	@Override
