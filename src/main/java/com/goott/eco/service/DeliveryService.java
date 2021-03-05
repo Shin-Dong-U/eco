@@ -7,6 +7,5 @@ import com.goott.eco.domain.DeliveryVO;
 public interface DeliveryService {
 	
 	public List<DeliveryVO> getDeliveryList(String delivery_seq);
-	
 
 }

@@ -25,8 +25,11 @@ public class CustController {
 	@GetMapping("/list")
 	public ModelAndView custList() {
 		List<Map<String, Object>> custList = custService.getCustList(null);
+		
 		System.out.println(custList.size());
 		ModelAndView mav = new ModelAndView("/cust/custlist");
+		mav.addObject("custlist",custList);
+		
 		return mav;
 	}
 	

@@ -12,5 +12,47 @@
 	<select id="getGoodsList" resultType="map" parameterType="map">
 		SELECT * FROM eco.goods WHERE GOODS_SEQ = #{goods_seq}
 	</select>
+	
+	<select id="insertGoods" statementType="CALLABLE" parameterType="com.goott.eco.domain.GoodsVO">
+		{call PROC_GOODS_INS(
+		     #{goods_seq,mode=OUT,jdbcType=INTEGER}
+		    ,#{comp_seq,mode=IN,jdbcType=INTEGER}
+		    ,#{goods_name,mode=IN,jdbcType=VARCHAR}
+		    ,#{goods_detail,mode=IN,jdbcType=CLOB}
+		    ,#{price,mode=IN,jdbcType=INTEGER}
+		    ,#{qty,mode=IN,jdbcType=INTEGER}
+		    ,#{material,mode=IN,jdbcType=VARCHAR}
+		    ,#{category,mode=IN,jdbcType=INTEGER}
+		    ,#{eco_score,mode=IN,jdbcType=INTEGER}
+		    ,#{reguser,mode=IN,jdbcType=VARCHAR}
+		    ,#{req_option,mode=IN,jdbcType=VARCHAR}
+		    )
+		}
+	</select>
+	
+	<delete id="realDeleteGoods" parameterType="int">
+		DELETE FROM GOODS WHERE GOODS_SEQ = #{goodsSeq}
+	</delete>
+	
+	<insert id="insertGoodsThumbNail" parameterType="com.goott.eco.domain.GoodsThumbNailVO">
+		INSERT INTO GOODS_THUMB_NAIL(
+			 GOODS_SEQ
+			,GOODS_THUM_NAIL_SEQ
+			,IMG_URL
+			,MAIN_YN
+			,REGDATE
+			,REGUSER
+			,EDITDATE
+			,EDITUSER
+		) VALUES (
+			#{goods_seq}
+			,(SELECT NVL(MAX(GOODS_THUM_NAIL_SEQ),0) + 1 FROM GOODS_THUMB_NAIL WHERE GOODS_SEQ = #{goods_seq})
+			,#{img_url}
+			,#{main_yn}
+			,SYSDATE
+			,#{reguser}
+			,NULL
+			,NULL )
+	</insert>
 
 </mapper>
