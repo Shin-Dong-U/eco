@@ -25,7 +25,7 @@ public class DeliveryServiceImpl implements DeliveryService{
 	
 	//배송 리스트 조회 
 	@Override
-	public List<DeliveryVO> getDeliveryList(Long invoice_no) {
+	public List<DeliveryVO> getDeliveryList(long invoice_no) {
 		
 		return deliveryMapper.getDeliveryList(invoice_no);
 	}
@@ -35,6 +35,13 @@ public class DeliveryServiceImpl implements DeliveryService{
 	public List<DeliveryVO> getDeliveryList( ) {
 		return deliveryMapper.getDeliveryList();
 	
+	}
+
+
+	@Override
+	public List<DeliveryVO> getDeliveryList(String delivery_seq) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

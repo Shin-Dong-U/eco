@@ -31,14 +31,5 @@ public class RestGoodsController {
 			return new ResponseEntity<>(custMap,HttpStatus.OK);
 		}
 		
-		/* 회원가입 */
-		@PutMapping(value="/join", produces="application/json; charset=UTF-8")
-		public ResponseEntity<String> joinCust(@RequestBody CustVO cust) {
-			System.out.println("cust: "+cust.toString());
-			
-			return Custservice.joinCust(cust) == 1
-					?new ResponseEntity<>("success",HttpStatus.OK)
-					:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
 
 }
