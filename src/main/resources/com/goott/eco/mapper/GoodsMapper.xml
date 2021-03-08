@@ -133,5 +133,9 @@
 			,NULL
 			,NULL )
 	</insert>
+	
+	<select id="goodsCategoryList" resultType="map">
+		SELECT CATE_SEQ, CATE_NAME FROM GOODS_CATEGORY ORDER BY CATE_SEQ ASC
+	</select>
 
 </mapper>

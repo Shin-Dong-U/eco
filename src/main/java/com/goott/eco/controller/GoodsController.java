@@ -27,7 +27,7 @@ public class GoodsController {
 	
 	@GetMapping("")
 	public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response, Criteria cri) {
-		ModelAndView mav = new ModelAndView("/goods/goods_list");
+		ModelAndView mav = new ModelAndView("/goods/goods_list2");
 		mav.addAllObjects(goodsService.goodsList(cri));
 		
 		return mav;
