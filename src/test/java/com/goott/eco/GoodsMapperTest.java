@@ -54,6 +54,11 @@ public class GoodsMapperTest {
 		cri.validCategory();
 		goodsList = dao.goodsList(cri);
 		assertThat(goodsList.size(), is(20));
+		
+		Criteria cri2 = new Criteria();
+		cri2.setKeyword("청국장");
+		goodsList = dao.goodsList(cri2);
+		System.out.println(goodsList.get(0).get("GOODS_NAME"));
 	}
 	
 	@Test
@@ -80,6 +85,40 @@ public class GoodsMapperTest {
 		GoodsVO vo = new GoodsVO();
 		vo.setGoods_seq(2);
 		//dao.insertGoodsThumbNail(vo);
+	}
+	
+	@Test
+	public void goodsDetailTest() {
+		int goodsSeq = 458;
+		Map<String, Object> goodsInfo = dao.goodsDetail(goodsSeq);
+	}
+	
+	@Test
+	public void goodsDetailThumbImgTest() {
+		int goodsSeq = 458;
+		List<Map<String, Object>> thumbList = dao.goodsDetailThumbImg(goodsSeq);
+	}
+	
+	@Test
+	public void goodsDetailImgTest() {
+		int goodsSeq = 458;
+		List<Map<String, Object>> imgList = dao.goodsDetailImg(goodsSeq);
+	}
+	
+	@Test
+	public void goodsReqOptionTest() {
+		int goodsSeq = 458;
+		List<Map<String, Object>> reqList = dao.goodsReqOption(goodsSeq);
+	}
+	
+	@Test
+	public void goodsCommentTest() {
+		int goodsSeq = 458;
+		int start = 0;
+		Map<String, Object> prm = new HashMap<String, Object>();
+		prm.put("goods_seq", goodsSeq);
+		prm.put("start", start);
+		List<Map<String, Object>> commList = dao.goodsComment(prm);
 	}
 	
 }

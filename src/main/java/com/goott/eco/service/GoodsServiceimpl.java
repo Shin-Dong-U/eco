@@ -47,15 +47,26 @@ public class GoodsServiceimpl implements GoodsService{
 		return resMap;
 	}
 	
+	@Override
 	public Map<String, Object> goodsDetail(int goodsSeq){
-		return goodsDao.goodsDetail(goodsSeq);
+		Map<String, Object> goods = new HashMap<String, Object>();
+		goods.put("goodsDetail", goodsDao.goodsDetail(goodsSeq));
+		goods.put("thumbList", goodsDao.goodsDetailThumbImg(goodsSeq));
+		goods.put("imgList", goodsDao.goodsDetailImg(goodsSeq));
+		goods.put("optionList", goodsDao.goodsReqOption(goodsSeq));
+		
+		return goods;
+	}
+	
+	@Override
+	public List<Map<String, Object>> goodsComment(int goodsSeq, int start){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("goods_seq", goodsSeq);
+		param.put("start", start);
+		
+		return goodsDao.goodsComment(param);
 	}
 
-//	@Override
-//	public int insertGoods(Map<String, Object> param) {
-//		goodsDao.insertGoods(param);
-//		return 0;
-//	}
 	@Override
 	public int insertGoods(GoodsVO vo) {
 		goodsDao.insertGoods(vo);

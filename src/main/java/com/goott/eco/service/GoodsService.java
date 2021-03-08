@@ -10,4 +10,5 @@ public interface GoodsService {
 	public Map<String, Object> goodsDetail(int goodsSeq);
 	public void txTest();
 	public int insertGoods(GoodsVO vo);
+	public List<Map<String, Object>> goodsComment(int goodsSeq, int start);
 }

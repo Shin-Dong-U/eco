@@ -51,17 +51,17 @@
 		<level value="warn" />
 	</logger> 
 	
-	<!-- SQL 실행 시 수행 시간 (milliseconds) -->
+	<!-- SQL 실행 시 수행 시간 (milliseconds) 
 	<logger name="jdbc.sqltiming" additivity="false">
 	    <level value="info" />
 	    <appender-ref ref="console"/> 
-	</logger>
+	</logger>-->
 	
-	<!--  SQL 쿼리 문장 
+	<!--  SQL 쿼리 문장 -->
 	<logger name="jdbc.sqlonly" additivity="false"> 
 	    <level value="info"/> 
 	    <appender-ref ref="console"/> 
-	</logger>-->
+	</logger>
 
 	<!-- Root Logger -->
 	<root>

@@ -13,5 +13,14 @@ public interface GoodsMapper {
 	public void insertGoods(GoodsVO goodsVO);
 	public int realDeleteGoods(int goodsSeq);
 	public int insertGoodsThumbNail(GoodsVO goodsVO);
+	
 	public Map<String, Object> goodsDetail(int goodsSeq);
+	public List<Map<String, Object>> goodsDetailThumbImg(int goodsSeq);
+	public List<Map<String, Object>> goodsDetailImg(int goodsSeq);
+	public List<Map<String, Object>> goodsReqOption(int goodsSeq);	
+	/**
+	 * 상품평
+	 * 필수 파라미터 int goods_seq, int start (key 변수명)    
+	 */
+	public List<Map<String, Object>> goodsComment(Map<String, Object> param);
 }

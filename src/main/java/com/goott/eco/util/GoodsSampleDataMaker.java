@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 
 import com.goott.eco.config.RootConfig;
 import com.goott.eco.domain.GoodsVO;
+import com.goott.eco.domain.GoodsVO.GoodsThumbNailVO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -118,8 +119,9 @@ public class GoodsSampleDataMaker {
 		goodsVO.setReq_option("N");
 		goodsVO.setReguser("SYSTEM");
 		
-		goodsVO.setImg_url(imgUrl);
-		goodsVO.setMain_yn("Y");
+		GoodsThumbNailVO goodsThumbNail = goodsVO.new GoodsThumbNailVO();
+		goodsThumbNail.setImg_url(imgUrl);
+		goodsThumbNail.setMain_yn("Y");
 		
 		return goodsVO;
 	}
