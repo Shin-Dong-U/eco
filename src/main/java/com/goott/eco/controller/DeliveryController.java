@@ -38,13 +38,13 @@ public class DeliveryController {
 	}
 	
 	//결제완료된(3) 주문 리스트
-	@GetMapping(value="/list",
-			produces= {"application/json; charset=UTF-8"})
-	public ResponseEntity<List> getDeliveryList(
-	
-		System.out.println("주문상태: " + );
-		
-	}
+//	@GetMapping(value="/list",
+//			produces= {"application/json; charset=UTF-8"})
+//	public ResponseEntity<List> getDeliveryList(
+//	
+//		System.out.println("주문상태: " + );
+//		
+//	}
 			
 	
 	

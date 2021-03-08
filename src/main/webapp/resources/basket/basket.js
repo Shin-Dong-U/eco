@@ -1,4 +1,4 @@
-console.log("Reply Module.........");
+console.log("basket Module.........");
 
 var basketService=(function(){
 	
@@ -131,6 +131,6 @@ var basketService=(function(){
 		displayTime:displayTime
 	};
 	
-})();
+})()
 
 

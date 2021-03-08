@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class MemberVO {
-	private CustVO custVO;
-	private CompanyVO compVO;
+	/*
+	 * private CustVO custVO; private CompanyVO compVO;
+	 */
 
 }

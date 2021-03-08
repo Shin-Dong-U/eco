@@ -57,9 +57,9 @@
                             <a href="index.html" class="nav-item nav-link">Home</a>
                             <a href="product-list.html" class="nav-item nav-link">Products</a>
                             <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
-                            <a href="cart.html" class="nav-item nav-link active">Cart</a>
+                            <a href="cart.html" class="nav-item nav-link">Cart</a>
                             <a href="checkout.html" class="nav-item nav-link">Checkout</a>
-                            <a href="my-account.html" class="nav-item nav-link">My Account</a>
+                            <a href="my-account.html" class="nav-item nav-link active">My Account</a>
                             <div class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
@@ -116,7 +116,7 @@
                 </div>
             </div>
         </div>
-        <!-- Bottom Bar End -->
+        <!-- Bottom Bar End --> 
         
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-wrap">
@@ -124,82 +124,62 @@
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="">Home</a></li>
                     <li class="breadcrumb-item"><a href="">Products</a></li>
-                    <li class="breadcrumb-item active">Cart</li>
+                    <li class="breadcrumb-item active">My Account</li>
                 </ul>
             </div>
         </div>
         <!-- Breadcrumb End -->
         
-        <!-- Cart Start -->
-        <div class="cart-page">
+        <!-- My Account Start -->
+        <div class="my-account">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-8">
-                        <div class="cart-page-inner">
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                            <th>Remove</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="align-middle basketList">
-                                        <!-- <tr>
-                                            <td>
-                                                <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-1.jpg" alt="Image"></a>
-                                                    <p>Product Name</p>
-                                                </div>
-                                            </td>
-                                            <td><span>99</span></td>
-                                            <td>
-                                                <div class="qty">
-                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input type="text" value="1">
-                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                                </div>
-                                            </td>
-                                            <td><span class="calPrice0">99</span></td>                                           
-                                            <td><button><i class="fa fa-trash"></i></button></td>
-                                        </tr> -->
-                                        
-                                      
-                                                                         
-                                    </tbody>
-                                    
-                                </table>
-                            </div>
+                    <div class="col-md-3">
+                        <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link " id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
+                            <!--주문목록조회  -->
+                            <a class="nav-link active" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i>Orders</a>                            
+                            <a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i>Payment Method</a>
+                            <a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab"><i class="fa fa-map-marker-alt"></i>address</a>
+                            <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i>Account Details</a>
+                            <a class="nav-link" href="index.html"><i class="fa fa-sign-out-alt"></i>Logout</a>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="cart-page-inner">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="coupon">
-                                        <input type="text" placeholder="Coupon Code">
-                                        <button>Apply Code</button>
-                                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
+                                
+                            </div>
+                            <div class="tab-pane fade" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Product</th>
+                                                <th>Date</th>
+                                                <th>Price</th>
+                                                <th>주문수량</th>
+                                                <th>주문가격</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="showOrderedInfo">
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Product Name</td>
+                                                <td>01 Jan 2020</td>
+                                                <td>$99</td>
+                                                <td>Approved</td>
+                                                <td><button class="btn">View</button></td>
+                                            </tr>
+                                         
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="cart-summary">
-                                        <div class="cart-content">
-                                            <h1>Cart Summary</h1>
-                                            <p>Sub Total<span class="subTotalPrice">0</span></p>
-                                            <p>Shipping Cost<span class="shippingCost">100</span></p>
-                                            <h2>Grand Total<span class="grandTotalPrice">0</span></h2>
-                                        </div>
-                                        <div class="cart-btn">
-                                            <button class="cartUpBtn">Update Cart</button>
-                                            <button class="checkoutBtn">
-                                            	<a href="http://localhost/orders/order/checkout">
-                                            		Checkout
-                                            	</a>
-                                            	</button>
-                                        </div>
+                            </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -208,7 +188,7 @@
                 </div>
             </div>
         </div>
-        <!-- Cart End -->
+        <!-- My Account End -->
         
         <!-- Footer Start -->
         <div class="footer">
@@ -309,115 +289,39 @@
         <script src="/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
-        <script src="/resources/template/js/main.js?var=2"></script>
-        <script src="/resources/basket/basket.js?ver=6"></script>
-		<script src="/resources/basket/transferTime.js"></script>
-		<script src="/resources/order/checkout.js?ver=1"></script>
-    </body>
-    
-    <script>
-    $(document).ready(function(){
-    	showList();
-    	
-    	
-    	//purGoodsAtBasket();
-    	
-    	//addGoodsAtBasket();
-    	
-    });
-    
-    //check out button 장바구니목록 주문
-    $('.checkoutBtn').on('click', function () {
-    	console.log("체크아웃 버튼클릭");
-    	//addOrder
-    	//체크아웃페이지 이동   	
-    	 checkoutService.addOrderBasket("basic",500,function(){
-    		console.log("checkout 성공"); 
-    	}); 
-    	
-    	
-    });
-    
-    
-  	//상품제목 <p>클릭시
-  	$('.basketList').on('click', "p",function () {
-  		var goods_seq =  $(this).data("goods_seq");
-    	console.log("버튼클릭goods_seq: "+goods_seq);
-      //현재 버튼클릭시 해당 goods_seq선택가능-->Ajax로 연동
-		selectBasketGoods(goods_seq);    
-    });
-	$('.basketList').on('click',".delbasketBtn",function(){
-		//var goods_seq =  $(this).parents("td").children("p").data("goods_seq");
-		var goods_seq =  $(this).data("goods_seq");
-		console.log("삭제버튼클릭: "+goods_seq);
-		delBasketGoods("nana",goods_seq);
-		showList();
-	});
-  	
-  	
-	//선택상품 장바구니에 담기
-	function addGoodsAtBasket(){
-		basketService.addGoodsAtBasket(function(){})
-	}
-	
-	//장바구니 수량변경
-	function changeQtyAtBasket(cust_id,goods_seq,qty){
-		basketService.changeQtyAtBasket(cust_id,goods_seq,qty,function(){})
-	}
-	
-	
-	//장바구니에 구매된 상품 삭제
-	function purGoodsAtBasket(){
-		basketService.purGoodsAtBasket(function(result){})
-	}
-	
-	//장바구니에서 상품 삭제
-	function delBasketGoods(cust_id,goods_seq){
-		basketService.delBasketGoods(cust_id,goods_seq,function(result){})
-	}
-	
-	//장바구니에서 특정상품 선택
-	function selectBasketGoods(goods_seq){
-		basketService.getBasketGoods(goods_seq,function(){})
-	}
-    
-    
-  //장바구니 리스트 보기
-		function showList(){		
-			basketService.getBasketList("basic",function(basketList){
-				var basketListTable=$(".basketList");
+        <script src="/resources/template/js/main.js"></script>
+        
+        <!--add JavaScript  -->
+        <script src="/resources/order/checkout.js?ver=1"></script>
+        
+        <script type="text/javascript">
+        $(document).ready(function(){
+        	showOrderedInfo();
+        });
+        
+      //장바구니 리스트 보기
+		function showOrderedInfo(){		
+			checkoutService.getOrderList("basic",function(orderedInfoList){
+				var showOrderedInfoTable=$(".showOrderedInfo");
 				var str="";
-				console.log(basketList);
-				console.log("Number(basketList[i].PRICE): "+typeof(Number(basketList[0].PRICE)));
-				console.log("Number(basketList[i].QTY): "+typeof(Number(basketList[0].QTY)));
-				console.log("Number(basketList[i].PRICE)*Number(basketList[i].QTY): "+Number(basketList[0].PRICE)*Number(basketList[0].QTY));
-			
-				for(var i=0,len=basketList.length||0;i<len;i++){
-					 //"+basketList[i].IMG_URL+"
+				console.log(orderedInfoList);
+				for(var i=0,len=orderedInfoList.length||0;i<len;i++){
+
 					str+="<tr>"
-		                +"   <td>"
-		                +"        <div class='img'>"
-		                +"            <a href=''><img src='/resources/template/img/product-1.jpg' alt='Image'></a>"		               
-		                +"            <p data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"+basketList[i].GOODS_NAME+"</p>"
-		                +"        </div>"
-		                +"    </td>"
-		                +"    <td><span>"+basketList[i].PRICE+"</span></td>"
-		                +"    <td>"
-		                +"        <div class='qty' data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"
-		                +"            <button class='btn-minus'><i class='fa fa-minus'></i></button>"
-		                +"            <input type='text' value='"+basketList[i].QTY+"'>"
-		                +"            <button class='btn-plus'><i class='fa fa-plus'></i></button>"
-		                +"        </div>"
-		                +"    </td>"
-		                +"    <td><span class='calPrice"+[i]+"'>"+Number(basketList[i].PRICE)*Number(basketList[i].QTY)+"</span></td>"                                           
-		                +"    <td><button class='delbasketBtn' data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"
-		                +"		<i class='fa fa-trash'></i></button>"
-		                +"	  </td>"
-               		    +"</tr>"
-						
+						+"<td>"+i+"</td>"
+						+"<td>"+orderedInfoList[i].GOODS_NAME+"</td>"
+						+"<td>"+orderedInfoList[i].REGDATE+"</td>"
+                        +"<td>"+Number(orderedInfoList[i].PRICE)+"</td>"
+                        +"<td>"+Number(orderedInfoList[i].QTY)+"</td>"
+                        +"<td>"+(Number(orderedInfoList[i].QTY)*Number(orderedInfoList[i].PRICE))+"</td>"
+                        +"<td>"+orderedInfoList[i].DELIVERY_STATUS+"</td>"
+                        +"<td><button class='btn'><a href='/orders/order/orderCheck'>View</a></button></td>"
+                        +"</tr>"
 				}
-				basketListTable.html(str);
+				showOrderedInfoTable.html(str);
 			})
 		}
-    </script>
+        
+        </script>
+    </body>
 </html>
