@@ -94,4 +94,12 @@
 	<update id="orderCancel">
 		UPDATE order_main set order_status = 5 WHERE order_seq = #{order_seq}
 	</update>
+	
+	<update id="orderCommit">
+		UPDATE order_main set order_status = 6 WHERE order_seq = #{order_seq}
+	</update>
+	
+	<insert id="addPoint">
+		INSERT INTO point values(seq_point_seq.nextval,#{cust_id},#{order_seq},#{point},'add',#{cust_id},default,'','')
+	</insert>
 </mapper>

@@ -568,11 +568,9 @@
 							custom_data:rsp.custom_data					
 						}),
 						contentType: "application/json; charset=utf-8",
-						success: function(result){console.log("결제후 페이지이동 "+result);
-							location.href = "/home/index";	
-						},
-						error:function(log){console.log("실패 "+log);
-						location.href = "/home/index";}
+						success: function(result){console.log("결제후 페이지이동 "+result),
+							location.href = "/home/index"},
+						error:function(log){console.log("실패 "+log)}
 			    });
 					
 			      

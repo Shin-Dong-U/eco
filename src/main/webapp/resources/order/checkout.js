@@ -89,9 +89,26 @@ var checkoutService=(function(){
 		contentType: "application/json; charset=utf-8",
 		success:(result)=>{console.log("주문취소",result),
 			alert("주문취소: "+result),
-			location.href = "/home/index";},	
+			location.href = "/home/index"},	
 		error:(log)=>{console.log("실패 "+log)}
 		})
+	}
+	
+	//주문 확정 마일리지 적립
+	function orderCommit(order_seq,point,cust_id){
+		console.log("................orderCommit");
+
+		$.ajax({ 
+			type:'PATCH',	
+			url:'/checkout/commit/'+order_seq+'/'+point+'/'+cust_id,
+			data:JSON.stringify(),
+			contentType: "application/json; charset=utf-8",
+			success:(result)=>{alert("주문확정 결과: "+result),
+				location.href = "/home/index"},	
+			error:(log)=>{console.log("실패 "+log)}
+			})
+		
+		
 	}
 	
 	
@@ -101,7 +118,8 @@ var checkoutService=(function(){
 		getShipInfo:getShipInfo,
 		insertShipInfo:insertShipInfo,
 		getShipStatus:getShipStatus,
-		orderCancel:orderCancel
+		orderCancel:orderCancel,
+		orderCommit:orderCommit
 	};
 	
 })()

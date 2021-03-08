@@ -20,4 +20,6 @@ public interface OrderService {
 	public List<HashMap<String,Object>> getPaidList(String cust_id);
 	
 	public int orderCancel(Long order_seq);
+	
+	public int orderCommit(Long order_seq, Long point,String cust_id);
 }
