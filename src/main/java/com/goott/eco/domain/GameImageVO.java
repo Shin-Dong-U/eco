@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GameImageVO {
 	
-	private String mil_level;
-	private Long img_src; 
-	private String strd_memo;
+	private Long game_level;
+	private String level_name; 
+	private String img_src;
 	
 }

@@ -13,7 +13,13 @@ import lombok.extern.log4j.Log4j;
 @CrossOrigin(origins ="http://localhost:3000")
 //@RequestMapping("/orders/*")
 public class PageController {
-
+	
+	@GetMapping("/game/tree")
+	public void game() {
+		log.info("game페이지 이동");
+		//return "orders/basket/list";
+	}
+	
 	@GetMapping("/orders/basket/list")
 	public void list(Model model) {
 		log.info("list페이지 이동");

@@ -8,7 +8,7 @@
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="eCommerce HTML Template Free Download" name="keywords">
         <meta content="eCommerce HTML Template Free Download" name="description">
-		
+
         <!-- Favicon -->
         <link href="/resources/template/img/favicon.ico" rel="icon">
 
@@ -57,8 +57,8 @@
                             <a href="index.html" class="nav-item nav-link">Home</a>
                             <a href="product-list.html" class="nav-item nav-link">Products</a>
                             <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
-                            <a href="cart.html" class="nav-item nav-link active">Cart</a>
-                            <a href="checkout.html" class="nav-item nav-link">Checkout</a>
+                            <a href="cart.html" class="nav-item nav-link">Cart</a>
+                            <a href="checkout.html" class="nav-item nav-link active">Checkout</a>
                             <a href="my-account.html" class="nav-item nav-link">My Account</a>
                             <div class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
@@ -116,7 +116,7 @@
                 </div>
             </div>
         </div>
-        <!-- Bottom Bar End -->
+        <!-- Bottom Bar End --> 
         
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-wrap">
@@ -124,66 +124,41 @@
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="">Home</a></li>
                     <li class="breadcrumb-item"><a href="">Products</a></li>
-                    <li class="breadcrumb-item active">Cart</li>
+                    <li class="breadcrumb-item active">Checkout</li>
                 </ul>
             </div>
         </div>
         <!-- Breadcrumb End -->
         
-        <!-- Cart Start -->
-        <div class="cart-page">
-            <div class="container-fluid">
+        <!-- Checkout Start -->
+        <div class="checkout">
+            <div class="container-fluid"> 
                 <div class="row">
                     <div class="col-lg-8">
-                        <div class="cart-page-inner">
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="align-middle orderList">
-                                     
-                                                                         
-                                    </tbody>
-                                    
-                                </table>
-                                
-                            </div>
+                        <div class="checkout-inner gageBar">
+                        
+                            
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="cart-page-inner">
-                            <div class="row">                               
-                                <div class="col-md-12">
-                                    <div class="cart-summary ">
-                                        <div class="cart-content">
-                                            <h1>Ordered</h1>
-                                            <p class="sub-total">Sub Total<span class="sub-total-price">$99</span></p>
-                                            <p class="ship-cost">Shipping Cost<span>$1</span></p>
-                                            <h2>Grand Total<span class="grand-total-price totalPrice">100</span></h2>
-                                        </div>
-                                        <div class="cart-btn">
-                                            <button class="cancelOrderBtn">주문 취소</button>
-                                            <button class="orderCommit">주문 확정</button>
-                                        </div>
-                                        <div class="checkout-btn">
-                                   			 <!-- <button class="deliverySearch">배송조회</button> -->
-                                   			 <button type="button" class="btn btn-primary deliverySearch" data-toggle="modal" data-target=".bd-example-modal-lg">배송조회</button>
-                               			 </div>
-                                    </div>
-                                </div>
+                        <div class="checkout-inner">
+                            <div class="checkout-summary userGameInfoContent">
+                                
                             </div>
+							
+                            <div class="checkout-payment">
+                             
+                                <div class="checkout-btn">
+                                    <button class="waterBtn">물</button>
+                                    <button class="soilBtn">비료</button>
+                                </div>
+                            </div> 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Cart End -->
+        <!-- Checkout End -->
         
         <!-- Footer Start -->
         <div class="footer">
@@ -272,36 +247,7 @@
                 </div>
             </div>
         </div>
-        <!-- Footer Bottom End -->  
-        
-        <!--modal  -->
-        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-xl" role="document">
-		    <div class="modal-content">
-		      <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>송장번호</th>
-                                            <th>배송상태</th>
-                                            <th>날짜</th>
-                                            <th>비고</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="align-middle shipInfo">
-                                    
-                                                                         
-                                    </tbody>
-                                    
-                                </table>
-                                
-                  </div>
-		    </div>
-		  </div>
-		</div>
-        
-      
-             
+        <!-- Footer Bottom End -->       
         
         <!-- Back to Top -->
         <a href="" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
@@ -313,103 +259,71 @@
         <script src="/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
-        <script src="/resources/template/js/main.js?var=2"></script>
-        <script src="/resources/basket/basket.js?ver=6"></script>
-		<script src="/resources/basket/transferTime.js"></script>
-		<script src="/resources/order/checkout.js?ver=5"></script>
+        <script src="/resources/template/js/main.js"></script>
+        
+        <!--add js  -->
+        <script src="/resources/game/game.js?var=2"></script>
+        <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     </body>
-    
+   
     <script>
+    
     $(document).ready(function(){
-    	showList();
+    	
+    	showGameInfo();
     });
- 
-  	//상품제목 <p>클릭시
-  	$('.basketList').on('click', "p",function () {
-  		var goods_seq =  $(this).data("goods_seq");
-    	console.log("버튼클릭goods_seq: "+goods_seq);
-      //현재 버튼클릭시 해당 goods_seq선택가능-->Ajax로 연동
-		selectBasketGoods(goods_seq);    
-    });
-	
-  	//주문취소
-	$('.cancelOrderBtn').on('click',function(){
-		if(window.confirm('really?')){
-			console.log("주문취소 시작");
-			checkoutService.getShipStatus('basic',function(shipStatus){
-				if(Number(shipStatus[0].delivery_status)===0){
-					console.log("주문취소 로직 실행");
-					checkoutService.orderCancel(2);
-				}else{
-					alert("현재 배송중인 상품은 취소가 불가능 합니다");
-					return;
-				}
-			});
-		}
-	});
-  	
-	//배송조회
-	$('.deliverySearch').on('click',function(){
-		$(".modal").modal("show");
-		checkoutService.getShipStatus('basic',function(shipStatus){
-			console.log("jsp"+shipStatus[0].delivery_status);
+    
+    //유제 게임정보 가져오기
+    function showGameInfo(){		
+    	gameService.getCustPointSum('basic',function(gameInfo){
+        	console.log("GAGE_BAR: "+gameInfo.gage_bar);
+        	console.log("POINT_AMOUNT: "+gameInfo.point_amount);
+        	console.log("TOTALUSEDITEM_AMOUNT: "+gameInfo.totalUsedItem_amount);
+        	console.log("GAMEIMAGEVO: "+gameInfo.GameImageVO);
+        	console.log("GAMEIMAGEVO.game_level: "+gameInfo.GameImageVO.game_level);
+        	console.log("GAMEIMAGEVO.level_name: "+gameInfo.GameImageVO.level_name);
+        	console.log("GAMEIMAGEVO.img_src: "+gameInfo.GameImageVO.img_src);
+        	
+        	
+        	var userGameInfoContent=$(".userGameInfoContent");
+        	var gageBar=$(".gageBar");
 			var str="";
-			var shipInfoTable=$(".shipInfo");
+        	var gage="";
+        	
+			str+="<p>게이지 바 정보:"+gameInfo.gage_bar+" </p>"
+				+"<p>현재 남은 포인트:"+gameInfo.point_amount+" </p>"
+				+"<p>아이템 사용 포인트:"+gameInfo.totalUsedItem_amount+" </p>"
+				+"<p>현재 게임 레벨 코드:"+gameInfo.GameImageVO.game_level+" </p>"
+				+"<p>해당레벨 이름:"+gameInfo.GameImageVO.level_name+" </p>"
+				+"<p>해당레벨 이미지 소스:"+gameInfo.GameImageVO.img_src+" </p>";
+				
+			gage=+"<div class='progress'>"
+				+"  <div class='progress-bar' role='progressbar' style='width: "+gameInfo.gage_bar+"%' aria-valuenow='50' aria-valuemin='0' aria-valuemax='100'>"+gameInfo.gage_bar+"%</div>"
+				+"</div>";
 			
-			for(var i=0,len=shipStatus.length||0;i<len;i++){
-			str+="<tr>"
-             	+"	<td>"+shipStatus[i].invoice_no+"</td>"
-             	+"	<td>"+shipStatus[i].delivery_status+"</td>"
-             	+"	<td>"+shipStatus[i].editDate+"</td>"
-             	+"	<td>"+shipStatus[i].delivery_company+"</td>"
-         		+"</tr>"
-			}
-			shipInfoTable.html(str);
-		});		
-	});
-  
-	$('.orderCommit').on('click',function(){
-		var totalPrice = $('.totalPrice').text();
-		var point = Number(totalPrice)*0.1;
-		var point2 = parseInt(totalPrice);
-		
-		console.log("적립 point: "+point);
-		if(window.confirm('주문확정시 환불이 불가능 합니다 주문확정을 하시겠습니까?')){
-			checkoutService.orderCommit(2,point,'basic');
-		}
-		
-		
-	});
-	
-	function showList(){		
-		checkoutService.getOrderList("basic",function(ordertList){
-			var orderListTable=$(".orderList");
-			var str="";
-			console.log(ordertList);
-			for(var i=0,len=ordertList.length||0;i<len;i++){
-				 //"+ordertList[i].IMG_URL+"
-				str+="<tr>"
-	                +"   <td>"
-	                +"        <div class='img'>"
-	                +"            <a href=''><img src='/resources/template/img/product-1.jpg' alt='Image'></a>"		               
-	                +"            <p data-goods_seq='"+ordertList[i].GOODS_SEQ+"'>"+ordertList[i].GOODS_NAME+"</p>"
-	                +"        </div>"
-	                +"    </td>"
-	                +"    <td><span>"+ordertList[i].PRICE+"</span></td>"
-	                +"    <td>"
-	                +"        <div class='qty' data-goods_seq='"+ordertList[i].GOODS_SEQ+"'>"
-	                +"            <input type='text' value='"+ordertList[i].QTY+"' readonly=readonly>"
-	                +"        </div>"
-	                +"    </td>"
-	                +"    <td><span class='calPrice"+[i]+"'>"+Number(ordertList[i].PRICE)*Number(ordertList[i].QTY)+"</span></td>"                                           
-           		    +"</tr>"
-					
-			}
-			orderListTable.html(str);
-			 /* $(".grand-total-price").html(checkoutInfo.TOTAL_PRICE);
-             var shippingCost = 1;
-             $(".sub-total-price").html(checkoutInfo.TOTAL_PRICE-shippingCost); */
-		})
+			userGameInfoContent.html(str);
+			gageBar.html(gage);
+        })
+    	
 	}
+    
+    
+    
+    
+   		$(".waterBtn").on('click',function(){
+   			console.log("물 사용");
+   			useItem(1,'basic');
+   		});
+   		
+   		$(".soilBtn").on('click',function(){
+   			console.log("비료 사용");
+   			useItem(2,'basic');
+   		});
+	
+   		function useItem(item_seq,cust_id){
+   			gameService.useItem(item_seq,cust_id,function(gameInfo){
+   			})
+   			showGameInfo();
+   		}
     </script>
 </html>

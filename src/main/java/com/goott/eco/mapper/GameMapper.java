@@ -1,21 +1,16 @@
 package com.goott.eco.mapper;
 
-import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
-import com.goott.eco.domain.CustVO;
 import com.goott.eco.domain.GameImageVO;
-import com.goott.eco.domain.GameItemVO;
 
 public interface GameMapper {
 	
-	//Show CustStatus
-	public List<CustVO> getCustStatus(String memberId);
-	//ShowItem
-	public List<GameItemVO> getItem(Long item_seq);
-
-	public GameImageVO getCustTreeLvl(GameImageVO gameImageVO);  
-	
-
+	public Long getCustPointPlusSum(String cust_id);
+	public Long getCustPointMinusSum(String cust_id);
 	
 	
+	public int insertUseItem(@Param("item_seq") Long item_seq, @Param("cust_id") String cust_id);
+	
+	public GameImageVO getGameImageInfo(int game_level);
 }

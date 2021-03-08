@@ -108,6 +108,15 @@ public class OrderServiceImpl implements OrderService {
 	public int orderCancel(Long order_seq) {
 
 		return orderMapper.orderCancel(order_seq);
+	}
+
+	@Override
+	public int orderCommit(Long order_seq, Long point,String cust_id) {
+		int resultCommit = orderMapper.orderCommit(order_seq);
+		int resultAddPoint = orderMapper.addPoint(order_seq,point,cust_id);
+		
+		
+		return resultCommit>0&&resultAddPoint>0? 1 : 0;
 	}	
 
 

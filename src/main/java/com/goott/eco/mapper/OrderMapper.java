@@ -43,5 +43,9 @@ public interface OrderMapper {
 	public List<HashMap<String,Object>> getPaidList(String cust_id);
 	
 	public int orderCancel(Long order_seq);
+	
+	public int orderCommit(Long order_seq);
+	
+	public int addPoint(@Param("order_seq")Long order_seq,@Param("point") Long point, @Param("cust_id")String cust_id);
 
 }
