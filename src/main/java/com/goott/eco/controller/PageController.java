@@ -113,6 +113,29 @@ public class PageController {
 		System.out.println("item페이지이동");
 	}
 	
+	@GetMapping("/cust/login2")
+	public void login2() {
+
+	}
+	@GetMapping("/sample/logout")
+	public void logout() {
+
+	}
+	@GetMapping("/sample/all")
+	public void all() {
+	}
+	
+
+	@GetMapping("/sample/member")
+	public void member() {
+
+	}
+	
+
+	@GetMapping("/sample/admin")
+	public void admin1() {
+
+	}
 	
 	
 
