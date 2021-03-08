@@ -1,17 +1,11 @@
 package com.goott.eco.common;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
 @ToString
 public class Criteria {
 	private static final int DEFAULT_PAGE_NUM = 1;
 	private static final int DEFAULT_AMOUNT = 20;
-	
 	
 	private int pageNum;	//현재 페이지 번호
 	private int amount;		//페이지당 출력할 레코드 수
@@ -32,7 +26,6 @@ public class Criteria {
 	public Criteria(int pageNum, int amount) {
 		this.pageNum = pageNum;
 		this.amount = amount;
-		
 		init();
 	}
 
@@ -55,12 +48,63 @@ public class Criteria {
 		validCategory();
 	}
 	
+	public int getStart() {
+		return start;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+
+	public String getCustType() {
+		return CustType;
+	}
+
+	public void setCustType(String custType) {
+		CustType = custType;
+	}
+
+	public String getCustSearchType() {
+		return CustSearchType;
+	}
+
+	public void setCustSearchType(String custSearchType) {
+		CustSearchType = custSearchType;
+	}
+
+	public String getCustSearchKeyword() {
+		return CustSearchKeyword;
+	}
+
+	public void setCustSearchKeyword(String custSearchKeyword) {
+		CustSearchKeyword = custSearchKeyword;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public int getPageNum() {
+		return pageNum;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public String getCategory() {
+		return category;
+	}
 	
 	public String[] getTypeArr() {
 		return CustType == null ? new String[] {} : CustType.split("");
 	}
 	
-	//카테고리의 값을 파싱
+	//카테고리 값 체크
 	public void validCategory() {
 		if(this.category == null || this.category.length() == 0) {
 			return;
@@ -70,5 +114,4 @@ public class Criteria {
 			this.category = "";
 		}
 	}
-
 }

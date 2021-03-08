@@ -107,7 +107,7 @@
                                         <div class="col-md-2">
                                             <div class="product-short">
                                                 <div class="dropdown">
-                                            		<select class="dropdown-toggle">
+                                            		<select class="dropdown-toggle" id="category" name="category">
 													    <option value="" selected>전체</option>
                                                    		<c:forEach var="cate" items="${cateList }" >
 														    <option value="${cate.CATE_SEQ }" ${cri.category eq cate.CATE_SEQ ? 'selected' : ''}>${cate.CATE_NAME }</option>
@@ -118,7 +118,7 @@
                                         </div>                                    
                                         <div class="col-md-3">
                                             <div class="product-search">
-                                                <input type="text" value="${cri.keyword }" placeholder="상품명 검색" onkeyup="enterkey();">
+                                                <input type="text" id="keyword" name="keyword" value="${cri.keyword }" placeholder="상품명 검색">
                                                 <button><i class="fa fa-search"></i></button>
                                             </div>
                                         </div>
