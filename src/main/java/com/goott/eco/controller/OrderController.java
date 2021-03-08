@@ -20,7 +20,7 @@ import com.goott.eco.service.OrderService;
 
 import lombok.extern.log4j.Log4j;
 
-@RequestMapping("/orders/*")
+@RequestMapping("/checkout/*")
 @RestController
 @Log4j
 public class OrderController {
@@ -33,30 +33,43 @@ public class OrderController {
 		this.orderService = orderService;
 	}
 	
+	//장바구니상품 주문 신청
+	@GetMapping(value="/content/{cust_Id}/{total_price}",
+	produces= {"application/json; charset=UTF-8"})
+	public ResponseEntity<String> addOrderBasket(
+			@PathVariable("cust_Id") String cust_Id,
+			@PathVariable("tota_price") Long total_price){
+		log.info("주문요청 cust_Id / tota_price: "+cust_Id+" / "+total_price);
+		orderService.addOrder(cust_Id, total_price);
+		return new ResponseEntity<>("성공",HttpStatus.OK);
+}
+	
+	
 	//장바구니상품 주문 신청 requestbody 사용
-	@PostMapping(value="/new/{cust_id}",			
-			consumes= {"application/json; charset=UTF-8"},
-			produces= {"application/json; charset=UTF-8"})
-	public ResponseEntity<String> getBasketList(
-			@PathVariable("cust_id") String cust_id
-			,@RequestBody List<BasketDetailVO> basketList){
-		
-		log.info("====================================");
-		log.info("주문신청 List/cust_Id: "+basketList+"/"+cust_id);
-		//log.info("주문신청 List[0]: "+basketList.get(0) );
-		//log.info("주문신청 List[0].cust_Id: "+basketList.get(0).getCust_Id());		
-				return orderService.addOrder(basketList,cust_id)>0?
-				new ResponseEntity<>("성공",HttpStatus.OK):
-				new ResponseEntity<>("실패",HttpStatus.INTERNAL_SERVER_ERROR);	
-	}
+//	@PostMapping(value="/new/{cust_id}",			
+//			consumes= {"application/json; charset=UTF-8"},
+//			produces= {"application/json; charset=UTF-8"})
+//	public ResponseEntity<String> getBasketList(
+//			@PathVariable("cust_id") String cust_id
+//			,@RequestBody List<BasketDetailVO> basketList){
+//		
+//		log.info("====================================");
+//		log.info("주문신청 List/cust_Id: "+basketList+"/"+cust_id);
+//		//log.info("주문신청 List[0]: "+basketList.get(0) );
+//		//log.info("주문신청 List[0].cust_Id: "+basketList.get(0).getCust_Id());		
+//				return orderService.addOrder(basketList,cust_id)>0?
+//				new ResponseEntity<>("성공",HttpStatus.OK):
+//				new ResponseEntity<>("실패",HttpStatus.INTERNAL_SERVER_ERROR);	
+//	}
 	
 	//주문 상품 조회
 	//남은과제: 주문상태별 보기(그룹화)
-	@GetMapping(value="/list/{cust_Id}",
+	@GetMapping(value="/orderlist/{cust_Id}",
 			produces= {"application/json; charset=UTF-8"})
 	public ResponseEntity<List<GoodsVOtest>> getOrdersList(
 			@PathVariable("cust_Id") String cust_Id){
 		log.info("주문 리스트 cust_Id: "+cust_Id);
+		
 		return new ResponseEntity<>(orderService.getOrderList(cust_Id),HttpStatus.OK);
 	}
 
@@ -85,14 +98,62 @@ public class OrderController {
 		Long order_seq = payment.getCustom_data().getOrder_seq();
 		log.info("cust_id: "+cust_id);
 		log.info("order_seq: "+order_seq);
-	
-		if(success==true && status.equals("paid") && paid_amount==1000) {
+		log.info("타입확인 paid_amount: "+paid_amount.getClass().getName());
+		//가격확인
+		Long totalPrice = orderService.getTotalPrice(cust_id,order_seq);
+		log.info("db저장 가격 : "+totalPrice);
+		log.info("타입확인 totalPrice: "+totalPrice.getClass().getName());
+		boolean successCheck = (success==true);
+		boolean statusCheck = (status.equals("paid"));
+		boolean priceCheck = (paid_amount.equals(totalPrice));
+		
+		log.info("결제 확인: "+successCheck);
+		log.info("상태 확인: "+statusCheck);
+		log.info("가격 확인: "+priceCheck);
+		if(successCheck && statusCheck && priceCheck) {
 			log.info("결제완료");
 			//ordermain의 orderstatus 3으로 업데이트
-			orderService.paidUpdate(cust_id,order_seq);
+			int result = orderService.paidUpdate(cust_id,order_seq);
+			log.info("업데이트 성공 유무: "+result);	
+			return new ResponseEntity<>("결제완료!",HttpStatus.OK);
 		}
-		
-		return new ResponseEntity<>("성공",HttpStatus.OK);
+
+		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	
+	//checkout 정보 get
+	@GetMapping(value="/address/{cust_Id}",
+			produces= {"application/json; charset=UTF-8"})
+	public ResponseEntity<HashMap<String,Object>> getCheckoutInfo(
+			@PathVariable("cust_Id") String cust_Id){
+		log.info("주문 getCheckoutInfo cust_Id: "+cust_Id);
+		HashMap<String,Object>result = orderService.getCheckoutInfo(cust_Id);
+		log.info("결과"+result);
+		return new ResponseEntity<>(result,HttpStatus.OK);
+	}
+	
+	//주문정보 조회
+	@GetMapping(value="/paidlist/{cust_Id}",
+			produces= {"application/json; charset=UTF-8"})
+	public ResponseEntity<List<HashMap<String,Object>>> getPaidList(
+			@PathVariable("cust_Id") String cust_Id){
+		log.info("주문 getPaidList cust_Id: "+cust_Id);
+		List<HashMap<String,Object>> result = orderService.getPaidList(cust_Id);
+		log.info("결과"+result);
+		return new ResponseEntity<>(result,HttpStatus.OK);
+	}
+	
+	//주문취소
+		@PostMapping(value="/cancel/{order_seq}",
+				produces= {"application/json; charset=UTF-8"})
+		public ResponseEntity<String> orderCancel(
+				@PathVariable("order_seq") Long order_seq){
+			log.info("주문 취소 번호 order_seq: "+order_seq);
+			int result = orderService.orderCancel(order_seq);
+			log.info("주문취소 결과: "+ result);
+			return result>0?
+					new ResponseEntity<>("성공",HttpStatus.OK):
+					new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);	
+		}
 }
