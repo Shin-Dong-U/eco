@@ -35,16 +35,20 @@ public class GoodsServiceimpl implements GoodsService{
 	public Map<String, Object> goodsList(Criteria cri) {
 		Map<String, Object> resMap = new HashMap<>();
 		
-		cri.validCategory();
 		int cnt = goodsDao.totalCountGoodsList(cri);
 		
+		PageDTO page = new PageDTO(cri, cnt);
+
 		List<Map<String, Object>> goodsList = goodsDao.goodsList(cri);
 		resMap.put("goodsList", goodsList);
 		
-		PageDTO page = new PageDTO(cri, cnt);
 		resMap.put("page", page);
 		
 		return resMap;
+	}
+	
+	public Map<String, Object> goodsDetail(int goodsSeq){
+		return goodsDao.goodsDetail(goodsSeq);
 	}
 
 //	@Override

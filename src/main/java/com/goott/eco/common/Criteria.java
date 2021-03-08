@@ -1,5 +1,6 @@
 package com.goott.eco.common;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,6 +9,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Criteria {
+	private static final int DEFAULT_PAGE_NUM = 1;
+	private static final int DEFAULT_AMOUNT = 20;
+	
+	
 	private int pageNum;	//현재 페이지 번호
 	private int amount;		//페이지당 출력할 레코드 수
 	
@@ -21,20 +26,35 @@ public class Criteria {
 	private String keyword;//검색문구
 	
 	public Criteria() {
-		this(1,20);	//게시물 번호를 입력
+		this(DEFAULT_PAGE_NUM, DEFAULT_AMOUNT);	//게시물 번호를 입력
 	}
 	
 	public Criteria(int pageNum, int amount) {
 		this.pageNum = pageNum;
 		this.amount = amount;
 		
+		init();
+	}
+
+	private void init() {
 		this.start = (pageNum * amount ) - (amount);
+	}
+	
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+		init();
+	}
+	
+	public void setAmount(int amount) {
+		this.amount = amount;
+		init();
 	}
 	
 	public void setCategory(String category) {
 		this.category = category;
 		validCategory();
 	}
+	
 	
 	public String[] getTypeArr() {
 		return CustType == null ? new String[] {} : CustType.split("");
@@ -50,4 +70,5 @@ public class Criteria {
 			this.category = "";
 		}
 	}
+
 }

@@ -13,4 +13,5 @@ public interface GoodsMapper {
 	public void insertGoods(GoodsVO goodsVO);
 	public int realDeleteGoods(int goodsSeq);
 	public int insertGoodsThumbNail(GoodsVO goodsVO);
+	public Map<String, Object> goodsDetail(int goodsSeq);
 }

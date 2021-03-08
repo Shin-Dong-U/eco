@@ -21,7 +21,7 @@
 			</if>
 	</select>
 	
-	<select id="goodsList" resultType="map" parameterType="map">
+	<select id="goodsList" resultType="map" parameterType="com.goott.eco.common.Criteria">
 		SELECT 
 			  G.GOODS_SEQ, G.GOODS_NAME, G.PRICE, G.ECO_SCORE
 			, GTN.IMG_URL
@@ -38,6 +38,10 @@
 			</if>
 		ORDER BY G.GOODS_SEQ
 		OFFSET #{start} ROWS FETCH FIRST #{amount} ROWS ONLY
+	</select>
+	
+	<select id="goodsDetail" parameterType="int" resultType="map">
+		
 	</select>
 	
 	<select id="insertGoods" statementType="CALLABLE" parameterType="com.goott.eco.domain.GoodsVO">
