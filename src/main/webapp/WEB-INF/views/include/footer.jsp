@@ -156,13 +156,12 @@
 		
 	</footer><!--/Footer-->
 	
-
-  
-    <script src="js/jquery.js"></script>
-	<script src="js/price-range.js"></script>
-    <script src="js/jquery.scrollUp.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script>
+	<script src="/resources/template/js/main.js"></script>
+    <script src="jquery.js"></script>
+	<script src="price-range.js"></script>
+    <script src="jquery.scrollUp.min.js"></script>
+	<script src="bootstrap.min.js"></script>
+    <script src="jquery.prettyPhoto.js"></script>
+    
 </body>
 </html>

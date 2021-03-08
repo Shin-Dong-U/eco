@@ -76,6 +76,10 @@ public class PageController {
 	public void custLogin() {
 		
 	}
+	@GetMapping("/cust/login1")
+	public void custLogin1() {
+		
+	}
 	/* 관리자 페이지 이동 */
 	@GetMapping("/admin/admin")
 	public void admin() {
