@@ -18,35 +18,69 @@
 		WHERE item_seq=#{item_seq}
 	</select>
 	
-<!-- 3-1 insert_마일리지 출금내역/ -->
+	
+	
+	
+	
+	
+<!-- 3-1 물-> insert_마일리지 출금내역/ -->
 	<insert id="insertWater">
 		INSERT INTO eco.mileage 
 		VALUES (eco.seq_MAILEAGE_SEQ.nextval, #{memberid},1, 200*(-1), '-200원이차감됩니다.','jek',default,'매니저',default)
 	</insert>		
-<!-- 3-2 cust테이블에있는 게이지바증가, 마일리지 -200원차감, 나무상태증가 불러오기 -->
+<!-- 3-2 물-> cust테이블에있는 게이지바증가, 마일리지 -200원차감, 나무상태증가 불러오기 -->
 	<update id="updateWater">
 		UPDATE eco.CUST
-		SET mymil = mymil-200,
-		bar_status=bar_status+2,
+		SET mymil = mymil-100,
+		bar_status=bar_status+1,
 		mytree=mytree+1
 		WHERE memberid=#{memberid}
 	</update>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-<!-- Cust의 Tree레벨에 따른 GameImage불러오기 -->
-	<select id="getCustTreeLvl" resultType="com.goott.eco.domain.GameImageVO">
-		SELECT mil_level, img_src 
-		FROM eco.game_image
+<!-- 4-1 비료-> 마일리지 출금정보 입력정보 insert -->
+	<insert id="insertCompost">
+		INSERT INTO eco.mileage 
+		VALUES (eco.seq_MAILEAGE_SEQ.nextval, #{memberid},1, 1000*(-1), '-1000원이차감됩니다.','jek',default,'매니저',default)
+	</insert>		
+<!-- 4-2 비료-> update_custStatus(bar_status, mytree,mymil) -->
+	<update id="updateCompost">
+		UPDATE eco.CUST
+		SET mymil = mymil-500,
+		bar_status=bar_status+2,
+		mytree=mytree+2
+		WHERE memberid=#{memberid}
+	</update>
+
+<!-- 5-1 씨앗-> 마일리지 출금정보 입력정보 insert -->
+	<insert id="insertSeed">
+		INSERT INTO eco.mileage 
+		VALUES (eco.seq_MAILEAGE_SEQ.nextval, #{memberid},1, 500*(-1), '-500원이차감됩니다.','jek',default,'매니저',default)
+	</insert>		
+<!-- 5-2 씨앗-> update_custStatus(bar_status, mytree,mymil) -->
+	<update id="updateSeed">
+		UPDATE eco.CUST
+		SET mymil = mymil-250
+		WHERE memberid=#{memberid}
+	</update>
+
+
+
+
+
+
+
+
+
+
+<!-- 6. Cust의 (1)Tree레벨 /(2)Status_Bar 에 따른 GameImage불러오기 -->
+	<select id="getLvlImage" resultType="com.goott.eco.domain.GameImageVO">
+		SELECT * FROM eco.game_image
 		WHERE mil_level=#{mil_level}
 	</select>
+	
+
+	
+	
 	
 	
 	

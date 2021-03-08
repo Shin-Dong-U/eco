@@ -14,20 +14,41 @@ public interface GameMapper {
 	public List<GameItemVO> getItem(Long item_seq);
 
 	
-	//3-1 insert_WaterItem
+	
+	
+	
+	
+	
+	//3-1 물-> insert_WaterItem
 	public int insertWater(String memberid);
-	//3-2 update_custStatus(bar_status, mytree,mymil)
+	//3-2 물-> update_custStatus(bar_status, mytree,mymil)
 	public int updateWater(String memberid);
 	
+	//4-1 비료-> 마일리지 출금정보 입력정보 insert
+	public int insertCompost(String memberid);
+	//4-2 비료-> update_custStatus(bar_status, mytree,mymil)
+	public int updateCompost(String memberid);
+	
+	//5-1 씨앗-> 마일리지 출금정보 입력정보 insert
+	public int insertSeed(String memberid);
+	//5-2 씨앗-> update_custStatus(bar_status, mytree,mymil) 
+	public int updateSeed(String memberid);
 	
 	
 	
 	
 	
 	
-	public GameImageVO getCustTreeLvl(GameImageVO gameImageVO);  
+	
+	
+	
+	//5. Cust의 (1)Tree레벨 /(2)Status_Bar 에 따른 GameImage불러오기
+	//따라서 
+	public List<GameImageVO> getLvlImage(String mil_level);  
 	
 
 //selectItemImage
 	public GameItemVO selectImage(int gameImageVO);
+	
 }
+

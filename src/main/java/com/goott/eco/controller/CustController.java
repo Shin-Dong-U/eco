@@ -27,13 +27,18 @@ public class CustController {
 		return mav;
 	}
 	
-
-	
 	@GetMapping("/game/list")
 	public void list(Model model) {
 		System.out.println("list페이지 이동");
 	}
 	
+	/*react page이동*/
+	@GetMapping("/game/get")
+	public ModelAndView get() {
+		System.out.println("get.jsp react페이지 이동");
+		ModelAndView mav = new ModelAndView("/cust/game/get");
+		return mav;
+	}
 //	@GetMapping("/game/item")
 //	public void item(Model model) {
 //		System.out.println("item페이지이동");

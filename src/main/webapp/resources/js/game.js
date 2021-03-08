@@ -25,7 +25,7 @@ var gameService = (function(){
 			error:(log)=>{console.log("실패"+log)}
 		})
 	}
-	//2. 아이템 ex.물에 대한 아이템 불러오기
+	//2. <재활용>아이템 ex.물,비료,씨앗에 대한 아이템 불러오기
 	function getItem(item_seq,callback){
 		console.log("getItem..........");
 		
@@ -60,8 +60,8 @@ var gameService = (function(){
 		});
 	}
 */	
-	
-	//마일리지가 차감 / 나무 체크,변화 / 상태바 체크, 변화 
+	//3-1,3-2
+	//아이템 물 -> 마일리지가 차감 / 나무 체크,변화 / 상태바 체크, 변화 
 	//function clickItem(myMil,myTree,bar_status){
 	function clickItem(memberid){
 		console.log("clickItem...........");
@@ -77,17 +77,76 @@ var gameService = (function(){
 			error:(log)=>{console.log("실패"+log)}
 		})
 	}
+	
+	//4-1,4-2
+	//아이템 비료 -> 마일리지가 차감 / 나무 체크,변화 / 상태바 체크, 변화 
+	//function clickItem(myMil,myTree,bar_status){
+	function clickItemCompost(memberid){
+		console.log("clickItemCompost...........");
+		
+		$.ajax({
+			type:'post', //get:조회
+			url:'/game/compost/'+memberid,//마일리지,나무,상태바
+			data: JSON.stringify(),
+			contentType:"application/json; charset=utf-8",
+			
+			success:(result)=>{console.log("마일리지가 차감 / 나무 체크,변화 / 상태바 체크, 변화 결과",result)}
+			,
+			error:(log)=>{console.log("실패"+log)}
+		})
+	}
+	
+	
+	//5-1,5-2
+	//아이템 씨앗 -> 마일리지가 차감 / 나무 체크,변화 / 상태바 체크, 변화 
+	//function clickItem(myMil,myTree,bar_status){
+	function clickItemSeed(memberid){
+		console.log("clickItemSeed..........");
+		
+		$.ajax({
+			type:'post',//get:조회
+			url:'/game/seed/'+memberid,
+			data: JSON.stringify(),
+			contentType:"application/json; charset=utf-8",
+			
+			success:(result)=>{console.log("마일리지가 차감 / 나무 체크,변화 / 상태바 체크, 변화 결과",result)}
+			,
+			error:(log)=>{console.log("실패"+log)}
+			
+		})
+	}
+	
+	
+	
+	
+	//Cust의 (1)Tree레벨 /(2)Status_Bar 에 따른 GameImage불러오기
+	function getLvlImage(mil_level,callback){
+	console.log("showImage..........");
+	
+		$.ajax({
+			type:'get',
+			url:'/game/lvl/'+mil_level, //(1)Tree레벨 /(2)Status_Bar
+			data : JSON.stringify(),
+			contentType:"application/json; charset=utf-8",
+			
+			success:(gameLvl)=>{console.log("(1)Tree레벨 /(2)Status_Bar 2개 Image가져오기",gameLvl),
+					callback(gameLvl)}
+			,
+			error:(log)=>{console.log("실패"+log)}
+		})
+		
+	}
 
-	
-	
 	
 	return {
 		
 		getCustStatus:getCustStatus, //cust조회 - getCustStatus는 getCustStatus함수를 쓰는 이름이다! 
 		getItem:getItem,
 		clickItem:clickItem,
-		updateWater:updateWater
-		
+		updateWater:updateWater,
+		clickItemCompost:clickItemCompost,
+		clickItemSeed:clickItemSeed,
+		getLvlImage:getLvlImage
 	}; 
 	
 	

@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.goott.eco.domain.CustVO;
+import com.goott.eco.domain.GameImageVO;
 import com.goott.eco.domain.GameItemVO;
 import com.goott.eco.service.GameService;
-
 
 @RequestMapping("/game/*")
 @RestController
@@ -30,7 +30,8 @@ public class GameRestController {
 	public GameRestController(GameService gameService) {
 		this.gameService = gameService;
 	}
-
+	
+	
 	//고객게임상태 정보불러오기
 	//CustController_ @GetMapping("/game/list")
 	//http://localhost/cust/game/list
@@ -47,7 +48,7 @@ public class GameRestController {
 			return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 	
-	//아이템 ex.물에 대한 아이템 불러오기
+	//<재활용>아이템 ex.물,비료,씨앗에 대한 아이템 불러오기
 	//CustController_ @GetMapping("/game/list")
 	//post로 변경하기 -- 버튼으로 만들어서 3개아이템 가져오기해보기
 	//2. url주소 -> http://localhost/cust/game/item
@@ -79,8 +80,21 @@ public class GameRestController {
 				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}	
 */	
-	//3-1아이템선택버튼 클릭 -> 마일리지 히스토리에 저장이된다.(insert는 post이다 )
-	//3-2 update_custStatus(bar_status, mytree,mymil)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//3-1 물-> 아이템선택버튼 클릭 -> 마일리지 히스토리에 저장이된다.(insert는 post이다 )
+	//3-2 물-> update_custStatus(bar_status, mytree,mymil)
 	@PostMapping(value="/{memberid}",
 			produces= {"application/json; charset=UTF-8"})
 	//컨트롤러에는 꼭 ResponseEntity <반환타입 명시해줘야한다.>
@@ -95,12 +109,52 @@ public class GameRestController {
 				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}	
 	
+	//4-1 비료-> 아이템선택버튼 클릭 -> 마일리지 히스토리에 저장이된다.(insert는 post이다 )
+	//4-2 비료-> update_custStatus(bar_status, mytree,mymil)
+	@PostMapping(value="/compost/{memberid}",
+			produces= {"application/json; charset=UTF-8"})
+	public ResponseEntity<Integer> updateCompost(@PathVariable("memberid") String memberid){
+		System.out.println("memberId: "+memberid);
+		
+		int result = gameService.updateCompost(memberid);
+		System.out.println("result: "+result);
+		
+		return result==1? //insert,update
+				new ResponseEntity<>(1, HttpStatus.OK):
+				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}	
+	
+	//5-1 씨앗-> 아이템선택버튼 클릭 -> 마일리지 히스토리에 저장이된다.(insert는 post이다 )
+	//5-2 씨앗-> update_custStatus(bar_status, mytree,mymil)
+	@PostMapping(value="/seed/{memberid}",
+			produces= {"application/json; charset=UTF-8"})
+	public ResponseEntity<Integer> updateSeed(@PathVariable("memberid") String memberid){
+		System.out.println("memberId: "+memberid);
+		
+		int result = gameService.updateSeed(memberid);
+		System.out.println("result: "+result);
+		
+		return result==1? //insert,update
+				new ResponseEntity<>(1, HttpStatus.OK):
+				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}	
 	
 	
 	
+	//6. Cust의 (1)Tree레벨 /(2)Status_Bar 에 따른 GameImage불러오기
+	@GetMapping(value="/lvl/{mil_level}",
+			produces= {"application/json; charset=UTF-8"})
+	public ResponseEntity<List<GameImageVO>> getLvlImage(
+			@PathVariable("mil_level") String mil_level){
+		System.out.println("mil_level" + mil_level);
+		
+		List<GameImageVO> result = gameService.getLvlImage(mil_level);
+		System.out.println(result);
+		
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 	
-	
-	
+
 	
 	//Cust의 Tree레벨에 따른 GameImage불러오기위해 1_lvl일경우 1_sesources를 불러온다. 
 	

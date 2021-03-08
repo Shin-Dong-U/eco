@@ -30,22 +30,22 @@ public class GameController {
 	//Game_IMAGE테이블에 이미지를 불러올 수 있게끔해주는 로직을 짜주면된다.
 	//그러면 콘솔에 띄워주기-->이후 , js or java에서 비교해서 회원이 'A'일경우 -> 이미지'1'을 출력해주는것이다. 
 	
-	@GetMapping("/lvl")
-	public ModelAndView custId(String lvl) {
-		
-		GameImageVO gameImageVO = new GameImageVO();
-		gameImageVO.setMil_level(lvl);
-		
-		
-		GameImageVO custTreeLvl = gameService.getCustTreeLvl(gameImageVO);
-		
-		System.out.println("custTreeLvl :" + custTreeLvl);
-		
-		ModelAndView mav = new ModelAndView("/game/custLvl");
-		
-		return mav;
-	}
-	
+//	@GetMapping("/lvl")
+//	public ModelAndView custId(String lvl) {
+//		
+//		GameImageVO gameImageVO = new GameImageVO();
+//		gameImageVO.setMil_level(lvl);
+//		
+//		
+//		GameImageVO custTreeLvl = gameService.getCustTreeLvl(gameImageVO);
+//		
+//		System.out.println("custTreeLvl :" + custTreeLvl);
+//		
+//		ModelAndView mav = new ModelAndView("/game/custLvl");
+//		
+//		return mav;
+//	}
+//	
 	//post로 변경하기 -- 버튼으로 만들어서 3개아이템 가져오기해보기
 	//http://localhost/game/game?item=물
 //	@GetMapping("/itembutton")

@@ -34,7 +34,20 @@ public class GameServiceImpl implements GameService{
 		
 		return gameMapper.getItem(item_seq);
 	}
-//3-1 insertWaterItem	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//3-1 물-> insertWaterItem	
 	@Override
 	public int insertWater(String memberid) {
 		
@@ -42,47 +55,81 @@ public class GameServiceImpl implements GameService{
 		
 		return gameMapper.insertWater(memberid);
 	}
-//3-2 update_custStatus(bar_status, mytree, mymil)
+//3-2 물-> update_custStatus(bar_status, mytree, mymil)
 	@Override
 	public int updateWater(String memberid) {
 		
-		System.out.println("service: " + memberid);
+		System.out.println("Service단: " + memberid);
 		
 		gameMapper.insertWater(memberid);
 		gameMapper.updateWater(memberid);	
-		
-//		int checkImage = memberId;
-//		int Image;
-//		
-//		switch(checkImage) {
-//		case 1: Image = 1;
-//		System.out.println("Image");
-//		break;
-//		case 2: Image = 2;
-//		System.out.println("Image");
-//		break;
-//		case 3: Image = 3;
-//		System.out.println("Image");
-//		break;
-//		case 4: Image = 4;
-//		System.out.println("Image");
-//		break;
-//		case 5: Image = 5;
-//		System.out.println("Image");
-//		break;
-//		}
-		
-		//Image를 같이 보내줘야되는데..... ? ㅠ_ㅠ
+
 		return gameMapper.updateWater(memberid);
 	}
-
 	
-	//보류
-	@Override
-	public GameImageVO getCustTreeLvl(GameImageVO lvl) {
-		return gameMapper.getCustTreeLvl(lvl);
+	//4-1 비료-> 마일리지 출금정보 입력정보 insert
+//	public int insertCompost(String memberid) {
+//		
+//		System.out.println("Service단의 insertSeed memberid" +memberid);
+//		
+//		return gameMapper.insertCompost(memberid);
+//	}
+	//4-2 비료-> update_custStatus(bar_status, mytree,mymil)
+	public int updateCompost(String memberid) {
+		
+		System.out.println("service: " + memberid);
+		
+		gameMapper.insertCompost(memberid);
+		gameMapper.updateCompost(memberid);	
+		
+		return gameMapper.updateCompost(memberid);
 	}
-
+	
+	//5-1 씨앗-> 마일리지 출금정보 입력정보 insert
+	public int insertSeed(String memberid) {
+		
+		System.out.println("Service단의 insertSeed memberid" +memberid);
+		return gameMapper.insertSeed(memberid);
+	}
+	//5-2 씨앗-> update_custStatus(bar_status, mytree,mymil)
+	public int updateSeed(String memberid) {
+		
+		System.out.println("Service단의 insert/updateSeed memberid: " + memberid);
+		gameMapper.insertSeed(memberid);
+		gameMapper.updateSeed(memberid);
+		
+		
+		return gameMapper.updateSeed(memberid);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//5. Cust의 (1)Tree레벨 /(2)Status_Bar 에 따른 GameImage불러오기
+	public List<GameImageVO> getLvlImage(String mil_level) {
+		
+		System.out.println("service: "+ mil_level);
+		
+		return gameMapper.getLvlImage(mil_level);
+	}
+	
+	
 	
 	
 	
