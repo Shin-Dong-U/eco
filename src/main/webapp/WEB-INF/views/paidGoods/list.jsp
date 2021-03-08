@@ -76,6 +76,15 @@ $(document).ready(function() {
 				PaidGoodsListTable.html(str);
 			});
 		}
+		return {
+			getPaidGoodsList:getPaidGoodsList
+	
+		};
+		
+	}); 
+		
+	
+	
 });	
 </script>
 </html>

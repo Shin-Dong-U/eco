@@ -14,27 +14,29 @@ import lombok.extern.log4j.Log4j;
 //@RequestMapping("/orders/*")
 public class PageController {
 	
+	@GetMapping("/board/catelist")
+	public String click(Model model) {
+		log.info("catelist페이지 이동");
+		return "board/catelist";
+	}
+	
+	
 	@GetMapping("/deli/delilist")
 	public String list3(Model model) {
 		log.info("alldelivery페이지 이동");
 		return "deli/delilist";
 	}
 	
-//	@GetMapping("/deli/delilist")
-//	public String list1(Model model) {
-//		log.info("invoice_delivery페이지 이동");
-//		return "deli/delilist";
-//	}
 	@GetMapping("/paidGoods/list")
 	public String list4(Model model) {
 		log.info("paidGoods페이지 이동");
 		return "paidGoods/list";
 	}
-//	@GetMapping("/deli/delilist")
-//	public String list2(Model model) {
-//		log.info("myDeliveryList페이지 이동");
-//		return  "deli/delilist";
-//	}
+	@GetMapping("/page/searchedGoodslist")
+	public String search(Model model) {
+		log.info("searchedGoodsList페이지 이동");
+		return  "board/searchedGoodslist";
+	}
 
 	@GetMapping("/orders/basket/list")
 	public void list(Model model) {

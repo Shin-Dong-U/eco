@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goott.eco.mapper.BoardMapper">
+
+	<select id="getsearchedGoodsList" resultType="com.goott.eco.domain.GoodsVO">
+		 <![CDATA[
+            SELECT goods_seq, category, goods_name, goods_detail, price, eco_score, danger_YN, sale_YN
+            FROM(
+                  SELECT /*+ INDEX_DESC (a pk_goods_seq) */ rownum rn, a.*
+                  FROM goods a
+                  WHERE
+      ]]>      
+         <trim prefix="(" suffix=") AND" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+               <trim prefix="OR">
+                  <choose>
+                     <when test="type == 'T'.toString()">
+                        title like '%'||#{keyword}||'%'
+                     </when>
+                     <when test="type == 'C'.toString()">
+                        content like '%'||#{keyword}||'%'
+                     </when>
+                     <when test="type == 'W'.toString()">
+                        writer like '%'||#{keyword}||'%'
+                     </when>
+                  </choose>
+               </trim>
+            </foreach>
+         </trim>
+      <![CDATA[   
+         rownum <= (#{pageNum}*#{amount}) 
+         )   
+         WHERE rn >= ( (#{pageNum}*#{amount}) - (#{amount} - 1) )
+      ]]>   
+   </select>
+   
+   
+   	<select id="getCateList" resultType="Integer">
+		SELECT * FROM eco.goods_category where cate_seq in #{cate_seq}
+				
+	</select>
+   
+</mapper>

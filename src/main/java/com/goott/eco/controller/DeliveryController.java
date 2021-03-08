@@ -43,7 +43,8 @@ public class DeliveryController {
 		
 	}
 	
-	//특정송장번호의 배송 조회 
+
+
 	@GetMapping(value="/list1/{invoice_no}",
 			produces= {"application/json; charset=UTF-8"})
 	public ResponseEntity<List<DeliveryVO>> getDeliveryList(
