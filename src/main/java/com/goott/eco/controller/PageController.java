@@ -15,15 +15,26 @@ import lombok.extern.log4j.Log4j;
 public class PageController {
 
 	@GetMapping("/orders/basket/list")
-	public String list(Model model) {
+	public void list(Model model) {
 		log.info("list페이지 이동");
-		return "orders/basket/list";
+		//return "orders/basket/list";
 	}
 	@GetMapping("/orders/order/checkout")
 	public void checkout(Model model) {
 		log.info("checkout페이지 이동");
-		
+		//return "orders/order/checkout";
 	}
+	
+	@GetMapping("/orders/order/orderCheck")
+	public void orderCheck(Model model) {
+		log.info("orderCheck페이지 이동");
+	}
+	
+	@GetMapping("/delivery/deliveryCheck")
+	public void deliveryCheck(Model model) {
+		log.info("deliveryCheck페이지 이동");
+	}
+	
 	
 	@GetMapping("/orders/order/pay")
 	public String pay(Model model) {
@@ -38,11 +49,11 @@ public class PageController {
 //		
 //	}
 //	
-//	@GetMapping("/home/index")
-//	public void index(Model model) {
-//		log.info("index페이지 이동");
-//		
-//	}
+	@GetMapping("/home/index")
+	public String index(Model model) {
+		log.info("index페이지 이동");
+        return "home/index";
+	}
 //	
 //	@GetMapping("/home/login")
 //	public void login(Model model) {
@@ -50,11 +61,17 @@ public class PageController {
 //		
 //	}
 //	
-//	@GetMapping("/home/my-account")
-//	public void myAccount(Model model) {
-//		log.info("my-account페이지 이동");
-//		
-//	}
+	@GetMapping("/home/my-account")
+	public void myAccount(Model model) {
+		log.info("my-account페이지 이동");
+		
+	}
+	
+	@GetMapping("/home/my-account-order")
+	public void myAccountorder(Model model) {
+		log.info("my-account페이지 이동");
+		
+	}
 //	@GetMapping("/products/product-detail")
 //	public void productDetail(Model model) {
 //		log.info("product-detail페이지 이동");
