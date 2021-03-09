@@ -64,13 +64,7 @@ public class PageController {
 		log.info("index페이지 이동");
         return "home/index";
 	}
-//	
-//	@GetMapping("/home/login")
-//	public void login(Model model) {
-//		log.info("login페이지 이동");
-//		
-//	}
-//	
+	
 	@GetMapping("/home/my-account")
 	public void myAccount(Model model) {
 		log.info("my-account페이지 이동");
@@ -99,15 +93,26 @@ public class PageController {
 //	}
 
 	/* 로그인 페이지 이동 */
-	@GetMapping("/cust/login")
-	public void custLogin() {
-		
+	@GetMapping("/home/login")
+	public void login(HttpServletRequest request) {
+		String referrer = request.getHeader("Referer");
+		if(referrer!=null) {
+			System.out.println("이전페이지url: "+referrer);
+		    request.getSession().setAttribute("prevPage", referrer);
+		}
+		log.info("login페이지 이동");
 	}
-	@GetMapping("/cust/login1")
-	public String loginPage(HttpServletRequest request) {
-	    String referrer = request.getHeader("Referer");
-	    request.getSession().setAttribute("prevPage", referrer);
-	    return "/cust/login1";
+	
+	/* 회원가입 이동 */
+	@GetMapping("/home/register")
+	public void register() {
+		log.info("register페이지 이동");
+	}
+	/* 카카오 로그인 이동*/
+	@GetMapping("/home/kakao")
+	public String kakaoLogin(HttpServletRequest request) {
+
+		return "/home/kakao_login";
 	}
 
 	/* 관리자 페이지 이동 */
