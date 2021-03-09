@@ -165,7 +165,7 @@
                                             <h1>Ordered</h1>
                                             <p class="sub-total">Sub Total<span class="sub-total-price">$99</span></p>
                                             <p class="ship-cost">Shipping Cost<span>$1</span></p>
-                                            <h2>Grand Total<span class="grand-total-price">$100</span></h2>
+                                            <h2>Grand Total<span class="grand-total-price totalPrice">100</span></h2>
                                         </div>
                                         <div class="cart-btn">
                                             <button class="cancelOrderBtn">주문 취소</button>
@@ -316,7 +316,7 @@
         <script src="/resources/template/js/main.js?var=2"></script>
         <script src="/resources/basket/basket.js?ver=6"></script>
 		<script src="/resources/basket/transferTime.js"></script>
-		<script src="/resources/order/checkout.js?ver=1"></script>
+		<script src="/resources/order/checkout.js?ver=5"></script>
     </body>
     
     <script>
@@ -368,6 +368,18 @@
 		});		
 	});
   
+	$('.orderCommit').on('click',function(){
+		var totalPrice = $('.totalPrice').text();
+		var point = Number(totalPrice)*0.1;
+		var point2 = parseInt(totalPrice);
+		
+		console.log("적립 point: "+point);
+		if(window.confirm('주문확정시 환불이 불가능 합니다 주문확정을 하시겠습니까?')){
+			checkoutService.orderCommit(2,point,'basic');
+		}
+		
+		
+	});
 	
 	function showList(){		
 		checkoutService.getOrderList("basic",function(ordertList){
