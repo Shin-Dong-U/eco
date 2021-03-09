@@ -41,9 +41,9 @@ public class GoodsServiceimpl implements GoodsService{
 
 		List<Map<String, Object>> goodsList = goodsDao.goodsList(cri);
 		
-		resMap.put("goodsList", goodsList);
+//		resMap.put("goodsList", goodsList);
 		resMap.put("page", page);
-		resMap.put("cri", cri);
+//		resMap.put("cri", cri);
 		
 		return resMap;
 	}

@@ -83,6 +83,31 @@
         </div>
         <!-- Nav Bar End -->      
         
+        <!-- Bottom Bar Start -->
+        <div class="bottom-bar">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <div class="logo">
+                            <a href="index.html">
+                                <img src="/resources/template/img/logo.png" alt="Logo">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6"></div>
+                    <div class="col-md-3">
+                        <div class="user">
+                            <a href="cart.html" class="btn cart">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>(0)</span>
+                            </a>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <!-- Bottom Bar End -->  
+        
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-wrap">
             <div class="container-fluid">
@@ -103,12 +128,11 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="product-view-top">
-                                    <div class="row">
-                                    	
-                                    	<form name="searchForm" action="/goods/rest" method="get">
-                                    		<input type="hidden" id="pageNum" name="pageNum" value="${page.cri.pageNum }">
-                                    		<input type="hidden" id="amount" name="amount" value="${page.cri.amount }">
-                                    	
+                                   	<form id="searchForm" action="/goods/rest" method="get">
+                                   		<input type="hidden" id="pageNum" name="pageNum" value="${page.cri.pageNum }">
+                                   		<input type="hidden" id="amount" name="amount" value="${page.cri.amount }">
+
+                                    	<div class="row">
 	                                        <div class="col-md-2">
 	                                            <div class="product-short">
 	                                                <div class="dropdown">
@@ -127,9 +151,9 @@
 	                                                <button><i class="fa fa-search"></i></button>
 	                                            </div>
 	                                        </div>
-                                        </form>
-                                        
-                                    </div>
+                                    	</div>
+                                    </form>
+                                    
                                 </div>
                             </div>
                             <div class="row" id="goods_list">
