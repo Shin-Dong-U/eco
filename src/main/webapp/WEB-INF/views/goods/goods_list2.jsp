@@ -97,70 +97,77 @@
         
         <!-- Product List Start -->
         <div class="product-view">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="product-view-top">
                                     <div class="row">
-                                        <div class="col-md-2">
-                                            <div class="product-short">
-                                                <div class="dropdown">
-                                            		<select class="dropdown-toggle" id="category" name="category">
-													    <option value="" selected>전체</option>
-                                                   		<c:forEach var="cate" items="${cateList }" >
-														    <option value="${cate.CATE_SEQ }" ${cri.category eq cate.CATE_SEQ ? 'selected' : ''}>${cate.CATE_NAME }</option>
-                                                    	</c:forEach>
-													</select>
-                                                </div>
-                                            </div>
-                                        </div>                                    
-                                        <div class="col-md-3">
-                                            <div class="product-search">
-                                                <input type="text" id="keyword" name="keyword" value="${cri.keyword }" placeholder="상품명 검색">
-                                                <button><i class="fa fa-search"></i></button>
-                                            </div>
-                                        </div>
+                                    	
+                                    	<form name="searchForm" action="/goods/rest" method="get">
+                                    		<input type="hidden" id="pageNum" name="pageNum" value="${page.cri.pageNum }">
+                                    		<input type="hidden" id="amount" name="amount" value="${page.cri.amount }">
+                                    	
+	                                        <div class="col-md-2">
+	                                            <div class="product-short">
+	                                                <div class="dropdown">
+	                                            		<select class="dropdown-toggle" id="category" name="category">
+														    <option value="" selected>전체</option>
+	                                                   		<c:forEach var="cate" items="${cateList }" >
+															    <option value="${cate.CATE_SEQ }" ${cri.category eq cate.CATE_SEQ ? 'selected' : ''}>${cate.CATE_NAME }</option>
+	                                                    	</c:forEach>
+														</select>
+	                                                </div>
+	                                            </div>
+	                                        </div>                                    
+	                                        <div class="col-md-3">
+	                                            <div class="product-search">
+	                                                <input type="text" id="keyword" name="keyword" value="${cri.keyword }" placeholder="상품명 검색">
+	                                                <button><i class="fa fa-search"></i></button>
+	                                            </div>
+	                                        </div>
+                                        </form>
+                                        
                                     </div>
                                 </div>
                             </div>
-                            
-                            <c:forEach var="list" items="${goodsList}">
-								<div class="col-md-3">
-	                                <div class="product-item">
-	                                    <div class="product-title" style="height:100px;">
-                                        	<a href="/goods/${list.GOODS_SEQ }">${list.GOODS_NAME }</a>
-	                                        <div class="ratting">
-	                                            <i class="fa fa-star"></i>
-	                                            <i class="fa fa-star"></i>
-	                                            <i class="fa fa-star"></i>
-	                                            <i class="fa fa-star"></i>
-	                                            <i class="fa fa-star"></i>
-	                                        </div>
-	                                    </div>
-	                                    <div class="product-image">
-	                                        <a href="product-detail.html">
-	                                            <img src="${list.IMG_URL }" alt="Product Image">
-	                                        </a>
-	                                        <div class="product-action">
-	                                            <a href="/goods/${list.GOODS_SEQ }"><i class="fa fa-search"></i></a>
-	                                        </div>
-	                                    </div>
-	                                    <div class="product-price">
-	                                        <h3><fmt:formatNumber value="${list.PRICE }" pattern="#,###" /> &#8361;</h3>
-	                                        <a class="btn" href="/goods/${list.GOODS_SEQ }"><i class="fa fa-shopping-cart"></i>사러가기</a>
-	                                    </div>
-	                                </div>
-                            	</div>
-							</c:forEach>
+                            <div class="row" id="goods_list">
+	                            <c:forEach var="list" items="${goodsList}">
+									<div class="col-md-3">
+		                                <div class="product-item">
+		                                    <div class="product-title" style="height:100px;">
+	                                        	<a href="/goods/${list.GOODS_SEQ }">${list.GOODS_NAME }</a>
+		                                        <div class="ratting">
+		                                            <i class="fa fa-star"></i>
+		                                            <i class="fa fa-star"></i>
+		                                            <i class="fa fa-star"></i>
+		                                            <i class="fa fa-star-half-o"></i>
+		                                            <i class="fa fa-star-o"></i>
+		                                        </div>
+		                                    </div>
+		                                    <div class="product-image">
+		                                        <a href="product-detail.html">
+		                                            <img src="${list.IMG_URL }" alt="Product Image">
+		                                        </a>
+		                                        <div class="product-action">
+		                                            <a href="/goods/${list.GOODS_SEQ }"><i class="fa fa-search"></i></a>
+		                                        </div>
+		                                    </div>
+		                                    <div class="product-price">
+		                                        <h3><fmt:formatNumber value="${list.PRICE }" pattern="#,###" /> &#8361;</h3>
+		                                        <a class="btn" href="/goods/${list.GOODS_SEQ }"><i class="fa fa-shopping-cart"></i>사러가기</a>
+		                                    </div>
+		                                </div>
+	                            	</div>
+								</c:forEach>
+							</div>
                         </div>
                         
                         <!-- Pagination Start -->
                         <div class="col-md-12">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center">
-                                	
                                 	<c:if test="${page.prev}">
 										<li class="page-item disabled">
                                         	<a class="page-link" href="${page.startPage-1}" tabindex="-1">이전</a>
