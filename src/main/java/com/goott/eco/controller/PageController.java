@@ -17,12 +17,32 @@ import lombok.extern.log4j.Log4j;
 //@RequestMapping("/orders/*")
 public class PageController {
 	
+
+	
+	
+	@GetMapping("/deli/delilist")
+	public String list3(Model model) {
+		log.info("alldelivery페이지 이동");
+		return "deli/delilist";
+	}
+	
+	@GetMapping("/paidGoods/list")
+	public String list4(Model model) {
+		log.info("paidGoods페이지 이동");
+		return "paidGoods/list";
+	}
+//	@GetMapping("/page/searchedGoodslist")
+//	public String search(Model model) {
+//		log.info("searchedGoodsList페이지 이동");
+//		return  "board/searchedGoodslist";
+//	}
+
 	@GetMapping("/game/tree")
 	public void game() {
 		log.info("game페이지 이동");
 		//return "orders/basket/list";
 	}
-	
+
 	@GetMapping("/orders/basket/list")
 	public void list(Model model) {
 		log.info("list페이지 이동");
@@ -82,6 +102,12 @@ public class PageController {
 		log.info("my-account페이지 이동");
 		
 	}
+//	@GetMapping("/board/catelist")
+//	public void CateList(Model model) {
+//		log.info("CateList페이지 이동");
+//		
+//	}
+	
 //	@GetMapping("/products/product-detail")
 //	public void productDetail(Model model) {
 //		log.info("product-detail페이지 이동");

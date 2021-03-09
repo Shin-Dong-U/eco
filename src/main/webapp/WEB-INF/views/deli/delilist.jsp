@@ -34,7 +34,10 @@
 		      <th scope="col">수신자상세주소</th>
 		    </tr>
 		  </thead>
-		
+			  <tbody class="allDeliveryList">
+			  		    
+			  </tbody>
+			  
 			  <tbody class="deliveryList">
 			  		    
 			  </tbody>
@@ -44,15 +47,52 @@
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- <script src="/resources/delivery/delivery.js?ver=1"></script> -->
+<script src="/resources/delivery/delivery.js?ver=2"></script> 
 
 <script>
 $(document).ready(function() {
-	showList();
+	//showList1();
+	//showList2();
+	showList3();
+	
+	//전체 배송리스트
+	function showList1(){		
+		deliveryService.getallDeliveryList(function(allDeliveryList){
+			var allDeliveryListTable=$(".allDeliveryList");
+			var str="";
+			for(var i=0,len=allDeliveryList.length||0;i<len;i++){
+				console.log(allDeliveryList);
+				str+="<tr>"
+				
+					+"	<th scope='row'>"+allDeliveryList[i].delivery_seq+"</th>"
+					+"	<td><ul>"+allDeliveryList[i].invoice_no+"</ul></td>"
+					+"	<td>"+allDeliveryList[i].order_seq+"</td>"
+					+"	<td>"+allDeliveryList[i].delivery_status+"</td>"
+					+"	<td>"+allDeliveryList[i].delivery_company+"</td>"
+					+"	<td>"+deliveryService.displayTime(allDeliveryList[i].regDate)+"</td>"
+					+"	<td>"+allDeliveryList[i].regUser+"</td>"
+					+"	<td>"+allDeliveryList[i].editDate+"</td>"
+					+"	<td>"+allDeliveryList[i].editUser+"</td>"
+					+"	<td>"+allDeliveryList[i].sender_name+"</td>"
+					+"	<td>"+allDeliveryList[i].sender_phone+"</td>"
+					+"	<td>"+allDeliveryList[i].sender_addr_post+"</td>"
+					+"	<td>"+allDeliveryList[i].sender_addr_city+"</td>"
+					+"	<td>"+allDeliveryList[i].sender_addr_detail+"</td>"
+					+"	<td>"+allDeliveryList[i].cust_name+"</td>"
+					+"	<td>"+allDeliveryList[i].cust_phone+"</td>"
+					+"	<td>"+allDeliveryList[i].cust_addr_post+"</td>"
+					+"	<td>"+allDeliveryList[i].cust_addr_city+"</td>"
+					+"	<td>"+allDeliveryList[i].cust_addr_detail+"</td>"
+					+"</tr>"
+					
+			}
+			allDeliveryListTable.html(str);
+		})
+}
 	
 	
-	//배송 리스트 보기
-	function showList(){		
+	//특정송장번호의 배송 조회 
+	function showList2(){		
 		deliveryService.getdeliveryList(123123123,function(deliveryList){
 			var deliveryListTable=$(".deliveryList");
 			var str="";
@@ -83,41 +123,47 @@ $(document).ready(function() {
 			}
 			deliveryListTable.html(str);
 		})
-	
-
-	
-	
 }
-});
+	
+ 	//배송조회(회원)
+	function showList3(){		
+		deliveryService.getmyDeliveryList('nana',function(myDeliveryList){
+			var myDeliveryListTable=$(".myDeliveryList");
+			var str="";
+			for(var i=0,len=myDeliveryList.length||0;i<len;i++){
+				console.log(myDeliveryList);
+				str+="<tr>"
+					+"	<th scope='row'>"+myDeliveryList[i].invoice_no+"</th>"
+					+"	<td><ul>"+myDeliveryList[i].order_seq+"</ul></td>"
+					+"	<td>"+myDeliveryList[i].delivery_status+"</td>"
+					+"	<td>"+myDeliveryList[i].delivery_company+"</td>"
+					+"	<td>"+myDeliveryList.displayTime(myDeliveryList[i].regDate)+"</td>"
+					+"	<td>"+myDeliveryList[i].regUser+"</td>"
+					+"	<td>"+myDeliveryList[i].editDate+"</td>"
+					+"	<td>"+myDeliveryList[i].editUser+"</td>"
+					+"	<td>"+myDeliveryList[i].sender_name+"</td>"
+					+"	<td>"+myDeliveryList[i].sender_phone+"</td>"
+					+"	<td>"+myDeliveryList[i].sender_addr_post+"</td>"
+					+"	<td>"+myDeliveryList[i].sender_addr_city+"</td>"
+					+"	<td>"+myDeliveryList[i].sender_addr_detail+"</td>"
+					+"	<td>"+myDeliveryList[i].cust_name+"</td>"
+					+"	<td>"+myDeliveryList[i].cust_phone+"</td>"
+					+"	<td>"+myDeliveryList[i].cust_addr_post+"</td>"
+					+"	<td>"+myDeliveryList[i].cust_addr_city+"</td>"
+					+"	<td>"+myDeliveryList[i].cust_addr_detail+"</td>"
+					+"</tr>"
 
-var deliveryService=(function(){
-	
-	//배송 리스트 조회 
-	function getdeliveryList(invoice_no,callback, error){
-			console.log("delivery List................");
-			
-		$.ajax({ //자바스크립트 객체 시작
-			type:'get',					
-			url:'/delivery/list/'+invoice_no,	
-			//JSON.stringify()자바스크립트 객체를 JSON형식의 문자열로 변환해주는 웹브라우저 내부 메소드
-			data:JSON.stringify(invoice_no),			
-			contentType: "application/json; charset=utf-8", 
-			//success:(deliveryList)=>{console.log("배송 리스트",deliveryList),
-			//callback(deliveryList)},
-	
-			
-			success:function(delivertList) {
-				if(callback) {
-					callback(delivertList);
-					console.log("배송 리스트", deliveryList);
-				}
-			},
-		
-			error:(log)=>{console.log("실패 "+log)}
+					
+			}
+			myDeliveryListTable.html(str);
 		})
-	}
+}
 	
-		
+	
+	
+	
+	
+	
 	
 		function displayTime(timeValue){
 		var today = new Date();
@@ -140,11 +186,14 @@ var deliveryService=(function(){
 	
 	return {
 	
+		getallDeliveryList:getallDeliveryList,
 		getdeliveryList:getdeliveryList,
-
+		getmyDeliveryList:getmyDeliveryList,
 		displayTime:displayTime
 	};
 	
-})();
+}); 
+	
+	
 </script>
 </html>
