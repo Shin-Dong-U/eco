@@ -15,14 +15,14 @@
 	<table>
 	<tr>
 		<td>아이디:</td>
-		<td><input type="text" id="username" name="username" value="member1" ></td>
+		<td><input type="text" id="username" name="username" value="admin0" ></td>
 	</tr>	
 	<tr>
 		<td>비밀번호:</td>
-		<td><input type="password" id="password" name="password" value="member"/></td>
+		<td><input type="password" id="password" name="password" value="pw0"/></td>
 	</tr>
 	<tr>
-	<input type="text" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	<input type="text" name="${_csrf.parameterName}" value="${_csrf.token}" >
 	<td><input type="checkbox" name="remember-me">Remember ME</td>
 		<td><input type="submit" value="로그인" /></td>
 	</tr>

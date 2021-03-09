@@ -23,7 +23,10 @@
 
         <!-- Template Stylesheet -->
         <link href="/resources/template/css/style.css" rel="stylesheet">
-    </head>
+	
+
+
+</head>
 
     <body>
         <!-- Top bar Start -->
@@ -64,7 +67,7 @@
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
                                     <a href="wishlist.html" class="dropdown-item">Wishlist</a>
-                                    <a href="login.html" class="dropdown-item">Login & Register</a>
+                                    <a href="login.html" id="loginclass" class="dropdown-item">Login & Register</a>
                                     <a href="contact.html" class="dropdown-item">Contact Us</a>
                                 </div>
                             </div>
@@ -73,7 +76,7 @@
                             <div class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
                                 <div class="dropdown-menu">
-                                    <a href="" class="dropdown-item">Login</a>
+                                    <p id="1" class="dropdown-item">Login</p>
                                     <a href="" class="dropdown-item">Register</a>
                                 </div>
                             </div>
@@ -819,6 +822,13 @@
         <script src="/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
+        
         <script src="/resources/template/js/main.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript">
+			$("#1").on("click", function() {
+				location.href = "/cust/login1";
+			});
+		</script>
     </body>
 </html>

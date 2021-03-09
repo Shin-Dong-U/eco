@@ -68,10 +68,10 @@ public class MemberTests {
 					
 					if(k == 0) {
 		          
-						pstmt.setString(1, "memberId"+i);
+						pstmt.setString(1, "member"+i);
 						pstmt.setString(3, "사용자"+i);
-						pstmt.setString(5, "memberId"+i+"@goott.com");
-						pstmt.setString(7, "memberId"+i );
+						pstmt.setString(5, "member"+i+"@goott.com");
+						pstmt.setString(7, "member"+i );
 					}else{
 						pstmt.setString(1, "admin"+i);
 						pstmt.setString(3,"운영자"+i);
@@ -90,11 +90,11 @@ public class MemberTests {
 			        
 				}
 			}//end for
-	}
+		}
 	}
 }
 */
-  
+
 	@Test
 	public void testInsertAuth() {
     
@@ -115,12 +115,21 @@ public class MemberTests {
 		        	pstmt.setString(1, "member"+i);
 		        	pstmt.setString(2, "ROLE_CUST");
 		        	pstmt.setString(3, "0");
-
+		        	//if(i<5) {
+		        	//	pstmt.setString(1, "member"+i);
+			        //	pstmt.setString(2, "ROLE_COOMPANY");
+			        //	pstmt.setString(3, "0");
+		        	//}
 		        	
 		        }else {
-		  	          pstmt.setString(1, "admin"+i);
-		  	          pstmt.setString(2,"ROLE_ADMIN");
-		  	        pstmt.setString(3, "3");
+		        	pstmt.setString(1, "admin"+i);
+		        	pstmt.setString(2,"ROLE_ADMIN");
+		        	pstmt.setString(3, "3");
+		        	//if(i<5) {
+		        	//	pstmt.setString(1, "admin"+i);
+		        	//	pstmt.setString(2, "ROLE_CUST");
+		        	//	pstmt.setString(3, "1");
+		        	//}
 		        }
 		        pstmt.executeUpdate();
 		        
@@ -133,9 +142,8 @@ public class MemberTests {
 		    }//end for
 		}
 	}
-	
 }
-  
+
 
 
 

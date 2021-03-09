@@ -33,8 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	/* Login Success Handler */
 	@Bean
 	public AuthenticationSuccessHandler loginSuccessHandler() {
-		return new CustomLoginSuccessHandler();
+		return new CustomLoginSuccessHandler("/defaultUrl");
 	}
+	
 	
 	/* password Encoder */
 	@Bean
@@ -51,20 +52,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	/* remember-me */
 	private PersistentTokenRepository persistentTokenRepository() {
 		JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
+		repo.setDataSource(dataSource);
 		return repo;
 	}
 	
 	/* Authentication */
 	@Override
 	public void configure(HttpSecurity http) throws Exception{
-		http.authorizeRequests()
-			.antMatchers("/sample/all").permitAll()
-			.antMatchers("/sample/admin").access("hasRole('ROLE_ADMIN')")
-			.antMatchers("/sample/member").access("hasRole('ROLE_CUST')");
+		//http.authorizeRequests()
+		//	.antMatchers("/sample/all").permitAll()
+		//	.antMatchers("/sample/admin").access("hasRole('ROLE_ADMIN')")
+		//	.antMatchers("/sample/member").access("hasRole('ROLE_CUST')");
 	
 		/* 로그인 */
 		http.formLogin()
-			.loginPage("/cust/login2")
+			.loginPage("/cust/login1")
 			.loginProcessingUrl("/login")
 			.successHandler(loginSuccessHandler());
 		
