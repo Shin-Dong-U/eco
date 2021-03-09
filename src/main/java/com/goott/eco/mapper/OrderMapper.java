@@ -1,5 +1,6 @@
 package com.goott.eco.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -9,15 +10,19 @@ import com.goott.eco.domain.GoodsVOtest;
 
 public interface OrderMapper {
 	
-	public int addOrderMain(String cust_id);
+	public int addOrderMain(String cust_id, Long total_price);
 	
 	public Long getOrderSeq(String cust_id);
 	
-	public int addOrderDetail(
+//	public int addOrderDetail(
+//			@Param("cust_id") String cust_id,
+//			@Param("order_seq")Long order_seq,
+//			@Param("basket_seq") Long basket_seq
+//			,@Param("goods_seq") Long goods_seq);
+	
+	public int addOrderDetailBasket(
 			@Param("cust_id") String cust_id,
-			@Param("order_seq")Long order_seq,
-			@Param("basket_seq") Long basket_seq
-			,@Param("goods_seq") Long goods_seq);
+			@Param("order_seq")Long order_seq);
 	
 	public int upOrderStatus(Long order_seq);
 	
@@ -31,6 +36,12 @@ public interface OrderMapper {
 	
 	public List<GoodsVOtest> getGoodsNumList (String custId);
 	
+	public HashMap<String, Object> getCheckoutInfo(String cust_Id);
 	
+	public Long getTotalPrice(@Param("cust_id")String cust_id, @Param("order_seq") Long order_seq);
+	
+	public List<HashMap<String,Object>> getPaidList(String cust_id);
+	
+	public int orderCancel(Long order_seq);
 
 }

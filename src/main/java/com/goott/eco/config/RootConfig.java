@@ -16,6 +16,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -49,7 +50,7 @@ public class RootConfig {
 		return configurer;
 	}
 	
-	
+	/*Connection pool*/
 	@Bean//(initMethod="init")
 	public DataSource dataSource() {
 		HikariConfig hikariConfig = new HikariConfig();

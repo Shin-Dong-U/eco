@@ -59,10 +59,16 @@
 		<button  id="btn_submit" class="btn btn-default">Login</button><p/>
 		<div class="loginChat"></div>
 	</form>
-	<input type="button" id="btn_join" value="회원가입 TEST" /><br/>
-	<input type="button" id="btn_modify" value="회원 수정TEST" /><br/>
-	<input type="button" id="btn_delete" value="회원 탈퇴TEST" /><br/>
-	<input type="button" id="btn_get" value="회원 정보TEST" /><br/>
+	<hr/>
+	<h3> 회원가입 TEST </h3>
+	<input type="button" id="btn_join1" value="일반 사용자 회원가입" /> &nbsp;
+	<input type="button" id="btn_join2" value="업체 회원가입" /><hr/>
+	<h3> 회원 정보 수정 TEST </h3>
+	<input type="button" id="btn_modify1" value="일반 사용자 수정" />&nbsp;
+	<input type="button" id="btn_modify2" value="업체 사용자 수정" /><hr/>
+	<h3> 회원 탈퇴</h3>
+	<input type="button" id="btn_delete" value="회원 탈퇴TEST" /><p/>
+
 </div><br/>
 <div class="chatTest">
 
@@ -164,67 +170,114 @@ $("#btn_regSubmit").on("click",function(e){
 
 /* 회원가입 아작스  */
 /* test 클릭시 일어나는 이벤트 */
-$("#btn_join").on("click",function(e){
+$("#btn_join1").on("click",function(e){
 	e.preventDefault();
-	joinTest();
+	joinTest1();
 });
-
-function joinTest(){
+$("#btn_join2").on("click",function(e){
+	e.preventDefault();
+	joinTest2();
+});
+function joinTest2(){
 	var custVO={	 
-			"memberId":"compD",
+			"memberId":"compE",
 		 	"password":"1234",
-			"name":"compD",
+			"name":"compE",
 			"phone":"01012345678",
-			"email":"D@google.com",
+			"email":"compE@google.com",
 			"addr_post":"123456",
-			"addr_city":"천안",
-			"addr_detail":"두정동",
-			"birth":"200110",
+			"addr_city":"서울 구로구",
+			"addr_detail":"구로동",
+			"birth":"201010",
 			"sex":1,
 		    "company_yn":"Y"};
 	var compVO={
-			"cust_id":"compD",
-			"comp_name":"compD",
-			"comp_num":"000000002",
-			"addr_post":"465879",
-			"addr_city":"전주",
-			"addr_detail":"둔산동",
+			"cust_id":"compE",
+			"comp_name":"compE",
+			"comp_num":"000000010",
+			"addr_post":"123456",
+			"addr_city":"서울 구로구",
+			"addr_detail":"구로동",
 			"confirm_yn":"N",
 			"memo":"가구 회사"
 	};
 	custRest.joinMember(
 		memberVO={custVO:custVO, compVO:compVO },
 	function(data){
-		alert("성공"+data);
+		alert("joinTest1 성공"+data);
+	});
+}
+
+function joinTest1(){
+	var custVO={	 
+			"memberId":"user1",
+		 	"password":"1234",
+			"name":"user1",
+			"phone":"01088880000",
+			"email":"user1@google.com",
+			"addr_post":"123456",
+			"addr_city":"서울 서초구",
+			"addr_detail":"서초동",
+			"birth":"201231",
+			"sex":2,
+		    "company_yn":"N"};
+	custRest.joinMember(
+		memberVO={custVO:custVO},
+	function(data){
+		alert("joinTest2 성공"+data);
 	});
 }
 
 /* 회원 수정  */
-$("#btn_modify").on("click",function(e){
+$("#btn_modify1").on("click",function(e){
 	e.preventDefault();
-	modifyTest();
+	modifyTest1();
+	getTest('user1');
 });
+$("#btn_modify2").on("click",function(e){
+	e.preventDefault();
+	modifyTest2();
+	getTest('compA');
+});
+function modifyTest1(){
+	var custVO={	 
+			"memberId":"user1",
+		 	"password":"1111",
+			"phone":"01012345678",
+			"email":"user1@goott.com",
+			"addr_post":"123000",
+			"addr_city":"경기도 안양시",
+			"addr_detail":"몰라동",
+			"company_yn":"N",
+			"sex":1,
+			"editUser":"Admin1"};
+	custRest.modifyMember(
+		memberVO={custVO:custVO},
+		function(data){
+			console.log("성공"+data);
+		}
+	);
+}
 
-function modifyTest(){
+function modifyTest2(){
 	var custVO={	 
 			"memberId":"compA",
-		 	"password":"1234",
+		 	"password":"1111",
 			"phone":"01012345678",
-			"email":"compA@goott.com",
-			"addr_post":"123456",
-			"addr_city":"천안",
-			"addr_detail":"두정동",
+			"email":"compE@goott.com",
+			"addr_post":"123000",
+			"addr_city":"경기도 시흥시",
+			"addr_detail":"동산동",
 			"company_yn":"Y",
-			"sex":2,
-		    "company_yn":"Y",
-			"editUser":"Admin0"};
+			"sex":1,
+			"editUser":"Admin1"};
 	var compVO={
 			"comp_seq":1,
-			"addr_post":"123456",
-			"addr_city":"천안",
-			"addr_detail":"두정동",
+			"addr_post":"123000",
+			"addr_city":"경기도 시흥시",
+			"addr_detail":"동산동",
 			"editUser":"Admin0",
-			"memo":"가구 회사(수정완료)"
+			"memo":"수정완료"
 	};
 	custRest.modifyMember(
 		memberVO={custVO:custVO, compVO:compVO },
@@ -234,6 +287,7 @@ function modifyTest(){
 		}
 	);
 }
+
 
 
 /* 회원 탈퇴 */
@@ -261,8 +315,8 @@ $("#btn_get").on("click",function(e){
 	getTest();
 });
 
-function getTest(){
-	var memberId='sam'
+function getTest(memberId){
+//	var memberId=value;
 	custRest.getCust(
 		memberId,
 		function(memberVO){

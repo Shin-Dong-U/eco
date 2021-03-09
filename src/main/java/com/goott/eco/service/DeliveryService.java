@@ -1,22 +1,16 @@
 package com.goott.eco.service;
 
 import java.util.List;
-
 import com.goott.eco.domain.DeliveryVO;
-import com.goott.eco.domain.GoodsVO;
 import com.goott.eco.domain.OrderVO;
 
 public interface DeliveryService {
 	
+	public List<DeliveryVO> getDeliveryList(long invoice_no);
 	
-	public List<DeliveryVO>  getallDeliveryList();
-	
-	public List<DeliveryVO> getDeliveryList(Long invoice_no);
-	
-	public List<GoodsVO> getPaidGoodsList();
-	
-	public List<DeliveryVO> getmyDeliveryList(String cust_id);
+	public List<DeliveryVO> getDeliveryList();
 	
 
+	public List<DeliveryVO> getDeliveryList(String delivery_seq);
 
 }
