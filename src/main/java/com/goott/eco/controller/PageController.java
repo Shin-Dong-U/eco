@@ -1,5 +1,8 @@
 package com.goott.eco.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -55,6 +58,7 @@ public class PageController {
 //		
 //	}
 //	
+	@PreAuthorize("permitAll")
 	@GetMapping("/home/index")
 	public String index(Model model) {
 		log.info("index페이지 이동");
@@ -100,9 +104,12 @@ public class PageController {
 		
 	}
 	@GetMapping("/cust/login1")
-	public void custLogin1() {
-		
+	public String loginPage(HttpServletRequest request) {
+	    String referrer = request.getHeader("Referer");
+	    request.getSession().setAttribute("prevPage", referrer);
+	    return "/cust/login1";
 	}
+
 	/* 관리자 페이지 이동 */
 	@GetMapping("/admin/admin")
 	public void admin() {
@@ -118,7 +125,8 @@ public class PageController {
 	public void item(Model model) {
 		System.out.println("item페이지이동");
 	}
-	
+
+
 	
 	
 
