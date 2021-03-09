@@ -5,6 +5,37 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goott.eco.mapper.CustMapper">
 	
+		
+	<resultMap type="com.goott.eco.domain.CustAuthVO" id="AuthMap">
+		<result property="memberId" column="memberId" />
+		<result property="auth" column="auth" />	
+		<result property="acc_level" column="acc_level" />
+	</resultMap>
+	
+	<resultMap type="com.goott.eco.domain.CustVO" id="CustMap">
+		<result property="memberId" column="memberId" />
+		<result property="password" column="password" />
+		<result property="name" column="name" />
+		<result property="phone" column="phone" />
+		<result property="addr_post" column="addr_post" />
+		<result property="addr_city" column="addr_city" />
+		<result property="addr_detail" column="addr_detail" />
+		<result property="birth" column="birth" />
+		<result property="sex" column="sex" />
+		<result property="company_yn" column="company_yn" />
+		<result property="member_yn" column="member_yn" />
+		<result property="regDate" column="regDate" />
+		<result property="regUser" column="regUser" />
+		<result property="editDate" column="editDate" />
+		<result property="editUser" column="editUser" />
+		<result property="myTree" column="myTree" />
+		<result property="myMil" column="myMil" />
+		<result property="bar_status" column="bar_status" />
+		<result property="admin_yn" column="admin_yn" />
+		<collection property="authList" resultMap="AuthMap" />
+	</resultMap>
+
+	
 	<select id="getCustList" resultType="map">
 		SELECT * FROM eco.cust
 	</select>
@@ -20,6 +51,13 @@
 		SELECT * 
 		FROM eco.cust
 		WHERE memberId=#{memberId}
+	</select>
+	
+	<!-- 특정 회원 권한 가져오기 -->
+	<select id="getCustAuth" resultMap="CustMap">
+		SELECT a.*, b.auth , b.acc_level
+		FROM eco.cust a LEFT OUTER JOIN eco.cust_auth b on a.memberId= b.memberId
+		WHERE a.memberId=#{memberId}
 	</select>
 	
 	<!-- 로그인 -->
@@ -42,7 +80,7 @@
 	<update id="modifyCust">
 		UPDATE eco.cust
 		SET password=#{password}, phone=#{phone}, addr_post=#{addr_post}, addr_city=#{addr_city}, addr_detail=#{addr_detail},
-			company_yn=#{company_yn}, editUser=#{editUser}, editDate=default
+			company_yn=#{company_yn}, editUser=#{memberId}, editDate=default
 		WHERE memberId=#{memberId}
 	</update>
 	

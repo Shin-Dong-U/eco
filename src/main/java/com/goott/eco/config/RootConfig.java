@@ -1,4 +1,4 @@
-package com.goott.eco.config;
+﻿package com.goott.eco.config;
 
 import javax.sql.DataSource;
 
@@ -58,7 +58,8 @@ public class RootConfig {
 		hikariConfig.setJdbcUrl(jdbcUrl);
 		hikariConfig.setUsername(jdbcUserName);
 		hikariConfig.setPassword(jdbcPassword);
-		hikariConfig.setMaximumPoolSize(3);
+		hikariConfig.setMaximumPoolSize(3); //자원줄이기
+
 		
 		return new HikariDataSource(hikariConfig);
 	}

@@ -22,7 +22,7 @@ public class Criteria {
 	public Criteria() {
 		this(DEFAULT_PAGE_NUM, DEFAULT_AMOUNT);	//게시물 번호를 입력
 	}
-	
+
 	public Criteria(int pageNum, int amount) {
 		this.pageNum = pageNum;
 		this.amount = amount;
@@ -115,3 +115,5 @@ public class Criteria {
 		}
 	}
 }
+
+

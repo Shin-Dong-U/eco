@@ -19,15 +19,19 @@ import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml",
-	"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
+//@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml",
+//	"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
+@ContextConfiguration(classes={
+		com.goott.eco.config.RootConfig.class,
+		com.goott.eco.config.ServletConfig.class,
+		com.goott.eco.config.WebConfig.class})
 @Log4j
 public class OrderControllerTests {
 	
-	@Setter(onMethod_= {@Autowired})
+	@Setter(onMethod_= {@Autowired})//가상의 톰켓 컨테스트 환경구성
 	private WebApplicationContext ctx;
 	
-	private MockMvc mockMvc;
+	private MockMvc mockMvc;//가짜 MVC
 	
 	@Before
 	public void setup() {		
@@ -37,9 +41,9 @@ public class OrderControllerTests {
 	@Test
 	public void testReadListBasket() throws Exception{
 		
-		String custId = "sample_id";
+		String cust_id = "basic";
 		
-		mockMvc.perform( get("/oders/list/"+custId)
+		mockMvc.perform( get("/oders/list/"+cust_id)
 				.contentType("application/json; charset=UTF-8"))
 				//.dataType("application.json; charset=UTF-8")
 		.andExpect(status().is(200));

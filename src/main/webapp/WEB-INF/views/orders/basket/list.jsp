@@ -188,13 +188,17 @@
                                     <div class="cart-summary">
                                         <div class="cart-content">
                                             <h1>Cart Summary</h1>
-                                            <p>Sub Total<span class="subTotalPrice">99</span></p>
-                                            <p>Shipping Cost<span class="shippingCost">1</span></p>
-                                            <h2>Grand Total<span class="grandTotalPrice">100</span></h2>
+                                            <p>Sub Total<span class="subTotalPrice">0</span></p>
+                                            <p>Shipping Cost<span class="shippingCost">100</span></p>
+                                            <h2>Grand Total<span class="grandTotalPrice">0</span></h2>
                                         </div>
                                         <div class="cart-btn">
                                             <button class="cartUpBtn">Update Cart</button>
-                                            <button>Checkout</button>
+                                            <button class="checkoutBtn">
+                                            	<a href="http://localhost/orders/order/checkout">
+                                            		Checkout
+                                            	</a>
+                                            	</button>
                                         </div>
                                     </div>
                                 </div>
@@ -305,9 +309,10 @@
         <script src="/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
-        <script src="/resources/template/js/main.js?var=1"></script>
-        <script src="/resources/basket/basket.js?ver=5"></script>
+        <script src="/resources/template/js/main.js?var=2"></script>
+        <script src="/resources/basket/basket.js?ver=6"></script>
 		<script src="/resources/basket/transferTime.js"></script>
+		<script src="/resources/order/checkout.js?ver=1"></script>
     </body>
     
     <script>
@@ -321,10 +326,23 @@
     	
     });
     
+    //check out button 장바구니목록 주문
+    $('.checkoutBtn').on('click', function () {
+    	console.log("체크아웃 버튼클릭");
+    	//addOrder
+    	//체크아웃페이지 이동   	
+    	 checkoutService.addOrderBasket("basic",500,function(){
+    		console.log("checkout 성공"); 
+    	}); 
+    	
+    	
+    });
+    
+    
   	//상품제목 <p>클릭시
   	$('.basketList').on('click', "p",function () {
   		var goods_seq =  $(this).data("goods_seq");
-    	console.log("버튼클릭: "+goods_seq);
+    	console.log("버튼클릭goods_seq: "+goods_seq);
       //현재 버튼클릭시 해당 goods_seq선택가능-->Ajax로 연동
 		selectBasketGoods(goods_seq);    
     });
@@ -366,13 +384,17 @@
     
   //장바구니 리스트 보기
 		function showList(){		
-			basketService.getBasketList("nana",function(basketList){
+			basketService.getBasketList("basic",function(basketList){
 				var basketListTable=$(".basketList");
 				var str="";
 				console.log(basketList);
+				console.log("Number(basketList[i].PRICE): "+typeof(Number(basketList[0].PRICE)));
+				console.log("Number(basketList[i].QTY): "+typeof(Number(basketList[0].QTY)));
+				console.log("Number(basketList[i].PRICE)*Number(basketList[i].QTY): "+Number(basketList[0].PRICE)*Number(basketList[0].QTY));
+			
 				for(var i=0,len=basketList.length||0;i<len;i++){
 					 //"+basketList[i].IMG_URL+"
-					str+="<tr >"
+					str+="<tr>"
 		                +"   <td>"
 		                +"        <div class='img'>"
 		                +"            <a href=''><img src='/resources/template/img/product-1.jpg' alt='Image'></a>"		               
@@ -381,13 +403,13 @@
 		                +"    </td>"
 		                +"    <td><span>"+basketList[i].PRICE+"</span></td>"
 		                +"    <td>"
-		                +"        <div class='qty'>"
+		                +"        <div class='qty' data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"
 		                +"            <button class='btn-minus'><i class='fa fa-minus'></i></button>"
 		                +"            <input type='text' value='"+basketList[i].QTY+"'>"
 		                +"            <button class='btn-plus'><i class='fa fa-plus'></i></button>"
 		                +"        </div>"
 		                +"    </td>"
-		                +"    <td><span class='calPrice"+[i]+"'>"+basketList[i].PRICE+"</span></td>"                                           
+		                +"    <td><span class='calPrice"+[i]+"'>"+Number(basketList[i].PRICE)*Number(basketList[i].QTY)+"</span></td>"                                           
 		                +"    <td><button class='delbasketBtn' data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"
 		                +"		<i class='fa fa-trash'></i></button>"
 		                +"	  </td>"

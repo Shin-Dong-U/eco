@@ -4,28 +4,33 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goott.eco.mapper.GameMapper">
-	
-	
-	<!-- Show CustStatus -->
-	<select id="getCustStatus" resultType="com.goott.eco.domain.CustVO">
-		SELECT * FROM eco.cust 
-		WHERE memberid=#{memberid}
+
+	<select id="getCustPointPlusSum" resultType="Long">
+		SELECT SUM(point_amount)
+		FROM POINT
+		WHERE cust_id = #{cust_id} and memo='add'
+		GROUP BY cust_id
+		
+		
 	</select>
 	
-	<!-- ShowItem -->
-	<select id="getItem" resultType="com.goott.eco.domain.GameItemVO">
-		SELECT * FROM eco.game_item 
-		WHERE item_seq=#{item_seq}
+		<select id="getCustPointMinusSum" resultType="Long">
+		
+		SELECT SUM(point_amount)
+		FROM POINT
+		WHERE cust_id = #{cust_id} and memo='minus'
+		GROUP BY cust_id
+		
 	</select>
 	
+	<insert id="insertUseItem">
+		INSERT INTO POINT values(seq_point_seq.nextval,#{cust_id},'',
+		(SELECT ITEM_PRICE FROM GAME_ITEM WHERE item_seq=#{item_seq} ),'minus',#{cust_id},default,'','')
+	</insert>
 	
-	<!-- Cust의 Tree레벨에 따른 GameImage불러오기 -->
-	<select id="getCustTreeLvl" resultType="com.goott.eco.domain.GameImageVO">
-		SELECT mil_level, img_src 
-		FROM eco.game_image
-		WHERE mil_level=#{mil_level}
+	<select id="getGameImageInfo" resultType="com.goott.eco.domain.GameImageVO">
+		SELECT *FROM game_image where game_level=#{game_level}
 	</select>
-	
-	
+
 	
 </mapper>

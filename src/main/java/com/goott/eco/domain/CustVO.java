@@ -1,6 +1,7 @@
 package com.goott.eco.domain;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,9 +29,10 @@ public class CustVO {
 	private String regUser;     // 가입한 회원
 	private Timestamp editDate; // 수정 날짜
 	private String editUser;    // 수정한 회원
-	private Long myTree;      // Tree 정보 [A]-새싹 [E]-나무
+	private Long myTree;      	// Tree 정보 [A]-새싹 [E]-나무
 	private Long myMil;         // Mileage정보 
 	private Long bar_status;	// Mileage상태 bar 0~9
 	private String admin_yn;	// 일반 사용자 or 관리자 [y]-admin [n]-user
 
+	private List<CustAuthVO> authList;		//권한[admin, company, customer]
 }
