@@ -21,6 +21,16 @@
 
         <!-- Template Stylesheet -->
         <link href="/resources/template/css/style.css" rel="stylesheet">
+        <style>
+        	.loginOver{
+        		   display: flex; 
+            /* flex 부모태그에 설정 */
+            flex-direction: column;
+            /* 주축변경 */
+            align-items: center;
+            /* 주축에 대한 center */
+        	}
+        </style>
     </head>
 
     <body>
