@@ -4,14 +4,15 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goott.eco.mapper.BoardMapper">
 
-	<select id="getsearchedGoodsList" resultType="com.goott.eco.domain.GoodsVO">
+	<!-- <select id="getSearchedlist" resultType="com.goott.eco.domain.GoodsVO">
 		 <![CDATA[
             SELECT goods_seq, category, goods_name, goods_detail, price, eco_score, danger_YN, sale_YN
             FROM(
                   SELECT /*+ INDEX_DESC (a pk_goods_seq) */ rownum rn, a.*
                   FROM goods a
                   WHERE
-      ]]>      
+      ]]>
+      	<if test="searchKeyword!=null and searchKeyword!=''">      
          <trim prefix="(" suffix=") AND" prefixOverrides="OR">
             <foreach item='type' collection="typeArr">
                <trim prefix="OR">
@@ -29,17 +30,59 @@
                </trim>
             </foreach>
          </trim>
-      <![CDATA[   
-         rownum <= (#{pageNum}*#{amount}) 
-         )   
-         WHERE rn >= ( (#{pageNum}*#{amount}) - (#{amount} - 1) )
-      ]]>   
-   </select>
-   
-   
-   	<select id="getCateList" resultType="Integer">
-		SELECT * FROM eco.goods_category where cate_seq in #{cate_seq}
-				
+         </if>
+			<choose>
+				<when test="category!=null and category!=''">
+					<![CDATA[
+						category=#{category} and flag='I' and rownum <= #{pageNum}*#{amount} 
+					]]>
+				</when>
+				<otherwise>
+					<![CDATA[
+						flag='I' AND rownum <= #{pageNum}*#{amount} 
+					]]>
+				</otherwise>
+			</choose>
+		<![CDATA[
+				   )
+			WHERE rn > (#{pageNum}-1)*#{amount} 
+		]]>
+	</select> -->
+	
+	<!-- <select id="boardGetTotalCount" resultType="int">
+		SELECT count(bno)
+		FROM tAuction.board
+		<where>
+			<if test="searchKeyword!=null and searchKeyword!=''">
+				<trim prefix="(" suffix=") " prefixOverrides="OR" >
+					<foreach item='searchType' collection="searchTypeArr">
+						<trim prefix="OR" >
+							<choose>
+								<when test="searchType=='T'.toString()">
+									title like '%' || #{searchKeyword} || '%'
+								</when>
+								<when test="searchType=='C'.toString()">
+									contents like '%' || #{searchKeyword} || '%'
+								</when>
+								<when test="searchType=='W'.toString()">
+									memberId like '%' || #{searchKeyword} || '%'
+								</when>
+							</choose>
+						</trim>
+					</foreach>
+				</trim>
+			</if>
+			<if test="category!=null and category!=''">
+				AND category=#{category} AND flag='I'
+			</if>
+			<if test="category==null and category==''">
+				AND flag='I'
+			</if>
+		</where>
+		
 	</select>
+   -->
+   
+ 
    
 </mapper>

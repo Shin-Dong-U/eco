@@ -3,11 +3,12 @@ package com.goott.eco.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.goott.eco.domain.GoodsVO;
 import com.goott.eco.mapper.BoardMapper;
-import com.goott.eco.mapper.DeliveryMapper;
 
+@Service
 public class BoardServiceImpl implements BoardService{
 	
 private BoardMapper boardMapper;
@@ -23,8 +24,13 @@ private BoardMapper boardMapper;
 	}
 
 	@Override
-	public List<Integer> getCateList(int cate_seq) {
+	public int getCateList(int cate_seq) {
 		return boardMapper.getCateList(cate_seq);
 	}
+
+//	@Override
+//	public String getSearchedlist(String goods_name) {
+//		return boardMapper.getSearchedlist(goods_name);
+//	}
 
 }

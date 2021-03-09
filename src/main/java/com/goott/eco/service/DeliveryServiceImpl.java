@@ -33,7 +33,8 @@ public class DeliveryServiceImpl implements DeliveryService{
 	//결제완료된(3) 주문 리스트
 	@Override
 	public List<DeliveryVO> getDeliveryList( ) {
-		return deliveryMapper.getDeliveryList();
+		
+		return null;//deliveryMapper.getDeliveryList();
 	
 	}
 

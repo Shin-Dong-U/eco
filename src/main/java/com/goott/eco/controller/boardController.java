@@ -1,20 +1,15 @@
 package com.goott.eco.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.goott.eco.domain.DeliveryVO;
-import com.goott.eco.domain.GoodsVO;
-import com.goott.eco.domain.GoodsVOtest;
 import com.goott.eco.service.BoardService;
-import com.goott.eco.service.OrderService;
 
+@Controller
 @RequestMapping("/board/*")
 
 public class boardController {
@@ -26,27 +21,42 @@ public class boardController {
 			this.boardService = boardService;
 		}
 		
-		//검색한 상품목록 리스트
-		@GetMapping(value="/search/searchedGoodslist",
-				produces= {"application/json; charset=UTF-8"})
-		public ResponseEntity<List<GoodsVO>> getsearchedGoodsList(
-				@PathVariable("goods_name") String goods_name){
-			
-			System.out.println("start");
-			System.out.println("검색한 상품목록: "+ goods_name);
-			return new ResponseEntity<>(boardService.getsearchedGoodsList(goods_name),HttpStatus.OK);
-		}
+
+		//검색
+//
+//		@GetMapping("/searchedlist")
+//			public String searchedlist(@RequestParam("goods_name") String goods_name, Model model) {
+//			//int countArticle(String searchOption, String keyword);
+//			
+//			System.out.println("start");
+//			System.out.println("검색: "+ goods_name);
+//			
+//			model.addAttribute("goods_name", goods_name);
+//			return "board/cateGoodslist";	
+//		}
+//		
+
+		
+		
 		
 		//카테고리 클릭->해당 카테고리 상품목록 페이지
-		@GetMapping(value="/click/{cate_seq}",
-				produces= {"application/json; charset=UTF-8"})
-		public ResponseEntity<List<Integer>> getCateList(
-				@PathVariable("cate_seq") int cate_seq){
+		@GetMapping("/catelist")
+			public String cateList(@RequestParam("cate_seq") int cate_seq, Model model) {
 			
 			System.out.println("start");
-			System.out.println("카테고리 페이지"+ cate_seq);
-			return new ResponseEntity<>(boardService.getCateList(cate_seq),HttpStatus.OK);
+			System.out.println("선택 카테고리: "+ cate_seq);
+			
+			model.addAttribute("cate_seq",cate_seq);
+			return "board/cateGoodslist";
 		}
+		//${cate_seq}
+		
+		
+
+
+		
+
+
 		
 		
 	

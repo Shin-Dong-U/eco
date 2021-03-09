@@ -11,4 +11,5 @@ public interface BoardMapper {
 	
 	public int getCateList(int cate_seq);
 
+//	public String getSearchedlist(String goods_name);
 }

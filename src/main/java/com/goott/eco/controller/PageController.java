@@ -14,11 +14,6 @@ import lombok.extern.log4j.Log4j;
 //@RequestMapping("/orders/*")
 public class PageController {
 	
-	@GetMapping("/board/catelist")
-	public String click(Model model) {
-		log.info("catelist페이지 이동");
-		return "board/catelist";
-	}
 	
 	
 	@GetMapping("/deli/delilist")
@@ -32,11 +27,11 @@ public class PageController {
 		log.info("paidGoods페이지 이동");
 		return "paidGoods/list";
 	}
-	@GetMapping("/page/searchedGoodslist")
-	public String search(Model model) {
-		log.info("searchedGoodsList페이지 이동");
-		return  "board/searchedGoodslist";
-	}
+//	@GetMapping("/page/searchedGoodslist")
+//	public String search(Model model) {
+//		log.info("searchedGoodsList페이지 이동");
+//		return  "board/searchedGoodslist";
+//	}
 
 	@GetMapping("/orders/basket/list")
 	public void list(Model model) {
@@ -96,6 +91,12 @@ public class PageController {
 		log.info("my-account페이지 이동");
 		
 	}
+//	@GetMapping("/board/catelist")
+//	public void CateList(Model model) {
+//		log.info("CateList페이지 이동");
+//		
+//	}
+	
 //	@GetMapping("/products/product-detail")
 //	public void productDetail(Model model) {
 //		log.info("product-detail페이지 이동");
