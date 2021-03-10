@@ -27,6 +27,7 @@ public class RestGoodsController {
 	@GetMapping(value="", produces = "application/json; charset=UTF-8")	
 	public ResponseEntity<Map<String, Object>> goodsList(@ModelAttribute Criteria cri) {
 		Map<String, Object> goods = goodsService.goodsList(cri);
+		System.out.println("@@@list");
 		
 		return new ResponseEntity<>(goods, HttpStatus.OK);
 	}

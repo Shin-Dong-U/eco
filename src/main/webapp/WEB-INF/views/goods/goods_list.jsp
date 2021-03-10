@@ -94,6 +94,15 @@
                             </a>
                         </div>
                     </div>
+                    <!-- <div class="col-md-6"></div>
+                    <div class="col-md-3">
+                        <div class="user">
+                            <a href="cart.html" class="btn cart">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>(0)</span>
+                            </a>
+                        </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -119,10 +128,10 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="product-view-top">
-                                   	<form id="searchForm" onsubmit="return false">
+                                   	<form id="searchForm">
                                     	<div class="row">
-                                    		<input type="hidden" id="pageNum" name="pageNum" value="">
-                                   			<input type="hidden" id="amount" name="amount" value="">
+                                    		<input type="hidden" id="pageNum" name="pageNum" value="${page.cri.pageNum }">
+                                   			<input type="hidden" id="amount" name="amount" value="${page.cri.amount }">
 	                                        <div class="col-md-2">
 	                                            <div class="product-short">
 	                                                <div class="dropdown">
@@ -138,7 +147,7 @@
 	                                        <div class="col-md-3">
 	                                            <div class="product-search">
 	                                                <input type="text" id="keyword" name="keyword" value="${cri.keyword }" placeholder="상품명 검색">
-	                                                <button type="button" onclick="callGetGoodsList();"><i class="fa fa-search"></i></button>
+	                                                <button><i class="fa fa-search"></i></button>
 	                                            </div>
 	                                        </div>
                                     	</div>
@@ -146,14 +155,41 @@
                                     
                                 </div>
                             </div>
-                            
-                            <!-- Goods List -->
-                            <div class="row" id="goods_list"></div>
-                            
-	                        <!-- Pagination Start -->
-	                        <div class="col-md-12" id="pageDiv"></div>
-
+                            <div class="row" id="goods_list">
+							</div>
                         </div>
+                        
+                        <!-- Pagination Start -->
+                        <div class="col-md-12">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                	<c:if test="${page.prev}">
+										<li class="page-item disabled">
+                                        	<a class="page-link" href="${page.startPage-1}" tabindex="-1">이전</a>
+                                    	</li>
+									</c:if>	
+                                	
+                                	<c:forEach var="num" begin="${page.startPage}" end="${page.endPage}">
+										<c:choose>
+											<c:when test="${page.cri.pageNum eq num}">
+												<li class="page-item active"><span class="page-link">${page.cri.pageNum }</span></li>
+											</c:when>
+											<c:otherwise>
+												<li class="page-item"><a class="page-link" href="#">${num }</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+                                    
+                                    <c:if test="${page.next}">
+                                    	<li class="page-item">
+	                                        <a class="page-link" href="${page.endPage+1}">다음</a>
+	                                    </li>
+									</c:if>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Pagination end -->
+                        
                     </div>           
                 </div>
             </div>
@@ -188,14 +224,7 @@
         <!-- Template Javascript -->
         <script src="/resources/template/js/main.js"></script>
         
+        <!--   -->
         <script src="/resources/js/goods/goods.js"></script>
-        <script>
-        	$(document).ready(function(){
-        		movePage(1);
-        		$("#keyword").keydown(function(key) {
-        			if (key.keyCode == 13) { callGetGoodsList(); }
-       			});
-        	});
-        </script>
 	</body>
 </html>
