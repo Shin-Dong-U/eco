@@ -128,11 +128,10 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="product-view-top">
-                                   	<form id="searchForm" action="/goods/rest" method="get">
-                                   		<input type="hidden" id="pageNum" name="pageNum" value="${page.cri.pageNum }">
-                                   		<input type="hidden" id="amount" name="amount" value="${page.cri.amount }">
-
+                                   	<form id="searchForm">
                                     	<div class="row">
+                                    		<input type="hidden" id="pageNum" name="pageNum" value="${page.cri.pageNum }">
+                                   			<input type="hidden" id="amount" name="amount" value="${page.cri.amount }">
 	                                        <div class="col-md-2">
 	                                            <div class="product-short">
 	                                                <div class="dropdown">
