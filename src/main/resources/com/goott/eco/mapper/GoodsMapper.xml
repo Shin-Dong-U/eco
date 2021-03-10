@@ -21,7 +21,7 @@
 			</if>
 	</select>
 	
-	<select id="goodsList" resultType="map" parameterType="com.goott.eco.common.Criteria">
+	<select id="goodsList" resultType="hashmap" parameterType="com.goott.eco.common.Criteria">
 		SELECT 
 			  G.GOODS_SEQ, G.GOODS_NAME, G.PRICE, G.ECO_SCORE
 			, GTN.IMG_URL
