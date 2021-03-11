@@ -31,12 +31,17 @@ public class GoodsController {
 		return mav;
 	}
 	
-	@GetMapping("{goodsSeq}")
+	@GetMapping("/{goodsSeq}")
 	public ModelAndView goodsDetail(HttpServletRequest request, HttpServletResponse response, @PathVariable int goodsSeq) {
 		ModelAndView mav = new ModelAndView("/goods/goods_detail");
 		mav.addAllObjects(goodsService.goodsDetail(goodsSeq));
 		
 		return mav;
+	}
+	
+	@GetMapping("/form")
+	public String goodsInsert() {
+		return "company/goods_insert";
 	}
 	
 }

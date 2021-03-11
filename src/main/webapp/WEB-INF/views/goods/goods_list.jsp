@@ -121,16 +121,16 @@
                                	<form id="searchForm" onsubmit="return false">
                                	<div class="row">
                                		<input type="hidden" id="pageNum" name="pageNum" value="">
-                              			<input type="hidden" id="amount" name="amount" value="">
+                           			<input type="hidden" id="amount" name="amount" value="">
                                     <div class="col-md-2">
                                         <div class="product-short">
                                             <div class="dropdown">
                                         		<select class="dropdown-toggle" id="category" name="category">
-									    <option value="" selected>전체</option>
+												    	<option value="" selected>전체</option>
                                                		<c:forEach var="cate" items="${cateList }" >
-										    <option value="${cate.CATE_SEQ }" ${cri.category eq cate.CATE_SEQ ? 'selected' : ''}>${cate.CATE_NAME }</option>
-                                                	</c:forEach>
-									</select>
+											    		<option value="${cate.CATE_SEQ }" ${cri.category eq cate.CATE_SEQ ? 'selected' : ''}>${cate.CATE_NAME }</option>
+                                               		</c:forEach>
+												</select>
                                             </div>
                                         </div>
                                     </div>                                    
