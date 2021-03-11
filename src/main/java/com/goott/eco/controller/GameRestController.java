@@ -58,7 +58,9 @@ public class GameRestController {
 			@PathVariable("memberId") String memberId){
 		
 			System.out.println("memberId: "+memberId);
-			List<CustVO> result = gameService.getCustStatus(memberId);
+//			List<CustVO> result = gameService.getCustStatus(memberId);
+			System.out.println("@@@@@@@@@@@@@@@@ 오류나서 NULL 처리 했어요. 확인해보세요 !!!! @@@@@@@@@@@@@");
+			List<CustVO> result = null;
 			System.out.println("gameService: "+result);
 			return new ResponseEntity<>(result,HttpStatus.OK);
 	}
@@ -73,7 +75,9 @@ public class GameRestController {
 		
 		System.out.println("item_seq :" + item_seq);
 		
-		List<GameItemVO> result =  gameService.getItem(item_seq);
+//		List<GameItemVO> result =  gameService.getItem(item_seq);
+		List<GameItemVO> result =  null;
+		System.out.println("@@@@@@@@@@@@@@@@ 오류나서 NULL 처리 했어요 확인해보세요 !!!! @@@@@@@@@@@@@");
 		
 		System.out.println("gameService:" + result);
 		

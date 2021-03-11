@@ -224,7 +224,7 @@
         <!-- Template Javascript -->
         <script src="/resources/template/js/main.js"></script>
         
-        <!--   -->
+        <script src="/resources/js/common/common.js"></script>
         <script src="/resources/js/goods/goods.js"></script>
 	</body>
 </html>

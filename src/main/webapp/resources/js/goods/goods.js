@@ -73,23 +73,6 @@ function callGetGoodsList(){
 	});
 }
 
-//숫자 3자리마다 콤마 찍기
-function formattingComma(num){
-    var len, point, str; 
-       
-    num = num + ""; 
-    point = num.length % 3 ;
-    len = num.length; 
-   
-    str = num.substring(0, point); 
-    while (point < len) { 
-        if (str) str += ","; 
-        str += num.substring(point, point + 3); 
-        point += 3; 
-    } 
-     
-    return str;
-}
 
 //별점에 따라 아이콘 리턴
 function makeStarIconHtml(ratting){
@@ -110,20 +93,7 @@ function makeStarIconHtml(ratting){
 	return htmlText;
 }
 
-//form 직렬화
-jQuery.fn.serializeObject = function() { 
-	var obj = {};
-
-    var arr = this.serializeArray(); 
-    if(arr){ 
-    	jQuery.each(arr, function() {
-			//pageNum, amount 가 null 또는 '' 이면 전달 하지 않는다.
-			if( !(!this.value && (this.name == "pageNum" || this.name == "amount")) ){
-    			obj[this.name] = this.value; 
-    		}
-    		
-		}); 
-    }
-    
-    return obj;
+function movePage(pageNum){
+	selectedPage(pageNum);
+	callGetGoodsList();
 }
