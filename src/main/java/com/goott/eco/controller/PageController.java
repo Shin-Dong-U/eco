@@ -147,10 +147,10 @@ public class PageController {
 		
 	}
 	/* list 페이지 이동 */
-	@GetMapping("/cust/list")
-	public void custList() {
-
-	}
+//	@GetMapping("/cust/list")
+//	public void custList() {
+//
+//	}
 
 	@GetMapping("/game/item")
 	public void item(Model model) {
