@@ -40,10 +40,11 @@ public class GoodsServiceimpl implements GoodsService{
 		PageDTO page = new PageDTO(cri, cnt);
 
 		List<Map<String, Object>> goodsList = goodsDao.goodsList(cri);
+		List<Map<String, Object>> cateList = goodsDao.goodsCategoryList();
 		
 		resMap.put("goodsList", goodsList);
 		resMap.put("page", page);
-		resMap.put("cri", cri);
+//		resMap.put("cri", cri);
 		
 		return resMap;
 	}

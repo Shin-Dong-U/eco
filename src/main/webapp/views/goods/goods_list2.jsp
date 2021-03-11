@@ -83,6 +83,31 @@
         </div>
         <!-- Nav Bar End -->      
         
+        <!-- Bottom Bar Start -->
+        <div class="bottom-bar">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <div class="logo">
+                            <a href="index.html">
+                                <img src="/resources/template/img/logo.png" alt="Logo">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6"></div>
+                    <div class="col-md-3">
+                        <div class="user">
+                            <a href="cart.html" class="btn cart">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>(0)</span>
+                            </a>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <!-- Bottom Bar End -->  
+        
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-wrap">
             <div class="container-fluid">
@@ -97,18 +122,17 @@
         
         <!-- Product List Start -->
         <div class="product-view">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="product-view-top">
-                                    <div class="row">
-                                    	
-                                    	<form name="searchForm" action="/goods/rest" method="get">
-                                    		<input type="hidden" id="pageNum" name="pageNum" value="${page.cri.pageNum }">
-                                    		<input type="hidden" id="amount" name="amount" value="${page.cri.amount }">
-                                    	
+                                   	<form id="searchForm" action="/goods/rest" method="get">
+                                   		<input type="hidden" id="pageNum" name="pageNum" value="${page.cri.pageNum }">
+                                   		<input type="hidden" id="amount" name="amount" value="${page.cri.amount }">
+
+                                    	<div class="row">
 	                                        <div class="col-md-2">
 	                                            <div class="product-short">
 	                                                <div class="dropdown">
@@ -127,47 +151,47 @@
 	                                                <button><i class="fa fa-search"></i></button>
 	                                            </div>
 	                                        </div>
-                                        </form>
-                                        
-                                    </div>
+                                    	</div>
+                                    </form>
+                                    
                                 </div>
                             </div>
-                            <div class="row" id="goods_list">
-	                            <c:forEach var="list" items="${goodsList}">
-									<div class="col-md-3">
-		                                <div class="product-item">
-		                                    <div class="product-title" style="height:100px;">
-	                                        	<a href="/goods/${list.GOODS_SEQ }">${list.GOODS_NAME }</a>
-		                                        <div class="ratting">
-		                                            <i class="fa fa-star"></i>
-		                                            <i class="fa fa-star"></i>
-		                                            <i class="fa fa-star"></i>
-		                                            <i class="fa fa-star-half-o"></i>
-		                                            <i class="fa fa-star-o"></i>
-		                                        </div>
-		                                    </div>
-		                                    <div class="product-image">
-		                                        <a href="product-detail.html">
-		                                            <img src="${list.IMG_URL }" alt="Product Image">
-		                                        </a>
-		                                        <div class="product-action">
-		                                            <a href="/goods/${list.GOODS_SEQ }"><i class="fa fa-search"></i></a>
-		                                        </div>
-		                                    </div>
-		                                    <div class="product-price">
-		                                        <h3><fmt:formatNumber value="${list.PRICE }" pattern="#,###" /> &#8361;</h3>
-		                                        <a class="btn" href="/goods/${list.GOODS_SEQ }"><i class="fa fa-shopping-cart"></i>사러가기</a>
-		                                    </div>
-		                                </div>
-	                            	</div>
-								</c:forEach>
-							</div>
+                            
+                            <c:forEach var="list" items="${goodsList}">
+								<div class="col-md-3">
+	                                <div class="product-item">
+	                                    <div class="product-title" style="height:100px;">
+                                        	<a href="/goods/${list.GOODS_SEQ }">${list.GOODS_NAME }</a>
+	                                        <div class="ratting">
+	                                            <i class="fa fa-star"></i>
+	                                            <i class="fa fa-star"></i>
+	                                            <i class="fa fa-star"></i>
+	                                            <i class="fa fa-star"></i>
+	                                            <i class="fa fa-star"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="product-image">
+	                                        <a href="product-detail.html">
+	                                            <img src="${list.IMG_URL }" alt="Product Image">
+	                                        </a>
+	                                        <div class="product-action">
+	                                            <a href="/goods/${list.GOODS_SEQ }"><i class="fa fa-search"></i></a>
+	                                        </div>
+	                                    </div>
+	                                    <div class="product-price">
+	                                        <h3><fmt:formatNumber value="${list.PRICE }" pattern="#,###" /> &#8361;</h3>
+	                                        <a class="btn" href="/goods/${list.GOODS_SEQ }"><i class="fa fa-shopping-cart"></i>사러가기</a>
+	                                    </div>
+	                                </div>
+                            	</div>
+							</c:forEach>
                         </div>
                         
                         <!-- Pagination Start -->
                         <div class="col-md-12">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center">
+                                	
                                 	<c:if test="${page.prev}">
 										<li class="page-item disabled">
                                         	<a class="page-link" href="${page.startPage-1}" tabindex="-1">이전</a>
