@@ -30,13 +30,14 @@ public class GoodsController {
 		return mav;
 	}
 	
-	@GetMapping("{goodsSeq}")
+	@GetMapping("/{goodsSeq}")
 	public ModelAndView goodsDetail(HttpServletRequest request, HttpServletResponse response, @PathVariable int goodsSeq) {
-		ModelAndView mav = new ModelAndView("/goods/goods_detail");
+		ModelAndView mav = new ModelAndView();
 		
-		mav.setViewName("/goods_detail");
+		mav.setViewName("goods/goods_detail");
 		//mav.addAllObjects(goodsService.goodsDetail(goodsSeq));
 		mav.addObject("goods_req_option", goodsService.goodsDetail(goodsSeq));
+		System.out.println("goods detail " + goodsSeq);
 		return mav;
 	}
 	
@@ -51,8 +52,17 @@ public class GoodsController {
 	}
 	
 	@GetMapping("/testtt")
-	public ModelAndView goodsList22(HttpServletRequest request, HttpServletResponse response, Criteria cri) {
+	public ModelAndView goodsList232(HttpServletRequest request, HttpServletResponse response, Criteria cri) {
 		ModelAndView mav = new ModelAndView("/goods/goods_list");
+//		mav.addAllObjects(goodsService.goodsList(cri));
+//		mav.addObject("cateList", commonService.categoryList());
+		
+		return mav;
+	}
+	
+	@GetMapping("/test7")
+	public ModelAndView testtttttttt(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("/home");
 //		mav.addAllObjects(goodsService.goodsList(cri));
 //		mav.addObject("cateList", commonService.categoryList());
 		
