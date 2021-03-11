@@ -82,6 +82,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.tokenRepository(persistentTokenRepository())
 			.tokenValiditySeconds(604800);
 		
+		/* naver smartEditor cross-origin iframe 이슈 방지용 */
+		http.headers().frameOptions().sameOrigin();
+		
 	}
 
 	/* Authorization */

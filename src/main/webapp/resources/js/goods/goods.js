@@ -88,19 +88,21 @@ function callGetGoodsList(){
 
 //별점에 따라 아이콘 리턴
 function makeStarIconHtml(ratting){
-	var htmlText = '';
+	var htmlText = '<div class="ratting">';
 	
 	for(var i = 0; i < 5; i ++){
 		if(ratting < 1 && ratting >= 0.5){
-			htmlText += '<i class="fa fa-star-half-alt"></i>';
-			return htmlText;
+			htmlText += ' <i class="fa fa-star-half-alt"></i>';
+			break;
 		}else if(ratting >= 1){
-			htmlText += '<i class="fa fa-star"></i>';
+			htmlText += ' <i class="fa fa-star"></i>';
 			ratting -= 1;
 		}else{
-			return htmlText;
+			break;
 		}
 	}
+	
+	htmlText += '</div>';
 	
 	return htmlText;
 }
