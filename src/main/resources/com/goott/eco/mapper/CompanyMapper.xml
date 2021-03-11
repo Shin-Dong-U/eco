@@ -10,25 +10,36 @@
 	</select>
 	
 	<!-- 업체 pk찾기 -->
+	<!-- 	
 	<select id="getCompany_seq" resultType="Long">
 		SELECT a.comp_seq
 		FROM eco.company a 
 		INNER JOIN eco.cust b ON (a.cust_Id = b.memberId)
 		WHERE memberId = #{memberId} AND member_yn='N'
 	</select>
+	-->
+	
 	
 	<!-- 특정 업체 정보가져오기 -->
 	<select id="getCompany" resultType="com.goott.eco.domain.CompanyVO">
 		SELECT * FROM eco.company
-		WHERE comp_seq=#{comp_seq}
+		WHERE cust_id=#{memberId}
 	</select>
 	
-	<!-- 회원 가입 -->
+	<!-- 회원 가입:company -->
 	<insert id="joinCompany">
 		INSERT INTO eco.company 
-		VALUES (ECO.SEQ_COMP_SEQ.nextval,#{cust_id},#{comp_name},#{comp_num},#{addr_post},
-		#{addr_city},#{addr_detail}, default, default, #{cust_id}, default, #{cust_id},#{memo}
+		VALUES (
+			ECO.SEQ_COMP_SEQ.nextval,#{cust_id},#{comp_name},#{corp_num},
+			#{addr_post},#{addr_city},#{addr_detail}, default, default, 
+			#{cust_id}, default, #{cust_id},'-'
 		)
+	</insert>
+	
+	<!-- 회원 가입:cust_auth -->
+	<insert id="joinCompanyAuth">
+		INSERT INTO eco.cust_auth
+		VALUES (#{cust_id},'ROLE_COMPANY', default)
 	</insert>
 	
 	<!-- 회원 수정 -->

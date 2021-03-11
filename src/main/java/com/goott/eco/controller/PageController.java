@@ -2,7 +2,6 @@ package com.goott.eco.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,10 +15,7 @@ import lombok.extern.log4j.Log4j;
 @CrossOrigin(origins ="http://localhost:3000")
 //@RequestMapping("/orders/*")
 public class PageController {
-	
 
-	
-	
 	@GetMapping("/deli/delilist")
 	public String list3(Model model) {
 		log.info("alldelivery페이지 이동");
@@ -71,14 +67,12 @@ public class PageController {
 		return "orders/order/pay";
 	}
 
-//	
 //	@GetMapping("/home/contact")
 //	public void contact(Model model) {
 //		log.info("contact페이지 이동");
 //		
 //	}
-//	
-	@PreAuthorize("permitAll")
+
 	@GetMapping("/home/index")
 	public String index(Model model) {
 		log.info("index페이지 이동");
@@ -134,12 +128,19 @@ public class PageController {
 	public void register() {
 		log.info("register페이지 이동");
 	}
-	/* 카카오 로그인 이동*/
-	@GetMapping("/home/kakao")
-	public String kakaoLogin(HttpServletRequest request) {
-
-		return "/home/kakao_login";
+	
+	/* 내 정보 페이지 이동 */
+	@GetMapping("cust/account")
+	public void account() {
+		log.info("account페이지 이동");
 	}
+	
+	/* 카카오 로그인 이동*/
+	//@GetMapping("/home/kakao")
+	//public String kakaoLogin() {
+	//	return "/home/kakao_login";
+	//}
+	
 
 	/* 관리자 페이지 이동 */
 	@GetMapping("/admin/admin")
