@@ -114,48 +114,44 @@
         <!-- Product List Start -->
         <div class="product-view">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="product-view-top">
-                                   	<form id="searchForm" onsubmit="return false">
-                                    	<div class="row">
-                                    		<input type="hidden" id="pageNum" name="pageNum" value="">
-                                   			<input type="hidden" id="amount" name="amount" value="">
-	                                        <div class="col-md-2">
-	                                            <div class="product-short">
-	                                                <div class="dropdown">
-	                                            		<select class="dropdown-toggle" id="category" name="category">
-														    <option value="" selected>전체</option>
-	                                                   		<c:forEach var="cate" items="${cateList }" >
-															    <option value="${cate.CATE_SEQ }" ${cri.category eq cate.CATE_SEQ ? 'selected' : ''}>${cate.CATE_NAME }</option>
-	                                                    	</c:forEach>
-														</select>
-	                                                </div>
-	                                            </div>
-	                                        </div>                                    
-	                                        <div class="col-md-3">
-	                                            <div class="product-search">
-	                                                <input type="text" id="keyword" name="keyword" value="${cri.keyword }" placeholder="상품명 검색">
-	                                                <button type="button" onclick="callGetGoodsList();"><i class="fa fa-search"></i></button>
-	                                            </div>
-	                                        </div>
-                                    	</div>
-                                    </form>
-                                    
-                                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="product-view-top">
+                               	<form id="searchForm" onsubmit="return false">
+                               	<div class="row">
+                               		<input type="hidden" id="pageNum" name="pageNum" value="">
+                           			<input type="hidden" id="amount" name="amount" value="">
+                                    <div class="col-md-2">
+                                        <div class="product-short">
+                                            <div class="dropdown">
+                                        		<select class="dropdown-toggle" id="category" name="category">
+												    	<option value="" selected>전체</option>
+                                               		<c:forEach var="cate" items="${cateList }" >
+											    		<option value="${cate.CATE_SEQ }" ${cri.category eq cate.CATE_SEQ ? 'selected' : ''}>${cate.CATE_NAME }</option>
+                                               		</c:forEach>
+												</select>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                    <div class="col-md-3">
+                                        <div class="product-search">
+                                            <input type="text" id="keyword" name="keyword" value="${cri.keyword }" placeholder="상품명 검색">
+                                            <button type="button" onclick="callGetGoodsList();"><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </div>
+                               	</div>
+                                </form>
                             </div>
-                            
-                            <!-- Goods List -->
-                            <div class="row" id="goods_list"></div>
-                            
-	                        <!-- Pagination Start -->
-	                        <div class="col-md-12" id="pageDiv"></div>
-
                         </div>
-                    </div>           
-                </div>
+                        
+                        <!-- Goods List -->
+                        <div class="col-md-12"><div class="row" id="goods_list"></div></div>
+                        
+						<!-- Pagination Start -->
+						<div class="col-md-12" id="pageDiv"></div>
+                    </div>
+                </div>           
             </div>
         </div>
         <!-- Product List End -->  
