@@ -28,7 +28,7 @@ public class RestCustController {
 		public ResponseEntity<Map<String,MemberVO>> getMember(@PathVariable("memberId") String memberId){
 			Map<String,MemberVO> memberMap = new HashMap<String,MemberVO>();
 			MemberVO memberVO = new MemberVO();
-			memberVO = custService.getCust(memberId);
+			//memberVO = custService.getCust(memberId);
 			memberMap.put("memberVO", memberVO);
 			return new ResponseEntity<>(memberMap, HttpStatus.OK);
 		}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,7 +11,7 @@
         <meta content="eCommerce HTML Template Free Download" name="description">
 		
         <!-- Favicon -->
-        <link href="/resources/template/img/favicon.ico" rel="icon">
+        <link href="${contextPath}/resources/template/img/favicon.ico" rel="icon">
 
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
@@ -18,8 +19,8 @@
         <!-- CSS Libraries -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="/resources/template/lib/slick/slick.css" rel="stylesheet">
-        <link href="/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
         <link href="/resources/template/css/style.css" rel="stylesheet">
@@ -309,20 +310,22 @@
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="/resources/template/lib/easing/easing.min.js"></script>
-        <script src="/resources/template/lib/slick/slick.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/easing/easing.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
-        <script src="/resources/template/js/main.js?var=2"></script>
-        <script src="/resources/basket/basket.js?ver=6"></script>
-		<script src="/resources/basket/transferTime.js"></script>
-		<script src="/resources/order/checkout.js?ver=5"></script>
+        <script src="${contextPath}/resources/template/js/main.js?var=2"></script>
+        <script src="${contextPath}/resources/basket/basket.js?ver=6"></script>
+		<script src="${contextPath}/resources/basket/transferTime.js"></script>
+		<script src="${contextPath}/resources/order/checkout.js?ver=9"></script>
     </body>
     
     <script>
     $(document).ready(function(){
     	showList();
     });
+    
+    var order_seq = ${order_seq};
  
   	//상품제목 <p>클릭시
   	$('.basketList').on('click', "p",function () {
@@ -336,7 +339,7 @@
 	$('.cancelOrderBtn').on('click',function(){
 		if(window.confirm('really?')){
 			console.log("주문취소 시작");
-			checkoutService.getShipStatus('basic',function(shipStatus){
+			checkoutService.getShipStatus(order_seq,function(shipStatus){
 				if(Number(shipStatus[0].delivery_status)===0){
 					console.log("주문취소 로직 실행");
 					checkoutService.orderCancel(2);
@@ -351,7 +354,7 @@
 	//배송조회
 	$('.deliverySearch').on('click',function(){
 		$(".modal").modal("show");
-		checkoutService.getShipStatus('basic',function(shipStatus){
+		checkoutService.getShipStatus(order_seq,function(shipStatus){
 			console.log("jsp"+shipStatus[0].delivery_status);
 			var str="";
 			var shipInfoTable=$(".shipInfo");
@@ -368,6 +371,7 @@
 		});		
 	});
   
+	//주문확정
 	$('.orderCommit').on('click',function(){
 		var totalPrice = $('.totalPrice').text();
 		var point = Number(totalPrice)*0.1;
@@ -375,16 +379,17 @@
 		
 		console.log("적립 point: "+point);
 		if(window.confirm('주문확정시 환불이 불가능 합니다 주문확정을 하시겠습니까?')){
-			checkoutService.orderCommit(2,point,'basic');
+			checkoutService.orderCommit(order_seq,point,'basic');
 		}
 		
 		
 	});
 	
 	function showList(){		
-		checkoutService.getOrderList("basic",function(ordertList){
+		checkoutService.getOrderedDetail(order_seq,function(ordertList){
 			var orderListTable=$(".orderList");
 			var str="";
+			var subTotalPrice = 0;
 			console.log(ordertList);
 			for(var i=0,len=ordertList.length||0;i<len;i++){
 				 //"+ordertList[i].IMG_URL+"
@@ -402,13 +407,15 @@
 	                +"        </div>"
 	                +"    </td>"
 	                +"    <td><span class='calPrice"+[i]+"'>"+Number(ordertList[i].PRICE)*Number(ordertList[i].QTY)+"</span></td>"                                           
-           		    +"</tr>"
+           		    +"</tr>";
+           		subTotalPrice += Number(ordertList[i].PRICE)*Number(ordertList[i].QTY)
 					
 			}
 			orderListTable.html(str);
-			 /* $(".grand-total-price").html(checkoutInfo.TOTAL_PRICE);
-             var shippingCost = 1;
-             $(".sub-total-price").html(checkoutInfo.TOTAL_PRICE-shippingCost); */
+			console.log("서브토탈: "+subTotalPrice);
+			$(".sub-total-price").text(subTotalPrice);
+             var shippingCost = 100;
+             $(".grand-total-price").text(subTotalPrice+shippingCost);
 		})
 	}
     </script>

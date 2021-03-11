@@ -45,6 +45,7 @@ public class BasketController {
 		log.info("jsp로 넘겨질 데이터2: "+result.get(1));
 		log.info("jsp로 넘겨질 데이터3: "+result.get(1).get("IMG_URL"));
 		
+		
 		return new ResponseEntity<>(result,HttpStatus.OK);
 		
 	}

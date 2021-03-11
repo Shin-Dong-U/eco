@@ -70,8 +70,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			
 
 		http.authorizeRequests()
-			.antMatchers("/cust/account").authenticated();
-		//	.antMatchers("/order/list").authenticated();
+			.antMatchers("/cust/account").authenticated()
+			.antMatchers("/orders/basket/list").authenticated()
+			.antMatchers("/orders/order/checkout").authenticated();
+//			.antMatchers("/orders/basket/list").authenticated()
+//			.antMatchers("/orders/basket/list").authenticated()
+//			.antMatchers("/orders/basket/list").authenticated()
+//			.antMatchers("/orders/basket/list").authenticated();
 		//	.exceptionHandling().accessDeniedHandler(accessDeniedHandler())
 
 		

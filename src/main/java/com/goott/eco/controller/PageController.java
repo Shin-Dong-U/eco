@@ -1,12 +1,12 @@
 package com.goott.eco.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-
 
 import lombok.extern.log4j.Log4j;
 
@@ -40,8 +40,11 @@ public class PageController {
 	}
 
 	@GetMapping("/orders/basket/list")
-	public void list(Model model) {
+	public void list(Model model,HttpServletRequest request ) {
+		String cust_id = (String) request.getSession().getAttribute("memberId");
+		log.info("session cust_id: "+cust_id);
 		log.info("list페이지 이동");
+		
 		//return "orders/basket/list";
 	}
 	@GetMapping("/orders/order/checkout")
