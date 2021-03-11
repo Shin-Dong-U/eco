@@ -41,10 +41,23 @@ public class GoodsController {
 	}
 	
 	@GetMapping("/{goodsSeq}")
-	public ModelAndView goodsDetail(HttpServletRequest request, HttpServletResponse response, @PathVariable int goodsSeq) {
+	public ModelAndView goodsDetail(HttpServletRequest request, HttpServletResponse response,
+                                   @PathVariable int goodsSeq) {
 		ModelAndView mav = new ModelAndView("/goods/goods_detail");
-		mav.addAllObjects(goodsService.goodsDetail(goodsSeq));
 		
+		mav.setViewName("/goods_detail");
+		//mav.addAllObjects(goodsService.goodsDetail(goodsSeq));
+		mav.addObject("goods_req_option", goodsService.goodsDetail(goodsSeq));
+		return mav;
+	}
+	
+	@GetMapping("/testt")
+	public ModelAndView goodsList22(HttpServletRequest request, HttpServletResponse response, Criteria cri) {
+		ModelAndView mav = new ModelAndView("/goods/goods_list2");
+		mav.addAllObjects(goodsService.goodsList(cri));
+//		mav.addObject("cateList", commonService);
+		
+		System.out.println("@@@@@@@@");
 		return mav;
 	}
 }

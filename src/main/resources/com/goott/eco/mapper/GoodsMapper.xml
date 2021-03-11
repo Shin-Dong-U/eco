@@ -72,7 +72,7 @@
 	
 	<select id="goodsReqOption" parameterType="int" resultType="map">
 		SELECT
-			GOODS_SEQ, GOODS_REQ_OPTION_SEQ, PRICE
+			GOODS_SEQ, GOODS_REQ_OPTION_SEQ, PRICE, OPTION_NAME
 		FROM GOODS_REQ_OPTION
 		WHERE 
 			GOODS_SEQ = #{goods_seq}

@@ -55,7 +55,6 @@ public class GoodsServiceimpl implements GoodsService{
 		goods.put("thumbList", goodsDao.goodsDetailThumbImg(goodsSeq));
 		goods.put("imgList", goodsDao.goodsDetailImg(goodsSeq));
 		goods.put("optionList", goodsDao.goodsReqOption(goodsSeq));
-		
 		return goods;
 	}
 	

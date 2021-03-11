@@ -4,7 +4,24 @@ console.log("board Module.........");
 
 var boardService=(function(){
 	
-	
+//
+//	function breadCtrl($scope) {
+//	    var objectName = "Home.Folder 1.Folder 2.Folder 3.Folder 4.Folder 5.Folder 6.Folder 7.File";
+//	    
+//	    debugger;
+//	    
+//	    var objects = objectName.split(".");
+//	    $scope.displayName = objects.pop();
+//	    var fullPath = "#/";
+//	    
+//	    $scope.ObjectPath = [];
+//	    $.each(objects, function () {
+//	        if (this !== objects[0]) {
+//	            fullPath += ".";
+//	        }
+//	        
+//	        fullPath += this;
+//	    }
 	//검색
 //	function getSearchedlist(goods_name,callback){
 //		console.log("searchedlist...............");

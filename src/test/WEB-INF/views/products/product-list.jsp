@@ -116,18 +116,18 @@
                 </div>
             </div>
         </div>
-        <!-- Bottom Bar End -->       
-        
+        <!-- Bottom Bar End -->  
         
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-wrap">
             <div class="container-fluid">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/home/index/">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">의류 및 잡화</a></li>
+                    <li class="breadcrumb-item"><a href="">Home</a></li>
+                    <li class="breadcrumb-item"><a href="">Products</a></li>
+                    <li class="breadcrumb-item active">Product List</li>
                 </ul>
             </div>
-        </div>        
+        </div>
         <!-- Breadcrumb End -->
         
         <!-- Product List Start -->
@@ -456,32 +456,23 @@
                     <!-- Side Bar Start -->
                     <div class="col-lg-4 sidebar">
                         <div class="sidebar-widget category">
-                            <h2 class="title">카테고리</h2>
+                            <h2 class="title">Category</h2>
                             <nav class="navbar bg-light">
                                 <ul class="navbar-nav">
                                     <li class="nav-item">
-                                    	<a class="nav-link" href="/home/index/"><i class="fa fa-home"></i>홈</a>
+                                        <a class="nav-link" href=""><i class="fa fa-female"></i>Fashion & Beauty</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/board/catelist?cate_seq=3"><i class="fa fa-tshirt"></i>의류 및 잡화</a>
+                                        <a class="nav-link" href=""><i class="fa fa-child"></i>Kids & Babies Clothes</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/board/catelist?cate_seq=21"><i class="fa fa-shopping-bag"></i>뷰티</a>
+                                        <a class="nav-link" href=""><i class="fa fa-tshirt"></i>Men & Women Clothes</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/board/catelist?cate_seq=22"><i class="fa fa-plus-square"></i>헬스/건강식품</a>
+                                        <a class="nav-link" href=""><i class="fa fa-mobile-alt"></i>Gadgets & Accessories</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/board/catelist?cate_seq=1"><i class="fa fa-child"></i>식품</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/board/catelist?cate_seq=2"><i class="fa fa-microchip"></i>가구</a>
-                                    </li>
-                                    <li class="nav-item">
-                                    	<a class="nav-link" href="/board/catelist?cate_seq=4"><i class="fa fa-mobile-alt"></i>생활용품</a>
-                                    </li>
-                                    <li class="nav-item">
-                                    	<a class="nav-link" href="/board/catelist?cate_seq=23"><i class="fa fa-microchip"></i>주방용품</a>
+                                        <a class="nav-link" href=""><i class="fa fa-microchip"></i>Electronics & Accessories</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -719,44 +710,5 @@
         
         <!-- Template Javascript -->
         <script src="/resources/template/js/main.js"></script>
-        
-         <!--add JavaScript  -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="/resources/board/board.js?ver=1"></script>
-        
-        <!-- 검색 -->
-<!--         <script>
-        var searchForm = $("#searchForm");
-
-    	$("#searchForm button").on("click",function(e){
-    		
-       		e.preventDefault();
-       		//searchForm.submit();
-			pageNum = 1;
-       		amount=10;       		
-       		category = searchForm.find("select[name='category']").val();
-       		searchType = searchForm.find("select[name='searchType']").val();
-       		searchKeyword = searchForm.find("input[name='searchKeyword']").val(); 
-       		
-       		var board = {pageNum : pageNum, amount:amount, category:category, searchType:searchType, searchKeyword:searchKeyword}
-       		cmBoardService.getTotalPageCnt(
-     			board,
-       			function(result){
-     				totalPageCnt = result;
-     				console.log("totalPageCnt :" +totalPageCnt);
-     			}
-     		);
-       		
-       		console.log("pageNum : "+pageNum);
-       		console.log("amount : "+amount);
-       		console.log("category : "+category);
-       		console.log("searchType : "+searchType);
-       		console.log("searchKeyword : "+searchKeyword);
-       		
-       		showList(pageNum,amount, category ,searchType, searchKeyword);
-       			
-       	});   
-    	</script>-->
-        
     </body>
 </html>
