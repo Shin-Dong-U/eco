@@ -18,11 +18,11 @@
         <!-- CSS Libraries -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="/resources/template/lib/slick/slick.css" rel="stylesheet">
-        <link href="/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="/resources/template/css/style.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/css/style.css" rel="stylesheet">
     </head>
 
     <body>
@@ -59,6 +59,7 @@
                             <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
                             <a href="cart.html" class="nav-item nav-link active">Cart</a>
                             <a href="checkout.html" class="nav-item nav-link">Checkout</a>
+                            <a href="http://localhost:3000/" class="nav-item nav-link">Chart</a>
                             <a href="my-account.html" class="nav-item nav-link">My Account</a>
                             <div class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
@@ -107,9 +108,9 @@
                                 <i class="fa fa-heart"></i>
                                 <span>(0)</span>
                             </a>
-                            <a href="cart.html" class="btn cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>(0)</span>
+                            <a href="http://localhost/orders/basket/list"  class="btn cart">
+                                <i  class="fa fa-shopping-cart"></i>
+                                <span class="cartCntBtn">(0)</span>
                             </a>
                         </div>
                     </div>
@@ -179,10 +180,10 @@
                         <div class="cart-page-inner">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="coupon">
+                                   <!--  <div class="coupon">
                                         <input type="text" placeholder="Coupon Code">
                                         <button>Apply Code</button>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="col-md-12">
                                     <div class="cart-summary">
@@ -194,11 +195,7 @@
                                         </div>
                                         <div class="cart-btn">
                                             <button class="cartUpBtn">Update Cart</button>
-                                            <button class="checkoutBtn">
-                                            	<a href="http://localhost/orders/order/checkout">
-                                            		Checkout
-                                            	</a>
-                                            	</button>
+                                            <button class="checkoutBtn">Checkout</button>
                                         </div>
                                     </div>
                                 </div>
@@ -305,34 +302,40 @@
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="/resources/template/lib/easing/easing.min.js"></script>
-        <script src="/resources/template/lib/slick/slick.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/easing/easing.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
-        <script src="/resources/template/js/main.js?var=2"></script>
-        <script src="/resources/basket/basket.js?ver=6"></script>
-		<script src="/resources/basket/transferTime.js"></script>
-		<script src="/resources/order/checkout.js?ver=1"></script>
+        <script src="${contextPath}/resources/template/js/main.js?var=6"></script>
+        <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
+		<script src="${contextPath}/resources/basket/transferTime.js"></script>
+		<script src="${contextPath}/resources/order/checkout.js?ver=3"></script>
     </body>
     
     <script>
+    var cust_id = "ordercheck";
+	cartCnt(cust_id);
+	
     $(document).ready(function(){
     	showList();
-    	
-    	
-    	//purGoodsAtBasket();
-    	
-    	//addGoodsAtBasket();
+    	 
     	
     });
+    
+   
+ 
+  
+    
     
     //check out button 장바구니목록 주문
     $('.checkoutBtn').on('click', function () {
     	console.log("체크아웃 버튼클릭");
+    	var total_price = $(".grandTotalPrice").text();
+    	console.log(total_price);
     	//addOrder
     	//체크아웃페이지 이동   	
-    	 checkoutService.addOrderBasket("basic",500,function(){
-    		console.log("checkout 성공"); 
+    	 checkoutService.addOrderBasket(cust_id,total_price,function(){
+    		alert("checkout 성공"); 
     	}); 
     	
     	
@@ -350,7 +353,7 @@
 		//var goods_seq =  $(this).parents("td").children("p").data("goods_seq");
 		var goods_seq =  $(this).data("goods_seq");
 		console.log("삭제버튼클릭: "+goods_seq);
-		delBasketGoods("nana",goods_seq);
+		delBasketGoods(cust_id,goods_seq);
 		showList();
 	});
   	
@@ -380,13 +383,26 @@
 	function selectBasketGoods(goods_seq){
 		basketService.getBasketGoods(goods_seq,function(){})
 	}
-    
-    
+   
+	//카트 상품 갯수 표시
+	function cartCnt(cust_id) {
+		var cartCount = 0;
+		basketService.countBasketGoods(cust_id,function(result){
+			cartCount="("+result+")";
+			$(".cartCntBtn").text(cartCount);
+		})
+		
+	}
+
+	
+	
   //장바구니 리스트 보기
 		function showList(){		
-			basketService.getBasketList("basic",function(basketList){
+			basketService.getBasketList(cust_id,function(basketList){
 				var basketListTable=$(".basketList");
 				var str="";
+				var firstTotal = 0;
+				var firstGrandTotal = 0;
 				console.log(basketList);
 				console.log("Number(basketList[i].PRICE): "+typeof(Number(basketList[0].PRICE)));
 				console.log("Number(basketList[i].QTY): "+typeof(Number(basketList[0].QTY)));
@@ -413,11 +429,17 @@
 		                +"    <td><button class='delbasketBtn' data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"
 		                +"		<i class='fa fa-trash'></i></button>"
 		                +"	  </td>"
-               		    +"</tr>"
+               		    +"</tr>";
+               		    
+					firstTotal+= Number(basketList[i].PRICE)*Number(basketList[i].QTY);
 						
 				}
 				basketListTable.html(str);
+				$(".subTotalPrice").text(firstTotal);
+				firstGrandTotal = Number($(".subTotalPrice").text())+Number($(".shippingCost").text());
+				$(".grandTotalPrice").text(firstGrandTotal);
 			})
 		}
+   
     </script>
 </html>

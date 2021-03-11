@@ -219,7 +219,8 @@
         	//장바구니 수량 업데이트
             var goods_seq = $button.parent().data("goods_seq");
             console.log("qty 증가 goods_seq: "+goods_seq);
-        	changeQtyAtBasket("nana",goods_seq,newVal);
+        	changeQtyAtBasket(cust_id,goods_seq,newVal);
+        	
            
         } else {
             if (oldValue > 0) {
@@ -231,7 +232,8 @@
              //장바구니 수량 업데이트
                var goods_seq = $button.parent().data("goods_seq");
                console.log("qty 감소 goods_seq: "+goods_seq);
-           	   changeQtyAtBasket("nana",goods_seq,newVal);
+           	   changeQtyAtBasket(cust_id,goods_seq,newVal);
+           
             } else {
                 newVal = 0;
             }
@@ -241,8 +243,10 @@
         $button.parentsUntil("tr").next().children("span").text(totalPrice);
        
     });
+   
     
     $('.cartUpBtn').on('click', function () {
+
     	//금액계산
     	 var subCacul=0;
     	 console.log("row1: "+$("tbody tr").length,typeof($("tbody tr").length));

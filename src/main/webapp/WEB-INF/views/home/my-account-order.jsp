@@ -10,7 +10,7 @@
         <meta content="eCommerce HTML Template Free Download" name="description">
 
         <!-- Favicon -->
-        <link href="/resources/template/img/favicon.ico" rel="icon">
+        <link href="${contextPath}/resources/template/img/favicon.ico" rel="icon">
 
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
@@ -18,11 +18,11 @@
         <!-- CSS Libraries -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="/resources/template/lib/slick/slick.css" rel="stylesheet">
-        <link href="/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="/resources/template/css/style.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/css/style.css" rel="stylesheet">
     </head>
 
     <body>
@@ -138,8 +138,8 @@
                         <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
                             <a class="nav-link " id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
                             <!--주문목록조회  -->
-                            <a class="nav-link active" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i>Orders</a>                            
-                            <a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i>Payment Method</a>
+                            <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i>주문정보</a>                             
+                            <a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i>배송정보입력(업체)</a>
                             <a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab"><i class="fa fa-map-marker-alt"></i>address</a>
                             <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i>Account Details</a>
                             <a class="nav-link" href="index.html"><i class="fa fa-sign-out-alt"></i>Logout</a>
@@ -155,25 +155,34 @@
                                     <table class="table table-bordered">
                                         <thead class="thead-dark">
                                             <tr>
-                                                <th>No</th>
-                                                <th>Product</th>
-                                                <th>Date</th>
-                                                <th>Price</th>
-                                                <th>주문수량</th>
-                                                <th>주문가격</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
+                                                <th>주문번호</th>
+                                                <th>주문일자</th>
+                                                <th>총 가격</th>
+                                                <th>배송상태</th>
+                                                <th>상세보기</th>
                                             </tr>
                                         </thead>
                                         <tbody class="showOrderedInfo">
+                                           
+                                         
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                           <div class="tab-pane fade" id="payment-tab" role="tabpanel" aria-labelledby="payment-nav">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead class="thead-dark">
                                             <tr>
-                                                <td>1</td>
-                                                <td>Product Name</td>
-                                                <td>01 Jan 2020</td>
-                                                <td>$99</td>
-                                                <td>Approved</td>
-                                                <td><button class="btn">View</button></td>
+                                                <th>주문번호</th>
+                                                <th>주문일자</th>
+                                                <th>총 가격</th>
+                                                <th>배송상태</th>
+                                                <th>배송정보 입력하기</th>
                                             </tr>
+                                        </thead>
+                                        <tbody class="shipOrderedInfo">
+                                           
                                          
                                         </tbody>
                                     </table>
@@ -285,40 +294,109 @@
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="/resources/template/lib/easing/easing.min.js"></script>
-        <script src="/resources/template/lib/slick/slick.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/easing/easing.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
-        <script src="/resources/template/js/main.js"></script>
+        <script src="${contextPath}/resources/template/js/main.js"></script>
         
         <!--add JavaScript  -->
-        <script src="/resources/order/checkout.js?ver=1"></script>
+        <script src="${contextPath}/resources/order/checkout.js?ver=2"></script>
         
         <script type="text/javascript">
         $(document).ready(function(){
         	showOrderedInfo();
+        	showShipListInfo();
         });
         
-      //장바구니 리스트 보기
+        var cust_id="ordercheck";
+        
+      //주문 리스트 보기
 		function showOrderedInfo(){		
-			checkoutService.getOrderList("basic",function(orderedInfoList){
+			checkoutService.getOrderList(cust_id,function(orderedInfoList){
 				var showOrderedInfoTable=$(".showOrderedInfo");
 				var str="";
 				console.log(orderedInfoList);
 				for(var i=0,len=orderedInfoList.length||0;i<len;i++){
-
+					var delivery_status= '배송정보';
+					console.log(typeof(orderedInfoList[i].DELIVERY_STATUS));
+					console.log(typeof(Number(orderedInfoList[i].DELIVERY_STATUS)));
+					switch(Number(orderedInfoList[i].DELIVERY_STATUS)){
+					
+					case 0:
+						delivery_status = '배송전';
+						break;
+					case 1:
+						delivery_status = '배송중';
+						break;
+					case 2:
+						delivery_status = '배송완료';
+						break;
+					case 3:
+						delivery_status = '환불신청';
+						break;
+					case 4:
+						delivery_status = '환불배송중';
+						break;				
+					case 5:
+						delivery_status = '환불배송완료';
+						break;
+					}
+					
 					str+="<tr>"
-						+"<td>"+i+"</td>"
-						+"<td>"+orderedInfoList[i].GOODS_NAME+"</td>"
-						+"<td>"+orderedInfoList[i].REGDATE+"</td>"
-                        +"<td>"+Number(orderedInfoList[i].PRICE)+"</td>"
-                        +"<td>"+Number(orderedInfoList[i].QTY)+"</td>"
-                        +"<td>"+(Number(orderedInfoList[i].QTY)*Number(orderedInfoList[i].PRICE))+"</td>"
-                        +"<td>"+orderedInfoList[i].DELIVERY_STATUS+"</td>"
-                        +"<td><button class='btn'><a href='/orders/order/orderCheck'>View</a></button></td>"
+						+"	<td>"+orderedInfoList[i].ORDER_SEQ+"</td>"
+						+"	<td>"+orderedInfoList[i].REGDATE+"</td>"
+                        +"	<td>"+Number(orderedInfoList[i].TOTAL_PRICE)+"</td>"
+                        +"	<td>"+delivery_status+"</td>"
+                        +"	<td><button class='btn'><a href='/orders/order/orderCheck?order_seq="+orderedInfoList[i].ORDER_SEQ+"'>View</a></button></td>"
                         +"</tr>"
 				}
 				showOrderedInfoTable.html(str);
+			})
+		}
+      
+		 //주문 리스트 보기(업체)
+		function showShipListInfo(){		
+			checkoutService.getOrderList(cust_id,function(orderedInfoList){
+				var shipOrderedInfoTable=$(".shipOrderedInfo");
+				var str="";
+				console.log(orderedInfoList);
+				for(var i=0,len=orderedInfoList.length||0;i<len;i++){
+					var delivery_status= '배송정보';
+					console.log("업체 배송: "+orderedInfoList);
+					console.log(typeof(orderedInfoList[i].DELIVERY_STATUS));
+					console.log(typeof(Number(orderedInfoList[i].DELIVERY_STATUS)));
+					switch(Number(orderedInfoList[i].DELIVERY_STATUS)){
+					
+					case 0:
+						delivery_status = '배송전';
+						break;
+					case 1:
+						delivery_status = '배송중';
+						break;
+					case 2:
+						delivery_status = '배송완료';
+						break;
+					case 3:
+						delivery_status = '환불신청';
+						break;
+					case 4:
+						delivery_status = '환불배송중';
+						break;				
+					case 5:
+						delivery_status = '환불배송완료';
+						break;
+					}
+					
+					str+="<tr>"
+						+"	<td>"+orderedInfoList[i].ORDER_SEQ+"</td>"
+						+"	<td>"+orderedInfoList[i].REGDATE+"</td>"
+                        +"	<td>"+Number(orderedInfoList[i].TOTAL_PRICE)+"</td>"
+                        +"	<td>"+delivery_status+"</td>"
+                        +"	<td><button class='btn'><a href='/orders/ship/writeShipInfo?order_seq="+orderedInfoList[i].ORDER_SEQ+"'>배송정보 입력</a></button></td>"
+                        +"</tr>"
+				}
+				shipOrderedInfoTable.html(str);
 			})
 		}
         

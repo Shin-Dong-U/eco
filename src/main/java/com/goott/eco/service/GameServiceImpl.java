@@ -45,7 +45,7 @@ public class GameServiceImpl implements GameService{
 			userPointInfo.put("gage_bar",(minus-2000L)/10);
 			GameImageVO gameImageInfo = gameMapper.getGameImageInfo(3);
 			userPointInfo.put("GameImageVO",gameImageInfo);
-		}else if(3000L<=minus&&minus<4000L) {
+		}else if(3000L<=minus) {
 			userPointInfo.put("gage_bar",(minus-3000L)/10);
 			GameImageVO gameImageInfo = gameMapper.getGameImageInfo(4);
 			userPointInfo.put("GameImageVO",gameImageInfo);
