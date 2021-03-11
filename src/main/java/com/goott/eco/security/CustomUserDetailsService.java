@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.goott.eco.domain.CustVO;
 import com.goott.eco.mapper.CustMapper;
@@ -30,5 +31,6 @@ public class CustomUserDetailsService implements UserDetailsService{
 		 
 		return custVO == null ? null : new CustomUser(custVO);
 	}
+	
 
 }
