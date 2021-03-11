@@ -33,15 +33,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	/* Login Success Handler */
 	@Bean
 	public AuthenticationSuccessHandler loginSuccessHandler() {
-		return new CustomLoginSuccessHandler("/defaultUrl");
+		return new CustomLoginSuccessHandler("/home/index");
 	}
-	
 	
 	/* password Encoder */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	/* Access Denied Handler */
+	//@Bean
+	//public AccessDeniedHandler accessDeniedHandler() {
+	//	return new CustomAccessDeniedHandler();	
+	//}
 	
 	/* user Detail Service 실행 */
 	@Bean
@@ -59,14 +64,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	/* Authentication */
 	@Override
 	public void configure(HttpSecurity http) throws Exception{
+		http.authorizeRequests()
+			.antMatchers("/home/login").anonymous()
+			.antMatchers("/home/register").anonymous().and().csrf().disable();
+			
+
+		http.authorizeRequests()
+			.antMatchers("/cust/account").authenticated();
+		//	.antMatchers("/order/list").authenticated();
+		//	.exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+
+		
 		//http.authorizeRequests()
-		//	.antMatchers("/sample/all").permitAll()
-		//	.antMatchers("/sample/admin").access("hasRole('ROLE_ADMIN')")
+		//	.antMatchers("/sample/admin").access("hasRole('ROLE_COMPANY')");
 		//	.antMatchers("/sample/member").access("hasRole('ROLE_CUST')");
 	
 		/* 로그인 */
 		http.formLogin()
-			.loginPage("/cust/login")
+			.loginPage("/home/login")
 			.loginProcessingUrl("/login")
 			.successHandler(loginSuccessHandler());
 		

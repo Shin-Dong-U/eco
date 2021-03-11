@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.goott.eco.domain.CustVO;
 import com.goott.eco.domain.MemberVO;
 import com.goott.eco.mapper.CompanyMapper;
 import com.goott.eco.mapper.CustMapper;
+
+import lombok.Setter;
 
 @Service
 public class CustServiceImpl implements CustService{
@@ -19,6 +22,9 @@ public class CustServiceImpl implements CustService{
 	
 	@Autowired
 	private CompanyMapper compDao;
+	
+	@Setter(onMethod_ = { @Autowired})
+	private PasswordEncoder pwEncoder;
 	
 	@Override
 	public List<Map<String, Object>> getCustList(Map<String, Object> searchInfo) {
@@ -39,13 +45,12 @@ public class CustServiceImpl implements CustService{
 	
 	/* 특정 회원 정보 가져오기 */
 	@Override
-	public MemberVO getCust(String memberId) {
-		MemberVO memberVO = new MemberVO();
-		memberVO.setCustVO(custDao.getCust(memberId));
-		
+	public MemberVO getCust(MemberVO memberVO) {
+		//MemberVO memberVO = new MemberVO();
+		//memberVO.setCustVO(custDao.getCust(memberId));
+		memberVO.setCustVO(custDao.getCust(memberVO.getCustVO().getMemberId()));
 		if(memberVO.getCustVO().getCompany_yn().equals("Y")) {
-			Long comp_seq =	compDao.getCompany_seq(memberId);
-			memberVO.setCompVO(compDao.getCompany(comp_seq));
+			memberVO.setCompVO(compDao.getCompany(memberVO.getCustVO().getMemberId()));
 		}
 		return memberVO;
 	}
@@ -53,13 +58,19 @@ public class CustServiceImpl implements CustService{
 	/* 회원가입 */
 	@Override
 	public int joinCust(MemberVO memberVO) {
-		int custValue = custDao.joinCust(memberVO.getCustVO());
+		passwordEncoding(memberVO.getCustVO());
+		int ecoCust = custDao.joinCust(memberVO.getCustVO());
+		int ecoCustAuth = custDao.joinCustAuth(memberVO.getCustVO().getMemberId());
 		
 		if(memberVO.getCustVO().getCompany_yn().equals("Y")) {
-			if(compDao.joinCompany(memberVO.getCompVO()) != 1)return 0; 
+			System.out.println("custId: "+memberVO.getCompVO().getCust_id());
+			memberVO.getCompVO().setCust_id(memberVO.getCustVO().getMemberId());
+			//int ecoCompany = compDao.joinCompany(memberVO.getCompVO());
+			if(compDao.joinCompany(memberVO.getCompVO())!=1) {return 0;}
+			//admin 관리자에서 실행
+			//int ecoCompanyAuth = compDao.joinCompanyAuth(memberVO.getCompVO().getCust_id());
 		}
-		
-		return custValue;
+		return ecoCust == 1 &ecoCustAuth ==1 ? 1 : 0;
 	}
 	
 	/* 회원 수정 */
@@ -79,5 +90,10 @@ public class CustServiceImpl implements CustService{
 		return custDao.deleteCust(memberId);
 	}
 
+	public void passwordEncoding(CustVO custVO) {
+		String Encoder=pwEncoder.encode(custVO.getPassword());
+		custVO.setPassword(Encoder);
+		//custVO.setPassword(passwordEncoder.encode(custVO.getPassword()));
+	}
 
 }

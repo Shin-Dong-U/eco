@@ -66,14 +66,20 @@
 		WHERE memberId=#{memberId} AND password=#{password} AND member_yn='Y' 
 	</select>
 	
-	<!-- 회원가입 -->
+	<!-- 회원가입:eco.cust -->
 	<insert id="joinCust">
 		INSERT INTO eco.cust 
 		VALUES(
-		#{memberId}, #{password}, #{name}, #{phone}, #{email}, #{addr_post}, #{addr_city}, 
-		#{addr_detail}, #{birth}, #{sex}, #{company_yn}, default, default, 
-		#{memberId}, default, #{memberId}, default, default, default, default
+			#{memberId}, #{password}, #{name}, #{phone}, #{email}, #{addr_post}, #{addr_city}, 
+			#{addr_detail}, #{birth}, #{sex}, #{company_yn}, default, default, 
+			#{memberId}, default, #{memberId}, default, default, default, default
 		)
+	</insert>
+	
+	<!-- 회원가입:eco.cust_auth -->
+	<insert id="joinCustAuth">
+		INSERT INTO eco.cust_auth
+		VALUES(#{memberId}, 'ROLE_CUST', default)
 	</insert>
 	
 	<!-- 회원수정 -->
