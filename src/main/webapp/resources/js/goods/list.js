@@ -1,2 +1,0 @@
-document.getElementsByClassName('product-search');
-
