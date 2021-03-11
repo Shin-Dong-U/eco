@@ -42,7 +42,7 @@ function callGetGoodsList(){
 			for(var i = 0; i < result.goodsList.length; i++){
 				const imgUrl = result.goodsList[i].IMG_URL ? result.goodsList[i].IMG_URL : '';//예외처리
 				
-				htmlStr += '<div class="col-md-3">';
+				htmlStr += '<div class="col-lg-3">';
 				htmlStr += '<div class="product-item">';
 				htmlStr += '<div class="product-title" style="height:100px;">';
 				htmlStr += '<a href="' + linkUrl + result.goodsList[i].GOODS_SEQ + '">' + result.goodsList[i].GOODS_NAME + '</a>';
@@ -62,21 +62,29 @@ function callGetGoodsList(){
 				
 				htmlStr += '<div class="product-price">';
 				htmlStr += '<h3>' + formattingComma(result.goodsList[i].PRICE) + ' &#8361;</h3>';
-				htmlStr += '<a class="btn" href="' + linkUrl + result.goodsList[i].GOODS_SEQ + '"><i class="fa fa-shopping-cart"></i>사러가기</a>';
+				htmlStr += '<a class="btn" href="' + linkUrl + result.goodsList[i].GOODS_SEQ + '"><i class="fa fa-shopping-cart"></i>구매</a>';
 				htmlStr += '</div>';
 				htmlStr += '</div>';
 				htmlStr += '</div>';
+				
 			}
 			
-			var goodsDiv = $('#goods_list');
+			const goodsDiv = $('#goods_list');
 			goodsDiv.empty();
 			goodsDiv.html(htmlStr);
+		}//if(result.goodsList){
+		
+		if(result.page){
+			const pageHtml = makePageHtml(result.page);
 			
-//			$('#goods_list').html(htmlStr);
+			const pageDiv = $('#pageDiv');
+			$('#pageNum').val(result.page.cri.pageNum);
+			$('#amount').val(result.page.cri.amount);
+			pageDiv.empty();
+			pageDiv.html(pageHtml);
 		}
 	});
 }
-
 
 //별점에 따라 아이콘 리턴
 function makeStarIconHtml(ratting){
@@ -101,3 +109,4 @@ function movePage(pageNum){
 	selectedPage(pageNum);
 	callGetGoodsList();
 }
+

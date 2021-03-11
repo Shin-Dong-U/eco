@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,8 +24,8 @@ public class GoodsController {
 	@Autowired private GoodsService goodsService;
 	
 	@GetMapping("")
-	public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response, Criteria cri) {
-		ModelAndView mav = new ModelAndView("/goods/goods_list2");
+	public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response, @ModelAttribute Criteria cri) {
+		ModelAndView mav = new ModelAndView("/goods/goods_list");
 		mav.addAllObjects(goodsService.goodsList(cri));
 		
 		return mav;
@@ -38,12 +39,4 @@ public class GoodsController {
 		return mav;
 	}
 	
-	@GetMapping("/testtt")
-	public ModelAndView goodsList22(HttpServletRequest request, HttpServletResponse response, Criteria cri) {
-		ModelAndView mav = new ModelAndView("/goods/goods_list");
-//		mav.addAllObjects(goodsService.goodsList(cri));
-//		mav.addObject("cateList", commonService.categoryList());
-		
-		return mav;
-	}
 }
