@@ -1,8 +1,10 @@
 var goodsService=(function(){
+	var isRun = false;
 	
 	function getGoodsList(url, search, callback){
-		console.log("goods List");
-			
+		if(isRun === true) { return false; }
+		isRun = true;
+		
 		$.ajax({ 
 			type : 'get',						
 			url : url,	
@@ -13,8 +15,10 @@ var goodsService=(function(){
 				if(callback){
 					callback(result);
 				}
+				isRun = false;
 			}, error : function(e){
 				console.log(e);
+				isRun = false;
 			}
 		});
 	}
