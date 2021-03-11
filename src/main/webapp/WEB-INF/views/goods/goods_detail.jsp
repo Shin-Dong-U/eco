@@ -44,8 +44,7 @@
         </div>
         <!-- Top bar End -->
         
-        
-         <h1>${goods_req_option}</h1>
+       
 
         <!-- Nav Bar Start -->
         <div class="nav">
@@ -134,6 +133,58 @@
         </div>
         <!-- Breadcrumb End -->
         
+           <!-- Product List Start -->
+        <div class="product-view">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="product-view-top">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="product-search">
+                                                <input type="email" value="Search">
+                                                <button><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="product-short">
+                                                <div class="dropdown">
+                                                    <div class="dropdown-toggle" data-toggle="dropdown">Product short by</div>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a href="#" class="dropdown-item">Newest</a>
+                                                        <a href="#" class="dropdown-item">Popular</a>
+                                                        <a href="#" class="dropdown-item">Most sale</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="product-price-range">
+                                                <div class="dropdown">
+                                                    <div class="dropdown-toggle" data-toggle="dropdown">Product price range</div>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a href="#" class="dropdown-item">$0 to $50</a>
+                                                        <a href="#" class="dropdown-item">$51 to $100</a>
+                                                        <a href="#" class="dropdown-item">$101 to $150</a>
+                                                        <a href="#" class="dropdown-item">$151 to $200</a>
+                                                        <a href="#" class="dropdown-item">$201 to $250</a>
+                                                        <a href="#" class="dropdown-item">$251 to $300</a>
+                                                        <a href="#" class="dropdown-item">$301 to $350</a>
+                                                        <a href="#" class="dropdown-item">$351 to $400</a>
+                                                        <a href="#" class="dropdown-item">$401 to $450</a>
+                                                        <a href="#" class="dropdown-item">$451 to $500</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+         <!-- Product List Start End -->
+        
+        
         <!-- Product Detail Start -->
         <div class="product-detail">
             <div class="container-fluid">
@@ -142,7 +193,40 @@
                         <div class="product-detail-top">
                             <div class="row align-items-center">
                                 <div class="col-md-5">
-                                    <div class="product-slider-single normal-slider">
+                                
+                                <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="custCarousel" class="carousel slide" data-ride="carousel" align="center">
+                <!-- slides -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active"> <img src="/resources/image/5shoes.jpg" alt="shoes"> </div>
+                    <div class="carousel-item"> <img src="/resources/image/5_shoes_black.jpg" alt="shoes"> </div>
+                    <div class="carousel-item"> <img src="/resources/image/5_shoes_black2.jpg" alt="shoes"> </div>
+                    <div class="carousel-item"> <img src="/resources/image/5_shoes_black3.jpg" alt="shoes"> </div>
+                    <div class="carousel-item"> <img src="/resources/image/5_shoes_white.jpg" alt="shoes"> </div>
+                    <div class="carousel-item"> <img src="/resources/image/5_shoes_white1.jpg" alt="shoes"> </div>
+                    <div class="carousel-item"> <img src="/resources/image/5_shoes_white2.jpg" alt="shoes"> </div>
+                    <div class="carousel-item"> <img src="/resources/image/5_shoes_white3.jpg" alt="shoes"> </div>
+                    
+                </div> <!-- Left right --> <a class="carousel-control-prev" href="#custCarousel" data-slide="prev"> <span class="carousel-control-prev-icon"></span> </a> <a class="carousel-control-next" href="#custCarousel" data-slide="next"> <span class="carousel-control-next-icon"></span> </a> <!-- Thumbnails -->
+                <ol class="carousel-indicators list-inline">
+                    <li class="list-inline-item active"> <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#custCarousel"> <img src="/resources/image/5shoes.jpg" class="img-fluid"> </a> </li>
+                    <li class="list-inline-item"> <a id="carousel-selector-1" data-slide-to="1" data-target="#custCarousel"> <img src="/resources/image/5_shoes_black.jpg" class="img-fluid"> </a> </li>
+                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2" data-target="#custCarousel"> <img src="/resources/image/5_shoes_black2.jpg" class="img-fluid"> </a> </li>
+                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="3" data-target="#custCarousel"> <img src="/resources/image/5_shoes_black3.jpg" class="img-fluid"> </a> </li>
+                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="4" data-target="#custCarousel"> <img src="/resources/image/5_shoes_white.jpg" class="img-fluid"> </a> </li>
+                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="5" data-target="#custCarousel"> <img src="/resources/image/5_shoes_white1.jpg" class="img-fluid"> </a> </li>
+                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="6" data-target="#custCarousel"> <img src="/resources/image/5_shoes_white2.jpg" class="img-fluid"> </a> </li>
+                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="7" data-target="#custCarousel"> <img src="/resources/image/5_shoes_white3.jpg" class="img-fluid"> </a> </li>
+                    
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+                                                                                                                                                                                                
+                                  <!--  <div class="product-slider-single normal-slider">
                                         <img src="/resources/template/img/product-1.jpg" alt="Product Image">
                                         <img src="/resources/template/img/product-3.jpg" alt="Product Image">
                                         <img src="/resources/template/img/product-5.jpg" alt="Product Image">
@@ -157,7 +241,7 @@
                                         <div class="slider-nav-img"><img src="/resources/template/img/product-7.jpg" alt="Product Image"></div>
                                         <div class="slider-nav-img"><img src="/resources/template/img/product-9.jpg" alt="Product Image"></div>
                                         <div class="slider-nav-img"><img src="/resources/template/img/product-10.jpg" alt="Product Image"></div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="col-md-7">
                                     <div class="product-content">
@@ -169,42 +253,58 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                         </div>
-                                        <div class="price">
-                                            <h4>Price:</h4>
-                                            <p>${goodsDetail.PRICE}</p>
-                                        </div>
-                                        <div class="quantity">
-                                            <h4>Quantity:</h4>
+                                         <div class="quantity">
+                                            <h4>수량:</h4>
                                             <div class="qty">
                                                 <button class="btn-minus"><i class="fa fa-minus"></i></button>
                                                 <input type="text" value="1">
                                                 <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                             </div>
                                         </div>
-                                    
-                                        <div class="p-size">
-                                            <h4>Size:</h4>
+                                        
+                                                                   
+                                        <div class="p-Option">
+                                            <h4>옵션:</h4>
                                             <div class="btn-group btn-group-sm">                                                                                     
                                              <div class="col-md-4">                    
-                                             <div class="pull-right">
-	                                      
-	                                                   <select class="goods_size" name="size">
-	                                                  
-	                                                        <option value= "">사이즈선택</option>                                                        
-	                                                         <option value= "option_name ${goods_req_option.option_name}">${goods_req_option.option_name}</option>	                                                         
-	                                                
-	                                                    </select>                      	                                                 
+                                             <div class="pull-right">	                                      
+	                                         	<select class="goodsOption" name="goodsOption">	                                                 
+	                                                   <option value= "">옵션 선택</option>                                                        
+	                                                         <option value= "option_name ${goods_req_option.optionList[0].OPTION_NAME}">${goods_req_option.optionList[0].OPTION_NAME}</option>
+	                                                         <option value= "option_name ${goods_req_option.optionList[1].OPTION_NAME}">${goods_req_option.optionList[1].OPTION_NAME}</option>	 
+	                                                         <option value= "option_name ${goods_req_option.optionList[2].OPTION_NAME}">${goods_req_option.optionList[2].OPTION_NAME}</option>	 
+	                                                         <option value= "option_name ${goods_req_option.optionList[3].OPTION_NAME}">${goods_req_option.optionList[3].OPTION_NAME}</option>	 
+	                                                         <option value= "option_name ${goods_req_option.optionList[4].OPTION_NAME}">${goods_req_option.optionList[4].OPTION_NAME}</option>	 
+	                                                         <option value= "option_name ${goods_req_option.optionList[5].OPTION_NAME}">${goods_req_option.optionList[5].OPTION_NAME}</option>	 
+	                                                         <option value= "option_name ${goods_req_option.optionList[6].OPTION_NAME}">${goods_req_option.optionList[6].OPTION_NAME}</option>	 
+	                                                         <option value= "option_name ${goods_req_option.optionList[7].OPTION_NAME}">${goods_req_option.optionList[7].OPTION_NAME}</option>	 
+	                                                         <option value= "option_name ${goods_req_option.optionList[8].OPTION_NAME}">${goods_req_option.optionList[8].OPTION_NAME}</option>	 
+	                                                         <option value= "option_name ${goods_req_option.optionList[9].OPTION_NAME}">${goods_req_option.optionList[9].OPTION_NAME}</option>
+	                                                         <option value= "option_name ${goods_req_option.optionList[10].OPTION_NAME}">${goods_req_option.optionList[10].OPTION_NAME}</option>	 
+	                                                         <option value= "option_name ${goods_req_option.optionList[11].OPTION_NAME}">${goods_req_option.optionList[11].OPTION_NAME}</option>	 	                                                         	                                                         	 	                                                    	                                                         	                                                           
+	                                            </select>                      	                                                 
                                         </div>
                                        </div>
                                         </div>                                  
-                                        <div class="p-color">
-                                            <h4>Color:</h4>
-                                            <div class="btn-group btn-group-sm">
-                                                <button type="radio" class="btn" name="color">White</button>
-                                                <button type="radio" class="btn" name="color">Black</button>
-                                                <button type="radio" class="btn" name="color">Grey</button>
+                  <!--                       <div class="p-color">
+                                            <h4>색상:</h4>
+                                             <div class="btn-group btn-group-sm">
+                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+												<div class="btn-group btn-group-toggle" data-toggle="buttons">
+													  <label class="btn btn-secondary active">
+													    <input type="radio" name="options" id="option1" autocomplete="off" checked>흰색
+													  </label>
+													  <label class="btn btn-secondary">
+													    <input type="radio" name="options" id="option2" autocomplete="off">검은색
+													  </label>
+												
+												</div>
+                                            
+                                                 <button type="radio" class="btn" name="color">흰색</button>
+                                                <button type="radio" class="btn" name="color">검은색</button>
+                                                <button type="radio" class="btn" name="color">회색</button> 
                                             </div> 
-                                        </div>
+                                        </div> -->
                                         <div class="action">
                                             <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
                                             <a class="btn" href=""><i class="fa fa-shopping-bag"></i>Buy Now</a>
@@ -218,21 +318,19 @@
                             <div class="col-lg-12">
                                 <ul class="nav nav-pills nav-justified">
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="pill" href="${goods_detail }">Description</a>
+                                        <a class="nav-link active" data-toggle="pill" href="" >상품상세</a>
                                     </li>
+           
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="pill" href="#specification">Specification</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="pill" href="#reviews">Reviews (1)</a>
+                                        <a class="nav-link" data-toggle="pill" href="#reviews">상품평</a>
                                     </li>
                                 </ul>
 
                                 <div class="tab-content">
                                     <div id="description" class="container tab-pane active">
-                                        <h4>Product description</h4>
+                                        <h4>상품상세 설명</h4>
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac mi viverra dictum. In efficitur ipsum diam, at dignissim lorem tempor in. Vivamus tempor hendrerit finibus. Nulla tristique viverra nisl, sit amet bibendum ante suscipit non. Praesent in faucibus tellus, sed gravida lacus. Vivamus eu diam eros. Aliquam et sapien eget arcu rhoncus scelerisque. Suspendisse sit amet neque neque. Praesent suscipit et magna eu iaculis. Donec arcu libero, commodo ac est a, malesuada finibus dolor. Aenean in ex eu velit semper fermentum. In leo dui, aliquet sit amet eleifend sit amet, varius in turpis. Maecenas fermentum ut ligula at consectetur. Nullam et tortor leo. 
+                                            ${goods.goodsDetail.GOODS_DETAIL}
                                         </p>
                                     </div>
                                     <div id="specification" class="container tab-pane fade">
@@ -442,7 +540,7 @@
                     <div class="col-lg-4 sidebar">
                         <div class="sidebar-widget category">
                             <h2 class="title">Category</h2>
-                            <nav class="navbar bg-light">
+                            <nav class="navbar bg-right">
                                 <ul class="navbar-nav">
                                     <li class="nav-item">
                                         <a class="nav-link" href=""><i class="fa fa-female"></i>Fashion & Beauty</a>
@@ -463,117 +561,6 @@
                             </nav>
                         </div>
                         
-                        <div class="sidebar-widget widget-slider">
-                            <div class="sidebar-slider normal-slider">
-                                <div class="product-item">
-                                    <div class="product-title">
-                                        <a href="">Product Name</a>
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <a href="product-detail.html">
-                                            <img src="/resources/template/img/product-7.jpg" alt="Product Image">
-                                        </a>
-                                        <div class="product-action">
-                                            <a href=""><i class="fa fa-cart-plus"></i></a>
-                                            <a href=""><i class="fa fa-heart"></i></a>
-                                            <a href=""><i class="fa fa-search"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-price">
-                                        <h3><span>$</span>99</h3>
-                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                    </div>
-                                </div>
-                                <div class="product-item">
-                                    <div class="product-title">
-                                        <a href="">Product Name</a>
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <a href="product-detail.html">
-                                            <img src="/resources/template/img/product-8.jpg" alt="Product Image">
-                                        </a>
-                                        <div class="product-action">
-                                            <a href=""><i class="fa fa-cart-plus"></i></a>
-                                            <a href=""><i class="fa fa-heart"></i></a>
-                                            <a href=""><i class="fa fa-search"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-price">
-                                        <h3><span>$</span>99</h3>
-                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                    </div>
-                                </div>
-                                <div class="product-item">
-                                    <div class="product-title">
-                                        <a href="">Product Name</a>
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <a href="product-detail.html">
-                                            <img src="/resources/template/img/product-9.jpg" alt="Product Image">
-                                        </a>
-                                        <div class="product-action">
-                                            <a href=""><i class="fa fa-cart-plus"></i></a>
-                                            <a href=""><i class="fa fa-heart"></i></a>
-                                            <a href=""><i class="fa fa-search"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-price">
-                                        <h3><span>$</span>99</h3>
-                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="sidebar-widget brands">
-                            <h2 class="title">Our Brands</h2>
-                            <ul>
-                                <li><a href="">Nulla </a><span>(45)</span></li>
-                                <li><a href="">Curabitur </a><span>(34)</span></li>
-                                <li><a href="">Nunc </a><span>(67)</span></li>
-                                <li><a href="">Ullamcorper</a><span>(74)</span></li>
-                                <li><a href="">Fusce </a><span>(89)</span></li>
-                                <li><a href="">Sagittis</a><span>(28)</span></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="sidebar-widget tag">
-                            <h2 class="title">Tags Cloud</h2>
-                            <a href="">Lorem ipsum</a>
-                            <a href="">Vivamus</a>
-                            <a href="">Phasellus</a>
-                            <a href="">pulvinar</a>
-                            <a href="">Curabitur</a>
-                            <a href="">Fusce</a>
-                            <a href="">Sem quis</a>
-                            <a href="">Mollis metus</a>
-                            <a href="">Sit amet</a>
-                            <a href="">Vel posuere</a>
-                            <a href="">orci luctus</a>
-                            <a href="">Nam lorem</a>
-                        </div>
-                    </div>
                     <!-- Side Bar End -->
                 </div>
             </div>
