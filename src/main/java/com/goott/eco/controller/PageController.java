@@ -40,9 +40,9 @@ public class PageController {
 	}
 
 	@GetMapping("/orders/basket/list")
-	public void list(Model model) {
+	public String list(Model model) {
 		log.info("list페이지 이동");
-		//return "orders/basket/list";
+		return "orders/basket/list";
 	}
 	@GetMapping("/orders/order/checkout")
 	public void checkout(Model model) {

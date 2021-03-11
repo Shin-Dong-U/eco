@@ -7,6 +7,10 @@ import javax.servlet.ServletRegistration;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.goott.eco.config.RootConfig;
+import com.goott.eco.config.SecurityConfig;
+import com.goott.eco.config.ServletConfig;
+
 public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer{
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
