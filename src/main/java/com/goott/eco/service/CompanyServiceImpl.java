@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.goott.eco.mapper.CompanyMapper;
 
-public class CompanyServiceImpl {//implements CompanyService{
+public class CompanyServiceImpl implements CompanyService{
 	
-//	@Autowired
-//	private CompanyMapper compDao;
-
-
+	@Autowired
+	private CompanyMapper compDao;
 
 }
