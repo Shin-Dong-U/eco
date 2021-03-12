@@ -135,6 +135,11 @@ public class PageController {
 		log.info("account페이지 이동");
 	}
 	
+	@GetMapping("cust/account1")
+	public void account1() {
+		log.info("account페이지 이동");
+	}
+	
 	/* 카카오 로그인 이동*/
 	//@GetMapping("/home/kakao")
 	//public String kakaoLogin() {

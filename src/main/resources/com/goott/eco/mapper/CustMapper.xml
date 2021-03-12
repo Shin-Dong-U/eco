@@ -32,6 +32,7 @@
 		<result property="myMil" column="myMil" />
 		<result property="bar_status" column="bar_status" />
 		<result property="admin_yn" column="admin_yn" />
+		<result property="seed_yn" column="seed_yn" />
 		<collection property="authList" resultMap="AuthMap" />
 	</resultMap>
 
@@ -66,13 +67,19 @@
 		WHERE memberId=#{memberId} AND password=#{password} AND member_yn='Y' 
 	</select>
 	
+	<!-- 비밀번호 확인 -->
+	<select id="checkCustPassword" resultType="String">
+		SELECT password FROM eco.cust 
+		WHERE memberId=#{memberId} AND member_yn='Y' 
+	</select>
+	
 	<!-- 회원가입:eco.cust -->
 	<insert id="joinCust">
 		INSERT INTO eco.cust 
 		VALUES(
 			#{memberId}, #{password}, #{name}, #{phone}, #{email}, #{addr_post}, #{addr_city}, 
 			#{addr_detail}, #{birth}, #{sex}, #{company_yn}, default, default, 
-			#{memberId}, default, #{memberId}, default, default, default, default
+			#{memberId}, default, #{memberId}, default, default, default, default, default
 		)
 	</insert>
 	
@@ -85,7 +92,7 @@
 	<!-- 회원수정 -->
 	<update id="modifyCust">
 		UPDATE eco.cust
-		SET password=#{password}, phone=#{phone}, addr_post=#{addr_post}, addr_city=#{addr_city}, addr_detail=#{addr_detail},
+		SET password=#{password}, name=#{name}, phone=#{phone}, addr_post=#{addr_post}, addr_city=#{addr_city}, addr_detail=#{addr_detail},
 			company_yn=#{company_yn}, editUser=#{memberId}, editDate=default
 		WHERE memberId=#{memberId}
 	</update>

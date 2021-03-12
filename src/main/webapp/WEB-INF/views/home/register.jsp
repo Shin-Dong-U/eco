@@ -209,7 +209,7 @@
 	                              
 								<div class="col-md-6">
 									<label>Birth</label>
-									<input class="form-control" type="date" id="brith" name="birth" placeholder="Birth">	<!-- value="날짜" 초기값 설정 -->
+									<input class="form-control" type="date" id="birth" name="birth" placeholder="birth">	<!-- value="날짜" 초기값 설정 -->
 								</div>
 	            									 
 								<div class="col-md-6">
@@ -252,7 +252,9 @@
 
 <script src="/resources/home/customer.js?v=<%=System.currentTimeMillis() %>"></script>
 <script>
-
+/* CSRF 데이터 변수 저장 */
+var csrfHeaderName="${_csrf.headerName}";
+var csrfTokenValue="${_csrf.token}";
 
 /* company일 경우만 company의 항목을 보여준다. */
 $("input[type='radio'][name='company_yn']").on("click", function(){
@@ -272,14 +274,10 @@ $("#btn_register").on("click", function(e){
 	
 	var company_yn=$("input[type='radio'][name='company_yn']:checked").val();
 	var sex=$("input[type='radio'][name='sex']:checked").val();
-	var birth=$("#birth").val();
-	
+	var birth=$('#birth').val();
 	/* 생일 = 문자열 -> 숫자 */
-	var birth_int= parsInt(birth);
-	alert(birth_int);
+	var birth_int= parseInt(birth.replace("-",""));
 
-
-	
 	var custVO={
 		"company_yn":company_yn,
 		"memberId":$("#memberId").val(),
@@ -306,12 +304,14 @@ $("#btn_register").on("click", function(e){
 	console.log("compVO: "+JSON.stringify(compVO));
 	
 	customer.joinMember(
-		memberVO={custVO:custVO, compVO:compVO},
+		memberVO={custVO:custVO, compVO:compVO,},
+		csrf={"csrfHeaderName":csrfHeaderName,
+			"csrfTokenValue":csrfTokenValue},
 		function(data){
 			alert("joinMember"+data);
 		}
 	);
-
+    
 });
 
 
