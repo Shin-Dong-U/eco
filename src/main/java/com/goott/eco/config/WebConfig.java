@@ -1,5 +1,7 @@
 package com.goott.eco.config;
 
+import java.io.File;
+
 import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
@@ -41,6 +43,8 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 	protected void customizeRegistration(ServletRegistration.Dynamic registration) {
 		registration.setInitParameter("thorwExceptionIfNoHandlerFound", "true");
 		
+//		String prjPath = "C:\\Users\\sdwsg\\Documents\\GitHub\\eco";
+//		MultipartConfigElement multipartConfig = new MultipartConfigElement(prjPath, 20971520, 41943040, 20971520);
 		MultipartConfigElement multipartConfig = new MultipartConfigElement("C:\\upload\\temp", 20971520, 41943040, 20971520);
 		registration.setMultipartConfig(multipartConfig);
 	}
