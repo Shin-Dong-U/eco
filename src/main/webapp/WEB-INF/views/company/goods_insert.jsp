@@ -4,9 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="_csrf" th:content="${_csrf.token}">
+<meta name="_csrf_header" th:content="${_csrf.headerName}">
+
 <title>상품등록페이지</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../resources/vender/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
+
 </head>
 <body>
 	<textarea name="ir1" id="ir1" rows="10" cols="100">
@@ -15,8 +19,12 @@
 	
 	<button id="testBtn" onclick="submitContents(this);">naver editor</button>
 	
-	<input type="file" name="uploadFile" multiple>
+	<div class="uploadDiv">
+		<input type="file" name="uploadFile" multiple>
+	</div>
 	<button id="uploadBtn">기본</button>
+
+	<img src="/upload/img/lion.jpg" />
 
 	
 <script type="text/javascript">
@@ -42,14 +50,23 @@
 		 } catch(e) {}
 	}
 	
+	var cloneObj = $('.uploadDiv').clone();
+	
 	$(document).ready(function(){
 		$('#uploadBtn').on("click", function(e){
+			var token = $("meta[name='_csrf']").attr("th:content");
+			var header = $("meta[name='_csrf_header']").attr("th:content");
+			
+			//console.log('header : ' + header + ' token : ' + token);
+			
 			var formData = new FormData();
 			var inputFile = $("input[name='uploadFile']");
 			var files = inputFile[0].files;
 			console.log(files);
 			
 			for(var i = 0; i < files.length; i++){
+				if(!checkExtension(files[i].name, files[i].size)){ return false; }
+				
 				formData.append("uploadFile", files[i]);
 			}
 			
@@ -59,8 +76,14 @@
 				contentType : false,
 				data : formData,
 				type : 'POST',
+				dataType:"json",
+				beforeSend : function(xhr){   
+                	xhr.setRequestHeader(header, token);
+                },
 				success : function(result){
-					alert("업로드 성공")
+					console.log(result);
+					
+					$('.uploadDiv').html(cloneObj.html());
 				},
 				fail : function(e){
 					alert("실패");
@@ -69,6 +92,25 @@
 			});
 		});
 	});
+	
+	
+	function checkExtension(fileName, fileSize){
+		var regex = new RegExp("(.*?)\.(jpg|png|bmp|rle|dib|gif|tif|tiff)");
+		var maxSize = 5242880;
+		
+		if(fileSize >= maxSize){
+			alert('파일 사이즈 초과');
+			return false;
+		}
+		
+		if(!regex.test(fileName)){
+			alert('이미지 파일만 업로드 가능합니다. \n jpg, png, bmp, rle, dib, gif, tif, tiff');
+			return false;
+		}
+		
+		return true;
+	}
+	
 </script>
 </body>
 </html>
