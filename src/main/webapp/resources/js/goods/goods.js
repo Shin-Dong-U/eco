@@ -52,7 +52,7 @@ function callGetGoodsList(){
 				htmlStr += '</div>';
 				htmlStr += '<div class="product-image">';
 				htmlStr += '<a href="' + linkUrl + result.goodsList[i].GOODS_SEQ + '">';
-				htmlStr += '<img src="' + imgUrl + '" alt="상품 이미지" onerror="this.src=' + "'/resources/upload/img/default/no_img.jpg'" + '"/>';
+				htmlStr += '<img src="' + imgUrl + '" alt="상품 이미지" onerror="this.src=' + "'/resources/upload/img/default/no_img.jpg'" + '" style="overflow: hidden;height:250px;"/>';
 				htmlStr += '</a>';
 				
 				htmlStr += '<div class="product-action">';

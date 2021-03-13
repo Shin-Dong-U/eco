@@ -245,7 +245,7 @@
                                 </div>
                                 <div class="col-md-7">
                                     <div class="product-content">
-                                        <div class="title"><h2>${goods_req_option.goodsDetail.GOODS_NAME}</h2></div>
+                                        <div class="title"><h2>${goodsDetail.GOODS_NAME}</h2></div>
                                         <div class="ratting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -269,19 +269,21 @@
                                              <div class="col-md-4">                    
                                              <div class="pull-right">	                                      
 	                                         	<select class="goodsOption" name="goodsOption">	                                                 
-	                                                   <option value= "">옵션 선택</option>                                                        
-	                                                         <option value= "option_name ${goods_req_option.optionList[0].OPTION_NAME}">${goods_req_option.optionList[0].OPTION_NAME}</option>
-	                                                         <option value= "option_name ${goods_req_option.optionList[1].OPTION_NAME}">${goods_req_option.optionList[1].OPTION_NAME}</option>	 
-	                                                         <option value= "option_name ${goods_req_option.optionList[2].OPTION_NAME}">${goods_req_option.optionList[2].OPTION_NAME}</option>	 
-	                                                         <option value= "option_name ${goods_req_option.optionList[3].OPTION_NAME}">${goods_req_option.optionList[3].OPTION_NAME}</option>	 
-	                                                         <option value= "option_name ${goods_req_option.optionList[4].OPTION_NAME}">${goods_req_option.optionList[4].OPTION_NAME}</option>	 
-	                                                         <option value= "option_name ${goods_req_option.optionList[5].OPTION_NAME}">${goods_req_option.optionList[5].OPTION_NAME}</option>	 
-	                                                         <option value= "option_name ${goods_req_option.optionList[6].OPTION_NAME}">${goods_req_option.optionList[6].OPTION_NAME}</option>	 
-	                                                         <option value= "option_name ${goods_req_option.optionList[7].OPTION_NAME}">${goods_req_option.optionList[7].OPTION_NAME}</option>	 
-	                                                         <option value= "option_name ${goods_req_option.optionList[8].OPTION_NAME}">${goods_req_option.optionList[8].OPTION_NAME}</option>	 
-	                                                         <option value= "option_name ${goods_req_option.optionList[9].OPTION_NAME}">${goods_req_option.optionList[9].OPTION_NAME}</option>
-	                                                         <option value= "option_name ${goods_req_option.optionList[10].OPTION_NAME}">${goods_req_option.optionList[10].OPTION_NAME}</option>	 
-	                                                         <option value= "option_name ${goods_req_option.optionList[11].OPTION_NAME}">${goods_req_option.optionList[11].OPTION_NAME}</option>	 	                                                         	                                                         	 	                                                    	                                                         	                                                           
+	                                                   <option value= "">필수 옵션</option>
+	                                                   <c:forEach var="optionList" items="${optionList }">                                                        
+                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>
+                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
+                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
+                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
+                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
+                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
+                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
+                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
+                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
+                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>
+                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
+                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>
+                                                       </c:forEach>	 	                                                         	                                                         	 	                                                    	                                                         	                                                           
 	                                            </select>                      	                                                 
                                         </div>
                                        </div>

@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,7 +48,14 @@ public class RestGoodsController {
 		return new ResponseEntity<>(goods, HttpStatus.OK);
 	}
 	
+	//리뷰 5개씩 보여주기 작업 중 ing
+	@GetMapping(value="/{goodsSeq}/review", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
+	public ResponseEntity<Map<String, Object>> getReview(@PathVariable int goodsSeq) {
+		
+		return new ResponseEntity<>(null, HttpStatus.OK);
+	}
 	
+	//업로드 테스트 중 ing
 	@PostMapping(value="/form/upload/images", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public ResponseEntity<List<AttachFileDTO>> goodsDetailImagesUpload(HttpServletRequest request, MultipartFile[] uploadFile) {
 		List<AttachFileDTO> attachList = new ArrayList<AttachFileDTO>();

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.goott.eco.common.Criteria;
+import com.goott.eco.service.CommonService;
 import com.goott.eco.service.GoodsService;
 
 @RequestMapping("/goods")
@@ -22,25 +23,21 @@ import com.goott.eco.service.GoodsService;
 public class GoodsController {
 	
 	@Autowired private GoodsService goodsService;
+	@Autowired private CommonService commonService;
 	
 	@GetMapping("")
 	public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response, @ModelAttribute Criteria cri) {
 		ModelAndView mav = new ModelAndView("/goods/goods_list");
-		mav.addAllObjects(goodsService.goodsList(cri));
+		mav.addObject("cateList", commonService.categoryList());
 		
 		return mav;
 	}
 	
 	@GetMapping("/{goodsSeq}")
 	public ModelAndView goodsDetail(HttpServletRequest request, HttpServletResponse response, @PathVariable int goodsSeq) {
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("goods/goods_detail5");
+		mav.addAllObjects(goodsService.goodsDetail(goodsSeq));
 		
-		mav.setViewName("goods/goods_detail");
-		//mav.addAllObjects(goodsService.goodsDetail(goodsSeq));
-		mav.addObject("goods_req_option", goodsService.goodsDetail(goodsSeq));
-		mav.addObject("goods", goodsService.goodsDetail(goodsSeq) );
-		
-		System.out.println("goods detail " + goodsSeq);
 		return mav;
 	}
 	
