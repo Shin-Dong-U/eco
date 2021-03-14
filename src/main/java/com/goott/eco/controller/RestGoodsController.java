@@ -17,13 +17,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.gson.Gson;
 import com.goott.eco.common.Criteria;
 import com.goott.eco.service.GoodsService;
 
@@ -31,7 +29,6 @@ import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
 
 import com.goott.eco.domain.AttachFileDTO;
-import com.goott.eco.domain.CustVO;
 
 @RestController
 @RequestMapping("/goods/rest")
@@ -48,11 +45,11 @@ public class RestGoodsController {
 		return new ResponseEntity<>(goods, HttpStatus.OK);
 	}
 	
-	//리뷰 5개씩 보여주기 작업 중 ing
+	//리뷰
 	@GetMapping(value="/{goodsSeq}/review", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
-	public ResponseEntity<Map<String, Object>> getReview(@PathVariable int goodsSeq) {
-		
-		return new ResponseEntity<>(null, HttpStatus.OK);
+	public ResponseEntity<Map<String, Object>> getReview(@PathVariable int goodsSeq, @RequestParam int pageNum) {
+		Map<String, Object> comment = goodsService.goodsComment(goodsSeq, pageNum);
+		return new ResponseEntity<>(comment, HttpStatus.OK);
 	}
 	
 	//업로드 테스트 중 ing

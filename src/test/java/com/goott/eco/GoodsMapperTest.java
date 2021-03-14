@@ -118,7 +118,7 @@ public class GoodsMapperTest {
 		Map<String, Object> prm = new HashMap<String, Object>();
 		prm.put("goods_seq", goodsSeq);
 		prm.put("start", start);
-		List<Map<String, Object>> commList = dao.goodsComment(prm);
+//		List<Map<String, Object>> commList = dao.goodsComment(prm);
 	}
 	
 }

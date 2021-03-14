@@ -60,12 +60,18 @@ public class GoodsServiceimpl implements GoodsService{
 	}
 	
 	@Override
-	public List<Map<String, Object>> goodsComment(int goodsSeq, int start){
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("goods_seq", goodsSeq);
-		param.put("start", start);
+	public Map<String, Object> goodsComment(int goodsSeq, int pageNum){
+		final int DEFAULT_COMMENT_PAGE_AMOUNT = 5;
+		int total = goodsDao.totalCountGoodsComment(goodsSeq);
+		PageDTO page = new PageDTO(new Criteria(pageNum, DEFAULT_COMMENT_PAGE_AMOUNT), total);
 		
-		return goodsDao.goodsComment(param);
+		List<Map<String, Object>> commentList = goodsDao.goodsComment(goodsSeq, page.getCri().getStart());
+		
+		Map<String, Object> comment = new HashMap<String, Object>();
+		comment.put("commentList", commentList);
+		comment.put("page", page);
+		
+		return comment;
 	}
 
 	@Override

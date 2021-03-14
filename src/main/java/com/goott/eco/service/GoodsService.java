@@ -14,5 +14,5 @@ public interface GoodsService {
 	
 	public int insertGoods(GoodsVO vo);
 	
-	public List<Map<String, Object>> goodsComment(int goodsSeq, int start);
+	public Map<String, Object> goodsComment(int goodsSeq, int pageNum);
 }

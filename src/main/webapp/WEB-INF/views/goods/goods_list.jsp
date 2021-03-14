@@ -135,7 +135,7 @@
                                     <div class="col-md-3">
                                         <div class="product-search">
                                             <input type="text" id="keyword" name="keyword" value="${cri.keyword }" placeholder="상품명 검색">
-                                            <button type="button" onclick="callGetGoodsList();"><i class="fa fa-search"></i></button>
+                                            <button type="button" onclick="callGetGoodsList(true);"><i class="fa fa-search"></i></button>
                                         </div>
                                     </div>
                                	</div>
@@ -188,9 +188,16 @@
         	$(document).ready(function(){
         		movePage(1);
         		$("#keyword").keydown(function(key) {
-        			if (key.keyCode == 13) { callGetGoodsList(); }
+        			if (key.keyCode == 13) {
+        				callGetGoodsList(true); 
+       				}
        			});
         	});
+        	
+        	function movePage(pageNum){
+        		selectedPage(pageNum);
+        		callGetGoodsList();
+        	}
         </script>
 	</body>
 </html>

@@ -109,6 +109,9 @@
         <div class="product-detail">
         	
         	<!-- hidden field -->
+        	<!-- <input type="hidden" id="memberId" name="memberId" value="${memberId }">-->
+        	<input type="hidden" id="memberId" name="memberId" value="kate">
+        	<input type="hidden" id="pageNum" name="pageNum" value="1">
         	<input type="hidden" id="goodsSeq" name="goodsSeq" value="${goodsDetail.GOODS_SEQ }">
         	<input type="hidden" id="star" name="star" value="${goodsDetail.STAR }">
         
@@ -150,7 +153,6 @@
                                             <h4>옵션:</h4>
                                             
                                             <div class="btn-group dropdown">
-                                               
                                                 <select class="form-control nav-link dropdown-toggle" id="goodsReqOptionSeq" name="goodsReqOptionSeq" style="border-color:rgb(255, 111, 97)">
                                                 	<option>필수선택</option>
                                                 	<c:forEach var="optionList" items="${optionList }">
@@ -208,27 +210,24 @@
                                 <br/><br/><br/>
                                 <div class="tab-content"> 
                                     <div id="reviews" class="container">
-                                        <div class="reviews-submitted">
-                                            <div class="reviewer">Phasellus Gravida - <span>01 Jan 2020</span></div>
-                                            <div class="ratting">
-                                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                            </div>
-                                            <p>
-                                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-                                            </p>
+                                        <div class="container" id="commentDiv">
                                         </div>
+                                        
+                                        <!-- Pagination -->
+										<div class="col-md-12" id="pageDiv"></div>
+										
                                         <div class="reviews-submit">
                                             <h4>Give your Review:</h4>
                                             <div class="nav-item dropdown">
-                                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="comment_insert_star_a">
                                                     <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
                                                 </a>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a>
-                                                    <a class="dropdown-item"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i></a>
-                                                    <a class="dropdown-item"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></a>
-                                                    <a class="dropdown-item"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></a>
-                                                    <a class="dropdown-item"><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></a>
+                                                    <a class="dropdown-item" onclick="selectedStar('insert', 5);"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a>
+                                                    <a class="dropdown-item" onclick="selectedStar('insert', 4);"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i></a>
+                                                    <a class="dropdown-item" onclick="selectedStar('insert', 3);"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></a>
+                                                    <a class="dropdown-item" onclick="selectedStar('insert', 2);"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></a>
+                                                    <a class="dropdown-item" onclick="selectedStar('insert', 1);"><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></a>
                                                 </div>
                                             </div>
                                             
@@ -343,7 +342,7 @@
         <script src="/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
-        <script src="/resources/templatejs/main.js"></script>
+        <script src="/resources/template/js/main.js"></script>
         
         <script src="/resources/js/common/common.js"></script>
         <script src="/resources/js/goods/goods.js"></script>
@@ -353,7 +352,28 @@
         	var star = $('#star').val();
         	var rattingHtml = makeStarIconHtml(star);
         	$('#goods_ratting_div').html(rattingHtml);
-        });
+        	
+        	movePage(1);
+        	
+        	$('#commentUpdateBtn').click(function(e){
+        		console.log('do');
+        	});
+        	
+     	});
+        
+        function commentReset(){
+       		const pageNum = document.getElementById('pageNum').value;
+       		movePage(pageNum);
+       	};
+       	
+       	function commentUpdate(){
+       		
+       	}
+    	
+    	function movePage(pageNum){
+    		selectedPage(pageNum);
+    		callGetCommentList();
+    	}
         </script>
     </body>
 </html>
