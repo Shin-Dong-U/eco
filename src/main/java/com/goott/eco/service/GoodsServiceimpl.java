@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.goott.eco.common.Criteria;
 import com.goott.eco.common.PageDTO;
 import com.goott.eco.domain.GoodsVO;
+import com.goott.eco.domain.GoodsVO.GoodsCommentVO;
 import com.goott.eco.mapper.GoodsMapper;
 
 @Transactional
@@ -40,10 +41,11 @@ public class GoodsServiceimpl implements GoodsService{
 		PageDTO page = new PageDTO(cri, cnt);
 
 		List<Map<String, Object>> goodsList = goodsDao.goodsList(cri);
+		List<Map<String, Object>> cateList = goodsDao.goodsCategoryList();
 		
 		resMap.put("goodsList", goodsList);
 		resMap.put("page", page);
-		resMap.put("cri", cri);
+//		resMap.put("cri", cri);
 		
 		return resMap;
 	}
@@ -55,23 +57,38 @@ public class GoodsServiceimpl implements GoodsService{
 		goods.put("thumbList", goodsDao.goodsDetailThumbImg(goodsSeq));
 		goods.put("imgList", goodsDao.goodsDetailImg(goodsSeq));
 		goods.put("optionList", goodsDao.goodsReqOption(goodsSeq));
-		
 		return goods;
 	}
 	
 	@Override
-	public List<Map<String, Object>> goodsComment(int goodsSeq, int start){
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("goods_seq", goodsSeq);
-		param.put("start", start);
+	public Map<String, Object> goodsComment(int goodsSeq, int pageNum){
+		final int DEFAULT_COMMENT_PAGE_AMOUNT = 5;
+		int total = goodsDao.totalCountGoodsComment(goodsSeq);
+		PageDTO page = new PageDTO(new Criteria(pageNum, DEFAULT_COMMENT_PAGE_AMOUNT), total);
 		
-		return goodsDao.goodsComment(param);
+		List<Map<String, Object>> commentList = goodsDao.goodsComment(goodsSeq, page.getCri().getStart());
+		
+		Map<String, Object> comment = new HashMap<String, Object>();
+		comment.put("commentList", commentList);
+		comment.put("page", page);
+		
+		return comment;
 	}
 
 	@Override
 	public int insertGoods(GoodsVO vo) {
 		goodsDao.insertGoods(vo);
 		return 0;
+	}
+
+	@Override
+	public int updateReview(GoodsCommentVO commentVO) {
+		return goodsDao.updateReview(commentVO);
+	}
+
+	@Override
+	public int insertReview(GoodsCommentVO commentVO) {
+		return goodsDao.insertReview(commentVO);
 	}
 
 }

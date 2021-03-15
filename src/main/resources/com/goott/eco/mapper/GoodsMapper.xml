@@ -21,7 +21,7 @@
 			</if>
 	</select>
 	
-	<select id="goodsList" resultType="map" parameterType="com.goott.eco.common.Criteria">
+	<select id="goodsList" resultType="hashmap" parameterType="com.goott.eco.common.Criteria">
 		SELECT 
 			  G.GOODS_SEQ, G.GOODS_NAME, G.PRICE, G.ECO_SCORE
 			, GTN.IMG_URL
@@ -43,7 +43,8 @@
 	<select id="goodsDetail" parameterType="int" resultType="map">
 		SELECT
 			  G.GOODS_SEQ, G.COMP_SEQ, G.GOODS_NAME, G.PRICE, G.QTY, G.MATERIAL, G.CATEGORY
-			, G.REQ_OPTION, G.GOODS_DETAIL
+			, G.REQ_OPTION, to_char(G.GOODS_DETAIL) "GOODS_DETAIL"
+			, (SELECT NVL( ROUND( AVG( NVL(STAR,0) ), 1 ), 0) FROM GOODS_COMMENT WHERE GOODS_COMMENT.GOODS_SEQ = G.GOODS_SEQ) AS STAR
 			, COMP.COMP_NAME
 		FROM GOODS G
 		LEFT OUTER JOIN COMPANY COMP ON G.COMP_SEQ = COMP.COMP_SEQ
@@ -72,22 +73,27 @@
 	
 	<select id="goodsReqOption" parameterType="int" resultType="map">
 		SELECT
-			GOODS_SEQ, GOODS_REQ_OPTION_SEQ, PRICE
+			GOODS_SEQ, GOODS_REQ_OPTION_SEQ, PRICE, OPTION_NAME
 		FROM GOODS_REQ_OPTION
 		WHERE 
 			GOODS_SEQ = #{goods_seq}
 	</select>
 	
+	
+	<select id="totalCountGoodsComment" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM GOODS_COMMENT WHERE GOODS_SEQ = #{goodsSeq}
+	</select>
+	
 	<select id="goodsComment" parameterType="map" resultType="map">
 		SELECT
-			  GC.GOODS_SEQ, GC.CUST_ID, GC.STAR, GC.MEMO, TO_CHAR(GC.REGDATE, 'YYYYMMDD') AS REGDATE
+			  GC.GOODS_COMMENT_SEQ, GC.GOODS_SEQ, GC.CUST_ID, GC.STAR, GC.MEMO, TO_CHAR(GC.REGDATE, 'YY/MM/DD hh:mi:ss') AS REGDATE
 			, C.NAME
 			, G.GOODS_NAME
 		FROM GOODS_COMMENT GC
 			INNER JOIN CUST C ON GC.CUST_ID = C.MEMBERID
 			INNER JOIN GOODS G ON GC.GOODS_SEQ = G.GOODS_SEQ
 		WHERE 
-			GC.GOODS_SEQ = #{goods_seq}
+			GC.GOODS_SEQ = #{goodsSeq}
 		ORDER BY REGDATE DESC
 		OFFSET #{start} rows FETCH FIRST 5 ROWS ONLY
 	</select>
@@ -108,6 +114,34 @@
 		    )
 		}
 	</select>
+	
+	<update id="updateReview" parameterType="com.goott.eco.domain.GoodsVO$GoodsCommentVO">
+		UPDATE GOODS_COMMENT 
+		SET 
+			STAR = #{star}
+			, MEMO = #{memo}
+		WHERE 
+			CUST_ID = #{cust_id}
+			AND GOODS_COMMENT_SEQ = #{goods_comment_seq}
+	</update>
+	
+	<insert id="insertReview" parameterType="com.goott.eco.domain.GoodsVO$GoodsCommentVO">
+		INSERT INTO GOODS_COMMENT(
+			  GOODS_COMMENT_SEQ
+			, GOODS_SEQ
+			, CUST_ID
+			, STAR
+			, MEMO
+			, REGDATE
+		) VALUES(
+			  SEQ_GOODS_COMMENT_SEQ.NEXTVAL
+			, #{goods_seq}
+			, #{cust_id}
+			, #{star}
+			, #{memo}
+			, SYSDATE
+		)
+	</insert>
 	
 	<delete id="realDeleteGoods" parameterType="int">
 		DELETE FROM GOODS WHERE GOODS_SEQ = #{goodsSeq}
