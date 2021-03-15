@@ -17,9 +17,8 @@ public interface BasketService {
 	
 	public int purGoodsAtBasket(String cust_id, Long goods_seq);
 	
-	public int addGoodsAtBasket(HashMap<String,Object> orderInfo);
+	public int addGoodsAtBasket(String cust_id, Long goods_seq, Long qty);
 	
 	public int changeQtyAtBasket(String cust_id, Long goods_seq, Long qty);
 
-	public int countBasketGoods(String cust_id);
 }

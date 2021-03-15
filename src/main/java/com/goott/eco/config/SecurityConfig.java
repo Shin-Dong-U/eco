@@ -83,11 +83,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		//	.antMatchers("/order/list").authenticated();
 		//	.exceptionHandling().accessDeniedHandler(accessDeniedHandler())
 
-		
-		//http.authorizeRequests()
-		//	.antMatchers("/sample/admin").access("hasRole('ROLE_COMPANY')");
-		//	.antMatchers("/sample/member").access("hasRole('ROLE_CUST')");
-	
 		/* 로그인 */
 		http.formLogin()
 			.loginPage("/home/login")
@@ -105,9 +100,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.key("goott")
 			.tokenRepository(persistentTokenRepository())
 			.tokenValiditySeconds(604800);
-		
-		/* naver smartEditor cross-origin iframe 이슈 방지용 */
-		http.headers().frameOptions().sameOrigin();
 		
 	}
 
