@@ -22,6 +22,9 @@ public interface CustMapper {
 	/* 로그인  */
 	public CustVO getCustLogin(CustVO custVO);
 	
+	/* 비밀번호 확인 */
+	public String checkCustPassword(String memberId);
+	
 	/* 회원 가입:eco.cust */
 	public int joinCust(CustVO custVO);
 	

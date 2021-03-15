@@ -1,11 +1,36 @@
 console.log("customer.ajax실행");
 
 
-
 var customer=(function(){
 
+
+	/* password 확인 */
+	function passwordCheck(custVO, csrf, callback, error){
+		console.log("getCust 실행");
+		
+		$.ajax({
+			type:"post",
+			url:"/cust/pwCheck",
+			data:JSON.stringify(custVO),
+			contentType:"application/json; charset=UTF-8",
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
+			success:function(data){
+				callback(data);
+				console.log("customer.ajax실행중 passwordCheck 성공");				
+			},
+			error:function(xhr,status,err){
+				error(err);
+				console.log("customer.ajax실행중 passwordCheck 오류");
+
+			}
+		});	//end ajax
+	}	//end function getCustLogin
+	
+	
 	/* 회원가입 */
-	function joinMember(memberVO, callback, error){
+	function joinMember(memberVO, csrf, callback, error){
 		console.log("joinCust 실행");
 		
 		$.ajax({
@@ -13,8 +38,9 @@ var customer=(function(){
 			url:"/cust/join",
 			data:JSON.stringify(memberVO),
 			contentType:"application/json; charset=UTF-8",
-
-			
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
 			success:function(data){
 				if(callback){
 					console.log("restCust.ajax실행중 joinCust 완료: "+data);
@@ -30,6 +56,7 @@ var customer=(function(){
 			}
 		});	//end ajax
 	}//end function joinCust
+	
 	
 	/* 특정 회원 정보 가져오기 */
 	function getCust(memberId, callback, error){
@@ -58,30 +85,24 @@ var customer=(function(){
 	}	//end function getCust
 	
 	
-	
-	
-	
 	/* 회원 수정 */
-	function modifyMember(member, callback, error){
+	function modifyMember(custVO, csrf ,callback, error){
 		console.log("modifyMember 실행");
 		
 		$.ajax({
 			type:"put",
 			url:"/cust/modify",
-			data:JSON.stringify(member),
+			data:JSON.stringify(custVO),
 			contentType:"application/json; charset=UTF-8",
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
 			
 			success:function(data){
-				if(callback){
-					callback(data);
-					console.log("restCust.ajax실행중 modifyMember완료: "+data);
-				}
+				callback(data);
 			},
 			error:function(xhr,status,err){
-				if(error){
-					error(err);
-					console.log("restCust.ajax실행중 modifMember오류")
-				}
+				console.log("restCust.ajax실행중 modifMember오류");
 			}
 		});	//end ajax
 	}	//end function modifyMember
@@ -119,6 +140,7 @@ var customer=(function(){
 	
 	
 	return{
+		passwordCheck:passwordCheck,	//비밀번호확인
 		joinMember:joinMember, //회원가입
 		getCust:getCust,
 		modifyMember:modifyMember,

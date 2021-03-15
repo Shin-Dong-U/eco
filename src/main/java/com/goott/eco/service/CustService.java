@@ -19,11 +19,14 @@ public interface CustService {
 	/* 로그인 */
 	public CustVO getCustLogin(CustVO custVO);
 	
+	/* 비밀번호 확인 */
+	public int checkCustPassword(CustVO custVO);
+	
 	/* 회원가입 */
 	public int joinCust(MemberVO memberVO);
 	
 	/* 회원 수정 */
-	public int modifyCust(MemberVO memberVO);
+	public int modifyCust(CustVO custVO);
 	
 	/* 회원 삭제 */
 	public int deleteCust(String memberId);

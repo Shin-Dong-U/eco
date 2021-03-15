@@ -66,11 +66,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public void configure(HttpSecurity http) throws Exception{
 		http.authorizeRequests()
 			.antMatchers("/home/login").anonymous()
-			.antMatchers("/home/register").anonymous().and().csrf().disable();
+			.antMatchers("/home/register").anonymous();
 			
 
 		http.authorizeRequests()
-			.antMatchers("/cust/account").authenticated();
 		
 //			.antMatchers("/orders/basket/list").authenticated()
 //			.antMatchers("/orders/order/checkout").authenticated()
@@ -80,6 +79,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		
 //			.antMatchers("/orders/basket/list").authenticated();
+			.antMatchers("/cust/account","/cust/account1").authenticated();
+		//	.antMatchers("/order/list").authenticated();
 		//	.exceptionHandling().accessDeniedHandler(accessDeniedHandler())
 
 		

@@ -14,16 +14,10 @@ var custRest=(function(){
 			contentType:"application/json; charset=UTF-8",
 
 			success:function(data){
-				if(data['custVO'] == null){
-					console.log("data: "+data.custVO);
-					alert("아이디 또는 비밀번호가 일치하지 않습니다.");
-				}else{
-					if(callback){
-						console.log(data["custVO"]);
-						callback(data["custVO"]);
-						console.log("restCust.ajax실행중 getCustLogin 완료");
-					}
+				if(callback){console.log(data["custVO"]);
+				console.log("restCust.ajax실행중 getCustLogin 오류");
 				}
+				
 			},
 			error:function(xhr,status,err){
 				if(error){

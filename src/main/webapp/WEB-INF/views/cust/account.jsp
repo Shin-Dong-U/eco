@@ -15,9 +15,7 @@
 <link href="/resources/template/img/favicon.ico" rel="icon">
 
 <!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
 
 <!-- CSS Libraries -->
 <link
@@ -34,15 +32,19 @@
 <link href="/resources/template/css/style.css" rel="stylesheet">
 
 <!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+<script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 <script src="/resources/template/lib/easing/easing.min.js"></script>
 <script src="/resources/template/lib/slick/slick.min.js"></script>
 
 <!-- Template Javascript -->
 <script src="/resources/template/js/main.js"></script>
 
+<style>
+	#confirm_check{ display: none }
+	
+</style>
 </head>
 
 <body>
@@ -269,64 +271,21 @@
 					
 <!-- Account Detail -->
 					<div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
-						<h4> My Account Details</h4>
-						<div style="border:1px solid gray;" class="row" id="account_chat">
-
-
-							<div class="col-md-6">
-								<label>Name</label>
-								<input class="form-control" type="text" id="name" name="name" placeholder="Name">
-							</div>
-							<div class="col-md-6">
-								<label>Email</label>
-								<input class="form-control" type="text" id="email" name="email" placeholder="E-mail">
-							</div>
-							<div class="col-md-6">
-								<label>Mobile No</label>
-								<input class="form-control" type="text" id="phone" name="phone" placeholder="Mobile No">
-							</div>
-							<div class="col-md-6">
-								<label>ADDR</label>
-								<input class="form-control" type="text" id="addr_post" 		name="addr_post" 	placeholder="Addr Post Number">
-							</div>	
-							<div class="col-md-6">	
-								<input class="form-control" type="text" id="addr_city_new" 	name="addr_city" 	placeholder="New address system">
-								<input class="form-control" type="text" id="addr_city_old" 	name="addr_city_O" 	placeholder="Parcel address system">
-								<input class="form-control" type="text" id="addr_detail" 	name="addr_detail" 	placeholder="detail address system">
-								<span id="guide" style="color:#999;display:none"></span>
-							</div>	    
-							<div class="col-md-6">
-								<label>Sex</label>
-								<table style="width:100%; text-align:center;">
-									<tr>
-										<td><label>MALE</label></td>
-										<td><label>FEMALE</label></td>
-									</tr>
-									<tr>
-										<td><input class="form-control companyCheck" type="radio"	id="male"  	name="sex" value=1 checked /></td>
-										<td><input class="form-control companyCheck" type="radio"	id="female" name="sex" value=2 /> </td>
-									</tr>  
-								</table>                             
-							</div>           
-							<div class="col-md-6">
-								<label>Birth</label>
-								<input class="form-control" type="date" id="brith" name="birth" placeholder="Birth">	<!-- value="날짜" 초기값 설정 -->
-							</div>
-													
-							<!-- Company_yn 이  y일경우 -->
-							<h3>COMPANY CONTEXT</h3>
-							<div id="company_addDiv" style="display:none;">
-								<div class="col-md-6">
-									<label>Company Name</label> 
-									<input class="form-control" type="text" id="comp_name" name="comp_name"  placeholder="Company name" >
+						<form id="modifyForm" action="" method="post">
+							<div id="account_custChat"></div>
+							<div id="account_compChat"></div>
+							
+							<div class=row >
+								<div id="modify_check">
+									<input type="button" class="btn btn-primary" id="btn_modify" value="Modify" />
 								</div>
-								<div class="col-md-6">
-									<label>Company Corporate Number</label> 
-									<input class="form-control" type="text" id="corp_num" name="corp_num"  placeholder="Corporate number">
+								<div id="confirm_check">
+									<input type="button" class="btn btn-primary" id="btn_modSubmit" value="Submit" />
+									<input type="button" class="btn btn-primary" id="btn_modCancel" value="Cancel" />
 								</div>
-							</div><!-- ./company_addDiv -->
-						</div><!-- ./row -->
-					</div><!--  -->
+							</div>
+						</form>
+					</div><!-- ./tab-pane fade -->
 				</div><!--  -->
 			</div><!--  -->
 		</div><!--  -->
@@ -344,83 +303,301 @@
 <!-- My Account End -->
 <script src="/resources/home/customer.js?v=<%=System.currentTimeMillis() %>"></script>
 <script>
-var memId="compF";
+/* CSRF 데이터 변수 저장 */
+var csrfHeaderName="${_csrf.headerName}";
+var csrfTokenValue="${_csrf.token}";
+
+
+var modify_value= $("#modify_value").val;
+var memId="${memberId}";
+
+/* 비밀번호 체크 html 생성 */
 $("#account-nav").on("click", function(){
 	alert("id는? "+memId);
+	$("#account_custChat").html("");
+	$("#account_compChat").html("");
+
+	str="";
+	str +='<h5>비밀번호 확인</h5>'
+		+ '<form id="pwCheckForm" action="">'
+		+ '	<div class="row" id="cust_detailChat">'
+		+ '		<div class="col-md-6">'
+		+ '			<label>Password</label>'
+		+ '			<input class="form-control" type="text" id="pwCheck" name="pwCheck">'
+		+ '		</div>'
+		+ '		<div class="col-md-6">'
+		+ '			<label>　</label>'
+		+ '			<input type="button" class="form-control btn btn-primary" id="btn_check" value="submit">'
+		+ '		</div>'
+		+ '	</div>'
+		+ '</form>';
 	
-	customer.getCust(
-		memId,
-		function(memberVO){
-			console.log(memberVO['custVO'].memberId);
-			if(memberVO["custVO"].sex == 1){var sex="남자"}else{var sex="여자"}
-			str="";
-			str	+='<div class="col-md-6">'
-				+ '	<label>ID</label>'
-				+ '	<input class="form-control" type="text" id="memberId" name="memberId" value='+memberVO["custVO"].memberId+'>'
-				+ '</div>'
-//비밀번호 
-//				+ '<div class="col-md-6">'
-//				+ '	<label>Password</label>'
-//				+ '	<input class="form-control" type="password" id="password" name="password" value='+memberVO["custVO"].password+'>'
-//				+ '</div>'
-				+ '<div class="col-md-6">'
-				+ '	<label>Name</label>'
-				+ '	<input class="form-control" type="text" id="name" name="name" value='+memberVO["custVO"].name+'>'
-				+ '</div>'
-				+ '<div class="col-md-6">'
-				+ '	<label>Phone Number</label>'
-				+ '	<input class="form-control" type="text" id="name" name="phone" value='+memberVO["custVO"].phone+'>'
-				+ '</div>'
-				+ '<div class="col-md-6">'
-				+ '	<label>Email</label>'
-				+ '	<input class="form-control" type="text" id="email" name="email" value='+memberVO["custVO"].email+'>'
-				+ '</div>'
-				+ '<div class="col-md-6">'
-				+ '	<label>Address</label>'
-				+ '	<input class="form-control" type="text" id="addr_post" name="addr_post" value='+memberVO["custVO"].addr_post+'>'
-				//버튼 생성
-				+ '	<input class="form-control" type="text" id="addr_city" name="addr_city" value='+memberVO["custVO"].addr_city+'>'
-				+ '	<input class="form-control" type="text" id="addr_detail" name="addr_detail" value='+memberVO["custVO"].addr_detail+'>'
-				+ '	<span id="guide" style="color:#999display:none"></span>'
-				+ '</div>'
-				+ '<div class="col-md-6">'
-				+ '	<label>Birth</label>'
-				+ '	<input class="form-control" type="text" id="birth" name="birth" value='+memberVO["custVO"].birth+'>'
-				+ '</div>'	
-				+ '<div class="col-md-6">'
-				+ '	<label>Sex</label>'
-				+ '	<input class="form-control" type="text" id="sex" name="sex" value='+sex+'>'
-				+ '</div>';
-
-			if(memberVO["custVO"].company_yn == "Y"){
-				str +='<div class="row">'
-					+ '	<div class="col-md-12"><h4>COMPANY CONTEXT</h4></div>'
-					+ '		<div class="col-md-6">'
-					+ '			<label>Company Name</label> '
-					+ '			<input class="form-control" type="text" id="comp_name" name="comp_name"  placeholder="Company name" >'
-					+ '		</div>'
-					+ '		<div class="col-md-6">'
-					+ '			<label>Company Corporate Number</label> '
-					+ '			<input class="form-control" type="text" id="corp_num" name="corp_num"  placeholder="Corporate number">'
-					+ '		</div>'
-					+ '	<div class="col-md-6">'
-					+ '		<label>Address</label>'
-					+ '		<input class="form-control" type="text" id="addr_post" name="addr_post" value='+memberVO["custVO"].addr_post+'>'
-					//버튼 생성
-					+ '		<input class="form-control" type="text" id="addr_city" name="addr_city" value='+memberVO["custVO"].addr_city+'>'
-					+ '		<input class="form-control" type="text" id="addr_detail" name="addr_detail" value='+memberVO["custVO"].addr_detail+'>'
-					+ '		<span id="guide" style="color:#999display:none"></span>'
-					+ '	</div>'
-					+ '</div>'
-			}	
-
-			$("#account_chat").html("");
-			$("#account_chat").html(str);
-		}
-		
-	);
+	$("#account_custChat").html(str);
 });
 
+/* 비밀번호 확인 */
+$("#account_custChat").on("click","#btn_check", function(){
+	customer.passwordCheck(
+		custVO={"memberId":memId, "password":$("#pwCheck").val()},	
+		csrf={"csrfHeaderName":csrfHeaderName, "csrfTokenValue":csrfTokenValue},
+		function(data){
+			if(data="success"){
+				get_chat();
+			}
+		},
+		function(data){
+			alert("비밀번호가 일치 하지 않습니다");
+		}
+	);
+
+});
+
+/* 특정 회원 정보 가져오기 */
+function get_chat(){
+	customer.getCust(
+			memId,
+			function(memberVO){
+				console.log(memberVO['custVO'].memberId);
+				if(memberVO["custVO"].sex == 1){var sex="남자"}else{var sex="여자"}
+				str1="";
+				str2="";
+				str1 +='<h4> My Account Details</h4>'
+					 + '<div style="border:1px solid gray;" class="row">'
+					 + '	<div class="col-md-8">'
+					 + '		<label>ID</label>'
+					 + '		<input class="form-control" type="text" id="memberId" name="memberId" value="'+memberVO["custVO"].memberId+'" disabled>'
+					 + '	</div>'
+					 + '	<div class="col-md-8">'
+					 + '		<label>Name</label>'
+					 + '		<input class="form-control" type="text" id="name" name="name" value="'+memberVO["custVO"].name+'" disabled>'
+					 + '	</div>'
+					 + '	<div class="col-md-8">'
+					 + '		<label>Phone Number</label>'
+					 + '		<input class="form-control" type="text" id="phone" name="phone" value="'+memberVO["custVO"].phone+'" disabled>'
+					 + '	</div>'
+					 + '	<div class="col-md-8">'
+					 + '		<label>Email</label>'
+					 + '		<input class="form-control" type="text" id="email" name="email" value="'+memberVO["custVO"].email+'" disabled>'
+					 + '	</div>'
+					 + '	<div class="col-md-8">'
+					 + '		<label>Address</label>'
+					 + '		<input class="form-control" type="text" id="addr_post1" name="addr_post" value='+memberVO["custVO"].addr_post+' disabled>'
+					 + '		<input class="form-control" type="text" id="addr_city1" name="addr_city" value="'+memberVO["custVO"].addr_city+'" disabled>'
+					 + '		<input class="form-control" type="text" id="addr_detail1" name="addr_detail" value="'+memberVO["custVO"].addr_detail+'" disabled>'
+					 + '		<span id="guide" style="color:#999display:none"></span>'
+					 + '	</div>'
+					 + '	<div class="col-md-8">'
+					 + '		<label>Birth</label>'
+					 + '		<input class="form-control" type="text" id="birth" name="birth" value='+memberVO["custVO"].birth+' disabled>'
+					 + '	</div>'	
+					 + '	<div class="col-md-8">'
+					 + '		<label>Sex</label>'
+					 + '		<input class="form-control" type="text" id="sex" name="sex" value='+sex+' disabled>'
+					 + '	</div>'
+					 + '	<div class="hiddenValue">'
+					 + '		<input class="form-control" type="hidden" id="company_yn" name="company_yn" value='+memberVO["custVO"].company_yn+' disabled>'
+					 + '	</div>'
+					 + '</div><p/>';
+
+				if(memberVO["custVO"].company_yn == "Y"){
+					str2 +='<h4> My Company Details</h4>'
+						 + '<div style="border:1px solid gray;" class="row">'
+						 + '	<div class="col-md-8">'
+						 + '		<label>Company Name</label> '
+						 + '		<input class="form-control" type="text" id="comp_name" name="comp_name"  value='+memberVO["compVO"].comp_name+' disabled>'
+						 + '	</div>'
+						 + '	<div class="col-md-8">'
+						 + '		<label>Company Corporate Number</label> '
+						 + '		<input class="form-control" type="text" id="corp_num" name="corp_num"  value='+memberVO["compVO"].corp_num+' disabled>'
+						 + '	</div>'
+						 + '	<div class="col-md-8">'
+						 + '		<label>Address</label>'
+						 + '		<input class="form-control" type="text" id="addr_post2" name="addr_postC" value='+memberVO["custVO"].addr_post+' disabled>'
+						 + '		<input class="form-control" type="text" id="addr_city2" name="addr_cityC" value='+memberVO["custVO"].addr_city+' disabled>'
+						 + '		<input class="form-control" type="text" id="addr_detail2" name="addr_detailC" value='+memberVO["custVO"].addr_detail+' disabled>'
+						 + '		<span id="guide" style="color:#999display:none"></span>'
+						 + '		</div>'
+						 + '	</div>'
+						 + '</div><p>';
+					}	        	
+
+				$("#account_custChat").html("");
+				$("#account_compChat").html("");
+				$("#account_custChat").html(str1);
+				$("#account_compChat").html(str2);
+	});
+};
+
+
+/* 수정 회원 정보 가져오기 */
+function modify_chat(){
+	customer.getCust(
+			memId,
+			function(memberVO){
+				console.log(memberVO['custVO'].memberId);
+				if(memberVO["custVO"].sex == 1){var sex="남자"}else{var sex="여자"}
+				str1="";
+				str2="";
+				str1 +='<h4> My Account Details</h4>'
+					 + '<div style="border:1px solid gray;" class="row">'
+					 + '	<div class="col-md-8">'
+					 + '		<label>ID</label>'
+					 + '		<input class="form-control" type="text" id="memberId" name="memberId" value="'+memberVO["custVO"].memberId+'" disabled>'
+					 + '	</div>'
+					 + '	<div class="col-md-8">'
+					 + '		<label>Password</label>'
+					 + '		<input class="form-control" type="text" id="password" name="password" />'
+					 + '	</div>'
+					 + '	<div class="col-md-8">'
+					 + '		<label>Name</label>'
+					 + '		<input class="form-control" type="text" id="name" name="name" value="'+memberVO["custVO"].name+'" >'
+					 + '	</div>'
+					 + '	<div class="col-md-8">'
+					 + '		<label>Phone Number</label>'
+					 + '		<input class="form-control" type="text" id="phone" name="phone" value="'+memberVO["custVO"].phone+'" >'
+					 + '	</div>'
+					 + '	<div class="col-md-8">'
+					 + '		<label>Email</label>'
+					 + '		<input class="form-control" type="text" id="email" name="email" value="'+memberVO["custVO"].email+'" disabled>'
+					 + '	</div>'
+					 + '	<div class="col-md-8">'
+					 + '		<label>Address</label>'
+					 + '		<input class="form-control" type="text" id="addr_post" name="addr_post" value='+memberVO["custVO"].addr_post+' >'
+					 + '		<input class="btn btn-link" type="button" onclick="popUP()" value="우편번호 찾기">'
+					 + '		<input class="form-control" type="text" id="addr_city_new1" name="addr_city" value="'+memberVO["custVO"].addr_city+'" >'
+					 + '		<input class="form-control" type="text" id="addr_city_old1" 	name="addr_city_O" >'
+					 + '		<input class="form-control" type="text" id="addr_detail1" name="addr_detail" value="'+memberVO["custVO"].addr_detail+'" >'
+					 + '		<span id="guide" style="color:#999display:none"></span>'
+					 + '	</div>'
+					 + '	<div class="col-md-8">'
+					 + '		<label>Birth</label>'
+					 + '		<input class="form-control" type="text" id="birth" name="birth" value='+memberVO["custVO"].birth+' disabled>'
+					 + '	</div>'	
+					 + '	<div class="col-md-8">'
+					 + '		<label>Sex</label>'
+					 + '		<input class="form-control" type="text" id="sex" name="sex" value='+sex+' disabled>'
+					 + '	</div>'
+					 + '	<div class="hiddenValue">'
+					 + '		<input class="form-control" type="hidden" id="company_yn" name="company_yn" value='+memberVO["custVO"].company_yn+' disabled>'
+					 + '	</div>'
+					 + '</div><p/>';
+
+				$("#account_custChat").html("");
+				$("#account_custChat").html(str1);
+
+	});
+}
+
+/* 수정 버튼 선택시 수정  */
+$("#btn_modify").on("click", function(){
+	//display
+ 	document.getElementById("confirm_check").style.display="block";
+ 	document.getElementById("modify_check").style.display="none";
+ 	
+ 	modify_chat();
+});
+
+
+/* 취소버튼 클릭시 */
+$("#btn_modCancel").on("click", function(){
+	//display
+ 	document.getElementById("confirm_check").style.display="none";
+ 	document.getElementById("modify_check").style.display="block";
+ 	
+ 	get_chat();
+});
+
+/* 완료버튼 클릭시 */
+$("#btn_modSubmit").on("click", function(){
+	
+	var company_yn=$("#company_yn").val();
+	var company_yn1=document.getElementById("company_yn");
+	
+	alert("company_yn: "+company_yn);
+	alert("company_yn: "+company_yn1);
+	
+	var custVO = {
+		"company_yn" : company_yn,
+		"memberId" : $("#memberId").val(),
+		"password" : $("#password").val(),
+		"name" : $("#name").val(),
+		"phone" : $("#phone").val(),
+		"addr_post" : $("#addr_post").val(),
+		"addr_city" : $("#addr_city_new1").val(),
+		"addr_detail" : $("#addr_detail1").val(),
+	};
+
+	console.log("custVO: " + JSON.stringify(custVO));
+
+	customer.modifyMember(
+		custVO, 
+		csrf = {
+			"csrfHeaderName" : csrfHeaderName,
+			"csrfTokenValue" : csrfTokenValue
+		}, 
+		function(data) {
+			if(data=="success"){get_chat();}
+		}
+	);
+
+	//display
+	document.getElementById("confirm_check").style.display = "none";
+	document.getElementById("modify_check").style.display = "block";
+
+	get_chat();
+});
 </script>
 
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+function popUP() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 참고 항목 변수
+
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
+            }
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('addr_post').value = data.zonecode;
+            document.getElementById("addr_city_new1").value = roadAddr;
+            document.getElementById("addr_city_old1").value = data.jibunAddress;
+            
+            var guideTextBox = document.getElementById("guide");
+            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+            if(data.autoRoadAddress) {
+                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                guideTextBox.style.display = 'block';
+
+            } else if(data.autoJibunAddress) {
+                var expJibunAddr = data.autoJibunAddress;
+                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                guideTextBox.style.display = 'block';
+            } else {
+                guideTextBox.innerHTML = '';
+                guideTextBox.style.display = 'none';
+            }
+        }
+    }).open();
+}
+</script>
 <%@include file="../include/footer.jsp" %>
