@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -24,15 +23,6 @@
 
         <!-- Template Stylesheet -->
         <link href="/resources/template/css/style.css" rel="stylesheet">
-        
-        <style>
-         .bindGoods{
-         	width:100%;
-         }
-         .optionBind{
-         	display:flex;
-         }
-        </style>
     </head>
 
     <body>
@@ -53,8 +43,6 @@
         </div>
         <!-- Top bar End -->
         
-      
-
         <!-- Nav Bar Start -->
         <div class="nav">
             <div class="container-fluid">
@@ -142,130 +130,15 @@
         </div>
         <!-- Breadcrumb End -->
         
-           <!-- Product List Start -->
-        <div class="product-view">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="product-view-top">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="product-search">
-                                                <input type="email" value="Search">
-                                                <button><i class="fa fa-search"></i></button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="product-short">
-                                                <div class="dropdown">
-                                                    <div class="dropdown-toggle" data-toggle="dropdown">Product short by</div>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Newest</a>
-                                                        <a href="#" class="dropdown-item">Popular</a>
-                                                        <a href="#" class="dropdown-item">Most sale</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="product-price-range">
-                                                <div class="dropdown">
-                                                    <div class="dropdown-toggle" data-toggle="dropdown">Product price range</div>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">$0 to $50</a>
-                                                        <a href="#" class="dropdown-item">$51 to $100</a>
-                                                        <a href="#" class="dropdown-item">$101 to $150</a>
-                                                        <a href="#" class="dropdown-item">$151 to $200</a>
-                                                        <a href="#" class="dropdown-item">$201 to $250</a>
-                                                        <a href="#" class="dropdown-item">$251 to $300</a>
-                                                        <a href="#" class="dropdown-item">$301 to $350</a>
-                                                        <a href="#" class="dropdown-item">$351 to $400</a>
-                                                        <a href="#" class="dropdown-item">$401 to $450</a>
-                                                        <a href="#" class="dropdown-item">$451 to $500</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-         <!-- Product List Start End -->
-        
-        
         <!-- Product Detail Start -->
         <div class="product-detail">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12 bindGoods" >
+                    <div class="col-lg-8">
                         <div class="product-detail-top">
                             <div class="row align-items-center">
                                 <div class="col-md-5">
-	                                <div class="product-slider-single normal-slider">
-	                                        <img src="/resources/image/5shoes.jpg" alt="Product Image">
-	                                        <img src="/resources/image/5_shoes_black.jpg" alt="Product Image">
-	                                        <img src="/resources/image/5_shoes_black2.jpg" alt="Product Image">
-	                                        <img src="/resources/image/5_shoes_black3.jpg" alt="Product Image">
-	                                        <img src="/resources/image/5_shoes_white.jpg" alt="Product Image">
-	                                        <img src="/resources/image/5_shoes_white1.jpg" alt="Product Image">
-	                                        <img src="/resources/image/5_shoes_white2.jpg" alt="Product Image">
-	                                        <img src="/resources/image/5_shoes_white3.jpg" alt="Product Image">
-	                                 </div>
-	                                  <div class="product-slider-single-nav normal-slider">
-                                        <div class="slider-nav-img"><img src="/resources/image/5shoes.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="/resources/image/5_shoes_black.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="/resources/image/5_shoes_black2.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="/resources/image/5_shoes_black3.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="/resources/image/5_shoes_white.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="/resources/image/5_shoes_white1.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="/resources/image/5_shoes_white2.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="/resources/image/5_shoes_white3.jpg" alt="Product Image"></div>
-                                    </div>
-                                </div>
-                             <!--    <div class="container">
-								    <div class="row">
-								        <div class="col-md-12">
-								            <div id="custCarousel" class="carousel slide" data-ride="carousel" align="center">
-								                slides
-								                <div class="carousel-inner">
-								                    <div class="carousel-item active"> <img src="/resources/image/5shoes.jpg" alt="shoes"> </div>
-								                    <div class="carousel-item"> <img src="/resources/image/5_shoes_black.jpg" alt="shoes"> </div>
-								                    <div class="carousel-item"> <img src="/resources/image/5_shoes_black2.jpg" alt="shoes"> </div>
-								                    <div class="carousel-item"> <img src="/resources/image/5_shoes_black3.jpg" alt="shoes"> </div>
-								                    <div class="carousel-item"> <img src="/resources/image/5_shoes_white.jpg" alt="shoes"> </div>
-								                    <div class="carousel-item"> <img src="/resources/image/5_shoes_white1.jpg" alt="shoes"> </div>
-								                    <div class="carousel-item"> <img src="/resources/image/5_shoes_white2.jpg" alt="shoes"> </div>
-								                    <div class="carousel-item"> <img src="/resources/image/5_shoes_white3.jpg" alt="shoes"> </div>
-								                    
-								                </div> 
-								                
-								                Left right 
-								                <a class="carousel-control-prev" href="#custCarousel" data-slide="prev"> 
-								                	<span class="carousel-control-prev-icon"></span>
-								                </a> 
-								                <a class="carousel-control-next" href="#custCarousel" data-slide="next"> 
-								                	<span class="carousel-control-next-icon"></span> 
-								                </a> 
-								                
-								                Thumbnails
-								                <ol class="carousel-indicators list-inline">
-								                    <li class="list-inline-item active"> <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#custCarousel"> <img src="/resources/image/5shoes.jpg" class="img-fluid"> </a> </li>
-								                    <li class="list-inline-item"> <a id="carousel-selector-1" data-slide-to="1" data-target="#custCarousel"> <img src="/resources/image/5_shoes_black.jpg" class="img-fluid"> </a> </li>
-								                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2" data-target="#custCarousel"> <img src="/resources/image/5_shoes_black2.jpg" class="img-fluid"> </a> </li>
-								                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="3" data-target="#custCarousel"> <img src="/resources/image/5_shoes_black3.jpg" class="img-fluid"> </a> </li>
-								                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="4" data-target="#custCarousel"> <img src="/resources/image/5_shoes_white.jpg" class="img-fluid"> </a> </li>
-								                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="5" data-target="#custCarousel"> <img src="/resources/image/5_shoes_white1.jpg" class="img-fluid"> </a> </li>
-								                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="6" data-target="#custCarousel"> <img src="/resources/image/5_shoes_white2.jpg" class="img-fluid"> </a> </li>
-								                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="7" data-target="#custCarousel"> <img src="/resources/image/5_shoes_white3.jpg" class="img-fluid"> </a> </li>
-								                    
-								                </ol>
-								            </div>
-								        </div>
-								    </div>
-								</div> -->
-                                                                                                                                                                                                
-                                  <!--  <div class="product-slider-single normal-slider">
+                                    <div class="product-slider-single normal-slider">
                                         <img src="/resources/template/img/product-1.jpg" alt="Product Image">
                                         <img src="/resources/template/img/product-3.jpg" alt="Product Image">
                                         <img src="/resources/template/img/product-5.jpg" alt="Product Image">
@@ -280,11 +153,11 @@
                                         <div class="slider-nav-img"><img src="/resources/template/img/product-7.jpg" alt="Product Image"></div>
                                         <div class="slider-nav-img"><img src="/resources/template/img/product-9.jpg" alt="Product Image"></div>
                                         <div class="slider-nav-img"><img src="/resources/template/img/product-10.jpg" alt="Product Image"></div>
-                                    </div> 
-                                </div>-->
+                                    </div>
+                                </div>
                                 <div class="col-md-7">
                                     <div class="product-content">
-                                        <div class="title"><h2>${goods_req_option.goodsDetail.GOODS_NAME}</h2></div>
+                                        <div class="title"><h2>Product Name</h2></div>
                                         <div class="ratting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -293,69 +166,37 @@
                                             <i class="fa fa-star"></i>
                                         </div>
                                         <div class="price">
-                                            <h4>가격:</h4>
-                                            <p>${goods_req_option.goodsDetail.PRICE}원 <span>$149</span></p>
+                                            <h4>Price:</h4>
+                                            <p>$99 <span>$149</span></p>
                                         </div>
-                                         <div class="quantity">
-                                            <h4>수량:</h4>
+                                        <div class="quantity">
+                                            <h4>Quantity:</h4>
                                             <div class="qty">
                                                 <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text"  class="orderQty" value="1">
+                                                <input type="text" value="1">
                                                 <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                             </div>
                                         </div>
-                                        
-                                                                   
-                                        <div class="p-Option ">
-                                        	<div class="optionBind">
-	                                            <h4>옵션:</h4>
-	                                            <div class="btn-group btn-group-sm">                                                                                     
-		                                             <div class="col-md-4">                    
-			                                             <div class="pull-right">	                                      
-				                                         	<select class="goodsOption orderOption"  name="goodsOption">	                                                 
-				                                                  		 <option value= "" >옵션 선택</option>                                                        
-				                                                         <option value= " ${goods_req_option.optionList[0].OPTION_NAME}">${goods_req_option.optionList[0].OPTION_NAME}</option>
-				                                                         <option value= " ${goods_req_option.optionList[1].OPTION_NAME}">${goods_req_option.optionList[1].OPTION_NAME}</option>	 
-				                                                         <option value= " ${goods_req_option.optionList[2].OPTION_NAME}">${goods_req_option.optionList[2].OPTION_NAME}</option>	 
-				                                                         <option value= " ${goods_req_option.optionList[3].OPTION_NAME}">${goods_req_option.optionList[3].OPTION_NAME}</option>	 
-				                                                         <option value= " ${goods_req_option.optionList[4].OPTION_NAME}">${goods_req_option.optionList[4].OPTION_NAME}</option>	 
-				                                                         <option value= " ${goods_req_option.optionList[5].OPTION_NAME}">${goods_req_option.optionList[5].OPTION_NAME}</option>	 
-				                                                         <option value= " ${goods_req_option.optionList[6].OPTION_NAME}">${goods_req_option.optionList[6].OPTION_NAME}</option>	 
-				                                                         <option value= " ${goods_req_option.optionList[7].OPTION_NAME}">${goods_req_option.optionList[7].OPTION_NAME}</option>	 
-				                                                         <option value= " ${goods_req_option.optionList[8].OPTION_NAME}">${goods_req_option.optionList[8].OPTION_NAME}</option>	 
-				                                                         <option value= " ${goods_req_option.optionList[9].OPTION_NAME}">${goods_req_option.optionList[9].OPTION_NAME}</option>
-				                                                         <option value= " ${goods_req_option.optionList[10].OPTION_NAME}">${goods_req_option.optionList[10].OPTION_NAME}</option>	 
-				                                                         <option value= " ${goods_req_option.optionList[11].OPTION_NAME}">${goods_req_option.optionList[11].OPTION_NAME}</option>	 	                                                         	                                                         	 	                                                    	                                                         	                                                           
-				                                            </select>                      	                                                 
-			                                        </div>
-		                                       </div>
-	                                        </div> 
-                                        </div>                                 
-                  <!--                       <div class="p-color">
-                                            <h4>색상:</h4>
-                                             <div class="btn-group btn-group-sm">
-                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-												<div class="btn-group btn-group-toggle" data-toggle="buttons">
-													  <label class="btn btn-secondary active">
-													    <input type="radio" name="options" id="option1" autocomplete="off" checked>흰색
-													  </label>
-													  <label class="btn btn-secondary">
-													    <input type="radio" name="options" id="option2" autocomplete="off">검은색
-													  </label>
-												
-												</div>
-                                            
-                                                 <button type="radio" class="btn" name="color">흰색</button>
-                                                <button type="radio" class="btn" name="color">검은색</button>
-                                                <button type="radio" class="btn" name="color">회색</button> 
+                                        <div class="p-size">
+                                            <h4>Size:</h4>
+                                            <div class="btn-group btn-group-sm">
+                                                <button type="button" class="btn">S</button>
+                                                <button type="button" class="btn">M</button>
+                                                <button type="button" class="btn">L</button>
+                                                <button type="button" class="btn">XL</button>
                                             </div> 
-                                        </div> -->
+                                        </div>
+                                        <div class="p-color">
+                                            <h4>Color:</h4>
+                                            <div class="btn-group btn-group-sm">
+                                                <button type="button" class="btn">White</button>
+                                                <button type="button" class="btn">Black</button>
+                                                <button type="button" class="btn">Blue</button>
+                                            </div> 
+                                        </div>
                                         <div class="action">
-                                    
-                                            <a class="btn"  class="addCartBtn" ><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                            <button class="addCartBtn" >카트에담기</button>
-                                            <a class="btn"  class="buyNowBtn"><i class="fa fa-shopping-bag"></i>Buy Now</a>
-                                       		<button class="buyNowBtn" >바로주문</button>
+                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                            <a class="btn" href=""><i class="fa fa-shopping-bag"></i>Buy Now</a>
                                         </div>
                                     </div>
                                 </div>
@@ -366,19 +207,21 @@
                             <div class="col-lg-12">
                                 <ul class="nav nav-pills nav-justified">
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="pill" href="" >상품상세</a>
+                                        <a class="nav-link active" data-toggle="pill" href="#description">Description</a>
                                     </li>
-           
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="pill" href="#reviews">상품평</a>
+                                        <a class="nav-link" data-toggle="pill" href="#specification">Specification</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="pill" href="#reviews">Reviews (1)</a>
                                     </li>
                                 </ul>
 
                                 <div class="tab-content">
                                     <div id="description" class="container tab-pane active">
-                                        <h4>상품상세 설명</h4>
+                                        <h4>Product description</h4>
                                         <p>
-                                            ${goods.goodsDetail.GOODS_DETAIL}
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac mi viverra dictum. In efficitur ipsum diam, at dignissim lorem tempor in. Vivamus tempor hendrerit finibus. Nulla tristique viverra nisl, sit amet bibendum ante suscipit non. Praesent in faucibus tellus, sed gravida lacus. Vivamus eu diam eros. Aliquam et sapien eget arcu rhoncus scelerisque. Suspendisse sit amet neque neque. Praesent suscipit et magna eu iaculis. Donec arcu libero, commodo ac est a, malesuada finibus dolor. Aenean in ex eu velit semper fermentum. In leo dui, aliquet sit amet eleifend sit amet, varius in turpis. Maecenas fermentum ut ligula at consectetur. Nullam et tortor leo. 
                                         </p>
                                     </div>
                                     <div id="specification" class="container tab-pane fade">
@@ -407,7 +250,7 @@
                                         </div>
                                         <div class="reviews-submit">
                                             <h4>Give your Review:</h4>
-                                            <div class="ratting willSubmitRatting">
+                                            <div class="ratting">
                                                 <i class="far fa-star"></i>
                                                 <i class="far fa-star"></i>
                                                 <i class="far fa-star"></i>
@@ -434,7 +277,7 @@
                             </div>
                         </div>
                         
-                        <!-- <div class="product">
+                        <div class="product">
                             <div class="section-header">
                                 <h1>Related Products</h1>
                             </div>
@@ -581,11 +424,145 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                     
                     <!-- Side Bar Start -->
-                   
+                    <div class="col-lg-4 sidebar">
+                        <div class="sidebar-widget category">
+                            <h2 class="title">Category</h2>
+                            <nav class="navbar bg-light">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href=""><i class="fa fa-female"></i>Fashion & Beauty</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href=""><i class="fa fa-child"></i>Kids & Babies Clothes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href=""><i class="fa fa-tshirt"></i>Men & Women Clothes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href=""><i class="fa fa-mobile-alt"></i>Gadgets & Accessories</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href=""><i class="fa fa-microchip"></i>Electronics & Accessories</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        
+                        <div class="sidebar-widget widget-slider">
+                            <div class="sidebar-slider normal-slider">
+                                <div class="product-item">
+                                    <div class="product-title">
+                                        <a href="">Product Name</a>
+                                        <div class="ratting">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product-image">
+                                        <a href="product-detail.html">
+                                            <img src="/resources/template/img/product-7.jpg" alt="Product Image">
+                                        </a>
+                                        <div class="product-action">
+                                            <a href=""><i class="fa fa-cart-plus"></i></a>
+                                            <a href=""><i class="fa fa-heart"></i></a>
+                                            <a href=""><i class="fa fa-search"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="product-price">
+                                        <h3><span>$</span>99</h3>
+                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                    </div>
+                                </div>
+                                <div class="product-item">
+                                    <div class="product-title">
+                                        <a href="">Product Name</a>
+                                        <div class="ratting">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product-image">
+                                        <a href="product-detail.html">
+                                            <img src="/resources/template/img/product-8.jpg" alt="Product Image">
+                                        </a>
+                                        <div class="product-action">
+                                            <a href=""><i class="fa fa-cart-plus"></i></a>
+                                            <a href=""><i class="fa fa-heart"></i></a>
+                                            <a href=""><i class="fa fa-search"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="product-price">
+                                        <h3><span>$</span>99</h3>
+                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                    </div>
+                                </div>
+                                <div class="product-item">
+                                    <div class="product-title">
+                                        <a href="">Product Name</a>
+                                        <div class="ratting">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product-image">
+                                        <a href="product-detail.html">
+                                            <img src="/resources/template/img/product-9.jpg" alt="Product Image">
+                                        </a>
+                                        <div class="product-action">
+                                            <a href=""><i class="fa fa-cart-plus"></i></a>
+                                            <a href=""><i class="fa fa-heart"></i></a>
+                                            <a href=""><i class="fa fa-search"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="product-price">
+                                        <h3><span>$</span>99</h3>
+                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="sidebar-widget brands">
+                            <h2 class="title">Our Brands</h2>
+                            <ul>
+                                <li><a href="">Nulla </a><span>(45)</span></li>
+                                <li><a href="">Curabitur </a><span>(34)</span></li>
+                                <li><a href="">Nunc </a><span>(67)</span></li>
+                                <li><a href="">Ullamcorper</a><span>(74)</span></li>
+                                <li><a href="">Fusce </a><span>(89)</span></li>
+                                <li><a href="">Sagittis</a><span>(28)</span></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="sidebar-widget tag">
+                            <h2 class="title">Tags Cloud</h2>
+                            <a href="">Lorem ipsum</a>
+                            <a href="">Vivamus</a>
+                            <a href="">Phasellus</a>
+                            <a href="">pulvinar</a>
+                            <a href="">Curabitur</a>
+                            <a href="">Fusce</a>
+                            <a href="">Sem quis</a>
+                            <a href="">Mollis metus</a>
+                            <a href="">Sit amet</a>
+                            <a href="">Vel posuere</a>
+                            <a href="">orci luctus</a>
+                            <a href="">Nam lorem</a>
+                        </div>
+                    </div>
                     <!-- Side Bar End -->
                 </div>
             </div>
@@ -707,80 +684,5 @@
         
         <!-- Template Javascript -->
         <script src="/resources/template/js/main.js"></script>
-          <script src="${contextPath}/resources/basket/basket.js?ver=8"></script>
-		<script src="${contextPath}/resources/basket/transferTime.js"></script>
-		<script src="${contextPath}/resources/order/checkout.js?ver=10"></script>
-		<script src="${contextPath}/resources/goods/goodsDetail.js?ver=11"></script>
     </body>
-    
-      <script>
-    $(document).ready(function(){
-    	var goods_seq= ${goods_seq}; //세션으로 받아서 주입
-    	
-    	console.log("goods_seq"+"${goods_req_option.optionList[0].GOODS_SEQ}");
-    	renderGoodsInfo(goods_seq);
-    	
-    	starTest();
-    });
-     var cust_id = "compF"; 
-     
-     //상품상세 정보 get
-     function renderGoodsInfo(goods_seq){
-    	 goodsDetailService.getGoodsDetailInfo(goods_seq,function(goodsInfo){
-    		// var goodsInfoRender=$(".goodsInfo");
-    	     var goodsOptionList = goodsInfo.optionList;
-    	     console.log(goodsOptionList);
-    		 var goodsOptionRender=$(".orderOption");
-			 var goodsOptionStr="";
-			 //상품이름, 상품가격, 상품상세(설명),<====이거먼저하고, 추후설명  기존 댓글정보(페이징처리),댓글 insert
-			 
-			 
-			 for(var i=0,len=goodsOptionList.length||0;i<len;i++){
-				 goodsOptionStr+=" <option value= '"+goodsOptionList[i].OPTION_NAME+"'>"+goodsOptionList[i].OPTION_NAME+"</option>" 
-			}
-			 goodsOptionRender.html(goodsOptionStr);
-			
-    	 })
-     }
-     
-     
-	//상품카트에 담기
-	$('.addCartBtn').on('click',function(){
-		orderinfo={
-	    		cust_id:cust_id,
-	    		qty:$(".orderQty").val(),
-	    		orderOption:$(".orderOption").val(),
-	    		goods_seq:"${goods_req_option.optionList[0].GOODS_SEQ}"
-	    } 
-		
-		
-		
-	    console.log("장바구니cust_id: "+orderinfo.cust_id);
-		console.log("장바구니qty: "+orderinfo.qty);
-		console.log("장바구니orderOption: "+orderinfo.orderOption);
-		console.log("장바구니goods_seq: "+orderinfo.goods_seq);
-		basketService.addGoodsAtBasket(orderinfo);
-		alert("장바구니에 해당상품이 담겼습니다"+orderinfo);
-	
-	});
-  
-	  //바로구매
-	$('.buyNowBtn').on('click',function(){
-
-		orderinfo={
-	    		cust_id:cust_id,
-	    		qty:$(".orderQty").val(),
-	    		orderOption:$(".orderOption").val(),
-	    		goods_seq:"${goods_req_option.optionList[0].GOODS_SEQ}"
-	    } 
-		
-		
-		console.log("바로구매cust_id: "+orderinfo.cust_id);
-		console.log("바로구매qty: "+orderinfo.qty);
-		console.log("바로구매orderOption: "+orderinfo.orderOption);
-		console.log("바로구매goods_seq: "+orderinfo.goods_seq);
-		basketService.orderNow(orderinfo);
-	});
-    
-    </script>
 </html>

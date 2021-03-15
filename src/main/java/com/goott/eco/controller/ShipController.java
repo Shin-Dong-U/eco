@@ -1,5 +1,6 @@
 package com.goott.eco.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +30,47 @@ public class ShipController {
 	public ShipController(ShipService shipService) {
 		this.shipService = shipService;
 	}
+	
+	
 	//배송정보 입력시점 결제시
 	@PostMapping(value="/new",
 			//웹브라우저로부터 받아서 메소드가 사용하는 값의 MIME유형을 지정
 			consumes= {"application/json; charset=UTF-8"},
 			//이 메소드가 웹브라우저로 전달할 데이터의 MIME 타입 유형을 지정
 			produces= {"text/plain; charset=UTF-8"})			
-	public ResponseEntity<String> shipInsertResult(@RequestBody ShipVO shipVO){
+	public ResponseEntity<String> checkShipInfo(
+			//@RequestBody HashMap<String,Object> shipInfo
+			@RequestBody ShipVO shipVO
+			){
 		
-		log.info("shipVO: "+shipVO);
+//		ShipVO shipVO = new ShipVO();
+//		log.info(shipInfo.get("order_seq"));
+//		log.info(shipInfo.get("cust_addr_post"));
+//		log.info(shipInfo.get("cust_addr_detail"));
+//		log.info(shipInfo.get("cust_addr_city"));
+//		log.info(shipInfo.get("cust_name"));
+//		log.info(shipInfo.get("regUser"));
+//		log.info(shipInfo.get("cust_phone"));
+//		
+//		//shipVO.setOrder_seq((Long) shipInfo.get("order_seq"));
+//		shipVO.setCust_addr_post((String) shipInfo.get("cust_addr_post"));
+//		shipVO.setCust_addr_detail((String) shipInfo.get("cust_addr_detail"));
+//		shipVO.setCust_addr_city((String) shipInfo.get("cust_addr_detail"));
+//		shipVO.setCust_addr_city((String) shipInfo.get("cust_addr_city"));
+//		shipVO.setCust_name((String) shipInfo.get("cust_name"));
+//		shipVO.setRegUser((String) shipInfo.get("regUser"));
+//		shipVO.setCust_phone((String) shipInfo.get("cust_phone"));
+//		
 		
+		log.info("컨트롤러 배송정보 입력 shipVO: "+shipVO);
+		log.info("컨트롤러 배송정보 입력 getCust_name: "+shipVO.getCust_name());
+		log.info("컨트롤러 배송정보 입력 getOrder_seq: "+shipVO.getOrder_seq());
+		int shipInsertResult = 1;
 		
-		int shipInsertResult = shipService.insertShipInfo(shipVO);
+		shipInsertResult = shipService.checkShipInfo(shipVO);
+		log.info("slfdaf");
+		log.info(shipInsertResult);
+		
 		
 		return shipInsertResult==1
 				? new ResponseEntity<>("성공",HttpStatus.OK)
@@ -75,15 +105,17 @@ public class ShipController {
 	
 	
 	//배송정보 보기(회원)
-	@GetMapping(value="/user/{cust_id}",
+	@GetMapping(value="/user/{order_seq}",
 			produces= {"application/json; charset=UTF-8"})
 	public ResponseEntity<List<ShipVO>> getShipList(
-			@PathVariable("cust_id") String cust_id
+			@PathVariable("order_seq") Long order_seq
 			){
 		log.info("getShipList 시작");
-		List<ShipVO> result = shipService.getShipList(cust_id);
+		List<ShipVO> result = shipService.getShipList(order_seq);
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
+	
+	
 	 
 
 }

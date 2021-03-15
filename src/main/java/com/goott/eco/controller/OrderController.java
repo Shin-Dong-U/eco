@@ -33,34 +33,46 @@ public class OrderController {
 		this.orderService = orderService;
 	}
 	
+	//test
+	@GetMapping(value="/content/{cust_id}/{total_price}",
+			produces= {"application/json; charset=UTF-8"})
+	public ResponseEntity<HashMap<String,Object>> addOrderBasket(
+			@PathVariable("cust_id") String cust_id,
+			@PathVariable("total_price") Long total_price){
+		log.info("주문요청 cust_Id / tota_price: "+cust_id+" / "+total_price);
+		HashMap<String,Object> result = new HashMap<String,Object>();
+		result.put("order_seq", orderService.addOrder(cust_id, total_price));
+		return new ResponseEntity<>(result,HttpStatus.OK);
+	}
+	
+	
 	//장바구니상품 주문 신청
-	@GetMapping(value="/content/{cust_Id}/{total_price}",
-	produces= {"application/json; charset=UTF-8"})
-	public ResponseEntity<String> addOrderBasket(
-			@PathVariable("cust_Id") String cust_Id,
-			@PathVariable("tota_price") Long total_price){
-		log.info("주문요청 cust_Id / tota_price: "+cust_Id+" / "+total_price);
-		orderService.addOrder(cust_Id, total_price);
-		return new ResponseEntity<>("성공",HttpStatus.OK);
-}
+//	@PostMapping(value="/content/{cust_id}/{total_price}",
+//	produces= {"text/plain; charset=UTF-8"})
+//	public ResponseEntity<String> addOrderBasket(
+//			@PathVariable("cust_id") String cust_id,
+//			@PathVariable("tota_price") Long total_price){
+//		log.info("주문요청 cust_id ");
+//		//log.info("주문요청 cust_Id / tota_price: "+cust_Id+" / "+total_price);
+//		//orderService.addOrder(cust_Id, total_price);
+//		return new ResponseEntity<>("성공",HttpStatus.OK);
+//}
 	
 	
 	//장바구니상품 주문 신청 requestbody 사용
-//	@PostMapping(value="/new/{cust_id}",			
-//			consumes= {"application/json; charset=UTF-8"},
-//			produces= {"application/json; charset=UTF-8"})
-//	public ResponseEntity<String> getBasketList(
-//			@PathVariable("cust_id") String cust_id
-//			,@RequestBody List<BasketDetailVO> basketList){
-//		
-//		log.info("====================================");
-//		log.info("주문신청 List/cust_Id: "+basketList+"/"+cust_id);
-//		//log.info("주문신청 List[0]: "+basketList.get(0) );
-//		//log.info("주문신청 List[0].cust_Id: "+basketList.get(0).getCust_Id());		
+	@PostMapping(value="/now",			
+			consumes= {"application/json; charset=UTF-8"},
+			produces= {"application/json; charset=UTF-8"})
+	public ResponseEntity<String> ordernow(
+			@RequestBody HashMap<String,Object> ordernow){
+				
+		log.info("바로주문 정보: "+ordernow);
 //				return orderService.addOrder(basketList,cust_id)>0?
 //				new ResponseEntity<>("성공",HttpStatus.OK):
 //				new ResponseEntity<>("실패",HttpStatus.INTERNAL_SERVER_ERROR);	
-//	}
+		
+		return new ResponseEntity<>("성공",HttpStatus.OK);
+	}
 	
 	//주문 상품 조회
 	//남은과제: 주문상태별 보기(그룹화)
@@ -123,23 +135,37 @@ public class OrderController {
 	
 	
 	//checkout 정보 get
-	@GetMapping(value="/address/{cust_Id}",
+	@GetMapping(value="/address/{cust_Id}/{order_seq}",
 			produces= {"application/json; charset=UTF-8"})
 	public ResponseEntity<HashMap<String,Object>> getCheckoutInfo(
-			@PathVariable("cust_Id") String cust_Id){
-		log.info("주문 getCheckoutInfo cust_Id: "+cust_Id);
-		HashMap<String,Object>result = orderService.getCheckoutInfo(cust_Id);
+			@PathVariable("cust_Id") String cust_Id,
+			@PathVariable("order_seq") Long order_seq){
+		log.info("주문 getCheckoutInfo cust_Id / order_seq: "+cust_Id+"/"+order_seq);
+		HashMap<String,Object>result = orderService.getCheckoutInfo(cust_Id,order_seq);
 		log.info("결과"+result);
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 	
-	//주문정보 조회
-	@GetMapping(value="/paidlist/{cust_Id}",
+	//메인 주문정보 조회
+	@GetMapping(value="/orderedlist/{cust_Id}",
+			produces= {"application/json; charset=UTF-8"})
+	public ResponseEntity<List<HashMap<String,Object>>> getOrderedList(
+			@PathVariable("cust_Id") String cust_Id){
+		log.info("주문 getOrderedList cust_Id: "+cust_Id);
+		List<HashMap<String,Object>> result = orderService.getOrderedList(cust_Id);
+		log.info("getOrderedList 결과"+result);
+		return new ResponseEntity<>(result,HttpStatus.OK);
+	}
+	
+	
+	
+	//세부주문정보 조회
+	@GetMapping(value="/paidlist/{order_seq}",
 			produces= {"application/json; charset=UTF-8"})
 	public ResponseEntity<List<HashMap<String,Object>>> getPaidList(
-			@PathVariable("cust_Id") String cust_Id){
-		log.info("주문 getPaidList cust_Id: "+cust_Id);
-		List<HashMap<String,Object>> result = orderService.getPaidList(cust_Id);
+			@PathVariable("order_seq") Long order_seq){
+		log.info("주문 getPaidList order_seq: "+order_seq);
+		List<HashMap<String,Object>> result = orderService.getPaidList(order_seq);
 		log.info("결과"+result);
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}

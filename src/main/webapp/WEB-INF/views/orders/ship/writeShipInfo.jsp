@@ -452,7 +452,7 @@
     var cust_addrPost = null;
     var cust_addrTotalPrice = null; */
     
-    var cust_id = "ordercheck";
+    var cust_id = "${memberId}";
     var orderInfo;
     var order_seq = ${order_seq};
 	console.log("order_seq"+order_seq);

@@ -59,6 +59,7 @@ public class GoodsServiceimpl implements GoodsService{
 		return goods;
 	}
 	
+	//상품코멘트
 	@Override
 	public List<Map<String, Object>> goodsComment(int goodsSeq, int start){
 		Map<String, Object> param = new HashMap<String, Object>();

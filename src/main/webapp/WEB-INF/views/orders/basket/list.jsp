@@ -62,7 +62,7 @@
                             <a href="cart.html" class="nav-item nav-link active">Cart</a>
                             <a href="checkout.html" class="nav-item nav-link">Checkout</a>
                             <a href="http://localhost:3000/" class="nav-item nav-link">Chart</a>
-                            <input type="hidden" value="${memberId}" class="sessionId">
+                            
                             <a href="my-account.html" class="nav-item nav-link">My Account</a>
                             <div class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
@@ -316,13 +316,13 @@
     </body>
     
     <script>
-    //var cust_id = ${memberId};
-	//cartCnt(cust_id);
-	//console.log(cust_id);
+    var cust_id="compF";
+    //var cust_id = "${memberId}";
+	cartCnt(cust_id);
+	console.log(cust_id);
     $(document).ready(function(){
-    	//showList();
-    	var cust_id $(".sessionId").val();
-    	console.log("sessionid"+cust_id);
+    	showList();
+    	//var cust_id $(".sessionId").val();
     });
     
    
@@ -352,6 +352,8 @@
       //현재 버튼클릭시 해당 goods_seq선택가능-->Ajax로 연동
 		selectBasketGoods(goods_seq);    
     });
+  	
+  	
 	$('.basketList').on('click',".delbasketBtn",function(){
 		//var goods_seq =  $(this).parents("td").children("p").data("goods_seq");
 		var goods_seq =  $(this).data("goods_seq");

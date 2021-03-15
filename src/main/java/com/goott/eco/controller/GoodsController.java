@@ -31,18 +31,18 @@ public class GoodsController {
 		return mav;
 	}
 	
-	@GetMapping("/{goodsSeq}")
-	public ModelAndView goodsDetail(HttpServletRequest request, HttpServletResponse response, @PathVariable int goodsSeq) {
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("goods/goods_detail");
-		//mav.addAllObjects(goodsService.goodsDetail(goodsSeq));
-		mav.addObject("goods_req_option", goodsService.goodsDetail(goodsSeq));
-		mav.addObject("goods", goodsService.goodsDetail(goodsSeq) );
-		
-		System.out.println("goods detail " + goodsSeq);
-		return mav;
-	}
+//	@GetMapping("/{goodsSeq}")
+//	public ModelAndView goodsDetail(HttpServletRequest request, HttpServletResponse response, @PathVariable int goodsSeq) {
+//		ModelAndView mav = new ModelAndView();
+//		
+//		mav.setViewName("goods/goods_detail");
+//		//mav.addAllObjects(goodsService.goodsDetail(goodsSeq));
+//		mav.addObject("goods_req_option", goodsService.goodsDetail(goodsSeq));
+//		mav.addObject("goods", goodsService.goodsDetail(goodsSeq) );
+//		
+//		System.out.println("goods detail " + goodsSeq);
+//		return mav;
+//	}
 	
 	@GetMapping("/form")
 	public String goodsInsert() {
