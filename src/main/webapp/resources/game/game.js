@@ -2,7 +2,6 @@ console.log("game Module.........");
 
 var gameService=(function(){
 	
-	
 	//유저 포인트 정보 가져오기
 	function getCustPointSum(cust_id,callback){
 			console.log("................getCustPointSum");
@@ -32,11 +31,29 @@ var gameService=(function(){
 		})
 	}
 	
+	//씨앗 구매유/무 체크 
+	function checkSeed(memberid,callback){
+		console.log(".........checkSeed");
+		$.ajax({
+			type:'get',
+			url:'/game/item/'+memberid,
+			data:JSON.stringify(),
+			contentType: "application/json; charset=utf-8",
+			success:(result)=>{console.log("씨앗체크",result)},
+			error:(log)=>{console.log("실패")+log}
+		})
+	}
+	
 	
 	return {
 		getCustPointSum:getCustPointSum,
-		useItem:useItem
+		useItem:useItem,
+		checkSeed:checkSeed
 	};
+	
+	
+	
+	
 	
 })()
 

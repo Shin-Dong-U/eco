@@ -269,10 +269,19 @@
     <script>
     
     $(document).ready(function(){
-    	
     	showGameInfo();
+    	checkSeed();
     });
     
+    
+    function checkSeed(){
+			gameService.checkSeed('basic',function(gameInfo){
+
+				console.log("checkSeed:"+gameInfo.memberid);	
+			})
+		}
+		
+			
     //유제 게임정보 가져오기
     function showGameInfo(){		
     	gameService.getCustPointSum('basic',function(gameInfo){
@@ -293,7 +302,7 @@
 			str+="<p>게이지 바 정보:"+gameInfo.gage_bar+" </p>"
 				+"<p>현재 남은 포인트:"+gameInfo.point_amount+" </p>"
 				+"<p>아이템 사용 포인트:"+gameInfo.totalUsedItem_amount+" </p>"
-				+"<p>현재 게임 레벨 코드:"+gameInfo.GameImageVO.game_level+" </p>"
+				//+"<p>현재 게임 레벨 코드:"+gameInfo.GameImageVO.game_level+" </p>"
 				+"<p>해당레벨 이름:"+gameInfo.GameImageVO.level_name+" </p>"
 				+"<p>해당레벨 이미지 소스:"+gameInfo.GameImageVO.img_src+" </p>";
 				
@@ -307,23 +316,18 @@
     	
 	}
     
-    
-    
-    
    		$(".waterBtn").on('click',function(){
    			console.log("물 사용");
-   			useItem(1,'basic');
+   			gameService.useItem(1,'basic');
    		});
    		
    		$(".soilBtn").on('click',function(){
    			console.log("비료 사용");
-   			useItem(2,'basic');
+   			gameService.useItem(2,'basic');
    		});
 	
-   		function useItem(item_seq,cust_id){
-   			gameService.useItem(item_seq,cust_id,function(gameInfo){
-   			})
-   			showGameInfo();
-   		}
+   	
+   		
+   		
     </script>
 </html>

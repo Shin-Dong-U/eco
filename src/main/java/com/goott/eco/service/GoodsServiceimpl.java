@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.goott.eco.common.Criteria;
+import com.goott.eco.common.PageDTO;
 import com.goott.eco.domain.GoodsVO;
 import com.goott.eco.mapper.GoodsMapper;
 
@@ -16,6 +18,18 @@ import com.goott.eco.mapper.GoodsMapper;
 public class GoodsServiceimpl implements GoodsService{
 
 	@Autowired private GoodsMapper goodsDao; 
+	
+	
+	//상품 상세 조회  
+	@Override
+	public Map<String, Object> goodsDetail(int goodsSeq){
+		Map<String, Object> goods = new HashMap<String, Object>();
+		goods.put("goodsDetail", goodsDao.goodsDetail(goodsSeq));
+		goods.put("thumbList", goodsDao.goodsDetailThumbImg(goodsSeq));
+		goods.put("imgList", goodsDao.goodsDetailImg(goodsSeq));
+		goods.put("optionList", goodsDao.goodsReqOption(goodsSeq));
+		return goods;
+	}
 	
 	@Override
 	public void txTest() {
@@ -30,15 +44,34 @@ public class GoodsServiceimpl implements GoodsService{
 	}
 	
 	@Override
-	public List<Map<String, Object>> getGoodsList(Map<String, Object> search) {
-		return goodsDao.getGoodsList(search);
+	public Map<String, Object> goodsList(Criteria cri) {
+		Map<String, Object> resMap = new HashMap<>();
+		
+		int cnt = goodsDao.totalCountGoodsList(cri);
+		
+		PageDTO page = new PageDTO(cri, cnt);
+
+		List<Map<String, Object>> goodsList = goodsDao.goodsList(cri);
+		List<Map<String, Object>> cateList = goodsDao.goodsCategoryList();
+		
+		resMap.put("goodsList", goodsList);
+		resMap.put("page", page);
+//		resMap.put("cri", cri);
+		
+		return resMap;
+	}
+	
+
+	 //1.기존댓글정보가져오기 2. 댓글 insert 3.페이징처리
+	@Override
+	public Map<String,Object> goodsComment(int goodsSeq, int start){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("goods_seq", goodsSeq);
+		param.put("start", start);
+		
+		return goodsDao.goodsComment(param);
 	}
 
-//	@Override
-//	public int insertGoods(Map<String, Object> param) {
-//		goodsDao.insertGoods(param);
-//		return 0;
-//	}
 	@Override
 	public int insertGoods(GoodsVO vo) {
 		goodsDao.insertGoods(vo);

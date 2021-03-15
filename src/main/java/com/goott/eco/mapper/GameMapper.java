@@ -13,4 +13,7 @@ public interface GameMapper {
 	public int insertUseItem(@Param("item_seq") Long item_seq, @Param("cust_id") String cust_id);
 	
 	public GameImageVO getGameImageInfo(int game_level);
-}
+
+	
+	public Long getGameSeed(String memberid);
+	}

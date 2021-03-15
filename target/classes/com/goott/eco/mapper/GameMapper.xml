@@ -10,27 +10,33 @@
 		FROM POINT
 		WHERE cust_id = #{cust_id} and memo='add'
 		GROUP BY cust_id
-		
-		
 	</select>
 	
-		<select id="getCustPointMinusSum" resultType="Long">
-		
+	<select id="getCustPointMinusSum" resultType="Long">	
 		SELECT SUM(point_amount)
 		FROM POINT
 		WHERE cust_id = #{cust_id} and memo='minus'
 		GROUP BY cust_id
-		
 	</select>
 	
+	<!-- ITEM선택할때의 쿼리문 -->
 	<insert id="insertUseItem">
 		INSERT INTO POINT values(seq_point_seq.nextval,#{cust_id},'',
 		(SELECT ITEM_PRICE FROM GAME_ITEM WHERE item_seq=#{item_seq} ),'minus',#{cust_id},default,'','')
+		
 	</insert>
 	
 	<select id="getGameImageInfo" resultType="com.goott.eco.domain.GameImageVO">
 		SELECT *FROM game_image where game_level=#{game_level}
 	</select>
+	
+	<!-- Cust테이블에, 씨앗이 구매했는지 안했는지  확인한 후, 구매한적없으면 0 했으면 1 -->
+	<select id="getGameSeed" resultType="Long">
+		SELECT SEED_YN
+		FROM CUST
+		WHERE memberid=#{memberid}
+	</select>
+	
 
 	
 </mapper>

@@ -1,12 +1,12 @@
 package com.goott.eco.common;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
-@ToString
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Criteria {
 	private int pageNum;	//현재 페이지 번호
 	private int amount;		//페이지당 출력할 레코드 수
@@ -15,7 +15,7 @@ public class Criteria {
 	private String CustSearchType;      //검색[]:CustName
 	private String CustSearchKeyword;      //검색 단어
 	
-	public Criteria() {
+/*	public Criteria() {
 		this(1,20);	//게시물 번호를 입력
 	}
 
@@ -28,6 +28,6 @@ public class Criteria {
 	public String[] getTypeArr() {
 		return CustType == null ? new String[] {} : CustType.split("");
 	}
-
+*/
 }
 

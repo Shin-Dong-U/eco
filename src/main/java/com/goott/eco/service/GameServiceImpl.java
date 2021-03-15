@@ -1,15 +1,15 @@
 package com.goott.eco.service;
 
 import java.util.HashMap;
-import java.util.List;
+//import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.goott.eco.domain.CustVO;
+//import com.goott.eco.domain.CustVO;
 import com.goott.eco.domain.GameImageVO;
-import com.goott.eco.domain.GameItemVO;
-import com.goott.eco.domain.PointVO;
+//import com.goott.eco.domain.GameItemVO;
+//import com.goott.eco.domain.PointVO;
 import com.goott.eco.mapper.GameMapper;
 
 @Service
@@ -45,7 +45,7 @@ public class GameServiceImpl implements GameService{
 			userPointInfo.put("gage_bar",(minus-2000L)/10);
 			GameImageVO gameImageInfo = gameMapper.getGameImageInfo(3);
 			userPointInfo.put("GameImageVO",gameImageInfo);
-		}else if(3000L<=minus&&minus<4000L) {
+		}else if(3000L<=minus) {
 			userPointInfo.put("gage_bar",(minus-3000L)/10);
 			GameImageVO gameImageInfo = gameMapper.getGameImageInfo(4);
 			userPointInfo.put("GameImageVO",gameImageInfo);
@@ -61,6 +61,12 @@ public class GameServiceImpl implements GameService{
 		int insertResult = gameMapper.insertUseItem(item_seq,cust_id);
 	
 		return insertResult>0? 1 : 0;
+	}
+
+	@Override
+	public Long getSeed(String memberid) {
+		
+		return gameMapper.getGameSeed(memberid);
 	}
 	
 	
