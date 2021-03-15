@@ -1,4 +1,4 @@
-console.log("Reply Module.........");
+console.log("basket Module.........");
 
 var basketService=(function(){
 	
@@ -27,7 +27,8 @@ var basketService=(function(){
 			url:'/basket/'+goods_seq,					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
-			success:(basketGoods)=>{console.log("장바구니 상품선택",basketGoods)},
+			success:(basketGoods)=>{console.log("장바구니 상품선택",basketGoods),
+				location.href = "/goods/"+goods_seq},
 			error:(log)=>{console.log("실패 "+log)}
 		})
 	}
@@ -75,13 +76,14 @@ var basketService=(function(){
 		})
 	}
 	
-	function addGoodsAtBasket(){		
+	//장바구니에 상품넣기
+	function addGoodsAtBasket(orderinfo){		
 		console.log("basket add................");
 		
 		$.ajax({ 
-			type:'get',						
-			url:'/basket/new/hoya/4/33',					
-			data:JSON.stringify(),			
+			type:'post',						
+			url:'/basket/new',					
+			data:JSON.stringify(orderinfo),			
 			contentType: "application/json; charset=utf-8", 
 			success:(result)=>{console.log("장바구니 담기 결과 "+result)},
 			error:(log)=>{console.log("실패 "+log)}
@@ -89,6 +91,21 @@ var basketService=(function(){
 		})
 	}
 	
+	//장바구니 상품 갯수
+	function countBasketGoods(cust_id,callback){		
+		console.log("countBasketGoods.........");
+		
+		$.ajax({ 
+			type:'get',						
+			url:'/basket/count/'+cust_id,					
+			data:JSON.stringify(),			
+			contentType: "application/json; charset=utf-8", 
+			success:(result)=>{console.log("장바구니 상품 갯수 "+result),
+				callback(result)},
+			error:(log)=>{console.log("실패 "+log)}
+			
+		})
+	}
 	
 	
 	
@@ -128,9 +145,10 @@ var basketService=(function(){
 		getBasketList:getBasketList,
 		getBasketGoods:getBasketGoods,
 		delBasketGoods:delBasketGoods,
+		countBasketGoods:countBasketGoods,
 		displayTime:displayTime
 	};
 	
-})();
+})()
 
 

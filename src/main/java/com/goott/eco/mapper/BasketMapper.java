@@ -18,12 +18,17 @@ public interface BasketMapper {
 	
 	public int purGoodsAtBasket(@Param("cust_id") String cust_id, @Param("goods_seq") Long goods_seq);
 	
-	public int addGoodsAtBasket(@Param("cust_id") String cust_id, @Param("goods_seq") Long goods_seq, @Param("qty") Long qty);
+	//public int addGoodsAtBasket(@Param("cust_id") String cust_id, @Param("goods_seq") Long goods_seq, @Param("qty") Long qty);
 	
-	public Long checkExistBasket(String cust_id);
+	public int addGoodsAtBasket(HashMap<String,Object> orderInfo);
 	
-	public int createBasket(String cust_id);
+	public Long checkExistBasket(HashMap<String,Object> orderInfo);
+	
+	//public int createBasket(String cust_id);
+	public int createBasket(HashMap<String,Object> orderInfo);
 	
 	public int changeQtyAtBasket(@Param("cust_id") String cust_id, @Param("goods_seq") Long goods_seq, @Param("qty") Long qty);
+	
+	public int countBasketGoods(String cust_id);
 
 }

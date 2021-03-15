@@ -33,6 +33,7 @@ public class GoodsController {
 		return mav;
 	}
 	
+
 	@GetMapping("/{goodsSeq}")
 	public ModelAndView goodsDetail(HttpServletRequest request, HttpServletResponse response, @PathVariable int goodsSeq) {
 		ModelAndView mav = new ModelAndView("goods/goods_detail");
@@ -40,6 +41,7 @@ public class GoodsController {
 		
 		return mav;
 	}
+
 	
 	@GetMapping("/form")
 	public String goodsInsert() {

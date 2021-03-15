@@ -60,6 +60,7 @@ public class GoodsServiceimpl implements GoodsService{
 		return goods;
 	}
 	
+	//상품코멘트
 	@Override
 	public Map<String, Object> goodsComment(int goodsSeq, int pageNum){
 		final int DEFAULT_COMMENT_PAGE_AMOUNT = 5;
