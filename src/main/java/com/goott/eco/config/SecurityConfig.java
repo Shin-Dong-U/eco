@@ -70,24 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			
 
 		http.authorizeRequests()
-			.antMatchers("/cust/account").authenticated();
-		
-//			.antMatchers("/orders/basket/list").authenticated()
-//			.antMatchers("/orders/order/checkout").authenticated()
-//			.antMatchers("/home/my-account-order").authenticated()
-//			.antMatchers("/orders/ship/writeShipInfo").authenticated()
-//			.antMatchers("/orders/order/orderCheck").authenticated();
-		
-		
-//			.antMatchers("/orders/basket/list").authenticated();
-		//	.antMatchers("/order/list").authenticated();
-		//	.exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+			.antMatchers("/cust/account","/cust/account").authenticated();
 
-		
-		//http.authorizeRequests()
-		//	.antMatchers("/sample/admin").access("hasRole('ROLE_COMPANY')");
-		//	.antMatchers("/sample/member").access("hasRole('ROLE_CUST')");
-	
 		/* 로그인 */
 		http.formLogin()
 			.loginPage("/home/login")
@@ -105,9 +89,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.key("goott")
 			.tokenRepository(persistentTokenRepository())
 			.tokenValiditySeconds(604800);
-		
-		/* naver smartEditor cross-origin iframe 이슈 방지용 */
-		http.headers().frameOptions().sameOrigin();
 		
 	}
 

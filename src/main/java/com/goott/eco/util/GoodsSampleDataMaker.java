@@ -119,8 +119,9 @@ public class GoodsSampleDataMaker {
 		goodsVO.setReq_option("N");
 		goodsVO.setReguser("SYSTEM");
 		
-		goodsVO.getGoodsThumbNailVO().setImg_url(imgUrl);
-		goodsVO.getGoodsThumbNailVO().setMain_yn("Y");
+		GoodsThumbNailVO goodsThumbNail = goodsVO.new GoodsThumbNailVO();
+		goodsThumbNail.setImg_url(imgUrl);
+		goodsThumbNail.setMain_yn("Y");
 		
 		return goodsVO;
 	}

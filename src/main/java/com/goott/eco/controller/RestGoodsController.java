@@ -1,5 +1,6 @@
 package com.goott.eco.controller;
 
+<<<<<<< HEAD
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,42 +10,36 @@ import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+=======
+import java.util.Map;
+>>>>>>> 279e09f... reset
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.goott.eco.common.Criteria;
-import com.goott.eco.service.GoodsService;
-
-import lombok.extern.log4j.Log4j;
-import net.coobird.thumbnailator.Thumbnailator;
-
 import com.goott.eco.domain.AttachFileDTO;
 import com.goott.eco.domain.GoodsVO;
+import com.goott.eco.service.GoodsService;
 
 @RestController
-@RequestMapping("/goods/rest")
-@Log4j
+@RequestMapping("/goods/rest/*")
 public class RestGoodsController {
-	
+		
 	@Autowired private GoodsService goodsService;
 
-	@GetMapping(value="", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
-	public ResponseEntity<Map<String, Object>> goodsList(@ModelAttribute Criteria cri) {
+	@GetMapping(value="", produces = "application/json; charset=UTF-8")	
+	public ResponseEntity<Map<String, Object>> goodsList(Criteria cri) {
 		Map<String, Object> goods = goodsService.goodsList(cri);
-		System.out.println("@@@list");
 		
 		return new ResponseEntity<>(goods, HttpStatus.OK);
 	}

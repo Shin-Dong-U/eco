@@ -32,16 +32,10 @@
 		  SELECT b.basket_seq,b.goods_seq,b.qty
 		  FROM eco.basket a LEFT OUTER JOIN eco.basket_detail b
 		  ON a.basket_seq = b.basket_seq
-		  WHERE cust_id = #{cust_id}  AND delete_yn ='N' AND purchase_yn='N' 
+		  WHERE cust_id = #{cust_id}   
 	</insert>
 	<update id="upOrderStatus">
 		UPDATE  eco.order_main SET ORDER_STATUS = 1 WHERE order_seq = #{order_seq}
-	</update>
-	<update id="upBasketStatus">
-		 UPDATE  eco.basket_detail SET purchase_yn = 'Y' 
-		WHERE basket_seq IN (SELECT basket_seq from order_detail where order_seq=#{order_seq})
-   			 AND goods_seq IN (SELECT goods_seq from order_detail where order_seq=#{order_seq})
-			
 	</update>
 	<!--주문하기  끝 -->
 	
@@ -65,7 +59,7 @@
 		,b.total_price,b.order_seq
 		FROM eco.cust a LEFT OUTER JOIN eco.order_main b
 		ON a.memberid = b.cust_id 
-		WHERE cust_id = #{cust_id} AND order_seq = #{order_seq}
+		WHERE cust_id = #{cust_id} AND order_status = 1
 	</select>
 	
 	<!--결제완료 업데이트  -->
@@ -85,7 +79,7 @@
 		ON c.goods_seq = a.goods_seq
 		WHERE a.order_seq IN (SELECT order_seq FROM ECO.order_main where cust_id=#{cust_id} AND order_status=3)    
  -->		
-	<!-- 	SELECT a.GOODS_NAME,a.PRICE,d.qty,to_char(b.regdate, 'yyyymmdd'),c.delivery_status
+		SELECT a.GOODS_NAME,a.PRICE,d.qty,to_char(b.regdate, 'yyyymmdd'),c.delivery_status
 		FROM eco.goods a LEFT OUTER JOIN eco.order_main b
 		ON goods_seq IN (SELECT d.goods_seq 
 		  FROM order_detail d LEFT OUTER JOIN eco.order_main b
@@ -94,28 +88,10 @@
 		LEFT OUTER JOIN eco.order_detail d
 		ON d.order_seq = d.order_seq
 		LEFT OUTER JOIN eco.delivery_main c
-		ON  b.order_seq IN c.order_seq where cust_id=#{cust_id} AND order_status=3 -->
-		
-		    SELECT a.qty,a.order_seq,a.goods_seq,to_char(b.regdate, 'yyyymmdd') regdate,c.goods_name,c.price,d.delivery_status
-			  FROM order_detail a LEFT OUTER JOIN order_main b
-			  ON a.order_seq = b.order_seq
-			  LEFT OUTER JOIN goods c
-			  ON a.goods_seq = c.goods_seq
-			  LEFT OUTER JOIN delivery_main d
-			  ON a.order_seq = d.order_seq
-			   WHERE a.order_seq = #{order_seq}
+		ON  b.order_seq IN c.order_seq where cust_id=#{cust_id} AND order_status=3
 	</select>
-	
-	<select id="getOrderedList" resultType="hashMap">
-		SELECT a.order_seq, a.paied_yn, to_char(a.regdate, 'yyyymmdd') REGDATE,a.total_price, b.delivery_status 
-		  FROM order_main a LEFT OUTER JOIN delivery_main b
-		  ON a.order_seq = b.order_seq
-		  where cust_id =#{cust_id}
-		  ORDER BY order_seq DESC
-	</select>
-	
 
-	<update id="orderCancel" >
+	<update id="orderCancel">
 		UPDATE order_main set order_status = 5 WHERE order_seq = #{order_seq}
 	</update>
 	

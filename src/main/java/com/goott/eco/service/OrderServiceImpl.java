@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public Long addOrder(String cust_id, Long total_price) {		
+	public int addOrder(String cust_id, Long total_price) {		
 		//주문번호 생성
 		int addOrderMain = orderMapper.addOrderMain(cust_id,total_price);
 		log.info("addOrderMain: "+addOrderMain);
@@ -42,11 +42,8 @@ public class OrderServiceImpl implements OrderService {
 		int upOrderStatus = orderMapper.upOrderStatus(order_seq);
 		log.info("upOrderStatus: "+upOrderStatus);
 		
-		//장바구니 상태 변경 purchase Y
-		int upBasketStatus = orderMapper.upBasketStatus(order_seq);
-		log.info("upOrderStatus: "+upBasketStatus);
 	
-		return order_seq;
+		return 0;
 	}
 
 //	@Override
@@ -90,9 +87,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public HashMap<String, Object> getCheckoutInfo(String cust_Id, Long order_seq) {
+	public HashMap<String, Object> getCheckoutInfo(String cust_Id) {
 		
-		return orderMapper.getCheckoutInfo(cust_Id, order_seq);
+		return orderMapper.getCheckoutInfo(cust_Id);
 	}
 
 	@Override
@@ -102,9 +99,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getPaidList(Long order_seq) {
+	public List<HashMap<String, Object>> getPaidList(String cust_id) {
 		// TODO Auto-generated method stub
-		return orderMapper.getPaidList(order_seq);
+		return orderMapper.getPaidList(cust_id);
 	}
 
 	@Override
@@ -120,12 +117,6 @@ public class OrderServiceImpl implements OrderService {
 		
 		
 		return resultCommit>0&&resultAddPoint>0? 1 : 0;
-	}
-
-	@Override
-	public List<HashMap<String, Object>> getOrderedList(String cust_id) {
-		
-		return orderMapper.getOrderedList(cust_id);
 	}	
 
 

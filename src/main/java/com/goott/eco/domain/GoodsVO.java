@@ -24,14 +24,9 @@ public class GoodsVO {
 	private String req_option;
 	private String goods_detail;
 	
-	private GoodsThumbNailVO goodsThumbNailVO;
-	private GoodsReqOption goodsReqOption;
-	private GoodsCommentVO goodsCommentVO;
-	private GoodsDetailImgVO goodsDetailImgVO;
-	
 	//썸네일이미지
 	@Data
-	public static class GoodsThumbNailVO{
+	public class GoodsThumbNailVO{
 		private int goods_seq;
 		private int goods_thumb_nail_seq;
 		private String img_url;
@@ -44,7 +39,7 @@ public class GoodsVO {
 	
 	//필수옵션
 	@Data
-	public static class GoodsReqOption{
+	public class GoodsReqOption{
 		private int goods_seq;
 		private int goods_req_option_seq;
 		private int price;
@@ -56,10 +51,10 @@ public class GoodsVO {
 	
 	//댓글
 	@Data
-	public static class GoodsCommentVO{
+	public class GoodsCommentVO{
 		private int goods_seq;
-		private String cust_id;
-		private String star;
+		private int cust_id;
+		private int star;
 		private Timestamp regdate;
 		private int goods_comment_seq;
 		private String memo;
@@ -68,7 +63,7 @@ public class GoodsVO {
 	
 	//상세 이미지 
 	@Data
-	public static class GoodsDetailImgVO{
+	public class GoodsDetailImgVO{
 		private int goods_seq;
 		private int img_order;
 		private String img_url;
