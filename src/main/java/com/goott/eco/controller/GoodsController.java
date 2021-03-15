@@ -26,7 +26,7 @@ public class GoodsController {
 	public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response, Criteria cri) {
 		ModelAndView mav = new ModelAndView("/goods/goods_list");
 //		mav.addAllObjects(goodsService.goodsList(cri));
-		mav.addObject("cateList", commonService);
+		mav.addObject("cateList", commonService.categoryList());
 		mav.addObject("cri", cri);
 		
 		return mav;
