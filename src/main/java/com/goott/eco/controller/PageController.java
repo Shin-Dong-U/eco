@@ -6,7 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import lombok.extern.log4j.Log4j;
 
@@ -113,10 +114,13 @@ public class PageController {
 //	}
 
 	/* 로그인 페이지 이동 */
-	@GetMapping("/home/login")
-	public void login(HttpServletRequest request) {
-		String referrer = request.getHeader("Referer");
+	@RequestMapping(value="/home/login", method= {RequestMethod.POST, RequestMethod.GET})
+	public void login(HttpServletRequest request) {	
+		String referrer = request.getHeader("Referer");	
 		if(referrer!=null) {
+			String result = referrer.substring(referrer.lastIndexOf("/")+1);
+			if(result.equals("login")) return;
+			
 			System.out.println("이전페이지url: "+referrer);
 		    request.getSession().setAttribute("prevPage", referrer);
 		}

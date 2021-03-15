@@ -43,7 +43,7 @@
 
 <style>
 	#confirm_check{ display: none }
-	
+	#modify_check{ display: none }
 </style>
 </head>
 
@@ -317,7 +317,9 @@ $("#account-nav").on("click", function(){
 	alert("id는? "+memId);
 	$("#account_custChat").html("");
 	$("#account_compChat").html("");
-
+ 	document.getElementById("confirm_check").style.display="none";
+ 	document.getElementById("modify_check").style.display="none";
+	
 	str="";
 	str +='<h5>비밀번호 확인</h5>'
 		+ '<form id="pwCheckForm" action="">'
@@ -344,6 +346,7 @@ $("#account_custChat").on("click","#btn_check", function(){
 		function(data){
 			if(data="success"){
 				get_chat();
+			 	document.getElementById("modify_check").style.display="block";
 			}
 		},
 		function(data){
