@@ -63,30 +63,24 @@ var customer=(function(){
 		$.ajax({
 			type:"get",
 			url:"/cust/get/"+memberId,
-			//data:JSON.stringify(),
-			//contentType:"text/html; charset=utf-8",
+			
 			success:function(data){
-				console.log("data: "+data);
 				if(callback){
-					console.log(data);
+					console.log("restCust.ajax실행중 getCust 완료");
 					//alert("data타입정의"+data["memberVO"]);
 					callback(data["memberVO"]);
-					
-					console.log("restCust.ajax실행중 getCust 완료");
 				}
 			},
+			
 			error:function(xhr,status,err){
-				if(error){
-					error(err);
-					console.log("restCust.ajax실행중 getCustLogin 오류");
-				}
+				console.log("restCust.ajax실행중 getCustLogin 오류");
 			}
 		});	//end ajax
 	}	//end function getCust
 	
 	
 	/* 회원 수정 */
-	function modifyMember(custVO, csrf ,callback, error){
+	function modifyMember(custVO, csrf, callback, error){
 		console.log("modifyMember 실행");
 		
 		$.ajax({
@@ -109,7 +103,7 @@ var customer=(function(){
 	
 	
 	/* 회원 탈퇴  */
-	function deleteMember(memberId, callback, error){
+	function deleteMember(memberId, csrf, callback, error){
 		console.log("modifyMember 실행");
 		
 		$.ajax({
@@ -117,34 +111,27 @@ var customer=(function(){
 			url:"/cust/delete/"+memberId,
 			data:JSON.stringify(memberId),
 			contentType:"application/json; charset=UTF-8",
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
 			
 			success:function(data){
-				if(callback){
-					callback(data);
-					console.log("restCust.ajax실행중 modifyMember완료");
-				}
+				callback(data);
+				console.log("restCust.ajax실행중 modifyMember완료");
 			},
 			error:function(xhr,status,err){
-				if(error){
-					error(err);
 					console.log("restCust.ajax실행중 modifMember오류")
-				}
 			}
 		});	//end ajax
 	}	//end function modifyMember
 	
-	
-	
-	
-	
-	
-	
+
 	return{
 		passwordCheck:passwordCheck,	//비밀번호확인
-		joinMember:joinMember, //회원가입
-		getCust:getCust,
-		modifyMember:modifyMember,
-		deleteMember:deleteMember
+		joinMember:joinMember, 			//회원가입
+		getCust:getCust,				//회원 정보 불러오기
+		modifyMember:modifyMember,		//회원수정
+		deleteMember:deleteMember		//회원탈퇴
 	};
 	
 })();

@@ -80,11 +80,32 @@ var adminRest=(function(){
 			}
 		});	//end ajax
 	}	//end function getCustLogin
+	
+	
+	/* 특정 회원 정보 가져오기 */
+	function getCust(memberId, callback, error){
+		$.ajax({
+			type:"get",
+			url:"/cust/get/"+memberId,
 
+			success:function(data){
+				console.log(data);
+				callback(data["memberVO"]);
+//alert("data타입정의"+data["memberVO"]);
+				console.log("restCust.ajax실행중 getCust 완료");
+			},
+			error:function(xhr,status,err){
+				console.log("restCust.ajax실행중 getCustLogin 오류");
+			}
+		});	//end ajax
+	}	//end function getCust
+	
+	
 return{
 	getCustList:getCustList,
 	getCompanyList:getCompanyList,
-	getAdminList:getAdminList
+	getAdminList:getAdminList,
+	getCust:getCust,
 };
 
 })();

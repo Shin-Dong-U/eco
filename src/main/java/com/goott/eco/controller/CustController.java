@@ -84,7 +84,7 @@ public class CustController {
 	}
 	
 	/* 회원 탈퇴 */
-	@PutMapping(value="/delete/{memberId}", produces="application/json; charset=UTF-8")
+	@PutMapping(value="/delete/{memberId}", produces="text/plain; charset=UTF-8")
 	public ResponseEntity<String> deleteCust(@PathVariable("memberId") String memberId ){
 		System.out.println("memberId: "+memberId);
 		
