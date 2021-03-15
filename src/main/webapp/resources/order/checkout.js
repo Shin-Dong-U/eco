@@ -24,11 +24,11 @@ var checkoutService=(function(){
 			console.log("................ordernow");
 		$.ajax({ 
 			type:'post',						
-			url:'/checkout/ordernow/',		
+			url:'/checkout/now/',		
 			data:JSON.stringify(orderinfo),			
 			contentType: "application/json; charset=utf-8", 
-			success:(result)=>{console.log("체크아웃 장바구니",result)
-				,location.href = "/orders/order/checkout?order_seq="+result.order_seq;
+			success:(order_seq)=>{console.log("체크아웃 장바구니",order_seq)
+				,location.href = "/orders/order/checkout?order_seq="+order_seq;
 					},	
 			error:(log)=>{console.log("실패 "+log)}
 		})

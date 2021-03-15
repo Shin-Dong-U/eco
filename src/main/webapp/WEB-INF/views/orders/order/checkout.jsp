@@ -446,7 +446,7 @@
     var cust_addrPost = null;
     var cust_addrTotalPrice = null; */
     
-    var cust_id = "${memberId}";
+    var cust_id = "compF"//"${memberId}";
     console.log("session id: "+cust_id);
     var orderInfo;
     var order_seq = ${order_seq};

@@ -6,7 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.log4j.Log4j;
 
@@ -15,6 +16,16 @@ import lombok.extern.log4j.Log4j;
 @CrossOrigin(origins ="http://localhost:3000")
 //@RequestMapping("/orders/*")
 public class PageController {
+	
+//	@GetMapping("/goods/{goods_seq}")
+//	public String goodsDetail(Model model,HttpServletRequest request,
+//				@PathVariable("goods_seq") int goods_seq) {
+//		model.addAttribute("goods_seq", goods_seq);
+//		//${goods_seq} 해당상품번호 jsp에서 출력
+//		log.info("goodsDetail페이지 이동");
+//		
+//		return "goods/goods_detail";
+//	}
 
 	@GetMapping("/deli/delilist")
 	public String list3(Model model) {
@@ -40,19 +51,27 @@ public class PageController {
 	}
 
 	@GetMapping("/orders/basket/list")
-	public void list(Model model) {
+	public void list(Model model,HttpServletRequest request ) {
+		String cust_id = (String) request.getSession().getAttribute("memberId");
+		log.info("session cust_id: "+cust_id);
 		log.info("list페이지 이동");
+		
 		//return "orders/basket/list";
 	}
 	@GetMapping("/orders/order/checkout")
-	public void checkout(Model model) {
+	public void checkout(@RequestParam Long order_seq,Model model) {
 		log.info("checkout페이지 이동");
+		
+		model.addAttribute("order_seq",order_seq);
+		
 		//return "orders/order/checkout";
 	}
+
 	
-	@GetMapping("/orders/order/orderCheck")
-	public void orderCheck(Model model) {
-		log.info("orderCheck페이지 이동");
+	@GetMapping("/orders/ship/writeShipInfo")
+	public void writeShipInfo(@RequestParam Long order_seq,Model model) {
+		model.addAttribute("order_seq",order_seq);
+		log.info("writeShipInfo페이지 이동");
 	}
 	
 	@GetMapping("/delivery/deliveryCheck")
@@ -96,11 +115,11 @@ public class PageController {
 //		
 //	}
 	
-//	@GetMapping("/products/product-detail")
-//	public void productDetail(Model model) {
-//		log.info("product-detail페이지 이동");
-//		
-//	}
+	@GetMapping("/products/product-detail-order")
+	public void productDetail(Model model) {
+		log.info("product-detail페이지 이동");
+		
+	}
 //	@GetMapping("/products/product-list")
 //	public void productList(Model model) {
 //		log.info("product-list페이지 이동");
@@ -135,11 +154,6 @@ public class PageController {
 		log.info("account페이지 이동");
 	}
 	
-	@GetMapping("cust/account1")
-	public void account1() {
-		log.info("account페이지 이동");
-	}
-	
 	/* 카카오 로그인 이동*/
 	//@GetMapping("/home/kakao")
 	//public String kakaoLogin() {
@@ -153,10 +167,10 @@ public class PageController {
 		
 	}
 	/* list 페이지 이동 */
-	@GetMapping("/cust/list")
-	public void custList() {
-
-	}
+//	@GetMapping("/cust/list")
+//	public void custList() {
+//
+//	}
 
 	@GetMapping("/game/item")
 	public void item(Model model) {

@@ -201,6 +201,33 @@
 
     // Quantity
     // $('.qty button').on('click', function () {
+    
+    
+ // 상품 quantity
+    $('.goodsQty button').on('click', function () {
+        var $button = $(this);
+        var oldValue = $button.parent().find('input').val();
+        var goodsPrice=$(".goods-price").text();
+        var totalPrice=1;
+        if ($button.hasClass('btn-plus')) {
+            var newVal = parseFloat(oldValue) + 1;
+            console.log("goodsprice: "+goodsPrice);
+            totalPrice=goodsPrice*newVal;
+            console.log(totalPrice+"="+goodsPrice+"*"+newVal);
+        } else {
+            if (oldValue > 0) {
+                var newVal = parseFloat(oldValue) - 1;
+                totalPrice=goodsPrice*newVal;
+                console.log(totalPrice+"="+goodsPrice+"*"+newVal);
+            } else {
+                newVal = 0;
+            }
+        }
+        $button.parent().find('input').val(newVal);
+        $(".goods-total-price").val(totalPrice);
+    });
+    
+    
     //이벤트 위임
     $('.basketList').on('click', ".qty button",function () {
     	console.log("버튼클릭");
@@ -211,7 +238,7 @@
            var newVal = Number(parseFloat(oldValue) + 1);
             var goodsPrice=Number($button.parentsUntil("tr").prev().children("span").text());
             console.log("goodsprice: "+goodsPrice);
-            $button.parentsUntil("tr").prev().children("span").css({"border": "2px solid red"});
+            //$button.parentsUntil("tr").prev().children("span").css({"border": "2px solid red"});
             
             totalPrice=goodsPrice*newVal;
             console.log(totalPrice+"="+goodsPrice+"*"+newVal);
@@ -220,7 +247,8 @@
             var goods_seq = $button.parent().data("goods_seq");
             console.log("qty 증가 goods_seq: "+goods_seq);
         	changeQtyAtBasket("nana",goods_seq,newVal);
-           
+        	$(".checkoutBtn").attr("disabled", true);
+        	
         } else {
             if (oldValue > 0) {
                 var newVal = parseFloat(oldValue) - 1;
@@ -232,12 +260,13 @@
                var goods_seq = $button.parent().data("goods_seq");
                console.log("qty 감소 goods_seq: "+goods_seq);
            	   changeQtyAtBasket("nana",goods_seq,newVal);
+           	$(".checkoutBtn").attr("disabled", true);
             } else {
                 newVal = 0;
             }
        }
         $button.parent().find('input').val(newVal);
-        $button.parentsUntil("tr").next().children("span").css({"border": "2px solid teal"});
+     //   $button.parentsUntil("tr").next().children("span").css({"border": "2px solid teal"});
         $button.parentsUntil("tr").next().children("span").text(totalPrice);
        
     });

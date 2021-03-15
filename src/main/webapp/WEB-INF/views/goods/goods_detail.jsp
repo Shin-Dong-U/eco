@@ -137,13 +137,13 @@
                                         <div class="ratting" id="goods_ratting_div"></div>
                                         <div class="price">
                                             <h4>가격:</h4>
-                                            <p>${goodsDetail.PRICE }</p>
+                                            <p class="goods-price">${goodsDetail.PRICE }</p>
                                         </div>
                                         <div class="quantity">
                                             <h4>수량:</h4>
-                                            <div class="qty">
+                                            <div class="qty goodsQty">
                                                 <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
+                                                <input type="text"  class="orderQty" value="1">
                                                 <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                             </div>
                                         </div>
@@ -165,8 +165,9 @@
                                         
                                         
                                         <div class="action">
-                                            <a class="btn" href="#"><i class="fa fa-shopping-cart"></i>장바구니</a>
-                                            <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>바로구매</a>
+                                            <a class="btn addCart" ><i class="fa fa-shopping-cart"></i>장바구니</a>
+                                            <a class="btn buyNow" href="#"><i class="fa fa-shopping-bag"></i>바로구매</a>
+                                         
                                         </div>
                                     </div>
                                 </div>
@@ -345,7 +346,8 @@
         
         <script src="/resources/js/common/common.js"></script>
         <script src="/resources/js/goods/goods.js"></script>
-        
+        <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
+        <script src="${contextPath}/resources/order/checkout.js?ver=3"></script>
         <script>
         $(document).ready(function(){
         	var star = $('#star').val();
@@ -360,6 +362,47 @@
     		selectedPage(pageNum);
     		callGetCommentList();
     	}
+       	
+       	
+
+    
+       	//선택상품 장바구니에 담기
+       	$('.addCart').on("click",function(){
+       		orderinfo={
+    	    		cust_id:"compF",//"${memberId }",
+    	    		qty:$(".orderQty").val(),
+    	    		orderOption:$("#goodsReqOptionSeq option:selected").val(),    	    		
+    	    		goods_seq:"${goodsDetail.GOODS_SEQ }"
+    	    } 
+    	    console.log("장바구니cust_id: "+orderinfo.cust_id);
+    		console.log("장바구니qty: "+orderinfo.qty);
+    		console.log("장바구니orderOption: "+orderinfo.orderOption);
+    		console.log("장바구니goods_seq: "+orderinfo.goods_seq);
+    		basketService.addGoodsAtBasket(orderinfo);
+    		alert("장바구니에 해당상품이 담겼습니다"+orderinfo.cust_id,orderinfo.qty,orderinfo.orderOption,orderinfo.goods_seq);
+    		if(window.confirm('장바구니로 이동하겠습니까??')){
+    			window.location.href = 'http://localhost/orders/basket/list';
+    		}
+       	})
+       	
+       	$('.buyNow').on("click",function(){
+       		console.log('바로구매')
+       		orderinfo={
+    	    		cust_id:"compF",//"${memberId }",
+    	    		qty:$(".orderQty").val(),
+    	    		orderOption:$("#goodsReqOptionSeq option:selected").val(),
+    	    		total_price:Number($(".orderQty").val())*Number("${goodsDetail.PRICE }"),
+    	    		goods_seq:"${goodsDetail.GOODS_SEQ }"
+    	    } 
+		
+		
+		console.log("바로구매cust_id: "+orderinfo.cust_id);
+		console.log("바로구매qty: "+orderinfo.qty);
+		console.log("바로구매orderOption: "+orderinfo.orderOption);
+		console.log("바로구매goods_seq: "+orderinfo.goods_seq);
+		checkoutService.orderNow(orderinfo);
+       	})
+      
         </script>
     </body>
 </html>
