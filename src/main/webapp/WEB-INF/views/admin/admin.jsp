@@ -181,7 +181,8 @@ $("#close-modal").on("click",function(){
 $("#btn_modify").on("click",function(){
 	alert("gg");
 	
-	memberId=$("#memberId").val();
+	//memberId=$("#memberId").val();
+	memberId='compF';
 	adminRest.getCust(
 		memberId,
 		function(memberVO){
