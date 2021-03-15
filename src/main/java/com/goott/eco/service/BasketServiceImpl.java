@@ -51,19 +51,15 @@ public class BasketServiceImpl implements BasketService {
 
 	//상품 장바구니에 추가
 	@Override
-	public int addGoodsAtBasket(HashMap<String,Object> orderInfo) {
-	
-		Long checkExist = basketMapper.checkExistBasket(orderInfo);
-		//Long checkExist = basketMapper.checkExistBasket(cust_id);
+	public int addGoodsAtBasket(String cust_id, Long goods_seq, Long qty) {
+		Long checkExist = basketMapper.checkExistBasket(cust_id);
 		log.info("checkExist: "+checkExist);
 		if(checkExist==null) {
-			int createBasket = basketMapper.createBasket(orderInfo);
-			//int createBasket = basketMapper.createBasket(cust_id);
+			int createBasket = basketMapper.createBasket(cust_id);
 			log.info("createBasket: "+createBasket);
 		}
 		
-		return basketMapper.addGoodsAtBasket(orderInfo);
-		//return basketMapper.addGoodsAtBasket(cust_id,goods_seq,qty);
+		return basketMapper.addGoodsAtBasket(cust_id,goods_seq,qty);
 	}
 
 	@Override
@@ -71,18 +67,6 @@ public class BasketServiceImpl implements BasketService {
 		
 		
 		return basketMapper.changeQtyAtBasket(cust_id,goods_seq,qty);
-	}
-
-	@Override
-	public int countBasketGoods(String cust_id) {
-		
-		int result = basketMapper.countBasketGoods(cust_id);
-		
-		if(result != 0) {
-			return result;
-		}
-		
-		return 0;
 	}
 
 }

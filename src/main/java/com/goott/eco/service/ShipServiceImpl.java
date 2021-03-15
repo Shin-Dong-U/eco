@@ -21,29 +21,10 @@ public class ShipServiceImpl implements ShipService {
 	}
 
 	@Override
-	public int checkShipInfo(ShipVO shipVO) {
-		log.info("service shipVO: "+shipVO);
-//		if(shipVO.getOrder_seq()!=null) {
-//			int updateResult =  shipMapper.updateCheckoutShipInfo(shipVO);
-//			return updateResult;
-//		}else {
-//			int insertShipInfoResult = shipMapper.insertShipInfo(shipVO);
-//			return insertShipInfoResult;
-//		}
+	public int insertShipInfo(ShipVO shipVO) {
 		
-		Long delivery_seq = shipMapper.findShipNum(shipVO);
-		
-		log.info("배송번호: "+delivery_seq);
-		
-		if(delivery_seq != null) {
-			shipVO.setDelivery_seq(delivery_seq);
-			log.info("서비스 shipVO"+shipVO);
-			return shipMapper.updateCheckoutShipInfo(shipVO);
-		}		
-		int insertShipInfoResult = shipMapper.insertShipInfo(shipVO);
-		return insertShipInfoResult;
+		return shipMapper.insertShipInfo(shipVO);
 	}
-
 
 	@Override
 	public List<ShipVO> getPaidShipList() {
@@ -58,9 +39,9 @@ public class ShipServiceImpl implements ShipService {
 	}
 
 	@Override
-	public List<ShipVO> getShipList(Long order_seq) {
-		log.info("check"+order_seq);
-		return shipMapper.getShipList(order_seq);
+	public List<ShipVO> getShipList(String cust_id) {
+		log.info("check"+cust_id);
+		return shipMapper.getShipList(cust_id);
 	}
 
 
