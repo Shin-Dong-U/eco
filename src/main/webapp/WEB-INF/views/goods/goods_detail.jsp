@@ -4,26 +4,20 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <title>E Store - eCommerce HTML Template</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="eCommerce HTML Template Free Download" name="keywords">
-        <meta content="eCommerce HTML Template Free Download" name="description">
-
         <!-- Favicon -->
-        <link href="/resources/template/img/favicon.ico" rel="icon">
-
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
-
-        <!-- CSS Libraries -->
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="/resources/template/lib/slick/slick.css" rel="stylesheet">
-        <link href="/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
-
-        <!-- Template Stylesheet -->
-        <link href="/resources/template/css/style.css" rel="stylesheet">
+		<link href="/resources/template/img/favicon.ico" rel="icon">
+		
+		<!-- Google Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+		
+		<!-- CSS Libraries -->
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+		<link href="/resources/template/lib/slick/slick.css" rel="stylesheet">
+		<link href="/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
+		
+		<!-- Template Stylesheet -->
+		<link href="/resources/template/css/style.css" rel="stylesheet">
     </head>
 
     <body>
@@ -44,13 +38,11 @@
         </div>
         <!-- Top bar End -->
         
-       
-
         <!-- Nav Bar Start -->
         <div class="nav">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-                    <a href="" class="navbar-brand">MENU</a>
+                    <a href="#" class="navbar-brand">MENU</a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -58,26 +50,24 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
                             <a href="index.html" class="nav-item nav-link">Home</a>
-                            <a href="product-list.html" class="nav-item nav-link">Products</a>
-                            <a href="product-detail.html" class="nav-item nav-link active">Product Detail</a>
-                            <a href="cart.html" class="nav-item nav-link">Cart</a>
-                            <a href="checkout.html" class="nav-item nav-link">Checkout</a>
-                            <a href="my-account.html" class="nav-item nav-link">My Account</a>
+                            <a href="product-list.html" class="nav-item nav-link active"></a>
                             <div class="nav-item dropdown">
-                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">상품</a>
                                 <div class="dropdown-menu">
-                                    <a href="wishlist.html" class="dropdown-item">Wishlist</a>
-                                    <a href="login.html" class="dropdown-item">Login & Register</a>
-                                    <a href="contact.html" class="dropdown-item">Contact Us</a>
+                                    <a href="wishlist.html" class="dropdown-item">카테고리 전체</a>
+                                    <a href="wishlist.html" class="dropdown-item">식품</a>
+                                    <a href="contact.html" class="dropdown-item">가구</a>
                                 </div>
                             </div>
+                            <a href="checkout.html" class="nav-item nav-link">Contect Us</a>
+                            
                         </div>
                         <div class="navbar-nav ml-auto">
                             <div class="nav-item dropdown">
-                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
                                 <div class="dropdown-menu">
-                                    <a href="" class="dropdown-item">Login</a>
-                                    <a href="" class="dropdown-item">Register</a>
+                                    <a href="#" class="dropdown-item">Login</a>
+                                    <a href="#" class="dropdown-item">Register</a>
                                 </div>
                             </div>
                         </div>
@@ -98,162 +88,58 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="search">
-                            <input type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="user">
-                            <a href="wishlist.html" class="btn wishlist">
-                                <i class="fa fa-heart"></i>
-                                <span>(0)</span>
-                            </a>
-                            <a href="cart.html" class="btn cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>(0)</span>
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-        <!-- Bottom Bar End --> 
+        <!-- Bottom Bar End -->  
         
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-wrap">
             <div class="container-fluid">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">Home</a></li>
-                    <li class="breadcrumb-item"><a href="">Products</a></li>
-                    <li class="breadcrumb-item active">Product Detail</li>
+                    <li class="breadcrumb-item"><a href="#">메인</a></li>
+                    <li class="breadcrumb-item"><a href="/goods">상품</a></li>
+                    <li class="breadcrumb-item active">상품상세</li>
                 </ul>
             </div>
         </div>
         <!-- Breadcrumb End -->
         
-           <!-- Product List Start -->
-        <div class="product-view">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="product-view-top">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="product-search">
-                                                <input type="email" value="Search">
-                                                <button><i class="fa fa-search"></i></button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="product-short">
-                                                <div class="dropdown">
-                                                    <div class="dropdown-toggle" data-toggle="dropdown">Product short by</div>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Newest</a>
-                                                        <a href="#" class="dropdown-item">Popular</a>
-                                                        <a href="#" class="dropdown-item">Most sale</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="product-price-range">
-                                                <div class="dropdown">
-                                                    <div class="dropdown-toggle" data-toggle="dropdown">Product price range</div>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">$0 to $50</a>
-                                                        <a href="#" class="dropdown-item">$51 to $100</a>
-                                                        <a href="#" class="dropdown-item">$101 to $150</a>
-                                                        <a href="#" class="dropdown-item">$151 to $200</a>
-                                                        <a href="#" class="dropdown-item">$201 to $250</a>
-                                                        <a href="#" class="dropdown-item">$251 to $300</a>
-                                                        <a href="#" class="dropdown-item">$301 to $350</a>
-                                                        <a href="#" class="dropdown-item">$351 to $400</a>
-                                                        <a href="#" class="dropdown-item">$401 to $450</a>
-                                                        <a href="#" class="dropdown-item">$451 to $500</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-         <!-- Product List Start End -->
-        
-        
         <!-- Product Detail Start -->
         <div class="product-detail">
+        	
+        	<!-- hidden field -->
+        	<input type="hidden" id="memberId" name="memberId" value="${memberId }">
+        	<input type="hidden" id="pageNum" name="pageNum" value="1">
+        	<input type="hidden" id="goodsSeq" name="goodsSeq" value="${goodsDetail.GOODS_SEQ }">
+        	<input type="hidden" id="star" name="star" value="${goodsDetail.STAR }">
+        
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="product-detail-top">
                             <div class="row align-items-center">
                                 <div class="col-md-5">
-                                
-                                <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div id="custCarousel" class="carousel slide" data-ride="carousel" align="center">
-                <!-- slides -->
-                <div class="carousel-inner">
-                    <div class="carousel-item active"> <img src="/resources/image/5shoes.jpg" alt="shoes"> </div>
-                    <div class="carousel-item"> <img src="/resources/image/5_shoes_black.jpg" alt="shoes"> </div>
-                    <div class="carousel-item"> <img src="/resources/image/5_shoes_black2.jpg" alt="shoes"> </div>
-                    <div class="carousel-item"> <img src="/resources/image/5_shoes_black3.jpg" alt="shoes"> </div>
-                    <div class="carousel-item"> <img src="/resources/image/5_shoes_white.jpg" alt="shoes"> </div>
-                    <div class="carousel-item"> <img src="/resources/image/5_shoes_white1.jpg" alt="shoes"> </div>
-                    <div class="carousel-item"> <img src="/resources/image/5_shoes_white2.jpg" alt="shoes"> </div>
-                    <div class="carousel-item"> <img src="/resources/image/5_shoes_white3.jpg" alt="shoes"> </div>
-                    
-                </div> <!-- Left right --> <a class="carousel-control-prev" href="#custCarousel" data-slide="prev"> <span class="carousel-control-prev-icon"></span> </a> <a class="carousel-control-next" href="#custCarousel" data-slide="next"> <span class="carousel-control-next-icon"></span> </a> <!-- Thumbnails -->
-                <ol class="carousel-indicators list-inline">
-                    <li class="list-inline-item active"> <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#custCarousel"> <img src="/resources/image/5shoes.jpg" class="img-fluid"> </a> </li>
-                    <li class="list-inline-item"> <a id="carousel-selector-1" data-slide-to="1" data-target="#custCarousel"> <img src="/resources/image/5_shoes_black.jpg" class="img-fluid"> </a> </li>
-                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2" data-target="#custCarousel"> <img src="/resources/image/5_shoes_black2.jpg" class="img-fluid"> </a> </li>
-                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="3" data-target="#custCarousel"> <img src="/resources/image/5_shoes_black3.jpg" class="img-fluid"> </a> </li>
-                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="4" data-target="#custCarousel"> <img src="/resources/image/5_shoes_white.jpg" class="img-fluid"> </a> </li>
-                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="5" data-target="#custCarousel"> <img src="/resources/image/5_shoes_white1.jpg" class="img-fluid"> </a> </li>
-                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="6" data-target="#custCarousel"> <img src="/resources/image/5_shoes_white2.jpg" class="img-fluid"> </a> </li>
-                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="7" data-target="#custCarousel"> <img src="/resources/image/5_shoes_white3.jpg" class="img-fluid"> </a> </li>
-                    
-                </ol>
-            </div>
-        </div>
-    </div>
-</div>
-                                                                                                                                                                                                
-                                  <!--  <div class="product-slider-single normal-slider">
-                                        <img src="/resources/template/img/product-1.jpg" alt="Product Image">
-                                        <img src="/resources/template/img/product-3.jpg" alt="Product Image">
-                                        <img src="/resources/template/img/product-5.jpg" alt="Product Image">
-                                        <img src="/resources/template/img/product-7.jpg" alt="Product Image">
-                                        <img src="/resources/template/img/product-9.jpg" alt="Product Image">
-                                        <img src="/resources/template/img/product-10.jpg" alt="Product Image">
+                                    <div class="product-slider-single normal-slider">
+                                    	<c:forEach var="thumbList" items="${thumbList }">
+                                        <img src="${thumbList.IMG_URL}" alt="Product Image">
+                                        </c:forEach>
                                     </div>
                                     <div class="product-slider-single-nav normal-slider">
-                                        <div class="slider-nav-img"><img src="/resources/template/img/product-1.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="/resources/template/img/product-3.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="/resources/template/img/product-5.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="/resources/template/img/product-7.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="/resources/template/img/product-9.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="/resources/template/img/product-10.jpg" alt="Product Image"></div>
-                                    </div> -->
+                                    	<c:forEach var="thumbList" items="${thumbList }">
+                                        <div class="slider-nav-img"><img src="${thumbList.IMG_URL}" alt="Product Image"></div>
+                                        </c:forEach>
+                                    </div>
                                 </div>
                                 <div class="col-md-7">
-                                    <div class="product-content">
-                                        <div class="title"><h2>${goodsDetail.GOODS_NAME}</h2></div>
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
+                                    <div class="product-content" style="left: 70px;">
+                                        <div class="title"><h2>${goodsDetail.GOODS_NAME }</h2></div>
+                                        <div class="ratting" id="goods_ratting_div"></div>
+                                        <div class="price">
+                                            <h4>가격:</h4>
+                                            <p>${goodsDetail.PRICE }</p>
                                         </div>
-                                         <div class="quantity">
+                                        <div class="quantity">
                                             <h4>수량:</h4>
                                             <div class="qty">
                                                 <button class="btn-minus"><i class="fa fa-minus"></i></button>
@@ -261,55 +147,26 @@
                                                 <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                             </div>
                                         </div>
-                                        
-                                                                   
-                                        <div class="p-Option">
+                                        <c:if test="${goodsDetail.REQ_OPTION eq 'Y' }">
+                                        <div class="p-size">
                                             <h4>옵션:</h4>
-                                            <div class="btn-group btn-group-sm">                                                                                     
-                                             <div class="col-md-4">                    
-                                             <div class="pull-right">	                                      
-	                                         	<select class="goodsOption" name="goodsOption">	                                                 
-	                                                   <option value= "">필수 옵션</option>
-	                                                   <c:forEach var="optionList" items="${optionList }">                                                        
-                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>
-                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
-                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
-                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
-                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
-                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
-                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
-                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
-                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
-                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>
-                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>	 
-                                                       <option value= "${optionList.GOODS_REQ_OPTION_SEQ}">${optionList.OPTION_NAME}</option>
-                                                       </c:forEach>	 	                                                         	                                                         	 	                                                    	                                                         	                                                           
-	                                            </select>                      	                                                 
-                                        </div>
-                                       </div>
-                                        </div>                                  
-                  <!--                       <div class="p-color">
-                                            <h4>색상:</h4>
-                                             <div class="btn-group btn-group-sm">
-                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-												<div class="btn-group btn-group-toggle" data-toggle="buttons">
-													  <label class="btn btn-secondary active">
-													    <input type="radio" name="options" id="option1" autocomplete="off" checked>흰색
-													  </label>
-													  <label class="btn btn-secondary">
-													    <input type="radio" name="options" id="option2" autocomplete="off">검은색
-													  </label>
-												
-												</div>
                                             
-                                                 <button type="radio" class="btn" name="color">흰색</button>
-                                                <button type="radio" class="btn" name="color">검은색</button>
-                                                <button type="radio" class="btn" name="color">회색</button> 
-                                            </div> 
-                                        </div> -->
+                                            <div class="btn-group dropdown">
+                                                <select class="form-control nav-link dropdown-toggle" id="goodsReqOptionSeq" name="goodsReqOptionSeq" style="border-color:rgb(255, 111, 97)">
+                                                	<option>필수선택</option>
+                                                	<c:forEach var="optionList" items="${optionList }">
+                                                    <option value="${optionList.GOODS_REQ_OPTION_SEQ }">${optionList.OPTION_NAME } / + ${optionList.PRICE } 원</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        </c:if> 
+                                        
+                                        
+                                        
                                         <div class="action">
-                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                            <a class="btn" href=""><i class="fa fa-shopping-bag"></i>Buy Now</a>
+                                            <a class="btn" href="#"><i class="fa fa-shopping-cart"></i>장바구니</a>
+                                            <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>바로구매</a>
                                         </div>
                                     </div>
                                 </div>
@@ -320,19 +177,22 @@
                             <div class="col-lg-12">
                                 <ul class="nav nav-pills nav-justified">
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="pill" href="" >상품상세</a>
+                                        <a class="nav-link active" data-toggle="pill" href="#description">상품설명</a>
                                     </li>
-           
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="pill" href="#reviews">상품평</a>
+                                        <a class="nav-link" href="#reviews">리뷰</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="pill" href="#specification">배송/교환/반품 안내</a>
+                                    </li>
+                                    
                                 </ul>
 
                                 <div class="tab-content">
                                     <div id="description" class="container tab-pane active">
-                                        <h4>상품상세 설명</h4>
+                                        <h4>상품 설명</h4>
                                         <p>
-                                            ${goods.goodsDetail.GOODS_DETAIL}
+                                            ${goodsDetail.GOODS_DETAIL } 
                                         </p>
                                     </div>
                                     <div id="specification" class="container tab-pane fade">
@@ -345,317 +205,115 @@
                                             <li>Lorem ipsum dolor sit amet</li>
                                         </ul>
                                     </div>
-                                    <div id="reviews" class="container tab-pane fade">
-                                        <div class="reviews-submitted">
-                                            <div class="reviewer">Phasellus Gravida - <span>01 Jan 2020</span></div>
-                                            <div class="ratting">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                            <p>
-                                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-                                            </p>
+                                </div>
+                                <br/><br/><br/>
+                                <div class="tab-content"> 
+                                    <div id="reviews" class="container">
+                                        <div class="container" id="commentDiv">
                                         </div>
-                                        <div class="reviews-submit">
+                                        
+                                        <!-- Pagination -->
+										<div class="col-md-12" id="pageDiv"></div>
+										
+                                        <div class="reviews-submit" id="write_review_div">
                                             <h4>Give your Review:</h4>
-                                            <div class="ratting">
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
+                                            <div class="nav-item dropdown">
+                                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="comment_insert_star_a" data-selected-star="5">
+                                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" onclick="selectedStar('insert', 5);"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a>
+                                                    <a class="dropdown-item" onclick="selectedStar('insert', 4);"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i></a>
+                                                    <a class="dropdown-item" onclick="selectedStar('insert', 3);"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></a>
+                                                    <a class="dropdown-item" onclick="selectedStar('insert', 2);"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></a>
+                                                    <a class="dropdown-item" onclick="selectedStar('insert', 1);"><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></a>
+                                                </div>
                                             </div>
+                                            
                                             <div class="row form">
-                                                <div class="col-sm-6">
-                                                    <input type="text" placeholder="Name">
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <input type="email" placeholder="Email">
+                                                <div class="col-sm-12">
+                                                    <textarea placeholder="Review" id="comment_memo"></textarea>
                                                 </div>
                                                 <div class="col-sm-12">
-                                                    <textarea placeholder="Review"></textarea>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <button>Submit</button>
+                                                    <button onclick="commentInsert();">Submit</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        <div class="product">
-                            <div class="section-header">
-                                <h1>Related Products</h1>
-                            </div>
 
-                            <div class="row align-items-center product-slider product-slider-3">
-                                <div class="col-lg-3">
-                                    <div class="product-item">
-                                        <div class="product-title">
-                                            <a href="">Product Name</a>
-                                            <div class="ratting">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-image">
-                                            <a href="product-detail.html">
-                                                <img src="/resources/template/img/product-10.jpg" alt="Product Image">
-                                            </a>
-                                            <div class="product-action">
-                                                <a href=""><i class="fa fa-cart-plus"></i></a>
-                                                <a href=""><i class="fa fa-heart"></i></a>
-                                                <a href=""><i class="fa fa-search"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="product-price">
-                                            <h3><span>$</span>99</h3>
-                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="product-item">
-                                        <div class="product-title">
-                                            <a href="">Product Name</a>
-                                            <div class="ratting">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-image">
-                                            <a href="product-detail.html">
-                                                <img src="/resources/template/img/product-8.jpg" alt="Product Image">
-                                            </a>
-                                            <div class="product-action">
-                                                <a href=""><i class="fa fa-cart-plus"></i></a>
-                                                <a href=""><i class="fa fa-heart"></i></a>
-                                                <a href=""><i class="fa fa-search"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="product-price">
-                                            <h3><span>$</span>99</h3>
-                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="product-item">
-                                        <div class="product-title">
-                                            <a href="">Product Name</a>
-                                            <div class="ratting">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-image">
-                                            <a href="product-detail.html">
-                                                <img src="/resources/template/img/product-6.jpg" alt="Product Image">
-                                            </a>
-                                            <div class="product-action">
-                                                <a href=""><i class="fa fa-cart-plus"></i></a>
-                                                <a href=""><i class="fa fa-heart"></i></a>
-                                                <a href=""><i class="fa fa-search"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="product-price">
-                                            <h3><span>$</span>99</h3>
-                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="product-item">
-                                        <div class="product-title">
-                                            <a href="">Product Name</a>
-                                            <div class="ratting">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-image">
-                                            <a href="product-detail.html">
-                                                <img src="/resources/template/img/product-4.jpg" alt="Product Image">
-                                            </a>
-                                            <div class="product-action">
-                                                <a href=""><i class="fa fa-cart-plus"></i></a>
-                                                <a href=""><i class="fa fa-heart"></i></a>
-                                                <a href=""><i class="fa fa-search"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="product-price">
-                                            <h3><span>$</span>99</h3>
-                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="product-item">
-                                        <div class="product-title">
-                                            <a href="">Product Name</a>
-                                            <div class="ratting">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-image">
-                                            <a href="product-detail.html">
-                                                <img src="/resources/template/img/product-2.jpg" alt="Product Image">
-                                            </a>
-                                            <div class="product-action">
-                                                <a href=""><i class="fa fa-cart-plus"></i></a>
-                                                <a href=""><i class="fa fa-heart"></i></a>
-                                                <a href=""><i class="fa fa-search"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="product-price">
-                                            <h3><span>$</span>99</h3>
-                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                    </div>
+                    </div>   
+  
                     
                     <!-- Side Bar Start -->
                     <div class="col-lg-4 sidebar">
-                        <div class="sidebar-widget category">
-                            <h2 class="title">Category</h2>
-                            <nav class="navbar bg-right">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href=""><i class="fa fa-female"></i>Fashion & Beauty</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href=""><i class="fa fa-child"></i>Kids & Babies Clothes</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href=""><i class="fa fa-tshirt"></i>Men & Women Clothes</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href=""><i class="fa fa-mobile-alt"></i>Gadgets & Accessories</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href=""><i class="fa fa-microchip"></i>Electronics & Accessories</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                        <div class="sidebar-widget widget-slider">
+                            <h2 class="title"></h2>
+                            <!-- <div class="sidebar-slider normal-slider"> 액션 슬라이드-->
+                            <div>
+                                <div class="product-item">
+                                    <div class="product-image">
+                                        <a href="product-detail.html">
+                                            <img src="/resources/image/side_menu/어디지.png" alt="Product Image" style="overflow: hidden;height:400px;">
+                                        </a>   
+                                    </div>
+                                </div>
+
+                                <div class="product-item">
+                                    <div class="product-image">
+                                        <a href="product-detail.html">
+                                            <img src="/resources/image/side_menu/풍경.jpg" alt="Product Image" style="overflow: hidden;height:400px;">
+                                        </a>   
+                                    </div>
+                                </div>
+
+                                <div class="product-item">
+                                    <div class="product-image">
+                                        <a href="product-detail.html">
+                                            <img src="/resources/image/side_menu/북극곰과팽귄.jpg" alt="Product Image" style="overflow: hidden;height:400px;">
+                                        </a>   
+                                    </div>
+                                </div>
+
+                                <div class="product-item">
+                                    <div class="product-image">
+                                        <a href="product-detail.html">
+                                            <img src="/resources/image/side_menu/WWF북극곰.png" alt="Product Image" style="overflow: hidden;height:400px;">
+                                        </a>   
+                                    </div>
+                                </div>
+                                
+                                <div class="product-item">
+                                    <div class="product-image">
+                                        <a href="product-detail.html">
+                                            <img src="/resources/image/side_menu/WWF환경파괴.png" alt="Product Image" style="overflow: hidden;height:400px;">
+                                        </a>   
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
+                        <div class="sidebar-widget brands">
+                            <h2 class="title">멋진 단체들</h2><br/>
+                            <ul>
+                                <li><a href="#">WWF </a></li>
+                                <li><a href="#">환경부 </a></li>
+                                <li><a href="#">GREEN PEACE</a></li>
+                                <li><a href="#">푸른아시아</a></li>
+                            </ul>
+                        </div>
+                    </div>
                     <!-- Side Bar End -->
                 </div>
             </div>
         </div>
         <!-- Product Detail End -->
         
-        <!-- Brand Start -->
-        <div class="brand">
-            <div class="container-fluid">
-                <div class="brand-slider">
-                    <div class="brand-item"><img src="/resources/template/img/brand-1.png" alt=""></div>
-                    <div class="brand-item"><img src="/resources/template/img/brand-2.png" alt=""></div>
-                    <div class="brand-item"><img src="/resources/template/img/brand-3.png" alt=""></div>
-                    <div class="brand-item"><img src="/resources/template/img/brand-4.png" alt=""></div>
-                    <div class="brand-item"><img src="/resources/template/img/brand-5.png" alt=""></div>
-                    <div class="brand-item"><img src="/resources/template/img/brand-6.png" alt=""></div>
-                </div>
-            </div>
-        </div>
-        <!-- Brand End -->
         
-        <!-- Footer Start -->
-        <div class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-widget">
-                            <h2>Get in Touch</h2>
-                            <div class="contact-info">
-                                <p><i class="fa fa-map-marker"></i>123 E Store, Los Angeles, USA</p>
-                                <p><i class="fa fa-envelope"></i>email@example.com</p>
-                                <p><i class="fa fa-phone"></i>+123-456-7890</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-widget">
-                            <h2>Follow Us</h2>
-                            <div class="contact-info">
-                                <div class="social">
-                                    <a href=""><i class="fab fa-twitter"></i></a>
-                                    <a href=""><i class="fab fa-facebook-f"></i></a>
-                                    <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                    <a href=""><i class="fab fa-instagram"></i></a>
-                                    <a href=""><i class="fab fa-youtube"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-widget">
-                            <h2>Company Info</h2>
-                            <ul>
-                                <li><a href="">About Us</a></li>
-                                <li><a href="">Privacy Policy</a></li>
-                                <li><a href="">Terms & Condition</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-widget">
-                            <h2>Purchase Info</h2>
-                            <ul>
-                                <li><a href="">Pyament Policy</a></li>
-                                <li><a href="">Shipping Policy</a></li>
-                                <li><a href="">Return Policy</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row payment align-items-center">
-                    <div class="col-md-6">
-                        <div class="payment-method">
-                            <h2>We Accept:</h2>
-                            <img src="/resources/template/img/payment-method.png" alt="Payment Method" />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="payment-security">
-                            <h2>Secured By:</h2>
-                            <img src="/resources/template/img/godaddy.svg" alt="Payment Security" />
-                            <img src="/resources/template/img/norton.svg" alt="Payment Security" />
-                            <img src="/resources/template/img/ssl.svg" alt="Payment Security" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End -->
+        
+        
         
         <!-- Footer Bottom Start -->
         <div class="footer-bottom">
@@ -674,7 +332,7 @@
         <!-- Footer Bottom End -->       
         
         <!-- Back to Top -->
-        <a href="" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
         
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -684,5 +342,24 @@
         
         <!-- Template Javascript -->
         <script src="/resources/template/js/main.js"></script>
+        
+        <script src="/resources/js/common/common.js"></script>
+        <script src="/resources/js/goods/goods.js"></script>
+        
+        <script>
+        $(document).ready(function(){
+        	var star = $('#star').val();
+        	var rattingHtml = makeStarIconHtml(star);
+        	$('#goods_ratting_div').html(rattingHtml);
+        	
+        	movePage(1);
+     	});
+        
+       	//리뷰 페이지 이동 
+    	function movePage(pageNum){
+    		selectedPage(pageNum);
+    		callGetCommentList();
+    	}
+        </script>
     </body>
 </html>
