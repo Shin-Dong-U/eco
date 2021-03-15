@@ -64,7 +64,7 @@ public class GoodsServiceimpl implements GoodsService{
 
 	 //1.기존댓글정보가져오기 2. 댓글 insert 3.페이징처리
 	@Override
-	public Map<String,Object> goodsComment(int goodsSeq, int start){
+	public List<Map<String,Object>> goodsComment(int goodsSeq, int start){
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("goods_seq", goodsSeq);
 		param.put("start", start);

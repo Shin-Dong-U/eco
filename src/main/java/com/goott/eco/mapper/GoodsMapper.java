@@ -25,5 +25,5 @@ public interface GoodsMapper {
 	 * 상품평
 	 * 필수 파라미터 int goods_seq, int start (key 변수명)    
 	 */
-	public Map<String,Object> goodsComment(Map<String, Object> param);
+	public List<Map<String,Object>> goodsComment(Map<String, Object> param);
 }

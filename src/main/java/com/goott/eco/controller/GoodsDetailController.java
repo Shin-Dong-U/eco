@@ -1,5 +1,6 @@
 package com.goott.eco.controller;
 
+import java.util.List;
 //import java.util.List;
 import java.util.Map;
 
@@ -51,18 +52,19 @@ public class GoodsDetailController {
     //1.기존댓글정보가져오기 2. 댓글 insert 3.페이징처리
 		@GetMapping(value="/reply/{goods_seq}/{start}",
 				produces= {"application/json; charset=UTF-8"})
-		public ResponseEntity<Map<String,Object>> replyGoodsComment(
+		public ResponseEntity<List<Map<String,Object>>> replyGoodsComment(
 				@PathVariable("goods_seq") int goodsSeq,
 				@PathVariable("start") int start){
 			
 			log.info("댓글상세 goods_seq:"+goodsSeq);
 			log.info("댓글페이징시작번호 :"+start);
 			
-			Map<String,Object> result = goodsService.goodsComment(goodsSeq, start);
+			List<Map<String,Object>> result = goodsService.goodsComment(goodsSeq, start);
 			log.info("jsp로 넘겨질 데이터 : "+result);
 			
 			return new ResponseEntity<>(result,HttpStatus.OK);
 		}
+		
 		
 		
 		

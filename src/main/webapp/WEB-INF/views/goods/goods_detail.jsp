@@ -397,8 +397,9 @@
                                             <li>Lorem ipsum dolor sit amet</li>
                                         </ul>
                                     </div>
+                                    
                                     <div id="reviews" class="container tab-pane fade">
-                                        <div class="reviews-submitted">
+                                        <div class="reviews-submitted ">
                                             <div class="reviewer">Phasellus Gravida - <span>01 Jan 2020</span></div>
                                             <div class="ratting">
                                                 <i class="fa fa-star"></i>
@@ -436,6 +437,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -716,19 +718,19 @@
           <script src="${contextPath}/resources/basket/basket.js?ver=8"></script>
 		<script src="${contextPath}/resources/basket/transferTime.js"></script>
 		<script src="${contextPath}/resources/order/checkout.js?ver=10"></script>
-		<script src="${contextPath}/resources/goods/goodsDetail.js?ver=11"></script>
+		<script src="${contextPath}/resources/goods/goodsDetail.js?ver=12"></script>
     </body>
     
       <script>
     $(document).ready(function(){
     	var goods_seq= 5; //세션으로 받아서 주입
     	var start= 0;
-    	console.log("goods_seq"+"${goods_req_option.optionList[0].GOODS_SEQ}");
-    	renderGoodsInfo(goods_seq);
-    	putGoodsName(goods_seq);
-    	putGoodsDetail(goods_seq);
-    	putGoodsPrice(goods_seq);
-    	replyGoodsComment(goodsSeq,start);
+    	//console.log("goods_seq"+"${goods_req_option.optionList[0].GOODS_SEQ}");
+    	//renderGoodsInfo(goods_seq);
+    	//putGoodsName(goods_seq);
+    	//putGoodsDetail(goods_seq);
+    	//putGoodsPrice(goods_seq);
+    	replyGoodsComment(goods_seq,start); //선언된 변수와 매개변수가 변수명이 같아야된다. *주의*
     });
      var cust_id = "compF"; 
      
@@ -738,6 +740,33 @@
 		 console.log("in replyGoodsComment");
 		 goodsDetailService.replyGoodsComment(goodsSeq,start,function(replyInfo){
 			console.log(replyInfo);
+			var reviewsSubmitted=$(".reviews-submitted");			
+			var submittedReview=""	
+			for(var i=0,len=replyInfo.length||0;i<len;i++){
+				 var starStr = "";
+		         var starCnt =replyInfo[i].STAR;
+		       
+		          for(var k=0; k<starCnt;k++){
+		          starStr+='<i class="fa fa-star"></i>'
+		          }
+		          for(var j=0; j<(5-starCnt); j++){
+		              starStr+='<i class="far fa-star"></i>'
+		          }
+				
+				
+				submittedReview+='<div class="reviewer">'+replyInfo[i].CUST_ID+'<span> '+replyInfo[i].REGDATE+'</span></div>'
+            	+'<div class="ratting">'	
+            	+starStr
+            	+'</div>'
+           		+'<p>'
+            	+    replyInfo[i].MEMO
+            	+'</p>'
+            	
+			}	
+            	
+			
+                reviewsSubmitted.html(submittedReview);
+			
 		 })
 	 }
      
@@ -760,7 +789,7 @@
      //상품제품가격 get_goods_seq
      function putGoodsPrice(goods_seq){
     	 goodsDetailService.getGoodsDetailInfo(5,function(goodsInfo){
-    		 alert("I'm in");
+    		
     		 var putGoodsPrice = goodsInfo.goodsDetail.PRICE;
     		 var putGoodsRender = $("#p_price");
     		 var putGoodsStr="";

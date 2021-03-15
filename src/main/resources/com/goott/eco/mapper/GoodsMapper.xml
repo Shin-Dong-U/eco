@@ -9,6 +9,30 @@
 		INSERT INTO TB_TEST VALUES(#{no}, #{val})
 	</insert>
 	
+
+	<!-- 평점 comment_ sql -->
+	<!-- cmt테이블에 insert -->
+	<insert id="goodsReply">
+		INSERT INTO eco.goods_comment 
+		VALUES(#{goods_seq},#{cust_id},#{star},DEFAULT,SEQ_GOODS_COMMENT_SEQ.nextval,#{memo},null)
+	</insert>
+	
+	<!-- 해당 댓글에 대한 comment count 가져오기-->
+	<select id="goodsComment" parameterType="map" resultType="map">
+		SELECT
+			  GC.GOODS_SEQ, GC.CUST_ID, GC.STAR, GC.MEMO, TO_CHAR(GC.REGDATE, 'YYYYMMDD') AS REGDATE
+			, C.NAME
+			, G.GOODS_NAME
+		FROM GOODS_COMMENT GC
+			INNER JOIN CUST C ON GC.CUST_ID = C.MEMBERID
+			INNER JOIN GOODS G ON GC.GOODS_SEQ = G.GOODS_SEQ
+		WHERE 
+			GC.GOODS_SEQ = #{goods_seq}
+		ORDER BY REGDATE DESC
+		OFFSET #{start} rows FETCH FIRST 5 ROWS ONLY
+	</select>
+	
+	
 	<!-- 옵션 -->
 	<select id="goodsDetail" parameterType="int" resultType="map">
 		SELECT
@@ -83,19 +107,7 @@
 			GOODS_SEQ = #{goods_seq}
 	</select>
 	
-	<select id="goodsComment" parameterType="map" resultType="map">
-		SELECT
-			  GC.GOODS_SEQ, GC.CUST_ID, GC.STAR, GC.MEMO, TO_CHAR(GC.REGDATE, 'YYYYMMDD') AS REGDATE
-			, C.NAME
-			, G.GOODS_NAME
-		FROM GOODS_COMMENT GC
-			INNER JOIN CUST C ON GC.CUST_ID = C.MEMBERID
-			INNER JOIN GOODS G ON GC.GOODS_SEQ = G.GOODS_SEQ
-		WHERE 
-			GC.GOODS_SEQ = #{goods_seq}
-		ORDER BY REGDATE DESC
-		OFFSET #{start} rows FETCH FIRST 5 ROWS ONLY
-	</select>
+	
 	
 	<select id="insertGoods" statementType="CALLABLE" parameterType="com.goott.eco.domain.GoodsVO">
 		{call PROC_GOODS_INS(
