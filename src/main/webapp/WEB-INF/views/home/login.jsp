@@ -14,7 +14,7 @@
         <!-- Breadcrumb End -->
         
         <!-- Login Start -->
-        <form id="loginForm" method="post" action="/login">
+        <form id="loginForm" method="post" action="/home/login">
         <div class="login">
             <div class="container-fluid">
                 <div class="row">
@@ -52,6 +52,10 @@
         
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
+var msg="${msg}"
+if(msg != ""){alert(msg);}
+
+/*
 window.Kakao.init("4b05fd2d74e9a888964b8cb8e9cfcbb6");
 
 function kakaoLogin(){
@@ -69,6 +73,7 @@ function kakaoLogin(){
 		}
 });
 }
+*/
 </script>   
         
 	<%@include file="../include/footer.jsp" %>

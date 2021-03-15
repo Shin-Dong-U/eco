@@ -67,8 +67,8 @@ var adminRest=(function(){
 			contentType:"application/json; charset=UTF-8",
 			
 			success:function(data){
-				//console.log("data: "+data[0]);
-				//alert("data: "+data[0]);
+				//console.log("data: "+data);
+				//alert("data: "+data[0].custVO.memberId);
 				callback(data);
 				console.log("adminRest.ajax실행중 getAdminList 성공");
 			},
@@ -91,7 +91,6 @@ var adminRest=(function(){
 			success:function(data){
 				console.log(data);
 				callback(data["memberVO"]);
-//alert("data타입정의"+data["memberVO"]);
 				console.log("restCust.ajax실행중 getCust 완료");
 			},
 			error:function(xhr,status,err){
@@ -100,12 +99,61 @@ var adminRest=(function(){
 		});	//end ajax
 	}	//end function getCust
 	
+	/* 업체 승인  */
+	function confirmCompany(memberId,loginId, csrf, callback, error){
+		$.ajax({
+			type:"post",
+			url:"/admin/confirmComp/"+memberId+"/"+loginId,
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
+			
+			success:function(data){
+				console.log(data);
+				callback(data);
+			},
+			
+			error:function(xhr,status,err){
+				console.log("오류");
+			}
+		});	//end ajax
+	}	//end function confirmCompany
+	
+	/* 업체 승인  */
+	function confirmAdmin(adminVO, loginId, csrf, callback, error){
+		$.ajax({
+			type:"post",
+			url:"/admin/confirmAdmin/"+loginId,
+			data:JSON.stringify(adminVO),
+        	contentType: "application/json",
+        	
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
+			
+			success:function(data){
+				console.log(data);
+				callback(data);
+			},
+			
+			error:function(xhr,status,err){
+				console.log("오류");
+			}
+		});	//end ajax
+	}	//end function confirmCompany
+	
+	
+	
+	
+	
 	
 return{
 	getCustList:getCustList,
 	getCompanyList:getCompanyList,
 	getAdminList:getAdminList,
 	getCust:getCust,
+	confirmCompany:confirmCompany,
+	confirmAdmin:confirmAdmin,
 };
 
 })();

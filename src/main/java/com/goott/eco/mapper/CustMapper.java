@@ -16,6 +16,9 @@ public interface CustMapper {
 	/* 특정 회원정보 가져오기 */
 	public CustVO getCust(String memberId);
 	
+	/* 특정 회원정보 가져오기 */
+	public String getCustName(String memberId);
+	
 	/* 특정 회원 권한  가져오기 */
 	public CustVO getCustAuth(String memberId);
 	

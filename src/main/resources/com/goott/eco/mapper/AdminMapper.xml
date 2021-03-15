@@ -4,33 +4,81 @@
 
 <mapper namespace="com.goott.eco.mapper.AdminMapper">
 
+	<!-- Cust Map 지정 -->
+	<resultMap type="com.goott.eco.domain.CustVO" id="custMap">
+		<result property="memberId" column="memberId" />
+		<result property="password" column="password" />
+		<result property="name" column="name" />
+		<result property="phone" column="phone" />
+		<result property="email" column="email" />
+		<result property="sex" column="sex" />
+		<result property="addr_post" column="addr_post" />
+		<result property="addr_city" column="addr_city" />
+		<result property="addr_detail" column="addr_detail" />
+		<result property="birth" column="birth" />
+		<result property="company_yn" column="company_yn" />
+		<result property="member_yn" column="member_yn" />
+		<result property="regDate" column="regDate" />
+		<result property="regUser" column="regUser" />
+		<result property="editDate" column="editDate" />
+		<result property="editUser" column="editUser" />
+		<result property="myTree" column="myTree" />
+		<result property="myMil" column="myMil" />
+		<result property="bar_status" column="bar_status" />
+		<result property="admin_yn" column="admin_yn" />
+		<result property="seed_yn" column="seed_yn" />
+	</resultMap>
+	
+	<!-- Company Map 지정 -->
+	<resultMap type="com.goott.eco.domain.CompanyVO" id="compMap">
+		<result property="cust_seq" column="cust_seq" />
+		<result property="cust_id" column="cust_id" />
+		<result property="comp_name" column="comp_name" />
+		<result property="corp_num" column="corp_num" />
+		<result property="addr_post" column="addr_post" />
+		<result property="addr_city" column="addr_city" />
+		<result property="addr_detail" column="addr_detail" />
+		<result property="confirm_yn" column="confirm_yn" />
+		<result property="regDate" column="regDate" />
+		<result property="regUser" column="regUser" />
+		<result property="editDate" column="editDate" />
+		<result property="editUser" column="editUser" />
+		<result property="memo" column="memo" />
+	</resultMap>
+
+	<!-- admin Map 지정 -->
+	<resultMap type="com.goott.eco.domain.AdminVO" id="adminMap">
+		<result property="cust_id" column="cust_id" />
+		<result property="name" column="name" />
+		<result property="acc_level" column="acc_level" />
+		<result property="regDate" column="regDate" />
+		<result property="regUser" column="regUser" />
+		<result property="editDate" column="editDate" />
+		<result property="editUser" column="editUser" />
+	</resultMap>
+	
+	<!-- admin Map 지정 -->
+	<resultMap type="com.goott.eco.domain.MemberVO" id="memberMap">
+		<collection property="custVO" resultMap="custMap" />
+		<collection property="compVO" resultMap="compMap" />
+		<collection property="adminVO" resultMap="adminMap" />
+	</resultMap>
 
 	<!-- 모든 관리자 정보 가져오기 -->
-	<select id="getAdminList" resultType="java.util.Map">
+	<select id="getAdminList" resultMap="memberMap">
 		SELECT /*+ Index_DESC(a regIndex) */ 
-		a.memberId, a.password, a.name, a.phone , a.email, a.addr_post,
-		a.addr_city, a.addr_detail, a.birth, a.sex, a.company_yn,
-		to_char(a.regDate, 'YYYY-MM-DD')as regDate,
-		to_char(a.editDate, 'YYYY-MM-DD') as editDate,
-		a.editUser, a.regUser, a.member_yn, a.admin_yn,
-		a.myTree, a.myMil, a.bar_status,
-		b.acc_level 
+		a.*, b.*
 		FROM eco.cust a INNER JOIN eco.admin b
 		ON (a.memberId = b.cust_Id)
 		WHERE admin_yn='Y'
 		<!-- OFFSET #{startRowno} ROWS FETCH FIRST #{amount} ROWS ONLY -->
 	</select>
 	
+	
 	<!-- 모든 업체 정보 가져오기 -->
-	<select id="getCompanyList" resultType="java.util.Map">
+	<select id="getCompanyList" resultMap="memberMap">
 		SELECT /*+ Index_DESC(a regIndex) */ 
-		a.memberId, a.password, a.name, a.phone , a.email, a.addr_post,
-		a.addr_city, a.addr_detail, a.birth, a.sex, a.company_yn,
-		to_char(a.regDate, 'YYYY-MM-DD')as regDate,
-		to_char(a.editDate, 'YYYY-MM-DD') as editDate,
-		a.editUser, a.regUser, a.member_yn, a.admin_yn,
-		a.myTree, a.myMil, a.bar_status,
-		b.comp_seq, b.comp_name, b.corp_num, b.confirm_yn, b.memo
+		a.*, b.*
 		FROM eco.cust a INNER JOIN eco.company b
 		ON (a.memberId = b.cust_Id)
 		where company_yn='Y'
@@ -38,15 +86,85 @@
 	</select>
 	
 	<!-- 모든 일반사용자 정보 가져오기 -->
- 	<select id="getCustList" resultType="java.util.Map">
-		SELECT /*+ Index_DESC(a regIndex) */
-		MEMBERID, PASSWORD, NAME, PHONE, EMAIL, ADDR_POST,
-		ADDR_CITY, ADDR_DETAIL, BIRTH, SEX, COMPANY_YN, 
-		to_char(REGDATE, 'YYYY-MM-DD') as REGDATE,
-		to_char(EDITDATE, 'YYYY-MM-DD') as EDITDATE,
-		REGUSER, EDITUSER, MEMBER_YN, MYTREE, MYMIL, BAR_STATUS, ADMIN_YN
+ 	<select id="getCustList" resultMap="memberMap">
+		SELECT /*+ Index_DESC(a regIndex) */ a.*
 		FROM eco.cust a
 		where company_yn='N' AND admin_yn='N'
 		<!-- OFFSET #{startRowno} ROWS FETCH FIRST #{amount} ROWS ONLY -->
 	</select>
+	
+	<!-- 업체 승인 -->
+	<update id="confirmCompany" >
+		update eco.company
+		set confirm_yn = 'Y', editDate=default, editUser=#{loginId}, regUser=#{loginId}
+		where cust_id=#{memberId}
+	</update>
+	
+	<!-- 업체 권한 승인-->
+	<insert id="joinCompanyAuth" >
+		insert into eco.cust_Auth
+		VALUES(#{memberId}, 'ROLE_COMPANY')
+	</insert>
+	
+	
+	<!-- 관리자 등업 -->
+	<update id="regAdmin" >
+		INSERT INTO eco.admin
+		VALUES(#{adminVO.cust_id}, #{adminVO.name}, #{adminVO.acc_level}, 
+				default, #{loginId}, default, #{loginId})
+	</update>
+	
+	<!-- 관리자 권한 승인-->
+	<insert id="joinAdminAuth" >
+		insert into eco.cust_auth
+		VALUES(#{cust_id}, 'ROLE_ADMIN')
+	</insert>
+	
+	<!-- 관리자 cust 변경-->
+	<update id="confirmCustAdmin" >
+		update  eco.cust
+		set admin_yn='Y', regDate=default, regUser=#{loginId}, 
+			editDate=default, editUser=#{loginId}
+		where memberId=#{memberId}
+	</update>
+	
+	<!-- 관리자 레벨변경 -->
+	<update id="modAdminLevel" >
+		update eco.Admin 
+		set acc_level = #{acc_level}
+		where cust_id=#{cust_id}
+	</update>
+	
+
+	
+	<!-- cust 정보 수정 -->
+	<update id="modCust_Admin">
+		
+		
+		
+		
+		
+	</update>
+	
+	
+	<!-- company 정보 수정 -->
+	
+	
+	
+	<!-- admin 정보 수정 -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>
