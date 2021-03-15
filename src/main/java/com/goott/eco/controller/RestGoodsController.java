@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -62,7 +63,7 @@ public class RestGoodsController {
 //		System.out.println("@@@@@ update review 하드코딩 삭제해요!!!!@@@@");
 //		테스트 완료후 세션 하드코딩 값 삭제!!!. 
 		String memberId = (String)request.getSession().getAttribute("memberId");
-		if(memberId == null || memberId.equals("")) { new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
+		if(memberId == null || memberId.equals("")) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
 //		String memberId = "kate";
 		commentVO.setCust_id(memberId);
 		
@@ -77,7 +78,7 @@ public class RestGoodsController {
 //		System.out.println("@@@@@ insert review 하드코딩 삭제해요!!!!@@@@");
 //		테스트 완료후 세션 하드코딩 값 삭제!!!. 
 		String memberId = (String)request.getSession().getAttribute("memberId");
-		if(memberId == null || memberId.equals("")) { new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
+		if(memberId == null || memberId.equals("")) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
 //		String memberId = "kate";
 		commentVO.setCust_id(memberId);
 		
@@ -88,7 +89,10 @@ public class RestGoodsController {
 	
 	//업로드 테스트 중 ing
 	@PostMapping(value="/form/upload/images", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
-	public ResponseEntity<List<AttachFileDTO>> goodsDetailImagesUpload(HttpServletRequest request, MultipartFile[] uploadFile) {
+	public ResponseEntity<List<AttachFileDTO>> goodsDetailImagesUpload(HttpServletRequest request, HttpServletResponse response){
+			//, MultipartFile[] uploadFile) {
+		System.out.println("@@@@ file upload");
+		/*
 		List<AttachFileDTO> attachList = new ArrayList<AttachFileDTO>();
 		
 		String defaultFolder = "c:\\upload\\temp";
@@ -136,7 +140,8 @@ public class RestGoodsController {
 				log.error(e.getMessage());
 			}
 		}
-		return new ResponseEntity<>(attachList, HttpStatus.OK);
+		return new ResponseEntity<>(attachList, HttpStatus.OK);*/
+		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
 	
 
