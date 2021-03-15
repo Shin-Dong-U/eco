@@ -7,12 +7,10 @@
 <meta name="_csrf" th:content="${_csrf.token}">
 <meta name="_csrf_header" th:content="${_csrf.headerName}">
 <title>상품등록페이지</title>
-<script type="text/javascript" src="../resources/vender/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
-
-<title>상품등록페이지</title>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="../resources/vender/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
-
+<script type="text/javascript" src="/resources/vender/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="/resources/vender/smarteditor2/js/lib/jindo_component.js" charset="utf-8"></script>
+<script type="text/javascript" src="/resources/vender/smarteditor2/js/lib/jindo2.all.js" charset="utf-8"></script>
+<script type="text/javascript" src="/resources/vender/smarteditor2/sample/photo_uploader/attach_photo.js" charset="utf-8"></script>
 </head>
 <body>
 	<textarea name="ir1" id="ir1" rows="10" cols="100">

@@ -7,7 +7,10 @@ import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -87,8 +90,20 @@ public class RestGoodsController {
 	}
 	
 	//업로드 테스트 중 ing
-	@PostMapping(value="/form/upload/images", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
-	public ResponseEntity<List<AttachFileDTO>> goodsDetailImagesUpload(HttpServletRequest request, MultipartFile[] uploadFile) {
+	@PostMapping(value="/form/upload/images")//, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
+	public ResponseEntity<List<AttachFileDTO>> goodsDetailImagesUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile[] uploadFile) {
+		System.out.println("@@@@@@@@@@@@@@@@uplolad images");
+		
+		try {
+			Collection<Part> parts = request.getParts();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ServletException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		List<AttachFileDTO> attachList = new ArrayList<AttachFileDTO>();
 		
 		String defaultFolder = "c:\\upload\\temp";
