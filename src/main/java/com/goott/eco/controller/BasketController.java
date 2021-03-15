@@ -111,7 +111,7 @@ public class BasketController {
 		log.info("장바구니 추가 소유 id: "+ orderInfo.get("cust_id"));
 		log.info("장바구니 추가 상품번호: "+orderInfo.get("goods_seq"));
 		log.info("장바구니 추가 상품수량: "+orderInfo.get("qty"));
-		log.info("장바구니 추가 상품수량: "+orderInfo.get("orderOption"));
+		log.info("장바구니 추가 옵션: "+orderInfo.get("orderOption"));
 		
 		return basketService.addGoodsAtBasket(orderInfo)>0?
 				new ResponseEntity<>("성공",HttpStatus.OK):

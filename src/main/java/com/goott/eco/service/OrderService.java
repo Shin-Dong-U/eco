@@ -7,7 +7,7 @@ import com.goott.eco.domain.GoodsVOtest;
 
 public interface OrderService {
 	
-	public Long addOrder(String cust_Id, Long total_price);
+	public Long addOrder(String cust_Id, int total_price);
 	
 	public List<GoodsVOtest> getOrderList(String custId);
 	

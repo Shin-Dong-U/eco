@@ -17,15 +17,15 @@ import lombok.extern.log4j.Log4j;
 //@RequestMapping("/orders/*")
 public class PageController {
 	
-	@GetMapping("/goods/{goods_seq}")
-	public String goodsDetail(Model model,HttpServletRequest request,
-				@PathVariable("goods_seq") int goods_seq) {
-		model.addAttribute("goods_seq", goods_seq);
-		//${goods_seq} 해당상품번호 jsp에서 출력
-		log.info("goodsDetail페이지 이동");
-		
-		return "goods/goods_detail";
-	}
+//	@GetMapping("/goods/{goods_seq}")
+//	public String goodsDetail(Model model,HttpServletRequest request,
+//				@PathVariable("goods_seq") int goods_seq) {
+//		model.addAttribute("goods_seq", goods_seq);
+//		//${goods_seq} 해당상품번호 jsp에서 출력
+//		log.info("goodsDetail페이지 이동");
+//		
+//		return "goods/goods_detail";
+//	}
 
 	@GetMapping("/deli/delilist")
 	public String list3(Model model) {
@@ -66,12 +66,7 @@ public class PageController {
 		
 		//return "orders/order/checkout";
 	}
-	
-	@GetMapping("/orders/order/orderCheck")
-	public void orderCheck(@RequestParam Long order_seq,Model model) {
-		model.addAttribute("order_seq",order_seq);
-		log.info("orderCheck페이지 이동");
-	}
+
 	
 	@GetMapping("/orders/ship/writeShipInfo")
 	public void writeShipInfo(@RequestParam Long order_seq,Model model) {

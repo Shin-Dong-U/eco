@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public Long addOrder(String cust_id, Long total_price) {		
+	public Long addOrder(String cust_id, int total_price) {		
 		//주문번호 생성
 		int addOrderMain = orderMapper.addOrderMain(cust_id,total_price);
 		log.info("addOrderMain: "+addOrderMain);

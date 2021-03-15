@@ -10,7 +10,7 @@ import com.goott.eco.domain.GoodsVOtest;
 
 public interface OrderMapper {
 	
-	public int addOrderMain(@Param("cust_id") String cust_id, @Param("total_price")Long total_price);
+	public int addOrderMain(@Param("cust_id") String cust_id, @Param("total_price")int total_price);
 	
 	public Long getOrderSeq(String cust_id);
 	

@@ -44,7 +44,6 @@
             </div>
         </div>
         <!-- Top bar End -->
-        <h1>memberID ${memberId}</h1>
         <!-- Nav Bar Start -->
         <div class="nav">
             <div class="container-fluid">
@@ -144,34 +143,14 @@
                                 <table class="table table-bordered">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>Product</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                            <th>Remove</th>
+                                            <th>상품명</th>
+                                            <th>가격</th>
+                                            <th>수량</th>
+                                            <th>상품별 합계</th>
+                                            <th>제거</th>
                                         </tr>
                                     </thead>
                                     <tbody class="align-middle basketList">
-                                        <!-- <tr>
-                                            <td>
-                                                <div class="img">
-                                                    <a href=""><img src="/resources/template/img/product-1.jpg" alt="Image"></a>
-                                                    <p>Product Name</p>
-                                                </div>
-                                            </td>
-                                            <td><span>99</span></td>
-                                            <td>
-                                                <div class="qty">
-                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input type="text" value="1">
-                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                                </div>
-                                            </td>
-                                            <td><span class="calPrice0">99</span></td>                                           
-                                            <td><button><i class="fa fa-trash"></i></button></td>
-                                        </tr> -->
-                                        
-                                      
                                                                          
                                     </tbody>
                                     
@@ -191,14 +170,14 @@
                                 <div class="col-md-12">
                                     <div class="cart-summary">
                                         <div class="cart-content">
-                                            <h1>Cart Summary</h1>
-                                            <p>Sub Total<span class="subTotalPrice">0</span></p>
-                                            <p>Shipping Cost<span class="shippingCost">100</span></p>
-                                            <h2>Grand Total<span class="grandTotalPrice">0</span></h2>
+                                            <h1>장바구니 구매금액</h1>
+                                            <p>상품 주문 금액<span class="subTotalPrice">0</span></p>
+                                            <p>배송비<span class="shippingCost">100</span></p>
+                                            <h2>총 결제금액<span class="grandTotalPrice">0</span></h2>
                                         </div>
                                         <div class="cart-btn">
                                             <button class="cartUpBtn">Update Cart</button>
-                                            <button class="checkoutBtn">Checkout</button>
+                                            <button class="checkoutBtn" disabled>Checkout</button>
                                         </div>
                                     </div>
                                 </div>
@@ -309,7 +288,7 @@
         <script src="${contextPath}/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
-        <script src="${contextPath}/resources/template/js/main.js?var=6"></script>
+        <script src="${contextPath}/resources/template/js/main.js?var=7"></script>
         <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
 		<script src="${contextPath}/resources/basket/transferTime.js"></script>
 		<script src="${contextPath}/resources/order/checkout.js?ver=3"></script>
@@ -325,7 +304,9 @@
     	//var cust_id $(".sessionId").val();
     });
     
-   
+    $('.cartUpBtn').on('click', function () {
+    	$(".checkoutBtn").attr("disabled", false)
+    })
  
   
     
@@ -381,7 +362,10 @@
 	
 	//장바구니에서 상품 삭제
 	function delBasketGoods(cust_id,goods_seq){
-		basketService.delBasketGoods(cust_id,goods_seq,function(result){})
+		$(".checkoutBtn").attr("disabled", true);
+		basketService.delBasketGoods(cust_id,goods_seq,function(result){
+			
+		})
 	}
 	
 	//장바구니에서 특정상품 선택
@@ -408,10 +392,6 @@
 				var str="";
 				var firstTotal = 0;
 				var firstGrandTotal = 0;
-				console.log(basketList);
-				console.log("Number(basketList[i].PRICE): "+typeof(Number(basketList[0].PRICE)));
-				console.log("Number(basketList[i].QTY): "+typeof(Number(basketList[0].QTY)));
-				console.log("Number(basketList[i].PRICE)*Number(basketList[i].QTY): "+Number(basketList[0].PRICE)*Number(basketList[0].QTY));
 			
 				for(var i=0,len=basketList.length||0;i<len;i++){
 					 //"+basketList[i].IMG_URL+"

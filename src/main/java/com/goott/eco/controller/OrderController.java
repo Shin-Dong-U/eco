@@ -38,7 +38,7 @@ public class OrderController {
 			produces= {"application/json; charset=UTF-8"})
 	public ResponseEntity<HashMap<String,Object>> addOrderBasket(
 			@PathVariable("cust_id") String cust_id,
-			@PathVariable("total_price") Long total_price){
+			@PathVariable("total_price") int total_price){
 		log.info("주문요청 cust_Id / tota_price: "+cust_id+" / "+total_price);
 		HashMap<String,Object> result = new HashMap<String,Object>();
 		result.put("order_seq", orderService.addOrder(cust_id, total_price));
@@ -59,19 +59,23 @@ public class OrderController {
 //}
 	
 	
-	//장바구니상품 주문 신청 requestbody 사용
+	//바로주문
 	@PostMapping(value="/now",			
 			consumes= {"application/json; charset=UTF-8"},
-			produces= {"application/json; charset=UTF-8"})
-	public ResponseEntity<String> ordernow(
-			@RequestBody HashMap<String,Object> ordernow){
+			produces=  {"application/json; charset=UTF-8"})
+	public ResponseEntity<Long> ordernow(
+			@RequestBody HashMap<String,Object> orderNowInfo){
 				
-		log.info("바로주문 정보: "+ordernow);
-//				return orderService.addOrder(basketList,cust_id)>0?
-//				new ResponseEntity<>("성공",HttpStatus.OK):
-//				new ResponseEntity<>("실패",HttpStatus.INTERNAL_SERVER_ERROR);	
+		log.info("바로주문 정보: "+orderNowInfo);
 		
-		return new ResponseEntity<>("성공",HttpStatus.OK);
+		String cust_id = (String) orderNowInfo.get("cust_id");
+		int total_price = (int) orderNowInfo.get("total_price");
+		Long order_seq = orderService.addOrder(cust_id,total_price);
+		
+		return order_seq>0?
+				new ResponseEntity<>(order_seq,HttpStatus.OK):
+				new ResponseEntity<>(0L,HttpStatus.INTERNAL_SERVER_ERROR);	
+
 	}
 	
 	//주문 상품 조회
