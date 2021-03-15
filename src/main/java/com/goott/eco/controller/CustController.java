@@ -49,6 +49,18 @@ public class CustController {
 		
 		return new ResponseEntity<>(custMap,HttpStatus.OK);
 	}
+
+	
+	/* 비밀번호 확인 */
+	@PostMapping(value="/pwCheck", produces = {"text/plain; charset=UTF-8"})	
+	public ResponseEntity<String> pwCheck(@RequestBody CustVO custVO) {
+		System.out.println("CustVO: "+custVO.toString());
+		
+		return custService.checkCustPassword(custVO) == 1
+				?new ResponseEntity<>("success",HttpStatus.OK)
+				:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
 	
 	/* 회원가입  - cust와 company */
 	@PostMapping(value="/join", produces="application/json; charset=UTF-8")
@@ -60,17 +72,19 @@ public class CustController {
 	}
 	
 	/* 회원 수정 - cust와 company */
-	@PutMapping(value="/modify", produces="application/json; charset=UTF-8")
-	public ResponseEntity<String> modifyCust(@RequestBody MemberVO memberVO){
-		custService.modifyCust(memberVO);
+	@PutMapping(value="/modify", produces="text/plain; charset=UTF-8")
+	public ResponseEntity<String> modifyCust(@RequestBody CustVO custVO){
+		
+		System.out.println("custVO:" + custVO.toString());
+	
 
-		return custService.modifyCust(memberVO) == 1
+		return custService.modifyCust(custVO) == 1
 			?new ResponseEntity<>("success",HttpStatus.OK)
 			:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	/* 회원 탈퇴 */
-	@PutMapping(value="/delete/{memberId}", produces="application/json; charset=UTF-8")
+	@PutMapping(value="/delete/{memberId}", produces="text/plain; charset=UTF-8")
 	public ResponseEntity<String> deleteCust(@PathVariable("memberId") String memberId ){
 		System.out.println("memberId: "+memberId);
 		

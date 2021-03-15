@@ -33,6 +33,7 @@ public class CustVO {
 	private Long myMil;         // Mileage정보 
 	private Long bar_status;	// Mileage상태 bar 0~9
 	private String admin_yn;	// 일반 사용자 or 관리자 [y]-admin [n]-user
+	private Long seed_yn;		// 씨앗 여부 [y]- [n]-
 
 	private List<CustAuthVO> authList;		//권한[admin, company, customer]
 }

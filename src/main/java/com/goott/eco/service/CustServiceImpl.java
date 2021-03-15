@@ -43,6 +43,19 @@ public class CustServiceImpl implements CustService{
 		return custDao.getCustLogin(custVO);
 	}
 	
+	/* 비밀번호 확인 */
+	@Override
+	public int checkCustPassword(CustVO custVO) {
+		String db_password = custDao.checkCustPassword(custVO.getMemberId());
+		System.out.println("password 입력값: "+custVO.getPassword());
+		System.out.println("password DB 값: "+db_password);
+		boolean value = pwEncoder.matches(custVO.getPassword(), db_password);
+		System.out.println("value 값: "+value);
+		return pwEncoder.matches(custVO.getPassword(), db_password)
+				? 1 
+				: 0;
+	}
+
 	/* 특정 회원 정보 가져오기 */
 	@Override
 	public MemberVO getCust(MemberVO memberVO) {
@@ -75,13 +88,9 @@ public class CustServiceImpl implements CustService{
 	
 	/* 회원 수정 */
 	@Override
-	public int modifyCust(MemberVO memberVO) {
-		int custValue=custDao.modifyCust(memberVO.getCustVO());
-		if(memberVO.getCustVO().getCompany_yn().equals("Y")) {
-			//memberVO.getCompVO().setComp_seq(compDao.getCompany_seq(memberVO.getCustVO().getMemberId()));
-			if(compDao.modifyCompany(memberVO.getCompVO()) != 1)return 0;
-		}
-		return custValue;
+	public int modifyCust(CustVO custVO) {
+		passwordEncoding(custVO);	
+		return custDao.modifyCust(custVO);
 	}
 
 	/* 회원 탈퇴 */
@@ -95,5 +104,6 @@ public class CustServiceImpl implements CustService{
 		custVO.setPassword(Encoder);
 		//custVO.setPassword(passwordEncoder.encode(custVO.getPassword()));
 	}
+
 
 }

@@ -46,7 +46,7 @@
 	<update id="modifyCompany">
 		update eco.company
 		set addr_post=#{addr_post}, addr_city=#{addr_city}, addr_detail=#{addr_detail},
-		editUser=#{cust_id}, editDate=default, memo=#{memo}
+		editUser=#{cust_id}, editDate=default
 		WHERE comp_seq = #{comp_seq}
 	</update>
 	
