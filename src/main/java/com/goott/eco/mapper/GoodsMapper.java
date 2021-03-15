@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.goott.eco.common.Criteria;
 import com.goott.eco.domain.GoodsVO;
+import com.goott.eco.domain.GoodsVO.GoodsCommentVO;
 
 public interface GoodsMapper {
 	public int totalCountGoodsList(Criteria cri);
@@ -24,5 +25,7 @@ public interface GoodsMapper {
 	public List<Map<String, Object>> goodsCategoryList();
 	
 	public int totalCountGoodsComment(@Param("goodsSeq") int goodsSeq);
-	public List<Map<String, Object>> goodsComment(@Param("goodsSeq") int goodsSeq, @Param("start") int start);
+	public List<Map<String, Object>> goodsComment(@Param("goodsSeq") int goodsSeq, @Param("start") int start);	
+	public int updateReview(GoodsCommentVO commentVO);
+	public int insertReview(GoodsCommentVO commentVO);
 }

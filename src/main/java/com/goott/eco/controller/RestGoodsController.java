@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +31,7 @@ import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
 
 import com.goott.eco.domain.AttachFileDTO;
+import com.goott.eco.domain.GoodsVO;
 
 @RestController
 @RequestMapping("/goods/rest")
@@ -50,6 +53,37 @@ public class RestGoodsController {
 	public ResponseEntity<Map<String, Object>> getReview(@PathVariable int goodsSeq, @RequestParam int pageNum) {
 		Map<String, Object> comment = goodsService.goodsComment(goodsSeq, pageNum);
 		return new ResponseEntity<>(comment, HttpStatus.OK);
+	}
+	
+	@PostMapping(value="/{goodsSeq}/review/{goodsCommentSeq}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
+	public ResponseEntity<Integer> updateReview(HttpServletRequest request 
+												, @PathVariable int goodsSeq
+												, @RequestBody GoodsVO.GoodsCommentVO commentVO) {
+//		System.out.println("@@@@@ update review 하드코딩 삭제해요!!!!@@@@");
+//		테스트 완료후 세션 하드코딩 값 삭제!!!. 
+		String memberId = (String)request.getSession().getAttribute("memberId");
+		if(memberId == null || memberId.equals("")) { new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
+//		String memberId = "kate";
+		commentVO.setCust_id(memberId);
+		
+		int record = goodsService.updateReview(commentVO);
+		return record == 1 ? new ResponseEntity<>(HttpStatus.OK)
+				:  new ResponseEntity<>(HttpStatus.BAD_REQUEST);//적당한 오류 코드 번호 찾아서 수정 필요.
+	}
+	
+	@PutMapping(value="/{goodsSeq}/review", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
+	public ResponseEntity<Integer> insertReview(HttpServletRequest request, @PathVariable int goodsSeq
+												, @RequestBody GoodsVO.GoodsCommentVO commentVO) {
+//		System.out.println("@@@@@ insert review 하드코딩 삭제해요!!!!@@@@");
+//		테스트 완료후 세션 하드코딩 값 삭제!!!. 
+		String memberId = (String)request.getSession().getAttribute("memberId");
+		if(memberId == null || memberId.equals("")) { new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
+//		String memberId = "kate";
+		commentVO.setCust_id(memberId);
+		
+		int record = goodsService.insertReview(commentVO); 
+		return record == 1 ? new ResponseEntity<>(HttpStatus.OK)
+				:  new ResponseEntity<>(HttpStatus.BAD_REQUEST);//적당한 오류 코드 번호 찾아서 수정 필요.
 	}
 	
 	//업로드 테스트 중 ing
@@ -105,11 +139,7 @@ public class RestGoodsController {
 		return new ResponseEntity<>(attachList, HttpStatus.OK);
 	}
 	
-	@PostMapping(value="/temp/call", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
-	public ResponseEntity<List<AttachFileDTO>> tmpCallTest() {
-		System.out.println("@@@@@ testcontroller");
-		return new ResponseEntity<>(null, HttpStatus.OK);
-	}
+
 		
 	
 	private boolean checkImageType(File file) {

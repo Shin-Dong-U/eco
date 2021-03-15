@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.goott.eco.common.Criteria;
 import com.goott.eco.common.PageDTO;
 import com.goott.eco.domain.GoodsVO;
+import com.goott.eco.domain.GoodsVO.GoodsCommentVO;
 import com.goott.eco.mapper.GoodsMapper;
 
 @Transactional
@@ -78,6 +79,16 @@ public class GoodsServiceimpl implements GoodsService{
 	public int insertGoods(GoodsVO vo) {
 		goodsDao.insertGoods(vo);
 		return 0;
+	}
+
+	@Override
+	public int updateReview(GoodsCommentVO commentVO) {
+		return goodsDao.updateReview(commentVO);
+	}
+
+	@Override
+	public int insertReview(GoodsCommentVO commentVO) {
+		return goodsDao.insertReview(commentVO);
 	}
 
 }

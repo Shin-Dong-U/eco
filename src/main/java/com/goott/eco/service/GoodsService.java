@@ -15,4 +15,7 @@ public interface GoodsService {
 	public int insertGoods(GoodsVO vo);
 	
 	public Map<String, Object> goodsComment(int goodsSeq, int pageNum);
+	
+	public int updateReview(GoodsVO.GoodsCommentVO commentVO);
+	public int insertReview(GoodsVO.GoodsCommentVO commentVO);
 }

@@ -115,6 +115,34 @@
 		}
 	</select>
 	
+	<update id="updateReview" parameterType="com.goott.eco.domain.GoodsVO$GoodsCommentVO">
+		UPDATE GOODS_COMMENT 
+		SET 
+			STAR = #{star}
+			, MEMO = #{memo}
+		WHERE 
+			CUST_ID = #{cust_id}
+			AND GOODS_COMMENT_SEQ = #{goods_comment_seq}
+	</update>
+	
+	<insert id="insertReview" parameterType="com.goott.eco.domain.GoodsVO$GoodsCommentVO">
+		INSERT INTO GOODS_COMMENT(
+			  GOODS_COMMENT_SEQ
+			, GOODS_SEQ
+			, CUST_ID
+			, STAR
+			, MEMO
+			, REGDATE
+		) VALUES(
+			  SEQ_GOODS_COMMENT_SEQ.NEXTVAL
+			, #{goods_seq}
+			, #{cust_id}
+			, #{star}
+			, #{memo}
+			, SYSDATE
+		)
+	</insert>
+	
 	<delete id="realDeleteGoods" parameterType="int">
 		DELETE FROM GOODS WHERE GOODS_SEQ = #{goodsSeq}
 	</delete>

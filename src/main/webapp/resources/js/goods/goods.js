@@ -9,7 +9,7 @@ var goodsService=(function(){
 			type : 'get',						
 			url : url,	
 			data : search,
-			contentType : "application/json; charset=utf-8",
+			contentType : "application/json;charset=UTF-8",
 			
 			success : function(result, status, xhr){
 				if(callback){
@@ -31,7 +31,7 @@ var goodsService=(function(){
 			type : 'get',						
 			url : url,	
 			data : search,
-			contentType : "application/json; charset=utf-8",
+			contentType : "application/json;charset=UTF-8",
 			
 			success : function(result, status, xhr){
 				if(callback){
@@ -45,15 +45,15 @@ var goodsService=(function(){
 		});
 	}
 	
-	function updateComment(url, search, callback){
+	function updateComment(url, data, callback){
 		if(isRun === true) { return false; }
 		isRun = true;
 		
 		$.ajax({ 
 			type : 'post',						
 			url : url,	
-			data : search,
-			contentType : "application/json; charset=utf-8",
+			data : JSON.stringify(data),
+			contentType : "application/json;charset=UTF-8",
 			
 			success : function(result, status, xhr){
 				if(callback){
@@ -63,19 +63,23 @@ var goodsService=(function(){
 			}, error : function(e){
 				console.log(e);
 				isRun = false;
-			}
+			}, complete : function() {
+				commentReset();
+    		}
+
+
 		});
 	}
 	
-	function insertComment(url, search, callback){
+	function insertComment(url, data, callback){
 		if(isRun === true) { return false; }
 		isRun = true;
 		
 		$.ajax({ 
 			type : 'put',						
 			url : url,	
-			data : search,
-			contentType : "application/json; charset=utf-8",
+			data : JSON.stringify(data),
+			contentType : "application/json;charset=UTF-8",
 			
 			success : function(result, status, xhr){
 				if(callback){
@@ -85,7 +89,10 @@ var goodsService=(function(){
 			}, error : function(e){
 				console.log(e);
 				isRun = false;
-			}
+			}, complete : function() {
+				commentInsertFormReset();
+				movePage(1);
+    		}
 		});
 	}
 	
@@ -208,25 +215,24 @@ function callUpdateComment(goods_comment_seq){
 	var url = '/goods/rest/' + goodsSeq + '/review/' + goods_comment_seq;
 
 	var memo = $('#update_memo').val();
-	var data = {"goods_comment_seq" : goods_comment_seq, "memo" : memo};
+	var star = $('#comment_update_star_a').attr('data-selected-star');
+	var data = {"goods_comment_seq" : goods_comment_seq, "goods_seq" : goodsSeq, "memo" : memo, "star" : star};
 	 
 	goodsService.updateComment(url, data, function(result){
 		alert('수정 되었습니다.');
-		commentReset();
 	});
 }
 
 function callInsertComment(){
 	var memo = $('#comment_memo').val();
 	var goodsSeq = $('#goodsSeq').val();
-	var star = $('#comment_star').val();
+	var star = $('#comment_insert_star_a').attr('data-selected-star');
 
-	var data = {"memo" : memo, "goodsSeq" : goodsSeq, "star" : star};
+	var data = {"memo" : memo, "goods_seq" : goodsSeq, "star" : star};
 	var url = '/goods/rest/' + goodsSeq + '/review';
 
 	goodsService.insertComment(url, data, function(result){
 		alert('등록 되었습니다.');
-		movePage(1);
 	});
 }
 
@@ -257,18 +263,59 @@ function modifyComment(goodsCommentSeq){
 	
 	thisDiv.empty();
 	var htmlStr = '<div class="nav-item dropdown">';
-	htmlStr += '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="comment_update_star_a">';
+	htmlStr += '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="comment_update_star_a" data-selected-star="5">';
 	htmlStr += '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>';
 	htmlStr += '</a>';
 	htmlStr += '<div class="dropdown-menu">';                                                 
-	htmlStr += '<a class="dropdown-item"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a><a class="dropdown-item"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i></a><a class="dropdown-item"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></a><a class="dropdown-item"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></a><a class="dropdown-item"><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></a>';                              
+	htmlStr += '<a class="dropdown-item" onclick="selectedStar(' + "'" + 'update' + "'" + ', 5);"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a><a class="dropdown-item" onclick="selectedStar(' + "'" +  'update' + "'" + ', 4);"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i></a><a class="dropdown-item" onclick="selectedStar(' + "'" + 'update' + "'" + ', 3);"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></a><a class="dropdown-item" onclick="selectedStar(' + "'" + 'update' + "'" + ', 2);"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></a><a class="dropdown-item" onclick="selectedStar(' + "'" + 'update' + "'" + ', 1);"><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></a>';                              
 	htmlStr += '</div></div>';                                     
 	htmlStr += '<div class="row form">';
 	htmlStr += '<div class="col-sm-12">';
 	htmlStr += '<textarea id="update_memo">' + memo + '</textarea>';
-	htmlStr += '</div><div class="col-sm-12"><button onclick="commentUpdate();">수정</button> <button onclick="commentReset();">취소</button></div></div>';
+	htmlStr += '</div><div class="col-sm-12"><button onclick="commentUpdate(' + goodsCommentSeq + ');">수정</button> <button onclick="commentReset();">취소</button></div></div>';
                                                 
 	thisDiv.html(htmlStr);
+}
+
+function selectedStar(action, star){
+	var starHtml = '';
+	var starTag = '<i class="fa fa-star"></i>';
+	for(var i = 0; i < star; i++){ starHtml += starTag; }
+	
+	if(action === 'insert'){
+		const tmpTarget = $('#comment_insert_star_a'); 
+		tmpTarget.attr('data-selected-star', star);
+		tmpTarget.empty();
+		tmpTarget.html(starHtml);
+	}else if(action === 'update'){
+		const tmpTarget = $('#comment_update_star_a'); 
+		tmpTarget.attr('data-selected-star', star);
+		tmpTarget.empty();
+		tmpTarget.html(starHtml);
+	}
+}
+
+//상세 - 리뷰 리스트 초기화
+function commentReset(){
+	const pageNum = document.getElementById('pageNum').value;
+	movePage(pageNum);
+};
+   	
+//상세 - 리뷰 등록 필드 초기화
+function commentInsertFormReset(){
+	selectedStar('insert', 5);
+	$('#comment_memo').val('');
+}
+   	
+//상세 - 리뷰 수정 실행
+function commentUpdate(goodsCommentSeq){
+	callUpdateComment(goodsCommentSeq);
+	commentReset();
+}
+   	
+//상세 - 리뷰 등록 실행
+function commentInsert(){
+	callInsertComment();
 }
 
 //상품 썸네일

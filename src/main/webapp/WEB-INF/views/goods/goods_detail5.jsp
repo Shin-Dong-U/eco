@@ -109,8 +109,7 @@
         <div class="product-detail">
         	
         	<!-- hidden field -->
-        	<!-- <input type="hidden" id="memberId" name="memberId" value="${memberId }">-->
-        	<input type="hidden" id="memberId" name="memberId" value="kate">
+        	<input type="hidden" id="memberId" name="memberId" value="${memberId }">
         	<input type="hidden" id="pageNum" name="pageNum" value="1">
         	<input type="hidden" id="goodsSeq" name="goodsSeq" value="${goodsDetail.GOODS_SEQ }">
         	<input type="hidden" id="star" name="star" value="${goodsDetail.STAR }">
@@ -216,10 +215,10 @@
                                         <!-- Pagination -->
 										<div class="col-md-12" id="pageDiv"></div>
 										
-                                        <div class="reviews-submit">
+                                        <div class="reviews-submit" id="write_review_div">
                                             <h4>Give your Review:</h4>
                                             <div class="nav-item dropdown">
-                                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="comment_insert_star_a">
+                                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="comment_insert_star_a" data-selected-star="5">
                                                     <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
                                                 </a>
                                                 <div class="dropdown-menu">
@@ -233,10 +232,10 @@
                                             
                                             <div class="row form">
                                                 <div class="col-sm-12">
-                                                    <textarea placeholder="Review"></textarea>
+                                                    <textarea placeholder="Review" id="comment_memo"></textarea>
                                                 </div>
                                                 <div class="col-sm-12">
-                                                    <button>Submit</button>
+                                                    <button onclick="commentInsert();">Submit</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -354,22 +353,9 @@
         	$('#goods_ratting_div').html(rattingHtml);
         	
         	movePage(1);
-        	
-        	$('#commentUpdateBtn').click(function(e){
-        		console.log('do');
-        	});
-        	
      	});
         
-        function commentReset(){
-       		const pageNum = document.getElementById('pageNum').value;
-       		movePage(pageNum);
-       	};
-       	
-       	function commentUpdate(){
-       		
-       	}
-    	
+       	//리뷰 페이지 이동 
     	function movePage(pageNum){
     		selectedPage(pageNum);
     		callGetCommentList();
