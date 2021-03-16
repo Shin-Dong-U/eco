@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
+
 <html lang="kr">
     <head>
         <meta charset="utf-8">
-        <title>E Store - eCommerce HTML Template</title>
+        <title>ECO FRIENDS</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="eCommerce HTML Template Free Download" name="keywords">
         <meta content="eCommerce HTML Template Free Download" name="description">
@@ -36,7 +41,7 @@
 
     <body>
         <!-- Top bar Start -->
-        <div class="top-bar">
+        <!-- <div class="top-bar">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
@@ -49,7 +54,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Top bar End -->
         
         <!-- Nav Bar Start -->
@@ -66,7 +71,7 @@
                             <!-- <a href="index.html" class="nav-item nav-link">Home</a> -->
                             
                             <div class="nav-item dropdown">
-                            <a href="http://localhost/goods" class="nav-link dropdown-toggle active" data-toggle="dropdown" aria-expanded="false">상품</a>
+                            <a href="http://localhost/goods" class="nav-link dropdown-toggle " data-toggle="dropdown" aria-expanded="false">상품</a>
                                 <div class="dropdown-menu">
                                     <a href="http://localhost/goods?category=1" class="dropdown-item">식품</a>
                                     <a href="http://localhost/goods?category=2" class="dropdown-item">가구</a>
@@ -83,14 +88,13 @@
   <!-- admin1 pw1 -->   
   <!--  http://localhost/cust/account-->                   
                             <a href="http://localhost/orders/basket/list" class="nav-item nav-link">장바구니</a>
-                            <a href="http://localhost/orders/order/checkout" class="nav-item nav-link">주문하기</a>
-                            <a href="http://localhost/cust/account" class="nav-item nav-link">내정보보기</a>
+                            <a href="http://localhost/cust/my-account" class="nav-item nav-link">내정보보기</a>
                             <div class="nav-item dropdown">
-                                <a href="" class="nav-link dropdown-toggle active" data-toggle="dropdown">More Pages</a>
+                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
                                     <a href="wishlist.html" class="dropdown-item">Wishlist</a>
-                                    <a href="login.html" class="dropdown-item active">Login & Register</a>
-                                    <a href="contact.html" class="dropdown-item">Contact Us</a>
+                                    <a href="login.html" class="dropdown-item">Login & Register</a>
+                                    <a href="http://localhost/cust/my-account" class="dropdown-item">마이페이지</a>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +119,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-3">
                         <div class="logo">
-                            <a href="index.html">
+                            <a href="http://localhost/home/index">
                                 <img src="/resources/template/img/logo.png" alt="Logo">
                             </a>
                         </div>
@@ -134,7 +138,7 @@
                             </a>
                             <a href="cart.html" class="btn cart">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>(0)</span>
+                               <span class="cartCntBtn">(0)</span>
                             </a>
                         </div>
                     </div>
@@ -142,7 +146,18 @@
             </div>
         </div>
         <!-- Bottom Bar End --> 
-        
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+         <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
         <script>
-        
+      //카트 상품 갯수 표시
+     	 var cust_id = "${memberId}";
+		cartCnt(cust_id);
+    	function cartCnt(cust_id) {
+    		var cartCount = 0;
+    		basketService.countBasketGoods(cust_id,function(result){
+    			cartCount="("+result+")";
+    			$(".cartCntBtn").text(cartCount);
+    		})
+    		
+    	}
         </script>

@@ -82,12 +82,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/orders/basket/list").authenticated()
 			.antMatchers("/orders/order/checkout").authenticated()
 			.antMatchers("/home/my-account-order").authenticated()
-//			.antMatchers("/orders/ship/writeShipInfo").authenticated()
-//			.antMatchers("/orders/order/orderCheck").authenticated();
-		
-		
-//			.antMatchers("/orders/basket/list").authenticated();
-			.antMatchers("/cust/account","/cust/account").authenticated();
+			.antMatchers("/orders/ship/writeShipInfo").authenticated()
+			.antMatchers("/orders/order/orderCheck").authenticated()
+			.antMatchers("/cust/my-account").authenticated();
 		//	.antMatchers("/order/list").authenticated();
 		//	.exceptionHandling().accessDeniedHandler(accessDeniedHandler())
 

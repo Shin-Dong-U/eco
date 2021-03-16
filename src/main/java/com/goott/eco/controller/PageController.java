@@ -71,6 +71,12 @@ public class PageController {
 		
 		//return "orders/order/checkout";
 	}
+	
+	@GetMapping("/orders/order/orderCheck")
+	public void orderCheck(@RequestParam Long order_seq,Model model) {
+		model.addAttribute("order_seq",order_seq);
+		log.info("orderCheck페이지 이동");
+	}
 
 	
 	@GetMapping("/orders/ship/writeShipInfo")
@@ -103,7 +109,7 @@ public class PageController {
         return "home/index";
 	}
 	
-	@GetMapping("/home/my-account")
+	@GetMapping("/cust/my-account")
 	public void myAccount(Model model) {
 		log.info("my-account페이지 이동");
 		

@@ -113,7 +113,7 @@ var checkoutService=(function(){
 	}
 	
 	//주문 취소
-	function orderCancel(order_seq){
+	function orderCancel(order_seq,csrf,callback){
 		console.log("................orderCancel");
 		
 	$.ajax({ 
@@ -121,15 +121,18 @@ var checkoutService=(function(){
 		url:'/checkout/cancel/'+order_seq,
 		data:JSON.stringify(),
 		contentType: "application/json; charset=utf-8",
+		beforeSend:function(xhr){
+			xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+		},
 		success:(result)=>{console.log("주문취소",result),
 			alert("주문취소: "+result),
-			location.href = "/home/index"},	
+			location.href = "/cust/my-account"},	
 		error:(log)=>{console.log("실패 "+log)}
 		})
 	}
 	
 	//주문 확정 마일리지 적립
-	function orderCommit(order_seq,point,cust_id){
+	function orderCommit(order_seq,point,cust_id,csrf){
 		console.log("................orderCommit");
 
 		$.ajax({ 
@@ -137,14 +140,17 @@ var checkoutService=(function(){
 			url:'/checkout/commit/'+order_seq+'/'+point+'/'+cust_id,
 			data:JSON.stringify(),
 			contentType: "application/json; charset=utf-8",
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
 			success:(result)=>{alert("주문확정 결과: "+result),
-				location.href = "/home/index"},	
+				location.href = "/cust/my-account"},	
 			error:(log)=>{console.log("실패 "+log)}
 			})
 	}
 		
 	//송장번호 입력 
-	function insertShipInfoCom(shipInfo){
+	function insertShipInfoCom(shipInfo,csrf){
 		console.log("................insertShipInfoCom");
 
 		$.ajax({ 
@@ -152,8 +158,11 @@ var checkoutService=(function(){
 			url:'/ship/company/info',
 			data:JSON.stringify(shipInfo),
 			contentType: "application/json; charset=utf-8",
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
 			success:(result)=>{alert("송장번호 입력: "+result),
-				location.href = "/home/index"},	
+				location.href = "/cust/my-account"},	
 			error:(log)=>{console.log("실패 "+log)}
 			})		
 			

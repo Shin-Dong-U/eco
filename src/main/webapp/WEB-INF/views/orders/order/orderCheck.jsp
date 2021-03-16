@@ -1,131 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>E Store - eCommerce HTML Template</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="eCommerce HTML Template Free Download" name="keywords">
-        <meta content="eCommerce HTML Template Free Download" name="description">
-		
-        <!-- Favicon -->
-        <link href="${contextPath}/resources/template/img/favicon.ico" rel="icon">
 
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
-
-        <!-- CSS Libraries -->
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="${contextPath}/resources/template/lib/slick/slick.css" rel="stylesheet">
-        <link href="${contextPath}/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
-
-        <!-- Template Stylesheet -->
-        <link href="/resources/template/css/style.css" rel="stylesheet">
-    </head>
-
-    <body>
-        <!-- Top bar Start -->
-        <div class="top-bar">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <i class="fa fa-envelope"></i>
-                        support@email.com
-                    </div>
-                    <div class="col-sm-6">
-                        <i class="fa fa-phone-alt"></i>
-                        +012-345-6789
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Top bar End -->
-        
-        <!-- Nav Bar Start -->
-        <div class="nav">
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-                    <a href="" class="navbar-brand">MENU</a>
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
-                            <a href="product-list.html" class="nav-item nav-link">Products</a>
-                            <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
-                            <a href="cart.html" class="nav-item nav-link active">Cart</a>
-                            <a href="checkout.html" class="nav-item nav-link">Checkout</a>
-                            <a href="my-account.html" class="nav-item nav-link">My Account</a>
-                            <div class="nav-item dropdown">
-                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
-                                <div class="dropdown-menu">
-                                    <a href="wishlist.html" class="dropdown-item">Wishlist</a>
-                                    <a href="login.html" class="dropdown-item">Login & Register</a>
-                                    <a href="contact.html" class="dropdown-item">Contact Us</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="navbar-nav ml-auto">
-                            <div class="nav-item dropdown">
-                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
-                                <div class="dropdown-menu">
-                                    <a href="" class="dropdown-item">Login</a>
-                                    <a href="" class="dropdown-item">Register</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-        <!-- Nav Bar End -->      
-        
-        <!-- Bottom Bar Start -->
-        <div class="bottom-bar">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-md-3">
-                        <div class="logo">
-                            <a href="index.html">
-                                <img src="/resources/template/img/logo.png" alt="Logo">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="search">
-                            <input type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="user">
-                            <a href="wishlist.html" class="btn wishlist">
-                                <i class="fa fa-heart"></i>
-                                <span>(0)</span>
-                            </a>
-                            <a href="cart.html" class="btn cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>(0)</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <%@include file="../../include/header.jsp" %>
         <!-- Bottom Bar End -->
         
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-wrap">
             <div class="container-fluid">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">Home</a></li>
-                    <li class="breadcrumb-item"><a href="">Products</a></li>
-                    <li class="breadcrumb-item active">Cart</li>
+                    <li class="breadcrumb-item"><a href="">홈</a></li>
+                    <li class="breadcrumb-item"><a href="">상품목록</a></li>
+                    <li class="breadcrumb-item active">주문내역 확인</li>
                 </ul>
             </div>
         </div>
@@ -163,10 +49,10 @@
                                 <div class="col-md-12">
                                     <div class="cart-summary ">
                                         <div class="cart-content">
-                                            <h1>Ordered</h1>
-                                            <p class="sub-total">Sub Total<span class="sub-total-price">$99</span></p>
-                                            <p class="ship-cost">Shipping Cost<span>$1</span></p>
-                                            <h2>Grand Total<span class="grand-total-price totalPrice">100</span></h2>
+                                            <h1>주문내역</h1>
+                                            <p class="sub-total">상품금액<span class="sub-total-price"></span></p>
+                                            <p class="ship-cost">배송비<span>100</span></p>
+                                            <h2>총 결제 금액<span class="grand-total-price totalPrice">100</span></h2>
                                         </div>
                                         <div class="cart-btn">
                                             <button class="cancelOrderBtn">주문 취소</button>
@@ -324,9 +210,12 @@
     $(document).ready(function(){
     	showList();
     });
+    /* CSRF 데이터 변수 저장 */
+    var csrfHeaderName="${_csrf.headerName}";
+    var csrfTokenValue="${_csrf.token}";
     
     var order_seq = ${order_seq};
- 
+    var cust_id = "${memberId}";
   	//상품제목 <p>클릭시
   	$('.basketList').on('click', "p",function () {
   		var goods_seq =  $(this).data("goods_seq");
@@ -337,12 +226,15 @@
 	
   	//주문취소
 	$('.cancelOrderBtn').on('click',function(){
+		
 		if(window.confirm('really?')){
 			console.log("주문취소 시작");
+			var csrf={"csrfHeaderName":csrfHeaderName,
+	   				"csrfTokenValue":csrfTokenValue};
 			checkoutService.getShipStatus(order_seq,function(shipStatus){
 				if(Number(shipStatus[0].delivery_status)===0){
 					console.log("주문취소 로직 실행");
-					checkoutService.orderCancel(2);
+					checkoutService.orderCancel(order_seq,csrf);
 				}else{
 					alert("현재 배송중인 상품은 취소가 불가능 합니다");
 					return;
@@ -376,10 +268,11 @@
 		var totalPrice = $('.totalPrice').text();
 		var point = Number(totalPrice)*0.1;
 		var point2 = parseInt(totalPrice);
-		
+		csrf={"csrfHeaderName":csrfHeaderName,
+   				"csrfTokenValue":csrfTokenValue};
 		console.log("적립 point: "+point);
 		if(window.confirm('주문확정시 환불이 불가능 합니다 주문확정을 하시겠습니까?')){
-			checkoutService.orderCommit(order_seq,point,'basic');
+			checkoutService.orderCommit(order_seq,point,cust_id,csrf);
 		}
 		
 		

@@ -2,27 +2,27 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!-- Favicon -->
+        Favicon
 		<link href="/resources/template/img/favicon.ico" rel="icon">
 		
-		<!-- Google Fonts -->
+		Google Fonts
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
 		
-		<!-- CSS Libraries -->
+		CSS Libraries
 		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 		<link href="/resources/template/lib/slick/slick.css" rel="stylesheet">
 		<link href="/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
 		
-		<!-- Template Stylesheet -->
+		Template Stylesheet
 		<link href="/resources/template/css/style.css" rel="stylesheet">
     </head>
 
     <body>
-        <!-- Top bar Start -->
+        Top bar Start
         <div class="top-bar">
             <div class="container-fluid">
                 <div class="row">
@@ -37,9 +37,9 @@
                 </div>
             </div>
         </div>
-        <!-- Top bar End -->
+        Top bar End
         
-        <!-- Nav Bar Start -->
+        Nav Bar Start
         <div class="nav">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -76,9 +76,9 @@
                 </nav>
             </div>
         </div>
-        <!-- Nav Bar End -->      
+        Nav Bar End      
         
-        <!-- Bottom Bar Start -->
+        Bottom Bar Start
         <div class="bottom-bar">
             <div class="container-fluid">
                 <div class="row align-items-center">
@@ -92,9 +92,9 @@
                 </div>
             </div>
         </div>
-        <!-- Bottom Bar End -->  
+        Bottom Bar End  
         
-        <!-- Breadcrumb Start -->
+        Breadcrumb Start
         <div class="breadcrumb-wrap">
             <div class="container-fluid">
                 <ul class="breadcrumb">
@@ -103,7 +103,8 @@
                     <li class="breadcrumb-item active">상품상세</li>
                 </ul>
             </div>
-        </div>
+        </div> -->
+        <%@include file="../include/header.jsp" %>
         <!-- Breadcrumb End -->
         
         <!-- Product Detail Start -->
