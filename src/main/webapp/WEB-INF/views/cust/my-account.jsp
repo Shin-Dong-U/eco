@@ -24,10 +24,16 @@
                 <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
                     <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
         <!--주문목록조회  -->
+
                     <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i> 주문정보</a>                             
                     
                     <sec:authorize access="hasAuthority('ROLE_COMPANY')">
-                    <a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i> 배송정보입력(업체)</a>
+                   		<a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i> 배송정보입력(업체)</a>
+					</sec:authorize>
+                    <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i> 주문정보</a>
+                    <sec:authorize access="hasAuthority('ROLE_COMPANY')">                             
+                    	<a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i> 배송정보입력(업체)</a>
+
 					</sec:authorize>
                     <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i> 내정보</a>
                     <sec:authorize access="hasAuthority('ROLE_ADMIN')">
