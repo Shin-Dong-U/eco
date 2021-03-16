@@ -42,17 +42,13 @@ var customer=(function(){
 				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
 			},
 			success:function(data){
-				if(callback){
-					console.log("restCust.ajax실행중 joinCust 완료: "+data);
-					callback(data);
-				}
+				callback(data);
+				console.log("restCust.ajax실행중 joinCust 완료: "+data);
 			},
 			
 			error:function(xhr,status,err){
-				if(error){
-					console.log("restCust.ajax실행중 joinCust 오류");
-					error(err);
-				}
+				error(err);
+				console.log("restCust.ajax실행중 joinCust 오류");
 			}
 		});	//end ajax
 	}//end function joinCust
