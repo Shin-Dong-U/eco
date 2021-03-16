@@ -16,7 +16,10 @@
 
         <!-- Favicon -->
         <link href="/resources/template/img/favicon.ico" rel="icon">
-
+        
+        <!--  -->
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> 
+		
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
 
@@ -189,6 +192,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Bottom Bar End --> 
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
          <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
@@ -196,6 +200,7 @@
       //카트 상품 갯수 표시
      	 var cust_id = "${memberId}";
      	 console.log("cust_id"+cust_id);
+
 		cartCnt(cust_id);
     	function cartCnt(cust_id) {
     		var cartCount = 0;
