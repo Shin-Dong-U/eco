@@ -1,33 +1,33 @@
 var goodsService=(function(){
 	var isRun = false;
 	
-	function getGoodsList(url, search, callback){
-		if(isRun === true) { return false; }
-		isRun = true;
-		
-		$.ajax({ 
-			type : 'get',						
-			url : url,	
-			data : search,
-			contentType : "application/json; charset=utf-8",
+		function getGoodsList(url, search, callback){
+			if(isRun === true) { return false; }
+			isRun = true;
 			
-			success : function(result, status, xhr){
-				if(callback){
-					callback(result);
+			$.ajax({ 
+				type : 'get',						
+				url : url,	
+				data : search,
+				contentType : "application/json; charset=utf-8",
+				
+				success : function(result, status, xhr){
+					if(callback){
+						callback(result);
+					}
+					isRun = false;
+				}, error : function(e){
+					console.log(e);
+					isRun = false;
 				}
-				isRun = false;
-			}, error : function(e){
-				console.log(e);
-				isRun = false;
-			}
-		});
-	}
-	
-	return {
-		getGoodsList:getGoodsList
-	};
-	
-})();
+			});
+		}
+		
+		return {
+			getGoodsList:getGoodsList
+		};
+		
+	})();
 
 function callGetGoodsList(){
 	var data = $('#searchForm').serializeObject();

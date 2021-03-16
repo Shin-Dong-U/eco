@@ -15,14 +15,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.goott.eco.common.Criteria;
+import com.goott.eco.domain.GoodsCommentVO;
+import com.goott.eco.service.GoodsCommentService;
 import com.goott.eco.service.GoodsService;
 
 @RequestMapping("/goods")
 @Controller
 public class GoodsController {
 	
-	@Autowired private GoodsService goodsService;
+	private GoodsService goodsService;
+	 private GoodsCommentService mGoodsCommentService;
 	
+	
+	 @Autowired
+	public GoodsController(GoodsService goodsService, GoodsCommentService mGoodsCommentService) {
+		this.goodsService = goodsService;
+		this.mGoodsCommentService = mGoodsCommentService;
+	}
+
 	@GetMapping("")
 	public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response, @ModelAttribute Criteria cri) {
 		ModelAndView mav = new ModelAndView("/goods/goods_list");
@@ -39,7 +49,8 @@ public class GoodsController {
 		//mav.addAllObjects(goodsService.goodsDetail(goodsSeq));
 		mav.addObject("goods_req_option", goodsService.goodsDetail(goodsSeq));
 		mav.addObject("goods", goodsService.goodsDetail(goodsSeq) );
-		
+		List<GoodsCommentVO> result = mGoodsCommentService.commentListService();
+		mav.addObject("commList", result);
 		System.out.println("goods detail " + goodsSeq);
 		return mav;
 	}
