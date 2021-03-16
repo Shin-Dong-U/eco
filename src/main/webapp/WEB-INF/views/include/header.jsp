@@ -144,10 +144,21 @@
                         <div class="navbar-nav ml-auto">
                             <div class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                                
                                 <div class="dropdown-menu">
-                                    <a href="" class="dropdown-item">Login</a>
-                                    <a href="" class="dropdown-item">Register</a>
-                                </div>
+									<sec:authorize access="isAnonymous()">
+										<a href="/home/login" class="dropdown-item">Login</a>
+										<a href="/home/register" class="dropdown-item">Register</a>
+									</sec:authorize>
+									<sec:authorize access="isAuthenticated()">
+										<a href="" class="dropdown-item logoutBtn">Logout</a>
+									</sec:authorize>
+									<form action="/sample/logout" method="post" class="logoutForm">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+										
+									</form>
+								</div>
+                                
                             </div>
                         </div>
                     </div>
@@ -188,19 +199,25 @@
                 </div>
             </div>
         </div>
-        <!-- Bottom Bar End --> 
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-         <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
-        <script>
-      //카트 상품 갯수 표시
-     	 var cust_id = "${memberId}";
+        <!-- Bottom Bar End -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
+	<script>
+	//카트 상품 갯수 표시
+		var cust_id = "${memberId}";
 		cartCnt(cust_id);
-    	function cartCnt(cust_id) {
-    		var cartCount = 0;
-    		basketService.countBasketGoods(cust_id,function(result){
-    			cartCount="("+result+")";
-    			$(".cartCntBtn").text(cartCount);
-    		})
-    		
+		function cartCnt(cust_id) {
+			var cartCount = 0;
+			basketService.countBasketGoods(cust_id,function(result){
+				cartCount="("+result+")";
+				$(".cartCntBtn").text(cartCount);
+			});
     	}
+		
+		$(".logoutBtn").on("click",function(e){
+			e.preventDefault();
+        	console.log("로그아웃");
+        	$('.logoutForm').submit();
+        	
+        })  
         </script>
