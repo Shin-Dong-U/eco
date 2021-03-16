@@ -1,5 +1,7 @@
 package com.goott.eco.domain;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -88,6 +90,38 @@ public class GoodsVO {
 			long time = System.currentTimeMillis();
 			this.goods_detail_img_key = goods_seq + sdf.format(time);
 		}
+	}
+	
+	//파일 관련 메소드 테스트 완료후 삭제 
+	public static void main(String[] args) throws IOException {
+		System.out.println("@@@파일 관련 메소드 테스트가 완료 되었다면 이 메소드를 삭제하시오@@@ ");
+		String absolutePath = (new File("/upload/temp/test_img.jpg")).getCanonicalPath();
+		System.out.println(absolutePath);
+		
+		GoodsVO vo = new GoodsVO();
+		String res = vo.makeNewFilePath("/upload/temp/test_img.jpg", 55);
+		System.out.println(res);
+	}
+	
+	//이동할 폴더 명 생성
+	// '/upload/temp/파일명' -> '/upload/상품번호폴더/파일명
+	public String makeNewFilePath(String orgFilePath, int goods_seq) {
+		int targetStartIdx = orgFilePath.indexOf("temp");
+		int targetEndIdx = orgFilePath.indexOf("temp") + 4;
+		String newFilePath = "";
+		
+		String tmpFront = orgFilePath.substring(0, targetStartIdx);
+		String tmpBack = orgFilePath.substring(targetEndIdx);
+		
+		newFilePath = tmpFront + goods_seq + tmpBack;
+		
+		return newFilePath;
+	}
+	
+	// 상대경로가 들어오면 절대경로로 변환 file의 rute 경로는 c:/upload 
+	// ex) /upload/temp/test_img.jpg -> c:\\upload\\temp\\test_img.jpg 
+	public String convertRealFilePath(String relativePath) throws IOException {
+		return new File("/upload/temp/test_img.jpg").getCanonicalPath();
 	}
 	
 	//상세페이지의 이미지 경로를 list로 반환
