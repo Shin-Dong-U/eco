@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -356,6 +357,10 @@
         	
         	movePage(1);
      	});
+        /* CSRF 데이터 변수 저장 */
+        var csrfHeaderName="${_csrf.headerName}";
+        var csrfTokenValue="${_csrf.token}";
+        
         
        	//리뷰 페이지 이동 
     	function movePage(pageNum){
@@ -369,26 +374,31 @@
        	//선택상품 장바구니에 담기
        	$('.addCart').on("click",function(){
        		orderinfo={
-    	    		cust_id:"compF",//"${memberId }",
+    	    		cust_id:"${memberId}",
     	    		qty:$(".orderQty").val(),
     	    		orderOption:$("#goodsReqOptionSeq option:selected").val(),    	    		
     	    		goods_seq:"${goodsDetail.GOODS_SEQ }"
-    	    } 
+    	    };
+       		csrf={"csrfHeaderName":csrfHeaderName,
+       				"csrfTokenValue":csrfTokenValue};
+       		
     	    console.log("장바구니cust_id: "+orderinfo.cust_id);
     		console.log("장바구니qty: "+orderinfo.qty);
     		console.log("장바구니orderOption: "+orderinfo.orderOption);
     		console.log("장바구니goods_seq: "+orderinfo.goods_seq);
-    		basketService.addGoodsAtBasket(orderinfo);
-    		alert("장바구니에 해당상품이 담겼습니다"+orderinfo.cust_id,orderinfo.qty,orderinfo.orderOption,orderinfo.goods_seq);
-    		if(window.confirm('장바구니로 이동하겠습니까??')){
-    			window.location.href = 'http://localhost/orders/basket/list';
-    		}
+    		basketService.addGoodsAtBasket(orderinfo,csrf,function(){
+    			alert("장바구니에 해당상품이 담겼습니다");
+        		if(window.confirm('장바구니로 이동하겠습니까??')){
+        			window.location.href = 'http://localhost/orders/basket/list';
+        		}
+    		});
+    		
        	})
        	
        	$('.buyNow').on("click",function(){
        		console.log('바로구매')
        		orderinfo={
-    	    		cust_id:"compF",//"${memberId }",
+    	    		cust_id:"${memberId }",
     	    		qty:$(".orderQty").val(),
     	    		orderOption:$("#goodsReqOptionSeq option:selected").val(),
     	    		total_price:Number($(".orderQty").val())*Number("${goodsDetail.PRICE }"),

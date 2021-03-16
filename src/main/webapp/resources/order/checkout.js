@@ -81,7 +81,7 @@ var checkoutService=(function(){
 	}	
 	
 	//배송정보 입력
-	function insertShipInfo(addressInfo){
+	function insertShipInfo(addressInfo,csrf){
 		console.log("................insertShipInfo");
 		
 	$.ajax({ //자바스크립트 객체 시작
@@ -89,6 +89,9 @@ var checkoutService=(function(){
 		url:'/ship/new/',
 		data:JSON.stringify(addressInfo),
 		contentType: "application/json; charset=utf-8",
+		beforeSend:function(xhr){
+			xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+		},
 		success:(result)=>{console.log("배송정보 입력",result)},	
 		error:(log)=>{console.log("실패 "+log)}
 		})

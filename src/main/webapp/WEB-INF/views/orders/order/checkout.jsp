@@ -315,7 +315,7 @@
                                     </div>
                                 </div>-->
                                 <div class="checkout-btn">
-                                    <button class="payOrderBtn">Place Order</button>
+                                    <button class="payOrderBtn" disabled>Place Order</button>
                                     <button class="deliveryBtn">배송정보 입력</button>
                                 </div>
                             </div> 
@@ -437,16 +437,12 @@
     	showShipInfo();
        
     });
+    /* CSRF 데이터 변수 저장 */
+    var csrfHeaderName="${_csrf.headerName}";
+    var csrfTokenValue="${_csrf.token}";
+
     
- /*    var cust_name = null;
-    var cust_email = null;
-    var cust_phone = null;
-    var cust_addrDetail = null;
-    var cust_addrCity = null;
-    var cust_addrPost = null;
-    var cust_addrTotalPrice = null; */
-    
-    var cust_id = "compF"//"${memberId}";
+    var cust_id = "${memberId}";
     console.log("session id: "+cust_id);
     var orderInfo;
     var order_seq = ${order_seq};
@@ -463,8 +459,12 @@
     			 cust_addr_detail:$(".writeAddrDetail").val(),
     			 order_seq:order_seq
     		}
-    	checkoutService.insertShipInfo(addressInfo);
+    	csrf={"csrfHeaderName":csrfHeaderName,
+   				"csrfTokenValue":csrfTokenValue};
+    	checkoutService.insertShipInfo(addressInfo,csrf);
     	
+    	
+    	$(".payOrderBtn").attr("disabled", false);
     	})
     
     

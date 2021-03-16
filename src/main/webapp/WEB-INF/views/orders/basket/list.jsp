@@ -295,14 +295,19 @@
     </body>
     
     <script>
-    var cust_id="compF";
-    //var cust_id = "${memberId}";
+    
+    var cust_id = "${memberId}";
 	cartCnt(cust_id);
 	console.log(cust_id);
     $(document).ready(function(){
     	showList();
     	//var cust_id $(".sessionId").val();
     });
+    /* CSRF 데이터 변수 저장 */
+    var csrfHeaderName="${_csrf.headerName}";
+    var csrfTokenValue="${_csrf.token}";
+    
+    
     
     $('.cartUpBtn').on('click', function () {
     	$(".checkoutBtn").attr("disabled", false)
@@ -357,14 +362,18 @@
 	
 	//장바구니에 구매된 상품 삭제
 	function purGoodsAtBasket(){
-		basketService.purGoodsAtBasket(function(result){})
+		basketService.purGoodsAtBasket(function(result){
+			
+		})
 	}
 	
 	//장바구니에서 상품 삭제
 	function delBasketGoods(cust_id,goods_seq){
+		csrf={"csrfHeaderName":csrfHeaderName,
+   				"csrfTokenValue":csrfTokenValue};
 		$(".checkoutBtn").attr("disabled", true);
-		basketService.delBasketGoods(cust_id,goods_seq,function(result){
-			
+		basketService.delBasketGoods(cust_id,goods_seq,csrf,function(result){
+			showList();
 		})
 	}
 	

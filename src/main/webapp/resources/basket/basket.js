@@ -34,21 +34,24 @@ var basketService=(function(){
 	}
 	
 	
-	function delBasketGoods(cust_id,goods_seq){		
+	function delBasketGoods(cust_id,goods_seq,csrf,callback){		
 		console.log("basket delete one goods................");
 		
 		$.ajax({ 
 			type:'get',						
 			url:'/basket/'+cust_id+'/'+goods_seq,					
 			data:JSON.stringify(),			
-			contentType: "application/json; charset=utf-8", 
-			success:(result)=>{console.log("삭제결과 "+result)},
+			contentType: "application/json; charset=utf-8",
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
+			success:(result)=>{console.log("삭제결과 "+result),callback()},
 			error:(log)=>{console.log("실패 "+log)}
 		
 		})
 	}
 	
-	function purGoodsAtBasket(){		
+	function purGoodsAtBasket(csrf){		
 		console.log("basket delete purchase goods................");
 		
 		$.ajax({ 
@@ -56,13 +59,16 @@ var basketService=(function(){
 			url:'/basket/pur/nana/6',					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
 			success:(result)=>{console.log("구매상품 삭제결과 "+result)},
 			error:(log)=>{console.log("실패 "+log)}
 				
 		})
 	}
 	
-	function changeQtyAtBasket(cust_id,goods_seq,qty,callback){		
+	function changeQtyAtBasket(cust_id,goods_seq,qty,csrf,callback){		
 		console.log("basket change qty................");
 		
 		$.ajax({ 
@@ -70,6 +76,9 @@ var basketService=(function(){
 			url:'/basket/'+cust_id+'/'+goods_seq+'/'+qty,					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
 			success:(result)=>{console.log("상품 수량 변경 결과 "+result)},
 			error:(log)=>{console.log("실패 "+log)}
 			
@@ -77,7 +86,7 @@ var basketService=(function(){
 	}
 	
 	//장바구니에 상품넣기
-	function addGoodsAtBasket(orderinfo){		
+	function addGoodsAtBasket(orderinfo,csrf,callback){		
 		console.log("basket add................");
 		
 		$.ajax({ 
@@ -85,7 +94,10 @@ var basketService=(function(){
 			url:'/basket/new',					
 			data:JSON.stringify(orderinfo),			
 			contentType: "application/json; charset=utf-8", 
-			success:(result)=>{console.log("장바구니 담기 결과 "+result)},
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
+			success:(result)=>{console.log("장바구니 담기 결과 "+result),callback()},
 			error:(log)=>{console.log("실패 "+log)}
 			
 		})
