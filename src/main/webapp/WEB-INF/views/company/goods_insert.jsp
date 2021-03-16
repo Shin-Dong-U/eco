@@ -8,37 +8,36 @@
 <meta name="_csrf_header" th:content="${_csrf.headerName}">
 <title>상품등록페이지</title>
 <script type="text/javascript" src="/resources/vender/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
-<script type="text/javascript" src="/resources/vender/smarteditor2/js/lib/jindo_component.js" charset="utf-8"></script>
-<script type="text/javascript" src="/resources/vender/smarteditor2/js/lib/jindo2.all.js" charset="utf-8"></script>
-<script type="text/javascript" src="/resources/vender/smarteditor2/sample/photo_uploader/attach_photo.js" charset="utf-8"></script>
 </head>
 <body>
-	<textarea name="ir1" id="ir1" rows="10" cols="100">
-		에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다.
-	</textarea>
+	<form:form role="form" action="/goods/form/upload/images" method="post" id="smartEditorForm">
+		상품명   : <input type="text" id="goods_name" name="goods_name"><br/>
+		가격     : <input type="text" id="price" name="price"><br/>
+		재고수량 : <input type="number" id="qty" name="qty"><br/>
+		성분     : <input type="text" id="material" name="material"><br/>
+		카테고리 : <select id="category" name="category"><option></option></select><br/>
+		필수 옵션: <label>없음<input type="radio" name="req_option" value="N"></label><label>있음<input type="radio" name="req_option" id="req_option_y" value="Y"></label><br/>
+		<div id="req_option_div"></div>
+		<textarea name="goods_detail" id="goods_detail" rows="10" cols="100"></textarea>
+	</form:form>
 	
 	<button id="testBtn" onclick="submitContents(this);">naver editor</button>
 	
-	<div class="uploadDiv">
-		<input type="file" name="uploadFile" multiple>
-	</div>
-	<button id="uploadBtn">기본</button>
-
-	<img src="/upload/img/lion.jpg" />
-
 	
 <script type="text/javascript">
 	var oEditors = [];
 	nhn.husky.EZCreator.createInIFrame({
 		oAppRef: oEditors,
-		elPlaceHolder: "ir1",
+		elPlaceHolder: "goods_detail",
 		sSkinURI: "/resources/vender/smarteditor2/SmartEditor2Skin.html",
 		fCreator: "createSEditor2"
 	});
 	
+	var images = new Array();
+	
 	function submitContents(elClickedObj) {
 		 // 에디터의 내용이 textarea에 적용된다.
-		 oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+		 oEditors.getById["goods_detail"].exec("UPDATE_CONTENTS_FIELD", []);
 
 		 // 에디터의 내용에 대한 값 검증은 이곳에서
 		 // document.getElementById("ir1").value를 이용해서 처리한다.
@@ -50,48 +49,10 @@
 		 } catch(e) {}
 	}
 	
-	var cloneObj = $('.uploadDiv').clone();
-	
-	$(document).ready(function(){
-		$('#uploadBtn').on("click", function(e){
-			var token = $("meta[name='_csrf']").attr("th:content");
-			var header = $("meta[name='_csrf_header']").attr("th:content");
-			
-			//console.log('header : ' + header + ' token : ' + token);
-			
-			var formData = new FormData();
-			var inputFile = $("input[name='uploadFile']");
-			var files = inputFile[0].files;
-			console.log(files);
-			
-			for(var i = 0; i < files.length; i++){
-				if(!checkExtension(files[i].name, files[i].size)){ return false; }
-				
-				formData.append("uploadFile", files[i]);
-			}
-			
-			$.ajax({
-				url : '/goods/rest/form/upload/images',
-				processData : false,
-				contentType : false,
-				data : formData,
-				type : 'POST',
-				dataType:"json",
-				beforeSend : function(xhr){   
-                	xhr.setRequestHeader(header, token);
-                },
-				success : function(result){
-					console.log(result);
-					
-					$('.uploadDiv').html(cloneObj.html());
-				},
-				fail : function(e){
-					alert("실패");
-					console.log(e);
-				}
-			});
-		});
-	});
+	//스마트 에디터 리턴 값 -> 파일 경로 + 파일명만 추출
+	function getFilePath(queryStr){
+		return queryStr.substring(t.indexOf("sFileURL=") + 9);
+	}
 	
 	
 	function checkExtension(fileName, fileSize){

@@ -2,6 +2,8 @@ package com.goott.eco.domain;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Data;
 
@@ -86,6 +88,52 @@ public class GoodsVO {
 			long time = System.currentTimeMillis();
 			this.goods_detail_img_key = goods_seq + sdf.format(time);
 		}
+	}
+	
+	//상세페이지의 이미지 경로를 list로 반환
+	public List<String> getImgFileList(String goods_detail){
+		List<String> list = new ArrayList<>();
+		String tmpStr = goods_detail; 
+		
+		StringBuilder sb = new StringBuilder();
+		
+		while(true) {
+			int tmpStartIdx = tmpStr.indexOf("<img src=\"") + 10;
+			int tmpEndIdx = tmpStr.indexOf("\"", tmpStartIdx);
+			
+			if(tmpStartIdx < 0 || tmpEndIdx < 0) { break; }
+
+			String tmpSrc = tmpStr.substring(tmpStartIdx, tmpEndIdx);
+			
+			list.add(tmpSrc);
+			
+			tmpStr = tmpStr.substring(tmpEndIdx);
+			
+		}
+		
+		return list;
+	}
+	
+	//기존 경로 - > 새로운 경로로 img src 변경
+	public void changeImgSrc(String goods_detail, List<String> orgSrcList, List<String> newSrcList) {
+		StringBuilder sb = new StringBuilder();
+		String tmpStr = goods_detail;
+		
+		for(int i = 0; i < orgSrcList.size(); i++) {
+			String tsrc = orgSrcList.get(i);
+			int tsIdx = tmpStr.indexOf(tsrc);
+			int teIdx = tsIdx + tsrc.length();
+			
+			
+			sb.append(tmpStr.substring(0, tsIdx));
+			sb.append(newSrcList.get(i));
+			
+			tmpStr = tmpStr.substring(teIdx);
+					
+		}
+		sb.append(tmpStr);
+		
+		this.goods_detail = sb.toString();
 	}
 	
 }

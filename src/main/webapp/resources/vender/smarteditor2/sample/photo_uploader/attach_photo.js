@@ -330,14 +330,30 @@
      * HTML5 DragAndDrop으로 사진을 추가하고, 확인버튼을 누른 경우에 동작한다.
      * @return
      */
-    function html5Upload() {
-    	console.log('html5Upload');
+    function html5Upload(seq) {
     	var tempFile,
     		sUploadURL;
     	
-//    	sUploadURL= 'file_uploader_html5.php'; 	//upload URL
+    	seq = !seq ? 0 : seq;//이미지 순번 처리.
+    	
     	sUploadURL= '/goods/rest/form/upload/images'; 	//upload URL
     	
+    	tempFile = htImageInfo['img' + seq];
+    	
+    	try{
+    		if(!!tempFile){
+    			//Ajax통신하는 부분. 파일과 업로더할 url을 전달한다.
+    			callAjaxForHTML5(tempFile,sUploadURL, seq, function(seq){
+    				if (seq < nImageFileCount) {
+    					html5Upload(seq);
+					}
+    			});
+    		}
+    	}catch(e){
+    		tempFile = null;
+    	}
+    	
+    	/*
     	//파일을 하나씩 보내고, 결과를 받음.
     	for(var j=0, k=0; j < nImageInfoCnt; j++) {
     		tempFile = htImageInfo['img'+j];
@@ -349,10 +365,10 @@
 	    		}
 	    	}catch(e){}
     		tempFile = null;
-    	}
+    	}*/
 	}
     
-    function callAjaxForHTML5 (tempFile, sUploadURL){
+    function callAjaxForHTML5 (tempFile, sUploadURL, seq, callback){
     	var oAjax = jindo.$Ajax(sUploadURL, {
 			type: 'xhr',
 			method : "post",
@@ -365,6 +381,12 @@
 					}else{
 						//성공 시에  responseText를 가지고 array로 만드는 부분.
 						makeArrayFromString(res._response.responseText);
+						
+					}
+					
+					if (typeof callback === 'function') {
+						seq = seq + 1;
+						callback(seq);
 					}
 				}
 			},
@@ -480,12 +502,12 @@
  	 * jindo에 파일 업로드 사용.(iframe에 Form을 Submit하여 리프레시없이 파일을 업로드하는 컴포넌트)
  	 */
  	function callFileUploader (){
- 		
+ 		console.log('callFileUploader');
  		oFileUploader = new jindo.FileUploader(jindo.$("uploadInputBox"),{
 // 			sUrl  : location.href.replace(/\/[^\/]*$/, '') + '/file_uploader.php',	//샘플 URL입니다.
 // 	        sCallback : location.href.replace(/\/[^\/]*$/, '') + '/callback.html',	//업로드 이후에 iframe이 redirect될 콜백페이지의 주소
  	        sUrl  : '/goods/rest/form/upload/images',	
- 	        sCallback : '/goods/form',	
+ 	        sCallback : '/resources/vender/smarteditor2/sample/photo_uploader/callback.html',	
  	    	sFiletype : "*.jpg;*.png;*.bmp;*.gif",						//허용할 파일의 형식. ex) "*", "*.*", "*.jpg", 구분자(;)	
  	    	sMsgNotAllowedExt : 'JPG, GIF, PNG, BMP 확장자만 가능합니다',	//허용할 파일의 형식이 아닌경우에 띄워주는 경고창의 문구
  	    	bAutoUpload : false,									 	//파일이 선택됨과 동시에 자동으로 업로드를 수행할지 여부 (upload 메소드 수행)
