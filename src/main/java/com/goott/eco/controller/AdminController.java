@@ -1,7 +1,6 @@
 package com.goott.eco.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.goott.eco.domain.AdminVO;
-import com.goott.eco.domain.MemberVO;
 import com.goott.eco.service.AdminService;
 
 @RestController
@@ -25,37 +23,31 @@ public class AdminController {
 	private AdminService adminService;
 	
 	/* 모든 관리자 정보 가져오기 */
-	@GetMapping(value="/getAdmin/{cust}",produces={"application/json; charset=UTF-8"})
-	public ResponseEntity<List<MemberVO>> getAdminList1(){
+	@GetMapping(value="/getAdmin/{pageNum}",produces={"application/json; charset=UTF-8"})
+	public ResponseEntity<Map<String, Object>> getAdminList1(@PathVariable("pageNum")int pageNum){
 		/* TEST형식 */
-		List<MemberVO> adminList = new ArrayList<>();
-		adminList=adminService.getAdminList();
+		Map<String, Object> adminList = adminService.getAdminList(pageNum);
 		System.out.println("test: "+adminList);
-		
 		
 		return new ResponseEntity<>(adminList, HttpStatus.OK);
 	}
 	
 	/* 모든 업체 회원 정보 가져오기  */
-	@GetMapping(value="/getCompany/{cust}",produces={"application/json; charset=UTF-8"})
-	public ResponseEntity<List<MemberVO>> getCompanyList(){
+	@GetMapping(value="/getCompany/{pageNum}",produces={"application/json; charset=UTF-8"})
+	public ResponseEntity<Map<String, Object>> getCompanyList(@PathVariable("pageNum")int pageNum){
 		/* TEST형식 */
-		List<MemberVO> companyList = new ArrayList<>();
-		companyList=adminService.getCompanyList();
-		System.out.println("test: "+companyList);
-		
-		
+		Map<String, Object> companyList = adminService.getCompanyList(pageNum);
+		System.out.println("controller: "+ companyList);
+
 		return new ResponseEntity<>(companyList, HttpStatus.OK);
-		
 	}
 	
 	/* 모든 일반 사용자 회원 정보 가져오기  */
-	@GetMapping(value="/getCust/{cust}",produces={"application/json; charset=UTF-8"})
-	public ResponseEntity<List<MemberVO>> getCustList(){
+	@GetMapping(value="/getCust/{pageNum}",produces={"application/json; charset=UTF-8"})
+	public ResponseEntity<Map<String, Object>> getCustList(@PathVariable("pageNum")int pageNum){
 		/* TEST형식 */
-		List<MemberVO> custList = adminService.getCustList();
+		Map<String, Object> custList = adminService.getCustList(pageNum);
 		System.out.println("controller: "+ custList);
-
 		
 		return new ResponseEntity<>(custList, HttpStatus.OK);
 		
