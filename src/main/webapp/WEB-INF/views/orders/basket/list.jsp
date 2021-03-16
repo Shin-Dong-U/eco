@@ -314,7 +314,7 @@
 				}
 				basketListTable.html(str);
 				$(".subTotalPrice").text(firstTotal);
-				firstGrandTotal = Number($(".subTotalPrice").text())+Number($(".shippingCost").text());
+				firstGrandTotal = Number(firstTotal)+Number($(".shippingCost").text());
 				$(".grandTotalPrice").text(firstGrandTotal);
 			})
 		}

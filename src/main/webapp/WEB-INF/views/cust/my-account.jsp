@@ -26,7 +26,7 @@
         <!--주문목록조회  -->
                     <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i>주문정보</a>                             
                     <a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i>배송정보입력(업체)</a>
-                    <a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab"><i class="fa fa-map-marker-alt"></i>address</a>
+                    <a class="nav-link" id="address-nav" data-toggle="pill" href="http://localhost:3000" role="tab"><i class="fa fa-map-marker-alt"></i>차트보기</a>
                     <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i>Account Details</a>
                     <a class="nav-link logoutBtn"><i class="fa fa-sign-out-alt"></i>Logout</a>
                     <form action="/sample/logout", method="post" class="logoutForm">
