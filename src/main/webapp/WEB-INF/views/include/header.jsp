@@ -63,7 +63,7 @@
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
+                            <!-- <a href="index.html" class="nav-item nav-link">Home</a> -->
                             
                             <div class="nav-item dropdown">
                             <a href="http://localhost/goods" class="nav-link dropdown-toggle active" data-toggle="dropdown" aria-expanded="false">상품</a>
@@ -80,7 +80,8 @@
                             </div>
                       
   <!-- member5 pw5  -> 인증된 사용자일경우, 들어가게 .... -->    
-  <!-- admin1 pw1 -->                      
+  <!-- admin1 pw1 -->   
+  <!--  http://localhost/cust/account-->                   
                             <a href="http://localhost/orders/basket/list" class="nav-item nav-link">장바구니</a>
                             <a href="http://localhost/orders/order/checkout" class="nav-item nav-link">주문하기</a>
                             <a href="http://localhost/cust/account" class="nav-item nav-link">내정보보기</a>
