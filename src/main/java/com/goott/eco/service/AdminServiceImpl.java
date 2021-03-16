@@ -1,11 +1,14 @@
 package com.goott.eco.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.goott.eco.common.Criteria;
+import com.goott.eco.common.PageDTO;
 import com.goott.eco.domain.AdminVO;
 import com.goott.eco.domain.GoodsVO;
 import com.goott.eco.domain.MemberVO;
@@ -13,6 +16,7 @@ import com.goott.eco.mapper.GoodsMapper;
 import com.goott.eco.util.GoodsSampleDataMaker;
 
 import java.util.List;
+import java.util.Map;
 
 import com.goott.eco.mapper.AdminMapper;
 import com.goott.eco.mapper.CustMapper;
@@ -60,20 +64,45 @@ public class AdminServiceImpl implements AdminService{
 	
 	/* 모든 관리자 정보 가져오기 */
 	@Override
-	public List<MemberVO> getAdminList() {
-		return adminDao.getAdminList();
+	public Map<String, Object> getAdminList(int pageNum) {
+		Criteria cri = new Criteria(pageNum,10);
+		PageDTO page = new PageDTO(cri, adminDao.totalAdminList());
+		
+		List<MemberVO> compList = adminDao.getAdminList(cri);
+		Map<String, Object> custMap = new HashMap<>();
+		custMap.put("memberVO", compList);
+		custMap.put("page", page);
+		
+		return custMap;
 	}
 	
 	/* 모든 업체 정보 가져오기 */
 	@Override
-	public List<MemberVO> getCompanyList() {
-		return adminDao.getCompanyList();
+	public Map<String, Object> getCompanyList(int pageNum) {
+		Criteria cri = new Criteria(pageNum,10);
+		PageDTO page = new PageDTO(cri, adminDao.totalCompanyList());
+		
+		List<MemberVO> adminList = adminDao.getCompanyList(cri);
+		Map<String, Object> custMap = new HashMap<>();
+		custMap.put("memberVO", adminList);
+		custMap.put("page", page);
+		
+		return custMap;
 	}
 
 	/* 모든 일반사용자 정보 가져오기 */
 	@Override
-	public List<MemberVO> getCustList() {
-		return adminDao.getCustList();
+	public Map<String, Object> getCustList(int pageNum) {
+		Criteria cri = new Criteria(pageNum,10);
+		PageDTO page = new PageDTO(cri, adminDao.totalCountCustList());
+		
+		
+		List<MemberVO> custList = adminDao.getCustList(cri);
+		Map<String, Object> custMap = new HashMap<>();
+		custMap.put("memberVO", custList);
+		custMap.put("page", page);
+		
+		return custMap;
 	}
 	
 	
