@@ -28,7 +28,10 @@
                     <a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i>배송정보입력(업체)</a>
                     <a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab"><i class="fa fa-map-marker-alt"></i>address</a>
                     <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i>Account Details</a>
-                    <a class="nav-link" href="index.html"><i class="fa fa-sign-out-alt"></i>Logout</a>
+                    <a class="nav-link logoutBtn"><i class="fa fa-sign-out-alt"></i>Logout</a>
+                    <form action="/sample/logout", method="post" class="logoutForm">
+                    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    </form>
                 </div>
             </div>
             <div class="col-md-9">
@@ -248,6 +251,18 @@
         	showOrderedInfo();
         	showShipListInfo();
         });
+        
+        /* CSRF 데이터 변수 저장 */
+        var csrfHeaderName="${_csrf.headerName}";
+        var csrfTokenValue="${_csrf.token}";
+        
+        //로그아웃
+                    
+         $(".logoutBtn").on("click",function(){
+        	console.log("로그아웃");
+        	$('.logoutForm').submit();
+        	
+        })  
        
         
         
