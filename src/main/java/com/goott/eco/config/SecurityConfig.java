@@ -79,7 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		
 //			.antMatchers("/orders/basket/list").authenticated();
-			.antMatchers("/cust/account","/cust/account1").authenticated();
+			.antMatchers("/cust/account","/cust/account").authenticated();
 		//	.antMatchers("/order/list").authenticated();
 		//	.exceptionHandling().accessDeniedHandler(accessDeniedHandler())
 

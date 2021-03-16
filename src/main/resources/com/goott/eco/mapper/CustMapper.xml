@@ -9,7 +9,6 @@
 	<resultMap type="com.goott.eco.domain.CustAuthVO" id="AuthMap">
 		<result property="memberId" column="memberId" />
 		<result property="auth" column="auth" />	
-		<result property="acc_level" column="acc_level" />
 	</resultMap>
 	
 	<resultMap type="com.goott.eco.domain.CustVO" id="CustMap">
@@ -56,7 +55,7 @@
 	
 	<!-- 특정 회원 권한 가져오기 -->
 	<select id="getCustAuth" resultMap="CustMap">
-		SELECT a.*, b.auth , b.acc_level
+		SELECT a.*, b.auth
 		FROM eco.cust a LEFT OUTER JOIN eco.cust_auth b on a.memberId= b.memberId
 		WHERE a.memberId=#{memberId}
 	</select>
@@ -86,7 +85,7 @@
 	<!-- 회원가입:eco.cust_auth -->
 	<insert id="joinCustAuth">
 		INSERT INTO eco.cust_auth
-		VALUES(#{memberId}, 'ROLE_CUST', default)
+		VALUES(#{memberId}, 'ROLE_CUST')
 	</insert>
 	
 	<!-- 회원수정 -->
