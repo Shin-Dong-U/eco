@@ -3,7 +3,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 
 <html lang="kr">
@@ -87,21 +86,21 @@
     </head>
 
     <body>
-       <!-- Top bar Start -->
-        <div class="top-bar">
+        <!-- Top bar Start -->
+        <!-- <div class="top-bar">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
                         <i class="fa fa-envelope"></i>
-                        eco_friends@gmail.com
+                        support@email.com
                     </div>
                     <div class="col-sm-6">
                         <i class="fa fa-phone-alt"></i>
-                        02-456-7890
+                        +012-345-6789
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Top bar End -->
         
         <!-- Nav Bar Start -->
@@ -148,10 +147,21 @@
                         <div class="navbar-nav ml-auto">
                             <div class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                                
                                 <div class="dropdown-menu">
-                                    <a href="" class="dropdown-item">Login</a>
-                                    <a href="" class="dropdown-item">Register</a>
-                                </div>
+									<sec:authorize access="isAnonymous()">
+										<a href="/home/login" class="dropdown-item">Login</a>
+										<a href="/home/register" class="dropdown-item">Register</a>
+									</sec:authorize>
+									<sec:authorize access="isAuthenticated()">
+										<a href="" class="dropdown-item logoutBtn">Logout</a>
+									</sec:authorize>
+									<form action="/sample/logout" method="post" class="logoutForm">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+										
+									</form>
+								</div>
+                                
                             </div>
                         </div>
                     </div>
@@ -167,7 +177,7 @@
                     <div class="col-md-3">
                         <div class="logo">
                             <a href="http://localhost/home/index">
-                                <img src="/resources/template/img/ecoL.png" alt="Logo">
+                                <img src="/resources/template/img/logo.png" alt="Logo">
                             </a>
                         </div>
                     </div>
@@ -192,22 +202,25 @@
                 </div>
             </div>
         </div>
+        <!-- Bottom Bar End -->
 
-        <!-- Bottom Bar End --> 
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-         <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
-        <script>
-      //카트 상품 갯수 표시
-     	 var cust_id = "${memberId}";
-     	 console.log("cust_id"+cust_id);
-
+	<script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
+	<script>
+	//카트 상품 갯수 표시
+		var cust_id = "${memberId}";
 		cartCnt(cust_id);
-    	function cartCnt(cust_id) {
-    		var cartCount = 0;
-    		basketService.countBasketGoods(cust_id,function(result){
-    			cartCount="("+result+")";
-    			$(".cartCntBtn").text(cartCount);
-    		})
-    		
+		function cartCnt(cust_id) {
+			var cartCount = 0;
+			basketService.countBasketGoods(cust_id,function(result){
+				cartCount="("+result+")";
+				$(".cartCntBtn").text(cartCount);
+			});
     	}
+		
+		$(".logoutBtn").on("click",function(e){
+			e.preventDefault();
+        	console.log("로그아웃");
+        	$('.logoutForm').submit();
+        	
+        })  
         </script>
