@@ -227,9 +227,11 @@
         $(".goods-total-price").val(totalPrice);
     });
     
-    
+   
     //이벤트 위임
     $('.basketList').on('click', ".qty button",function () {
+    	
+    	console.log(csrfHeaderName,csrfTokenValue);
     	console.log("버튼클릭");
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
@@ -246,7 +248,7 @@
         	//장바구니 수량 업데이트
             var goods_seq = $button.parent().data("goods_seq");
             console.log("qty 증가 goods_seq: "+goods_seq);
-        	changeQtyAtBasket("nana",goods_seq,newVal);
+        	changeQtyAtBasket(cust_id,goods_seq,newVal);
         	$(".checkoutBtn").attr("disabled", true);
         	
         } else {
@@ -259,7 +261,7 @@
              //장바구니 수량 업데이트
                var goods_seq = $button.parent().data("goods_seq");
                console.log("qty 감소 goods_seq: "+goods_seq);
-           	   changeQtyAtBasket("nana",goods_seq,newVal);
+           	   changeQtyAtBasket(cust_id,goods_seq,newVal);
            	$(".checkoutBtn").attr("disabled", true);
             } else {
                 newVal = 0;
