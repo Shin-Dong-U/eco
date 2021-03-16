@@ -139,7 +139,7 @@
                                         <div class="ratting" id="goods_ratting_div"></div>
                                         <div class="price">
                                             <h4>가격:</h4>
-                                            <p class="goods-price">${goodsDetail.PRICE }</p>
+                                            <p class="goods-price">${goodsDetail.PRICE }</p><a>원</a>
                                         </div>
                                         <div class="quantity">
                                             <h4>수량:</h4>

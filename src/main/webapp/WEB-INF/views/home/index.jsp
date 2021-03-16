@@ -4,7 +4,7 @@
     
         <!-- Bottom Bar End -->       
         
-        <!-- Main Slider Start -->
+         <!-- Main Slider Start -->
         <div class="header">
             <div class="container-fluid">
                 <div class="row">
@@ -12,28 +12,34 @@
                         <nav class="navbar bg-light">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href=""><i class="fa fa-home"></i>Home</a>
+                                    <a class="nav-link" href="/home/index/"><i class="fa fa-home"></i>홈</a>
+                                </li>
+                                   </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="http://localhost/goods?category=1"><i class="fa fa-apple-alt"></i>식품</a>
+                                         
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href=""><i class="fa fa-shopping-bag"></i>Best Selling</a>
+                                    <a class="nav-link" href="http://localhost/goods?category=2"><i class="fa fa-shopping-bag"></i>가구</a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="http://localhost/goods?category=3"><i class="fas fa-tshirt"></i>의류</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href=""><i class="fa fa-plus-square"></i>New Arrivals</a>
+                                    <a class="nav-link" href="http://localhost/goods?category=4"><i class="fas fa-mobile-alt"></i>생활용품</a>
+                             
+                                 <li class="nav-item">
+                                    <a class="nav-link" href="http://localhost/goods?category=5"><i class="fas fa-couch"></i>잡화</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href=""><i class="fa fa-female"></i>Fashion & Beauty</a>
+                                    <a class="nav-link" href="http://localhost/goods?category=21"><i class="fab fa-palfed"></i>뷰티</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href=""><i class="fa fa-child"></i>Kids & Babies Clothes</a>
+                                    <a class="nav-link" href="http://localhost/goods?category=22"><i class="fa fa-heartbeat"></i>헬스/건강식품</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href=""><i class="fa fa-tshirt"></i>Men & Women Clothes</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href=""><i class="fa fa-mobile-alt"></i>Gadgets & Accessories</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href=""><i class="fa fa-microchip"></i>Electronics & Accessories</a>
+                                    <a class="nav-link" href="http://localhost/goods?category=23"><i class="fab fa-palfed"></i>주방용품</a>
                                 </li>
                             </ul>
                         </nav>
