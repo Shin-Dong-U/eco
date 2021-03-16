@@ -110,7 +110,8 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int confirmCompany(String memberId, String loginId) {	
 		if(adminDao.confirmCompany(memberId,loginId)==1 
-			&& adminDao.joinCompanyAuth(memberId)==1)return 1;
+			&& adminDao.joinCompanyAuth(memberId)==1
+				&& adminDao.modCustCompany(memberId, loginId)==1)return 1;
 		else{
 			return 0;
 		}

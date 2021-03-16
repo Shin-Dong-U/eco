@@ -85,7 +85,7 @@
 	<!-- 모든 업체 정보 가져오기 -->
 	<select id="getCompanyList" resultMap="memberMap">
 		SELECT /*+ Index_DESC(a regIndex) */ a.*,
-    	b.cust_id, b.comp_seq, b.comp_name, b.corp_num, b.memo
+    	b.cust_id, b.comp_seq, b.comp_name, b.confirm_yn, b.corp_num, b.memo
 		FROM eco.cust a INNER JOIN eco.company b
 		ON (a.memberId = b.cust_Id)
 		where a.company_yn='Y'
@@ -121,6 +121,14 @@
 		set confirm_yn = 'Y', editDate=default, editUser=#{loginId}, regUser=#{loginId}
 		where cust_id=#{memberId}
 	</update>
+	
+	<!-- 사용자 승인 수정 -->
+	<update id="modCustCompany" >
+		update eco.cust
+		set regDate =default, editDate=default, editUser=#{loginId}, regUser=#{loginId}
+		where memberId=#{memberId}
+	</update>
+	
 	
 	<!-- 업체 권한 승인-->
 	<insert id="joinCompanyAuth" >

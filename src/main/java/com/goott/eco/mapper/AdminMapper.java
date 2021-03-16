@@ -35,6 +35,9 @@ public interface AdminMapper {
 	/* 업체 권한 승인 */
 	public int joinCompanyAuth(String memberId);
 	
+	/* 사용자 권한 승인 */
+	public int modCustCompany(@Param("memberId")String memberId, @Param("loginId")String loginId);
+	
 	/* 관리자 등업 */
 	public int regAdmin(@Param("adminVO")AdminVO adminVO, @Param("loginId")String loginId);
 	
