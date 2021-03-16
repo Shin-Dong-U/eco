@@ -327,7 +327,8 @@
 	    custom_data : {cust_id:cust_id,order_seq:orderInfo.ORDER_SEQ}
 	}, function(rsp) {
 		console.log(rsp);
-	
+		csrf={"csrfHeaderName":csrfHeaderName,
+   				"csrfTokenValue":csrfTokenValue};
 				//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
 				if ( rsp.success ) {
 					
@@ -351,8 +352,11 @@
 							custom_data:rsp.custom_data					
 						}),
 						contentType: "application/json; charset=utf-8",
+						beforeSend:function(xhr){
+							xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+						},
 						success: function(result){console.log("결제후 페이지이동 "+result),
-							location.href = "/home/index"},
+							location.href = "/home/my-account"},
 						error:function(log){console.log("실패 "+log)}
 			    });
 					

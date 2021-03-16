@@ -3,6 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 
 <html lang="kr">
@@ -83,21 +84,21 @@
     </head>
 
     <body>
-        <!-- Top bar Start -->
-        <!-- <div class="top-bar">
+       <!-- Top bar Start -->
+        <div class="top-bar">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
                         <i class="fa fa-envelope"></i>
-                        support@email.com
+                        eco_friends@gmail.com
                     </div>
                     <div class="col-sm-6">
                         <i class="fa fa-phone-alt"></i>
-                        +012-345-6789
+                        02-456-7890
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
         <!-- Top bar End -->
         
         <!-- Nav Bar Start -->
@@ -163,7 +164,7 @@
                     <div class="col-md-3">
                         <div class="logo">
                             <a href="http://localhost/home/index">
-                                <img src="/resources/template/img/logo.png" alt="Logo">
+                                <img src="/resources/template/img/ecoL.png" alt="Logo">
                             </a>
                         </div>
                     </div>
@@ -194,6 +195,7 @@
         <script>
       //카트 상품 갯수 표시
      	 var cust_id = "${memberId}";
+     	 console.log("cust_id"+cust_id);
 		cartCnt(cust_id);
     	function cartCnt(cust_id) {
     		var cartCount = 0;

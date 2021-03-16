@@ -68,17 +68,15 @@ var basketService=(function(){
 		})
 	}
 	
-	function changeQtyAtBasket(cust_id,goods_seq,qty,csrf,callback){		
-		console.log("basket change qty................");
+	function changeQtyAtBasket(cust_id,goods_seq,qty,callback){		
+		console.log("basket change qty................"+cust_id+"/"+goods_seq+"/"+qty);
 		
 		$.ajax({ 
 			type:'get',						
 			url:'/basket/'+cust_id+'/'+goods_seq+'/'+qty,					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
-			beforeSend:function(xhr){
-				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
-			},
+			
 			success:(result)=>{console.log("상품 수량 변경 결과 "+result)},
 			error:(log)=>{console.log("실패 "+log)}
 			

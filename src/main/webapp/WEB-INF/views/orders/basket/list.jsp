@@ -172,7 +172,7 @@
         <script src="${contextPath}/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
-        <script src="${contextPath}/resources/template/js/main.js?var=7"></script>
+        <script src="${contextPath}/resources/template/js/main.js?var=8"></script>
         <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
 		<script src="${contextPath}/resources/basket/transferTime.js"></script>
 		<script src="${contextPath}/resources/order/checkout.js?ver=3"></script>
@@ -205,9 +205,11 @@
     	console.log("체크아웃 버튼클릭");
     	var total_price = $(".grandTotalPrice").text();
     	console.log(total_price);
+    	csrf={"csrfHeaderName":csrfHeaderName,
+   				"csrfTokenValue":csrfTokenValue};
     	//addOrder
     	//체크아웃페이지 이동   	
-    	 checkoutService.addOrderBasket(cust_id,total_price,function(){
+    	 checkoutService.addOrderBasket(cust_id,total_price,csrf,function(){
     		alert("checkout 성공"); 
     	}); 
     	
