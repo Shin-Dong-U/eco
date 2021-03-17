@@ -14,7 +14,7 @@
         <meta content="eCommerce HTML Template Free Download" name="description">
 
         <!-- Favicon -->
-        <link href="/resources/template/img/favicon.ico" rel="icon">
+        <link href="${contextPath}/resources/template/img/favicon.ico" rel="icon">
         
         <!--  -->
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> 
@@ -25,11 +25,11 @@
         <!-- CSS Libraries -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="/resources/template/lib/slick/slick.css" rel="stylesheet">
-        <link href="/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="/resources/template/css/style.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/css/style.css" rel="stylesheet">
         <style>
 			/* Account - Detail */
 			#confirm_check {
@@ -156,10 +156,7 @@
 									<sec:authorize access="isAuthenticated()">
 										<a href="" class="dropdown-item logoutBtn">Logout</a>
 									</sec:authorize>
-									<form action="/sample/logout" method="post" class="logoutForm">
-										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-										
-									</form>
+
 								</div>
                                 
                             </div>
@@ -234,7 +231,7 @@
               
                     <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i> 내정보</a>
                     <sec:authorize access="hasAuthority('ROLE_ADMIN')">
-	                    <a class="nav-link" href="http://localhost:3000/" ><i class="fa fa-map-marker-alt"></i> 차트보기</a>
+	                    <a class="nav-link" href="http://172.16.5.1:3000/" ><i class="fa fa-map-marker-alt"></i> 차트보기</a>
 	                    <a class="nav-link" id="member-nav" data-toggle="pill" href="#member-tab" role="tab"><i class="fa fa-user"></i> 사용자 관리 </a>
                     </sec:authorize>
                     <a class="nav-link logoutBtn"><i class="fa fa-sign-out-alt"></i>Logout</a>
@@ -477,11 +474,13 @@
         
         <!--add JavaScript  -->
         <script src="${contextPath}/resources/order/checkout.js?ver=2"></script>
+        <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
         
         <script type="text/javascript">
         $(document).ready(function(){
-        	showOrderedInfo();
-        	showShipListInfo();
+        	var cust_id="${memberId}";
+        	showOrderedInfo(cust_id);
+        	showShipListInfo(cust_id);
         });
         
         /* CSRF 데이터 변수 저장 */
@@ -491,7 +490,7 @@
         //로그아웃
                     
          $(".logoutBtn").on("click",function(){
-        	console.log("로그아웃");
+        	
         	$('.logoutForm').submit();
         	
         })  
@@ -499,17 +498,16 @@
         
         
         var cust_id="${memberId}";
-        console.log("session id: "+cust_id);
+        console.log("cust_id: "+cust_id)
       //주문 리스트 보기
-		function showOrderedInfo(){		
+		function showOrderedInfo(cust_id){		
 			checkoutService.getOrderList(cust_id,function(orderedInfoList){
 				var showOrderedInfoTable=$(".showOrderedInfo");
 				var str="";
-				console.log(orderedInfoList);
+				
 				for(var i=0,len=orderedInfoList.length||0;i<len;i++){
 					var delivery_status= '배송정보';
-					console.log(typeof(orderedInfoList[i].DELIVERY_STATUS));
-					console.log(typeof(Number(orderedInfoList[i].DELIVERY_STATUS)));
+					
 					switch(Number(orderedInfoList[i].DELIVERY_STATUS)){
 					
 					case 0:
@@ -545,16 +543,12 @@
 		}
       
 		 //주문 리스트 보기(업체)
-		function showShipListInfo(){		
+		function showShipListInfo(cust_id){		
 			checkoutService.getOrderList(cust_id,function(orderedInfoList){
 				var shipOrderedInfoTable=$(".shipOrderedInfo");
 				var str="";
-				console.log(orderedInfoList);
 				for(var i=0,len=orderedInfoList.length||0;i<len;i++){
 					var delivery_status= '배송정보';
-					console.log("업체 배송: "+orderedInfoList);
-					console.log(typeof(orderedInfoList[i].DELIVERY_STATUS));
-					console.log(typeof(Number(orderedInfoList[i].DELIVERY_STATUS)));
 					switch(Number(orderedInfoList[i].DELIVERY_STATUS)){
 					
 					case 0:
@@ -747,7 +741,6 @@ function checkModal(memberId){
 	adminRest.getCust(
 		memberId,
 		function(memberVO){
-			console.log(memberVO);
 			showDetail(memberVO);
 		}
 	);
@@ -775,7 +768,6 @@ $("#modal_btn_modify").on("click",function(){
 	adminRest.getCust(
 		memberId,
 		function(memberVO){
-			console.log(memberVO);
 			showDetail_modify(memberVO);
 		}
 	);
@@ -801,7 +793,6 @@ $("#modal_btn_cancel").on("click",function(){
 	adminRest.getCust(
 			memberId,
 			function(memberVO){
-				console.log(memberVO);
 				showDetail(memberVO);
 			}
 		);
@@ -816,7 +807,6 @@ function checkModal(memberId){
 	adminRest.getCust(
 		memberId,
 		function(memberVO){
-			console.log(memberVO);
 			showDetail(memberVO);
 		}
 	);
@@ -1212,7 +1202,6 @@ function get_chat(){
 	customer.getCust(
 			memId,
 			function(memberVO){
-				console.log(memberVO['custVO'].memberId);
 				if(memberVO["custVO"].sex == 1){var sex="남자"}else{var sex="여자"}
 				str1="";
 				str2="";
@@ -1290,7 +1279,7 @@ function modify_chat(){
 	customer.getCust(
 			memId,
 			function(memberVO){
-				console.log(memberVO['custVO'].memberId);
+				
 				if(memberVO["custVO"].sex == 1){var sex="남자"}else{var sex="여자"}
 				str1="";
 				str2="";
@@ -1383,8 +1372,6 @@ $("#btn_modSubmit").on("click", function(){
 		"addr_city" : $("#addr_city_new1").val(),
 		"addr_detail" : $("#addr_detail1").val(),
 	};
-
-	console.log("custVO: " + JSON.stringify(custVO));
 
 	customer.modifyMember(
 		custVO, 
@@ -1486,8 +1473,10 @@ function popUP() {
         
         	<script>
 	//카트 상품 갯수 표시
-		var cust_id = "${memberId}";
-		cartCnt(cust_id);
+		if(cust_id=!null){
+			cartCnt(cust_id);
+		}
+		
 		function cartCnt(cust_id) {
 			var cartCount = 0;
 			basketService.countBasketGoods(cust_id,function(result){
@@ -1495,17 +1484,22 @@ function popUP() {
 				$(".cartCntBtn").text(cartCount);
 			});
     	}
-		
-		$(".logoutBtn").on("click",function(e){
-			e.preventDefault();
-        	console.log("로그아웃");
-        	$('.logoutForm').submit();
-        	
-        })  
         </script>
         
         
-        
+        <!--Start of Tawk.to Script-->
+			<script type="text/javascript">
+				var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+				(function(){
+				var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+					s1.async=true;
+					s1.src='https://embed.tawk.to/6051161bf7ce18270930c865/1f0ubsnki';
+					s1.charset='UTF-8';
+					s1.setAttribute('crossorigin','*');
+					s0.parentNode.insertBefore(s1,s0);
+				})();
+			</script>
+		<!--End of Tawk.to Script-->
         
         
         

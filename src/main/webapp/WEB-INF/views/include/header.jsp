@@ -14,7 +14,7 @@
         <meta content="eCommerce HTML Template Free Download" name="description">
 
         <!-- Favicon -->
-        <link href="/resources/template/img/favicon.ico" rel="icon">
+        <link href="${contextPath}/resources/template/img/favicon.ico" rel="icon">
         
         <!--  -->
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> 
@@ -25,11 +25,11 @@
         <!-- CSS Libraries -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="/resources/template/lib/slick/slick.css" rel="stylesheet">
-        <link href="/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="/resources/template/css/style.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/css/style.css" rel="stylesheet">
         
     </head>
 
@@ -102,7 +102,7 @@
 										<a href="/home/register" class="dropdown-item">Register</a>
 									</sec:authorize>
 									<sec:authorize access="isAuthenticated()">
-										<a href="" class="dropdown-item logoutBtn">Logout</a>
+										<a class="dropdown-item logoutBtn">Logout</a>
 									</sec:authorize>
 									<form action="/sample/logout" method="post" class="logoutForm">
 										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -156,7 +156,10 @@
 	<script>
 	//카트 상품 갯수 표시
 		var cust_id = "${memberId}";
-		cartCnt(cust_id);
+		
+		if(cust_id=!null){
+			cartCnt(cust_id)
+		}
 		function cartCnt(cust_id) {
 			var cartCount = 0;
 			basketService.countBasketGoods(cust_id,function(result){
@@ -167,7 +170,6 @@
 		
 		$(".logoutBtn").on("click",function(e){
 			e.preventDefault();
-        	console.log("로그아웃");
         	$('.logoutForm').submit();
         	
         })  

@@ -217,10 +217,8 @@
 
     
     var cust_id = "${memberId}";
-    console.log("session id: "+cust_id);
     var orderInfo;
     var order_seq = ${order_seq};
-	console.log("order_seq"+order_seq);
 	
 	
     $(".deliveryBtn").on('click',function(){
@@ -247,10 +245,8 @@
     	
     	checkoutService.getShipInfo(cust_id,order_seq,function(checkoutInfo){
     		orderInfo = checkoutInfo;
-    		console.log("orderInfo: "+orderInfo.NAME);
 			var address=$(".addressInfomation");
 			var str="";
-			console.log(checkoutInfo);
 			
 				str+="<h2>배송정보</h2>"
 	                +"   <div class='row'>"
@@ -304,12 +300,9 @@
 	}
     
    
-    console.log("var orderInfo"+orderInfo);
-    
     $('.payOrderBtn').on('click', function (){
     checkoutService.getShipInfo(cust_id,order_seq,function(checkoutInfo){
     	orderInfo = checkoutInfo;
-    console.log("orderInfo: "+orderInfo.TOTAL_PRICE);
 	
 	var IMP = window.IMP; // 생략가능
 	IMP.init('imp03498848'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -328,7 +321,6 @@
 	    m_redirect_url : 'https://www.yourdomain.com/payments/complete',
 	    custom_data : {cust_id:cust_id,order_seq:orderInfo.ORDER_SEQ}
 	}, function(rsp) {
-		console.log(rsp);
 		csrf={"csrfHeaderName":csrfHeaderName,
    				"csrfTokenValue":csrfTokenValue};
 				//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
@@ -339,8 +331,7 @@
 			        msg += '상점 거래ID : ' + rsp.merchant_uid;
 			        msg += '결제 금액 : ' + rsp.paid_amount;
 			        msg += '카드 승인번호 : ' + rsp.apply_num;
-			       // alert(msg);
-			       console.log("메세지"+msg)
+			    
 					
 					//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
 					$.ajax({
@@ -357,8 +348,8 @@
 						beforeSend:function(xhr){
 							xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
 						},
-						success: function(result){console.log("결제후 페이지이동 "+result),
-							location.href = "/home/my-account"},
+						success: function(result){
+							location.href = "/cust/my-account"},
 						error:function(log){console.log("실패 "+log)}
 			    });
 					
@@ -372,4 +363,17 @@
    });
  });
     </script>
+    <!--Start of Tawk.to Script-->
+			<script type="text/javascript">
+				var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+				(function(){
+				var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+					s1.async=true;
+					s1.src='https://embed.tawk.to/6051161bf7ce18270930c865/1f0ubsnki';
+					s1.charset='UTF-8';
+					s1.setAttribute('crossorigin','*');
+					s0.parentNode.insertBefore(s1,s0);
+				})();
+			</script>
+		<!--End of Tawk.to Script-->
 </html>

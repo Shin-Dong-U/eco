@@ -219,7 +219,7 @@
   	//상품제목 <p>클릭시
   	$('.basketList').on('click', "p",function () {
   		var goods_seq =  $(this).data("goods_seq");
-    	console.log("버튼클릭goods_seq: "+goods_seq);
+    	
       //현재 버튼클릭시 해당 goods_seq선택가능-->Ajax로 연동
 		selectBasketGoods(goods_seq);    
     });
@@ -228,12 +228,12 @@
 	$('.cancelOrderBtn').on('click',function(){
 		
 		if(window.confirm('really?')){
-			console.log("주문취소 시작");
+			
 			var csrf={"csrfHeaderName":csrfHeaderName,
 	   				"csrfTokenValue":csrfTokenValue};
 			checkoutService.getShipStatus(order_seq,function(shipStatus){
 				if(Number(shipStatus[0].delivery_status)===0){
-					console.log("주문취소 로직 실행");
+					
 					checkoutService.orderCancel(order_seq,csrf);
 				}else{
 					alert("현재 배송중인 상품은 취소가 불가능 합니다");
@@ -247,7 +247,7 @@
 	$('.deliverySearch').on('click',function(){
 		$(".modal").modal("show");
 		checkoutService.getShipStatus(order_seq,function(shipStatus){
-			console.log("jsp"+shipStatus[0].delivery_status);
+			
 			var str="";
 			var shipInfoTable=$(".shipInfo");
 			
@@ -270,7 +270,7 @@
 		var point2 = parseInt(totalPrice);
 		csrf={"csrfHeaderName":csrfHeaderName,
    				"csrfTokenValue":csrfTokenValue};
-		console.log("적립 point: "+point);
+		
 		if(window.confirm('주문확정시 환불이 불가능 합니다 주문확정을 하시겠습니까?')){
 			checkoutService.orderCommit(order_seq,point,cust_id,csrf);
 		}
@@ -283,7 +283,7 @@
 			var orderListTable=$(".orderList");
 			var str="";
 			var subTotalPrice = 0;
-			console.log(ordertList);
+			
 			for(var i=0,len=ordertList.length||0;i<len;i++){
 				 //"+ordertList[i].IMG_URL+"
 				str+="<tr>"
@@ -305,11 +305,24 @@
 					
 			}
 			orderListTable.html(str);
-			console.log("서브토탈: "+subTotalPrice);
+			
 			$(".sub-total-price").text(subTotalPrice);
              var shippingCost = 100;
              $(".grand-total-price").text(subTotalPrice+shippingCost);
 		})
 	}
     </script>
+    <!--Start of Tawk.to Script-->
+			<script type="text/javascript">
+				var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+				(function(){
+				var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+					s1.async=true;
+					s1.src='https://embed.tawk.to/6051161bf7ce18270930c865/1f0ubsnki';
+					s1.charset='UTF-8';
+					s1.setAttribute('crossorigin','*');
+					s0.parentNode.insertBefore(s1,s0);
+				})();
+			</script>
+		<!--End of Tawk.to Script-->
 </html>
