@@ -110,7 +110,7 @@
 		SELECT a.order_seq, a.paied_yn, to_char(a.regdate, 'yyyymmdd') REGDATE,a.total_price, b.delivery_status 
 		  FROM order_main a LEFT OUTER JOIN delivery_main b
 		  ON a.order_seq = b.order_seq
-		  where cust_id =#{cust_id}
+		  where cust_id =#{cust_id} AND NOT order_status =5
 		  ORDER BY order_seq DESC
 	</select>
 	
