@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.goott.eco.common.Criteria;
 import com.goott.eco.service.GoodsService;
@@ -241,6 +243,62 @@ public class RestGoodsController {
 					   : new ResponseEntity<>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	//썸네일 테스트 
+	@PostMapping(value="/form/upload/images/thumb")//, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
+	public ResponseEntity<List<AttachFileDTO>> goodsThumnailImagesUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile[] uploadFile){
+		System.out.println("this is thumbnail controller");
+		List<AttachFileDTO> attachList = new ArrayList<AttachFileDTO>();
+		
+		String defaultFolder = "c:\\upload\\img\\temp";
+		
+		String yymmdd = new SimpleDateFormat("yyyyMMdd").format(System.currentTimeMillis());
+		String uploadFolder = defaultFolder + File.separator + yymmdd;
+		
+		for(MultipartFile multipartFile : uploadFile) {
+			
+			AttachFileDTO attachDTO = new AttachFileDTO();
+			
+			String uploadFileName = multipartFile.getOriginalFilename();
+			String uuid = UUID.randomUUID().toString();
+			
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf(File.separator) + 1 );
+			uploadFileName = uuid + "_" + uploadFileName;
+			
+			File saveFile = new File(uploadFolder, uploadFileName);
+			
+			try {
+				File folder = new File(uploadFolder);
+				
+				if(!folder.exists()) { folder.mkdir(); }
+				
+				multipartFile.transferTo(saveFile);
+				
+				boolean isImage = checkImageType(saveFile);
+				
+				/* 별도의 썸네일 이미지 생성 로직
+				if(isImage) {
+					FileOutputStream thumbnail = new FileOutputStream(new File(uploadFolder, "s_" + uploadFileName));
+					
+					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
+					
+					thumbnail.close();
+				}
+				*/
+				
+				attachDTO.setFileName(uploadFileName);
+				attachDTO.setUploadPath(uploadFolder);
+				attachDTO.setUuid(uuid);
+				attachDTO.setImage(isImage);
+				
+				attachList.add(attachDTO);
+			} catch (IllegalStateException | IOException e) {
+				//여기에 실패 처리 작성  
+				log.error(e.getMessage());
+			}
+		}
+		return new ResponseEntity<>(attachList, HttpStatus.OK);
+	}
+	
 	private boolean checkImageType(File file) {
 		
 		try {
@@ -252,6 +310,19 @@ public class RestGoodsController {
 		}
 		
 		return false;
+	}
+	
+	public static void main(String[] args) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String pwd = "";
+		String encodePwd = encoder.encode(pwd);
+		String encodePwd2 = encoder.encode(pwd);
+		System.out.println("en 1 = " + encodePwd + " | en 2 = " + encodePwd2 );
+		
+		
+		boolean b = encoder.matches(pwd, encodePwd2);
+		System.out.println(b);
+		
 	}
 	
 }

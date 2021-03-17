@@ -2,6 +2,8 @@ package com.goott.eco.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Reader;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +22,9 @@ import com.goott.eco.domain.GoodsVO.GoodsDetailImgVO;
 import com.goott.eco.mapper.GoodsMapper;
 
 import lombok.extern.log4j.Log4j;
+import oracle.sql.CLOB;
 
+//@Transactional
 @Service
 @Log4j
 public class GoodsServiceimpl implements GoodsService{
@@ -65,6 +69,33 @@ public class GoodsServiceimpl implements GoodsService{
 		return goods;
 	}
 	
+	public static String readCLOB(java.sql.Clob p_clob) throws IOException, SQLException{
+		  StringBuffer outBuffer = new StringBuffer();
+		  Reader l_clobStream = null;
+		  try{
+		    l_clobStream = p_clob.getCharacterStream();
+		    int l_nchars = 0;
+		    char[] l_buffer = new char[4096];
+		    while((l_nchars = l_clobStream.read(l_buffer))!=-1){
+		      outBuffer.append(l_buffer,0,l_nchars);
+		    }
+		 
+		  }catch(IOException e){
+		    throw e;
+		  }catch(SQLException e){
+		    throw e;
+		  }finally{
+		    try{
+		      l_clobStream.close();
+		    }catch(IOException e){
+		      throw e;
+		    }
+		  }
+		  return outBuffer.toString();
+		}
+
+	
+	
 	@Override
 	public Map<String, Object> goodsComment(int goodsSeq, int pageNum){
 		final int DEFAULT_COMMENT_PAGE_AMOUNT = 5;
@@ -93,7 +124,6 @@ public class GoodsServiceimpl implements GoodsService{
 	 * 코드 정리 ( 메서드 분리 등 ) 
 	 * 
 	 */
-	@Transactional
 	@Override
 	public int insertGoods(GoodsVO vo) {
 		//등록 관련코드 차후 별도의 클래스에서 따로 관리. 

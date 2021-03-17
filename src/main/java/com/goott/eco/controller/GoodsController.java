@@ -66,7 +66,7 @@ public class GoodsController {
 		return mav;
 	}
 	
-	//업로드 테스트 중 ing
+	//안쓸듯...
 	@PostMapping(value="/form/upload/images")//, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public String goodsDetailImagesUpload(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		System.out.println("@@@@@@@@@@@@@@@@uplolad images");
@@ -140,4 +140,9 @@ public class GoodsController {
 		}
 		return sFileInfo;
 	}
+	
+		@GetMapping(value="/form/upload/images/thum")//, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
+		public String goodsThumbnailImagesUpload(HttpServletRequest request, HttpServletResponse response) throws IOException {
+			return "goods/thumb_upload";
+		}
 }
