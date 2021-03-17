@@ -3,6 +3,7 @@ package com.goott.eco.service;
 import java.util.Map;
 
 import com.goott.eco.domain.AdminVO;
+import com.goott.eco.domain.MemberVO;
 
 public interface AdminService {
 	public int getSampleData() throws Exception ;
@@ -22,10 +23,12 @@ public interface AdminService {
 	/* 업체 권한 및 승인 */
 	public int confirmCompany(String memberId, String loginId);
 	
-
 	/* 관리자 권한 및 등업 */
 	public int regAdmin(AdminVO adminVO, String loginId);
 	
+
+	/* 관리자 - 변경 */
+	public int modAdmin_cust(MemberVO memberVO, String loginId);
 
 	
 }

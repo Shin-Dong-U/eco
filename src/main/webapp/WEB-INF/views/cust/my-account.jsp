@@ -131,11 +131,12 @@
 <!-- 관리자 Member -->
 					<div class="tab-pane fade" id="member-tab" role="tabpanel"	aria-labelledby="member-tab">
 						<div class="table-responsive">
-							<div class="col-md-12 userBind">
-								<div class="col-4 customer" id="customer"> <h4 style="text-align:center"> 사용자 </h4> </div>
-								<div class="col-4 company" id="company"> <h4 style="text-align:center"> 업체  </h4> </div>
-								<div class="col-4 admin" id="admin"> <h4 style="text-align:center"> 관리자  </h4> </div>
+							<div class="col-md-4 userBind">
+								<div class="col-md-4 customer" id="customer" > <h4 style="text-align:center"> 사용자 </h4> </div>
+								<div class="col-md-4 company" id="company"> <h4 style="text-align:center"> 업체  </h4> </div>
+								<div class="col-md-4 admin" id="admin"> <h4 style="text-align:center"> 관리자  </h4> </div>
 							</div>
+
 							<div class="col-md-12 chatParent" >
 								<div class="col-md-12 member_chat" id="member_chat" ></div><p/>
 								<div class="col-md-12" id="pageDiv"> </div><!-- 페이지 번호 -->
@@ -155,27 +156,34 @@
 </div>
 
 <!-- modal 시작 -->
-<div id="modal" class="modal">
-	<div id="modal-content" class="modal-content">
-		<span id="close-modal" class="close">&times;</span> 
-		<!-- content -->
-		<h3>회원 정보 </h3><hr/>
-		<div>
-			<div id="detail_chat">
-		
+<div class="modal" id="memberManager" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">회원 상세 정보</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
-			<!-- content -->
-			<div id="modal_modify_check">		
-				<input type="button" class="btn" id="modal_btn_modify" value="수정">
+			<div class="modal-body">
+				<div id="detail_chat">
+
+				</div>
 			</div>
-			<div id="modal_confirm_check">
-				<input type="button" class="btn" id="modal_btn_submit" value="확인">
-				<input type="button" class="btn" id="modal_btn_cancel" value="취소">
+			<div class="modal-footer">
+				<div id="modal_modify_check">		
+					<input type="button" class="btn" id="modal_btn_modify" value="수정">
+				</div>
+				<div id="modal_confirm_check">
+					<input type="button" class="btn" id="modal_btn_submit" value="확인">
+					<input type="button" class="btn" id="modal_btn_cancel" value="취소">
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- modal 끝 -->
+
+
 
   <!-- Footer Start -->
         <div class="footer">
@@ -294,7 +302,7 @@
         //로그아웃
                     
          $(".logoutBtn").on("click",function(){
-        	console.log("로그아웃");
+        	//console.log("로그아웃");
         	$('.logoutForm').submit();
         	
         })  
@@ -302,17 +310,17 @@
         
         
         var cust_id="${memberId}";
-        console.log("session id: "+cust_id);
+        //console.log("session id: "+cust_id);
       //주문 리스트 보기
 		function showOrderedInfo(){		
 			checkoutService.getOrderList(cust_id,function(orderedInfoList){
 				var showOrderedInfoTable=$(".showOrderedInfo");
 				var str="";
-				console.log(orderedInfoList);
+				//console.log(orderedInfoList);
 				for(var i=0,len=orderedInfoList.length||0;i<len;i++){
 					var delivery_status= '배송정보';
-					console.log(typeof(orderedInfoList[i].DELIVERY_STATUS));
-					console.log(typeof(Number(orderedInfoList[i].DELIVERY_STATUS)));
+					//console.log(typeof(orderedInfoList[i].DELIVERY_STATUS));
+					//console.log(typeof(Number(orderedInfoList[i].DELIVERY_STATUS)));
 					switch(Number(orderedInfoList[i].DELIVERY_STATUS)){
 					
 					case 0:
@@ -352,12 +360,12 @@
 			checkoutService.getOrderList(cust_id,function(orderedInfoList){
 				var shipOrderedInfoTable=$(".shipOrderedInfo");
 				var str="";
-				console.log(orderedInfoList);
+				//console.log(orderedInfoList);
 				for(var i=0,len=orderedInfoList.length||0;i<len;i++){
 					var delivery_status= '배송정보';
-					console.log("업체 배송: "+orderedInfoList);
-					console.log(typeof(orderedInfoList[i].DELIVERY_STATUS));
-					console.log(typeof(Number(orderedInfoList[i].DELIVERY_STATUS)));
+					//console.log("업체 배송: "+orderedInfoList);
+					//console.log(typeof(orderedInfoList[i].DELIVERY_STATUS));
+					//console.log(typeof(Number(orderedInfoList[i].DELIVERY_STATUS)));
 					switch(Number(orderedInfoList[i].DELIVERY_STATUS)){
 					
 					case 0:
@@ -395,8 +403,11 @@
         </script>
         
 <!-- Admin Member -->
+<%----%>
 <script type="text/javascript" src="/resources/js/common/common.js?v=<%=System.currentTimeMillis() %>"></script>
+<script type="text/javascript" src="/resources/basket/transferTime.js?v=<%=System.currentTimeMillis() %>"></script> 
 <script type="text/javascript" src="/resources/admin/adminRest.js?v=<%=System.currentTimeMillis() %>"></script>
+<script type="text/javascript" src="/resources/admin/adminHtml.js?v=<%=System.currentTimeMillis() %>"></script>
 <script>
 /* CSRF 데이터 변수 저장 */
 var csrfHeaderName="${_csrf.headerName}";
@@ -421,7 +432,7 @@ function styleUpdate(divBtn){
 		$(".company").css("background",""); 
 		$(".admin").css("background","#ABF200"); 
 	}
-	//$(".chatParent").css("border","1px solid #90c62b"); 
+	$(".chatParent").css("border","1px solid #90c62b"); 
 }
 
 /* 페이징 처리 */
@@ -500,9 +511,14 @@ $(".member_chat").on("click", ".btn_modDetail", function(){
     //var button = $(this).css({"border": "2px solid blue"});
 	//var memberId = $(this).parent().parent().find("span").css({"border": "2px solid yellow"});
 	var memberId = $(this).parent().parent().find("span").text();
-	alert(memberId);
+	//alert(memberId);
 
 	checkModal(memberId);
+	//display
+	document.getElementById("modal_confirm_check").style.display = "none";
+	document.getElementById("modal_modify_check").style.display = "block";
+	
+	//document.getElementById("memberManager").style.display="none";
 });
 
 /* 관리자 위임  */
@@ -528,8 +544,8 @@ $(".member_chat").on("click",".btn_upAdmin", function(){
 /* 업체 승인 */
 $(".member_chat").on("click",".btn_confirmComp", function(){
 	var memberId = $(this).parent().parent().find("span").text();
-	alert("memberId: "+memberId);
-	alert("loginId: "+loginId);
+	//alert("memberId: "+memberId);
+	//alert("loginId: "+loginId);
 	
 	adminRest.confirmCompany(
 		memberId, loginId,
@@ -550,35 +566,37 @@ function checkModal(memberId){
 	adminRest.getCust(
 		memberId,
 		function(memberVO){
-			console.log(memberVO);
+			//console.log(memberVO);
 			showDetail(memberVO);
 		}
 	);
 	
-	document.getElementById("modal").style.display="block";
+	document.getElementById("memberManager").style.display="block";
 }
 
 /* 모달 닫기 */
-$("#close-modal").on("click",function(){
+$(".close").on("click",function(){
 	
 	//display
 	document.getElementById("modal_confirm_check").style.display = "none";
 	document.getElementById("modal_modify_check").style.display = "block";
 	
-	document.getElementById("modal").style.display="none";
+	document.getElementById("memberManager").style.display="none";
 });
 
 /* 모달 수정 버튼  */
 $("#modal_btn_modify").on("click",function(){
     //var button = $(this).css({"border": "2px solid blue"});
 	//var memberId = $(this).parent().parent().find("span").css({"border": "2px solid yellow"});
-	var memberId = $(this).parent().parent().find("span").text();
-	alert("id값: "+memberId);
+	
+	//var memberId1 = $(this).parent().parent().parent().children().next().find("span").css({"border": "2px solid yellow"});
+	var memberId = $(this).parent().parent().parent().children().next().find("span").text();
+	//alert("id값: "+memberId);
 
 	adminRest.getCust(
 		memberId,
 		function(memberVO){
-			console.log(memberVO);
+			//console.log(memberVO);
 			showDetail_modify(memberVO);
 		}
 	);
@@ -592,6 +610,53 @@ $("#modal_btn_modify").on("click",function(){
 /* 모달 완료 버튼  */
 $("#modal_btn_submit").on("click",function(){
 
+	memberId=$(this).parent().parent().parent().children().children().find("#memberId").val();
+	var $form=$(this).parent().parent().parent().children().children();
+	var birth=$form.find("#birth").val();
+	birth=birth.replace("-","")
+	var birth_int= parseInt(birth.replace("-",""));
+	//alert(birth_int);
+	
+
+	var acc_level=$form.find('input[name="acc_level_check"]:checked').val();
+	var member_yn=$form.find('input[name="member_check"]:checked').val();
+	var sex=$form.find('input[name="sex_check"]:checked').val();
+	//alert(sex);
+
+	var custVO = {
+		"memberId" : memberId,
+		"password" : $form.find("#password").val(),
+		"email" : $form.find("#email").val(),
+		"birth" : birth_int,
+		"member_yn":member_yn,
+		"sex":sex
+	};
+	
+	var compVO = {
+		"cust_id" : memberId,
+		"comp_name" : $form.find("#comp_name").val(),
+		"corp_num" : $form.find("#corp_num").val(),
+	};
+	
+	var adminVO = {
+		"cust_id" : memberId,
+		"acc_level" :acc_level,
+	};
+	
+	//alert(memberId);
+	//alert(loginId);
+	adminRest.modAdmin(
+		memberVO={custVO, compVO, adminVO}, loginId,
+		csrf={
+			"csrfHeaderName":csrfHeaderName,
+			"csrfTokenValue":csrfTokenValue
+		},
+		function(data){
+			var pageNum=$("#pageNum").val();
+			movePage(pageNum);
+		}
+	);
+	
 	//display
 	document.getElementById("modal_confirm_check").style.display = "none";
 	document.getElementById("modal_modify_check").style.display = "block";
@@ -604,7 +669,7 @@ $("#modal_btn_cancel").on("click",function(){
 	adminRest.getCust(
 			memberId,
 			function(memberVO){
-				console.log(memberVO);
+				//console.log(memberVO);
 				showDetail(memberVO);
 			}
 		);
@@ -619,331 +684,12 @@ function checkModal(memberId){
 	adminRest.getCust(
 		memberId,
 		function(memberVO){
-			console.log(memberVO);
+			//console.log(memberVO);
 			showDetail(memberVO);
 		}
 	);
 	
-	document.getElementById("modal").style.display="block";
-}
-
-
-/* 기본 정보 보여주기 */
-function showBasic(check, data){
-	//alert(check);
-	var str="";
-	var str1="";
-	var str2="";
-	
-	if(check==1){
-		str1 = "<th>관리자 등업</th>";
-	}else if(check==2){
-		str1 = "<th>업체</th>"
-			 + "<th>승인</th>";
-	}else{
-		str1 = "<th>레벨</th>";
-	}
-	
-	str +="<table class='table table-bordered' style='width:100%'>"
-		 + "<tr>"
-		 + "<th>아이디</th>"
-		 + "<th>이름</th>"
-		 + "<th>이메일</th>"
-		 + "<th>성별</th>"
-		 + "<th>가입여부</th>"
-		 + "<th>가입날짜</th>"
-		 + "<th>가입유저</th>"
-		 + str1
-		 + "<th>상세보기</th>"
-		 + "</tr>";
-		
-
-	for(var i=0; i<data.memberVO.length; i++){
-		//alert(data[i])
-		
-		if(check==1){
-			str2 = "<td><input type='button' class='btn_upAdmin' value='관리자 위임' /></td>";
-		}else if(check==2){
-			str2 = "<td>"+ data.memberVO[i].compVO.confirm_yn +"</td>"
-				 + "<td><input type='button' class='btn_confirmComp' value='승인' /></td>";
-		}else if(check==3){
-			str2 = "<td>"+ data.memberVO[i].adminVO.acc_level + "</td>";
-		}
-		
-		str +="<tr>"
-			+ "<td><span>"+ data.memberVO[i].custVO.memberId +"</span></td>"
-			+ "<td>"+ data.memberVO[i].custVO.name + "</td>"
-			+ "<td>"+ data.memberVO[i].custVO.email + "</td>"
-			+ "<td>"+ data.memberVO[i].custVO.sex + "</td>"
-			+ "<td>"+ data.memberVO[i].custVO.member_yn + "</td>"
-			+ "<td>"+ data.memberVO[i].custVO.regDate +	"</td>"
-			+ "<td>"+ data.memberVO[i].custVO.regUser +	"</td>"
-			+ str2
-			+ "<td><input type='button' class='btn_modDetail' value='상세보기' /></td>"
-			+ "</tr>";
-	}
-	str += "</table>";
-	//alert("출력"+str);
-	
-	$(".member_chat").html();
-	$(".member_chat").html(str);
-	
-	if(data.page){
-		const pageHtml = makePageHtml(data.page);
-		
-		const pageDiv = $('#pageDiv');
-		$('#pageNum').val(data.page.cri.pageNum);
-		pageDiv.empty();
-		pageDiv.html(pageHtml);
-	}
-}
-
-
-/* 상세정보 보여주기 */
-function showDetail(memberVO){
-/*
-	-일반 사용자
-	아이디 이름 핸드폰 이메일 생일 성별  주소 가입여부 
-	가입날짜 가입유저 트리 마일리지 트리바  씨앗
-*/
-
-/*
-	-업체 
-	아이디 이름 핸드폰 이메일 생일 성별  주소 가입여부 
-	[회사이름 사업자번호] 트리 마일리지 트리바  씨앗
-*/
-
-/*
-	-관리자
-	아이디 이름 핸드폰 이메일 생일 성별  주소 가입여부 
-	[관리자 레벨] 트리 마일리지 트리바  씨앗
-*/
-	var check="";
-	if(memberVO['custVO'].admin_yn=="Y"){
-		check=3;
-	}else if(memberVO['custVO'].company_yn=="Y"){
-		check=2;
-	}else{
-		check=1;
-	}
-	
-	//alert(check);
-	var str="";
-	str +="<table>"
-		+ "	<tr>"
-		+ "		<td>아이디</td>"
-		+ "		<td><span>"+memberVO['custVO'].memberId+"</span></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>이름</td>"
-		+ "		<td>"+memberVO['custVO'].name+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>핸드폰</td>"
-		+ "		<td>"+memberVO['custVO'].phone+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>이메일</td>"
-		+ "		<td>"+memberVO['custVO'].email+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>생일</td>"
-		+ "		<td>"+memberVO['custVO'].birth+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>성별</td>"
-		+ "		<td>"+memberVO['custVO'].sex+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td rowspan='4'>주소</td>"
-		+ "		<tr>"
-		+ "			<td>"+memberVO['custVO'].addr_post+"</td>"
-		+ " 	</tr>"
-		+ "		<tr>"
-		+ "			<td>"+memberVO['custVO'].addr_city+"</td>"
-		+ " 	</tr>"
-		+ "		<tr>"
-		+ "			<td>"+memberVO['custVO'].addr_detail+"</td>"
-		+ " 	</tr>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>가입여부</td>"
-		+ "		<td>"+memberVO['custVO'].member_yn+"</td>"
-		+ " </tr>"
-	
-	if(check==2){
-		str +="	<tr>"
-			+ "		<td>회사 이름</td>"
-			+ "		<td>"+memberVO['compVO'].comp_name+"</td>"
-			+ " </tr>"
-			+ "	<tr>"
-			+ "		<td>사업자 번호</td>"
-			+ "		<td>"+memberVO['compVO'].corp_num+"</td>"
-			+ " </tr>"
-	}else if(check==3){
-		str +="	<tr>"
-			+ "		<td>관리자 레벨</td>"
-			+ "		<td>"+memberVO['adminVO'].acc_level+"</td>"
-			+ " </tr>"
-	}
-		
-	str +="	<tr>"
-		+ "		<td>가입날짜</td>"
-		+ "		<td>"+memberVO['custVO'].regDate+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>가입유저</td>"
-		+ "		<td>"+memberVO['custVO'].regUser+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>수정날짜</td>"
-		+ "		<td>"+memberVO['custVO'].editDate+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>수정유저</td>"
-		+ "		<td>"+memberVO['custVO'].editUser+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>마일리지</td>"
-		+ "		<td>"+memberVO['custVO'].myMil+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td rowspan='3'>나무정보</td>"
-		+ "		<tr>"
-		+ "			<td>"+memberVO['custVO'].myTree+"</td>"
-		+ " 	</tr>"
-		+ "		<tr>"
-		+ "			<td>"+memberVO['custVO'].my_bar+"</td>"		
-		+ " 	</tr>"
-		+ " </tr>";
-		
-	$("#detail_chat").html(str);	//modal
-}
-
-/* 상세보기 게시판 수정 판*/
-function showDetail_modify(memberVO){
-	var check="";
-	if(memberVO['custVO'].admin_yn=="Y"){
-		check=3;
-	}else if(memberVO['custVO'].company_yn=="Y"){
-		check=2;
-	}else{
-		check=1;
-	}
-	
-	//alert(check);
-	var str="";
-	str +="<table>"
-		+ "	<tr>"
-		+ "		<td>아이디</td>"
-		+ "		<td><input type='text' class='' name='memberId' id='memberId' value='"+memberVO['custVO'].memberId+"' readOnly></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>비밀번호</td>"
-		+ "		<td><input type='text' class='' name='password' id='password' ></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>이름</td>"
-		+ "		<td><input type='text' class='' name='name' id='name' value='"+memberVO['custVO'].name+"' ></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>핸드폰</td>"
-		+ "		<td><input type='text' class='' name='phone' id='phone' value='"+memberVO['custVO'].phone+"' ></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>이메일</td>"
-		+ "		<td><input type='text' class='' name='email' id='email' value='"+memberVO['custVO'].email+"' ></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>생일</td>"
-		+ "		<td><input type='date' class='' name='birth' id='birth' value='"+memberVO['custVO'].birth+"' ></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>성별</td>"
-		+ "		<td>"
-		+ "		<input type='radio' id='male' name='sex_check' value=1 >남자 "
-		+ "		<input type='radio' id='female' name='sex_check' value=2 >여자 "
-		+ "		</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td rowspan='5'>주소</td>"
-		+ "		<tr>"
-		+ "			<td>"
-		+ "				<input type='text' class='' name='addr_post' id='addr_post' value='"+memberVO['custVO'].addr_post+"' > &nbsp;&nbsp;"
-		+ " 			<input class='btn btn-link' type='button' onclick='popUP()' value='우편번호 찾기'>"
-		+ "			</td>"
-		+ " 	</tr>"
-		+ "		<tr>"
-		+ "			<td><input type='text' class='' name='addr_city' id='addr_city' value='"+memberVO['custVO'].addr_city+"' ></td>"
-		+ " 	</tr>"
-		+ "		<tr>"
-		+ "			<td><input type='text' class='' name='addr_city_old' id='addr_city_old' ></td>"
-		+ " 	</tr>"
-		+ "		<tr>"
-		+ "			<td><input type='text' class='' name='addr_detail' id='addr_detail' value='"+memberVO['custVO'].addr_detail+"' ></td>"
-		+ " 	</tr>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>가입여부</td>"
-		+ "		<td>"
-		+ "		<input type='radio' id='member_y' name='member_check' value='Y'>가입 "
-		+ "		<input type='radio' id='member_n' name='member_check' value='N'>탈퇴 "
-		+ "		</td>"
-		+ " </tr>";
-		
-	if(check==2){
-		str +="	<tr>"
-			+ "		<td>회사 이름</td>"
-			+ "		<td><input type='text' class='' name='comp_name' id='comp_name' value='"+memberVO['compVO'].comp_name+"' ></td>"
-			+ " </tr>"
-			+ "	<tr>"
-			+ "		<td>사업자 번호</td>"
-			+ "		<td><input type='text' class='' name='corp_num' id='corp_num' value='"+memberVO['compVO'].corp_num+"' ></td>"
-			+ " </tr>";
-	}else if(check==3){
-		str +="	<tr>"
-			+ "		<td>관리자 레벨</td>"
-			+ "		<td>"
-			+ "			<select name='acc_level'>"
-			+ "				<option value=1>1-총관리자</option>"
-			+ "				<option value=2>2-중간관리자</option>"
-			+ "				<option value=3>3-신입관리자</option>"
-			+ "			<select>"
-			+ "		</td>"
-			+ " </tr>";
-	}
-		
-	str +="	<tr>"
-		+ "		<td>가입날짜</td>"
-		+ "		<td>"+memberVO['custVO'].regDate+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>가입유저</td>"
-		+ "		<td>"+memberVO['custVO'].regUser+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>수정날짜</td>"
-		+ "		<td>"+memberVO['custVO'].editDate+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>수정유저</td>"
-		+ "		<td>"+memberVO['custVO'].editUser+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>포인트</td>"
-		+ "		<td><input type='text' class='' name='myMil' id='myMil' value='"+memberVO['custVO'].myMil+"' ></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td rowspan='3'>나무정보</td>"
-		+ "		<tr>"
-		+ "			<td><input type='text' class='' name='myTree' id='myTree' value='"+memberVO['custVO'].myTree+"' ></td>"
-		+ " 	</tr>"
-		+ "		<tr>"
-		+ "			<td><input type='text' class='' name='my_bar' id='my_bar' value='"+memberVO['custVO'].my_bar+"' ></td>"
-		+ " 	</tr>"
-		+ " </tr>";
-		
-	$("#detail_chat").html(str);	//modal
+	document.getElementById("memberManager").style.display="block";
 }
 
 
@@ -956,7 +702,8 @@ function showDetail_modify(memberVO){
 
 
 <!-- My Account -->
-<script src="/resources/home/customer.js?v=<%=System.currentTimeMillis() %>"></script>
+<script src="/resources/cust/customer.js?v=<%=System.currentTimeMillis() %>"></script>
+<script src="/resources/cust/custHtml.js?v=<%=System.currentTimeMillis() %>"></script>
 <script>
 /* CSRF 데이터 변수 저장 */
 var csrfHeaderName="${_csrf.headerName}";
@@ -968,7 +715,7 @@ var memId="${memberId}";
 
 /* 비밀번호 체크 html 생성 */
 $("#account-nav").on("click", function(){
-	alert("id는? "+memId);
+	//alert("id는? "+memId);
 	$("#account_custChat").html("");
 	$("#account_compChat").html("");
  	document.getElementById("confirm_check").style.display="none";
@@ -1004,148 +751,13 @@ $("#account_custChat").on("click","#btn_check", function(){
 			}
 		},
 		function(data){
-			alert("비밀번호가 일치 하지 않습니다");
+			//alert("비밀번호가 일치 하지 않습니다");
 		}
 	);
 
 });
 
-/* 특정 회원 정보 가져오기 */
-function get_chat(){
-	customer.getCust(
-			memId,
-			function(memberVO){
-				console.log(memberVO['custVO'].memberId);
-				if(memberVO["custVO"].sex == 1){var sex="남자"}else{var sex="여자"}
-				str1="";
-				str2="";
-				str1 +='<h4> My Account Details</h4>'
-					 + '<div style="border:1px solid gray;" class="row">'
-					 + '	<div class="col-md-8">'
-					 + '		<label>ID</label>'
-					 + '		<input class="form-control" type="text" id="memberId" name="memberId" value="'+memberVO["custVO"].memberId+'" disabled>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Name</label>'
-					 + '		<input class="form-control" type="text" id="name" name="name" value="'+memberVO["custVO"].name+'" disabled>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Phone Number</label>'
-					 + '		<input class="form-control" type="text" id="phone" name="phone" value="'+memberVO["custVO"].phone+'" disabled>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Email</label>'
-					 + '		<input class="form-control" type="text" id="email" name="email" value="'+memberVO["custVO"].email+'" disabled>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Address</label>'
-					 + '		<input class="form-control" type="text" id="addr_post1" name="addr_post" value='+memberVO["custVO"].addr_post+' disabled>'
-					 + '		<input class="form-control" type="text" id="addr_city1" name="addr_city" value="'+memberVO["custVO"].addr_city+'" disabled>'
-					 + '		<input class="form-control" type="text" id="addr_detail1" name="addr_detail" value="'+memberVO["custVO"].addr_detail+'" disabled>'
-					 + '		<span id="guide" style="color:#999display:none"></span>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Birth</label>'
-					 + '		<input class="form-control" type="text" id="birth" name="birth" value='+memberVO["custVO"].birth+' disabled>'
-					 + '	</div>'	
-					 + '	<div class="col-md-8">'
-					 + '		<label>Sex</label>'
-					 + '		<input class="form-control" type="text" id="sex" name="sex" value='+sex+' disabled>'
-					 + '	</div>'
-					 + '	<div class="hiddenValue">'
-					 + '		<input class="form-control" type="hidden" id="company_yn" name="company_yn" value='+memberVO["custVO"].company_yn+' disabled>'
-					 + '	</div>'
-					 + '</div><p/>';
 
-				if(memberVO["custVO"].company_yn == "Y"){
-					str2 +='<h4> My Company Details</h4>'
-						 + '<div style="border:1px solid gray;" class="row">'
-						 + '	<div class="col-md-8">'
-						 + '		<label>Company Name</label> '
-						 + '		<input class="form-control" type="text" id="comp_name" name="comp_name"  value='+memberVO["compVO"].comp_name+' disabled>'
-						 + '	</div>'
-						 + '	<div class="col-md-8">'
-						 + '		<label>Company Corporate Number</label> '
-						 + '		<input class="form-control" type="text" id="corp_num" name="corp_num"  value='+memberVO["compVO"].corp_num+' disabled>'
-						 + '	</div>'
-						 + '	<div class="col-md-8">'
-						 + '		<label>Address</label>'
-						 + '		<input class="form-control" type="text" id="addr_post2" name="addr_postC" value='+memberVO["custVO"].addr_post+' disabled>'
-						 + '		<input class="form-control" type="text" id="addr_city2" name="addr_cityC" value='+memberVO["custVO"].addr_city+' disabled>'
-						 + '		<input class="form-control" type="text" id="addr_detail2" name="addr_detailC" value='+memberVO["custVO"].addr_detail+' disabled>'
-						 + '		<span id="guide" style="color:#999display:none"></span>'
-						 + '		</div>'
-						 + '	</div>'
-						 + '</div><p>';
-					}	        	
-
-				$("#account_custChat").html("");
-				$("#account_compChat").html("");
-				$("#account_custChat").html(str1);
-				$("#account_compChat").html(str2);
-	});
-};
-
-
-
-/* 수정 회원 정보 가져오기 */
-function modify_chat(){
-	customer.getCust(
-			memId,
-			function(memberVO){
-				console.log(memberVO['custVO'].memberId);
-				if(memberVO["custVO"].sex == 1){var sex="남자"}else{var sex="여자"}
-				str1="";
-				str2="";
-				str1 +='<h4> My Account Details</h4>'
-					 + '<div style="border:1px solid gray;" class="row">'
-					 + '	<div class="col-md-8">'
-					 + '		<label>ID</label>'
-					 + '		<input class="form-control" type="text" id="memberId" name="memberId" value="'+memberVO["custVO"].memberId+'" disabled>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Password</label>'
-					 + '		<input class="form-control" type="text" id="password" name="password" />'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Name</label>'
-					 + '		<input class="form-control" type="text" id="name" name="name" value="'+memberVO["custVO"].name+'" >'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Phone Number</label>'
-					 + '		<input class="form-control" type="text" id="phone" name="phone" value="'+memberVO["custVO"].phone+'" >'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Email</label>'
-					 + '		<input class="form-control" type="text" id="email" name="email" value="'+memberVO["custVO"].email+'" disabled>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Address</label>'
-					 + '		<input class="form-control" type="text" id="addr_post" name="addr_post" value='+memberVO["custVO"].addr_post+' >'
-					 + '		<input class="btn btn-link" type="button" onclick="popUP()" value="우편번호 찾기">'
-					 + '		<input class="form-control" type="text" id="addr_city_new1" name="addr_city" value="'+memberVO["custVO"].addr_city+'" >'
-					 + '		<input class="form-control" type="text" id="addr_city_old1" 	name="addr_city_O" >'
-					 + '		<input class="form-control" type="text" id="addr_detail1" name="addr_detail" value="'+memberVO["custVO"].addr_detail+'" >'
-					 + '		<span id="guide" style="color:#999display:none"></span>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Birth</label>'
-					 + '		<input class="form-control" type="text" id="birth" name="birth" value='+memberVO["custVO"].birth+' disabled>'
-					 + '	</div>'	
-					 + '	<div class="col-md-8">'
-					 + '		<label>Sex</label>'
-					 + '		<input class="form-control" type="text" id="sex" name="sex" value='+sex+' disabled>'
-					 + '	</div>'
-					 + '	<div class="hiddenValue">'
-					 + '		<input class="form-control" type="hidden" id="company_yn" name="company_yn" value='+memberVO["custVO"].company_yn+' disabled>'
-					 + '	</div>'
-					 + '</div><p/>';
-
-				$("#account_custChat").html("");
-				$("#account_custChat").html(str1);
-
-	});
-}
 
 /* 수정 버튼 선택시 수정  */
 $("#btn_modify").on("click", function(){
@@ -1170,6 +782,9 @@ $("#btn_modCancel").on("click", function(){
 $("#btn_modSubmit").on("click", function(){
 	
 	var company_yn=$("#company_yn").val();
+	var password_old=$("#password_new").val();
+	$("#password").val(password_old);
+	
 	//var company_yn1=document.getElementById("company_yn");
 	
 	//alert("company_yn: "+company_yn);
@@ -1187,7 +802,7 @@ $("#btn_modSubmit").on("click", function(){
 		"addr_detail" : $("#addr_detail1").val(),
 	};
 
-	console.log("custVO: " + JSON.stringify(custVO));
+	//console.log("custVO: " + JSON.stringify(custVO));
 
 	customer.modifyMember(
 		custVO, 
@@ -1222,7 +837,7 @@ var confirmflag = confirm("정말로 삭제하시겠습니까?");
 		}, 
 		function(data) {
 			if (data == "success") {
-				alert(data);	
+				//alert(data);	
 			}
 		});
 		
@@ -1263,25 +878,26 @@ function popUP() {
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            
             document.getElementById('addr_post').value = data.zonecode;
             document.getElementById("addr_city_new1").value = roadAddr;
             document.getElementById("addr_city_old1").value = data.jibunAddress;
             
             var guideTextBox = document.getElementById("guide");
             // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-            if(data.autoRoadAddress) {
-                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                guideTextBox.style.display = 'block';
-
-            } else if(data.autoJibunAddress) {
-                var expJibunAddr = data.autoJibunAddress;
-                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                guideTextBox.style.display = 'block';
-            } else {
-                guideTextBox.innerHTML = '';
-                guideTextBox.style.display = 'none';
-            }
+            //if(data.autoRoadAddress) {
+            //    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+            //    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+            //    guideTextBox.style.display = 'block';
+            //
+            //} else if(data.autoJibunAddress) {
+            //    var expJibunAddr = data.autoJibunAddress;
+            //    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+            //    guideTextBox.style.display = 'block';
+            //} else {
+            //    guideTextBox.innerHTML = '';
+            //    guideTextBox.style.display = 'none';
+            //}
         }
     }).open();
 }

@@ -70,7 +70,7 @@
 	                              
 								<div class="col-md-6">
 									<label>Birth</label>
-									<input class="form-control" type="date" id="birth" name="birth" placeholder="birth">	<!-- value="날짜" 초기값 설정 -->
+									<input class="form-control" type="date" id="birth" name="birth" placeholder="birth" max="9999-12-31">	<!-- value="날짜" 초기값 설정 -->
 								</div>
 	            									 
 								<div class="col-md-6">
@@ -112,7 +112,7 @@
  
 <!-- Ajax 실행 Javascript -->
 
-<script src="/resources/home/customer.js?v=<%=System.currentTimeMillis() %>"></script>
+<script src="/resources/cust/customer.js?v=<%=System.currentTimeMillis() %>"></script>
 <script>
 /* CSRF 데이터 변수 저장 */
 var csrfHeaderName="${_csrf.headerName}";
@@ -134,6 +134,7 @@ $("#btn_test").on("click", function(e){
 	e.preventDefault();
 	registerSuccess();
 });
+
 /* 회원가입 Ajax */
 $("#btn_register").on("click", function(e){
 	e.preventDefault();
@@ -142,6 +143,7 @@ $("#btn_register").on("click", function(e){
 	var sex=$("input[type='radio'][name='sex']:checked").val();
 	var birth=$('#birth').val();
 	/* 생일 = 문자열 -> 숫자 */
+	birth=birth.replace("-","")
 	var birth_int= parseInt(birth.replace("-",""));
 
 	var custVO={
@@ -166,8 +168,8 @@ $("#btn_register").on("click", function(e){
 			"addr_detail":$("#addr_detail").val(),
 		}
 	}
-	console.log("custVO: "+JSON.stringify(custVO));
-	console.log("compVO: "+JSON.stringify(compVO));
+	//console.log("custVO: "+JSON.stringify(custVO));
+	//console.log("compVO: "+JSON.stringify(compVO));
 	
 	customer.joinMember(
 		memberVO={custVO:custVO, compVO:compVO},
@@ -176,7 +178,7 @@ $("#btn_register").on("click", function(e){
 			"csrfTokenValue":csrfTokenValue
 		},
 		function(data){
-			alert("joinMember"+data);
+			//alert("joinMember"+data);
 			registerSuccess();
 		}
 	);
@@ -194,7 +196,7 @@ function registerSuccess(){
 			+ "</div>"
 			+ "<div class='col-md-12' style='text-align:center;'>"
 			+ "<div style='text-align:center'><a href='/home/login'> 로그인하러 가기</a></div></div>";
-			alert("str"+str);
+			//alert("str"+str);
 	$(".register-form").html();
 	$(".register-form").html(str);
 	

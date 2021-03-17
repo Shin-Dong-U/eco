@@ -168,33 +168,35 @@
 
 	
 	<!-- cust 정보 수정 -->
-	<update id="modCust_Admin">
-		
-		
-		
-		
-		
+	<update id="modAdmin_cust">
+		update eco.cust
+		set 
+		<if test="custVO.password != '' and custVO.password != null">
+		password=#{custVO.password},
+		</if>
+		email=#{custVO.email}, birth=#{custVO.birth}, 
+		member_yn=#{custVO.member_yn}, sex=#{custVO.sex},
+		editDate=default, editUser=#{loginId}
+		where memberId=#{custVO.memberId}
 	</update>
 	
-	
-	<!-- company 정보 수정 -->
-	
-	
+	<!-- comp 정보 수정 -->
+	<update id="modAdmin_comp">
+		update eco.company
+		set 
+		comp_name=#{compVO.comp_name}, corp_num=#{compVO.corp_num},
+		editUser=#{loginId}, editDate=default
+		WHERE cust_id = #{compVO.cust_id}
+	</update>
 	
 	<!-- admin 정보 수정 -->
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<update id="modAdmin_admin">
+		update eco.admin
+		set 
+		acc_level=#{adminVO.acc_level}, 
+		editDate=default, editUser=#{loginId}
+		where cust_id=#{adminVO.cust_id}
+	</update>
+
 	
 </mapper>
