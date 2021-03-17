@@ -62,6 +62,9 @@ public class CustServiceImpl implements CustService{
 		//MemberVO memberVO = new MemberVO();
 		//memberVO.setCustVO(custDao.getCust(memberId));
 		memberVO.setCustVO(custDao.getCust(memberVO.getCustVO().getMemberId()));
+		if(memberVO.getCustVO().getAdmin_yn().equals("Y")) {
+			memberVO.setAdminVO(custDao.getAdmin(memberVO.getCustVO().getMemberId()));
+		}
 		if(memberVO.getCustVO().getCompany_yn().equals("Y")) {
 			memberVO.setCompVO(compDao.getCompany(memberVO.getCustVO().getMemberId()));
 		}
@@ -100,8 +103,11 @@ public class CustServiceImpl implements CustService{
 	}
 
 	public void passwordEncoding(CustVO custVO) {
-		String Encoder=pwEncoder.encode(custVO.getPassword());
-		custVO.setPassword(Encoder);
+		if(custVO.getPassword() !=null && !custVO.getPassword().equals("")) {
+			System.out.println("hh"+custVO.getPassword());
+			String Encoder=pwEncoder.encode(custVO.getPassword());
+			custVO.setPassword(Encoder);
+		}
 		//custVO.setPassword(passwordEncoder.encode(custVO.getPassword()));
 	}
 

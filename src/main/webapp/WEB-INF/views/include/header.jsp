@@ -30,7 +30,29 @@
 
         <!-- Template Stylesheet -->
         <link href="/resources/template/css/style.css" rel="stylesheet">
-        
+
+        <style>
+			/* Account - Detail */
+			#confirm_check {
+				display: none
+			}
+			
+			#modify_check {
+				display: none
+			}
+			
+			/* Admin - none display */
+			#modal_confirm_check {
+				display: none
+			}
+			/* Admin - 사용자 업체 관리자  */
+			.userBind {
+				display: flex;
+				text-align:center;
+			}
+		
+	</style>
+
     </head>
 
     <body>
