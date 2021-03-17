@@ -6,13 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.PathVariable;
+
+//import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-=======
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
->>>>>>> kpr
+
 
 import lombok.extern.log4j.Log4j;
 
@@ -43,16 +43,16 @@ public class PageController {
 		log.info("paidGoods페이지 이동");
 		return "paidGoods/list";
 	}
-//	@GetMapping("/page/searchedGoodslist")
-//	public String search(Model model) {
-//		log.info("searchedGoodsList페이지 이동");
-//		return  "board/searchedGoodslist";
-//	}
+	@GetMapping("/page/searchedGoodslist")
+	public String search(Model model) {
+		log.info("searchedGoodsList페이지 이동");
+		return  "board/searchedGoodslist";
+	}
 
 	@GetMapping("/game/tree")
-	public void game() {
+	public String game() {
 		log.info("game페이지 이동");
-		//return "orders/basket/list";
+		return "orders/basket/list";
 	}
 
 	@GetMapping("/orders/basket/list")
@@ -91,11 +91,11 @@ public class PageController {
 		return "orders/order/pay";
 	}
 
-//	@GetMapping("/home/contact")
-//	public void contact(Model model) {
-//		log.info("contact페이지 이동");
-//		
-//	}
+	@GetMapping("/home/contact")
+	public void contact(Model model) {
+		log.info("contact페이지 이동");
+		
+	}
 
 	@GetMapping("/home/index")
 	public String index(Model model) {

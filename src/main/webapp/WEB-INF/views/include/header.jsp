@@ -116,7 +116,7 @@
                     <div class="col-md-3">
                         <div class="logo">
                             <a href="index.html">
-                                <img src="/resources/template/img/logo.png" alt="Logo">
+                                <img src="/resources/template/img/ecoL.png" alt="Logo">
                             </a>
                         </div>
                     </div>
