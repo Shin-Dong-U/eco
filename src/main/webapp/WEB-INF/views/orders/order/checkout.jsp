@@ -87,8 +87,10 @@
                             <div class="checkout-payment">
                              
                                 <div class="checkout-btn">
-                                    <button class="payOrderBtn" disabled>결제하기</button>
-                                    <button class="deliveryBtn">배송정보 입력</button>
+                                
+                                	<button class="deliveryBtn"style="margin-bottom:5px">배송정보 입력</button>
+                                    <button class="payOrderBtn" style="visibility:hidden">결제하기</button>
+                                    
                                 </div>
                             </div> 
                         </div>
@@ -236,7 +238,7 @@
     	checkoutService.insertShipInfo(addressInfo,csrf);
     	
     	
-    	$(".payOrderBtn").attr("disabled", false);
+    	$(".payOrderBtn").css("visibility", 'visible')
     	})
     
     

@@ -30,59 +30,7 @@
 
         <!-- Template Stylesheet -->
         <link href="/resources/template/css/style.css" rel="stylesheet">
-        <style>
-			/* Account - Detail */
-			#confirm_check {
-				display: none
-			}
-			
-			#modify_check {
-				display: none
-			}
-			
-			/* Admin - none display */
-			#modal_confirm_check {
-				display: none
-			}
-			/* Admin - 사용자 업체 관리자  */
-			.userBind {
-				display: flex;
-			}
-			/* Admin - The Modal (background) */
-			.modal {
-				display: none; /* Hidden by default */
-				position: fixed; /* Stay in place */
-				z-index: 1; /* Sit on top */
-				left: 0;
-				top: 0;
-				width: 100%; /* Full width */
-				height: 100%; /* Full height */
-				overflow: auto; /* Enable scroll if needed */
-				background-color: rgb(0, 0, 0); /* Fallback color */
-				background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-			}
-			/* Admin - Modal Content Box Title */
-			.modal-content {
-				background-color: #fefefe;
-				margin: 15% auto; /* 15% from the top and centered */
-				padding: 20px;
-				border: 1px solid #888;
-				width: 50%; /* Could be more or less, depending on screen size */
-			}
-			/* Admin - The Close Button */
-			.close {
-				color: #aaa;
-				float: right;
-				font-size: 28px;
-				font-weight: bold;
-			}
-			/* Admin -  Modal*/
-			.close:hover, .close:focus {
-				color: black;
-				text-decoration: none;
-				cursor: pointer;
-			}
-	</style>
+        
     </head>
 
     <body>
@@ -177,7 +125,7 @@
                     <div class="col-md-3">
                         <div class="logo">
                             <a href="http://localhost/home/index">
-                                <img src="/resources/template/img/logo.png" alt="Logo">
+                                <img src="/resources/template/img/ecoL.png" alt="Logo">
                             </a>
                         </div>
                     </div>

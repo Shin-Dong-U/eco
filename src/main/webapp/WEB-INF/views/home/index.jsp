@@ -16,27 +16,31 @@
                                 </li>
                                    </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/board/catelist?category=3"><i class="fa fa-tshirt"></i>의류 및 잡화</a>
+                                    <a class="nav-link" href="http://localhost/goods?category=3"><i class="fa fa-tshirt"></i>의류</a>
                                          
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/board/catelist?category=21"><i class="fa fa-shopping-bag"></i>뷰티</a>
+                                    <a class="nav-link" href="http://localhost/goods?category=5"><i class="fa fa-tshirt"></i>잡화</a>
+                                         
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="http://localhost/goods?category=21"><i class="fa fa-shopping-bag"></i>뷰티</a>
                                 </li>
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/board/catelist?category=22"><i class="fas fa-heartbeat"></i>헬스/건강식품</a>
+                                    <a class="nav-link" href="http://localhost/goods?category=22"><i class="fas fa-heartbeat"></i>헬스/건강식품</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/board/catelist?category=1"><i class="fas fa-apple-alt"></i>식품</a>
+                                    <a class="nav-link" href="http://localhost/goods?category=1"><i class="fas fa-apple-alt"></i>식품</a>
                              
                                  <li class="nav-item">
-                                    <a class="nav-link" href="/board/catelist?category=2"><i class="fas fa-couch"></i>가구</a>
+                                    <a class="nav-link" href="http://localhost/goods?category=2"><i class="fas fa-couch"></i>가구</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/board/catelist?category=4"><i class="fa fa-mobile-alt"></i>생활용품</a>
+                                    <a class="nav-link" href="http://localhost/goods?category=4"><i class="fa fa-mobile-alt"></i>생활용품</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/board/catelist?category=23"><i class="fab fa-palfed"></i>주방용품</a>
+                                    <a class="nav-link" href="http://localhost/goods?category=23"><i class="fab fa-palfed"></i>주방용품</a>
                                 </li>
                             </ul>
                         </nav>

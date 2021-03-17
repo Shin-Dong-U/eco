@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="cart-btn">
                                             <button class="cartUpBtn">Update Cart</button>
-                                            <button class="checkoutBtn" disabled>Checkout</button>
+                                            <button class="checkoutBtn" style="visibility:hidden">Checkout</button>
                                         </div>
                                     </div>
                                 </div>
@@ -192,9 +192,9 @@
     var csrfTokenValue="${_csrf.token}";
     
     
-    
+    //카트 업데이트
     $('.cartUpBtn').on('click', function () {
-    	$(".checkoutBtn").attr("disabled", false)
+    	$(".checkoutBtn").css("visibility", 'visible')
     })
  
   
@@ -231,6 +231,7 @@
 		var goods_seq =  $(this).data("goods_seq");
 		console.log("삭제버튼클릭: "+goods_seq);
 		delBasketGoods(cust_id,goods_seq);
+		$(".checkoutBtn").css("visibility", 'hidden')
 		showList();
 	});
   	

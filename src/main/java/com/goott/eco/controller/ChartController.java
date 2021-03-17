@@ -1,7 +1,6 @@
 package com.goott.eco.controller;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,10 +32,10 @@ public class ChartController {
 	//월별 판매 정보 get
 	@GetMapping(value="/month/sale/{searchRange}",
 			produces= {"application/json; charset=UTF-8"})
-	public ResponseEntity<List<HashMap<String, Object>>> getMonthSale(
+	public ResponseEntity<Map<String, Object>> getMonthSale(
 			@PathVariable("searchRange") int searchRange){
 		
-		List<HashMap<String, Object>> result = chartService.getMonthSale(searchRange);
+		Map<String, Object> result = chartService.getMonthSale(searchRange);
 		log.info("결과"+result);
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
