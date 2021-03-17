@@ -163,10 +163,10 @@
 		DELETE FROM GOODS WHERE GOODS_SEQ = #{goodsSeq}
 	</delete>
 	
-	<insert id="insertGoodsThumbNail" parameterType="com.goott.eco.domain.GoodsVO">
+	<insert id="insertGoodsThumbNail" parameterType="com.goott.eco.domain.GoodsVO$GoodsThumbNailVO">
 		INSERT INTO GOODS_THUMB_NAIL(
 			 GOODS_SEQ
-			,GOODS_THUM_NAIL_SEQ
+			,GOODS_THUMB_NAIL_SEQ
 			,IMG_URL
 			,MAIN_YN
 			,REGDATE
@@ -175,9 +175,9 @@
 			,EDITUSER
 		) VALUES (
 			#{goods_seq}
-			,(SELECT NVL(MAX(GOODS_THUM_NAIL_SEQ),0) + 1 FROM GOODS_THUMB_NAIL WHERE GOODS_SEQ = #{goods_seq})
-			,#{GoodsThumbNailVO.img_url}
-			,#{GoodsThumbNailVO.main_yn}
+			,(SELECT NVL(MAX(GOODS_THUMB_NAIL_SEQ),0) + 1 FROM GOODS_THUMB_NAIL WHERE GOODS_SEQ = #{goods_seq})
+			,#{img_url}
+			,(SELECT CASE WHEN NVL(MAX(GOODS_THUMB_NAIL_SEQ),0) = 0 THEN 'Y' ELSE 'N' END FROM GOODS_THUMB_NAIL WHERE GOODS_SEQ = #{goods_seq}) 
 			,SYSDATE
 			,#{reguser}
 			,NULL
@@ -210,6 +210,8 @@
 			GOODS_DETAIL = #{goods_detail}
 			, EDITDATE = SYSDATE
 			, EDITUSER = #{reguser} 
-		WHERE GOODS_SEQ = #{goods_seq}
+		WHERE 
+			GOODS_SEQ = #{goods_seq}
+			AND COMP_SEQ = (SELECT COMP_SEQ FROM COMPANY WHERE CUST_ID = #{reguser})
 	</update>
 </mapper>

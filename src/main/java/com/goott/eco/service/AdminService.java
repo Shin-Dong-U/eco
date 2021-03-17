@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface AdminService {
-	public int getSampleData() throws Exception ;
+//	public int getSampleData() throws Exception ;
 	/* 모든 관리자 정보 가져오기 */
 	public List<HashMap<String, Object>> getAdminList(); //(PageDTO page);
 	

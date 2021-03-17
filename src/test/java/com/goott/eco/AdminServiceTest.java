@@ -23,6 +23,6 @@ public class AdminServiceTest {
 	
 	@Test
 	public void getSampleDataTest() throws Exception {
-		adminService.getSampleData();
+//		adminService.getSampleData();
 	}
 }

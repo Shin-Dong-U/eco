@@ -17,7 +17,7 @@ public interface GoodsMapper {
 	public void test(Map<String, Object> param);
 	public void insertGoods(GoodsVO goodsVO);
 	public int realDeleteGoods(int goodsSeq);
-	public int insertGoodsThumbNail(GoodsVO goodsVO);
+	public int insertGoodsThumbNail(GoodsVO.GoodsThumbNailVO goodsVO);
 	
 	public Map<String, Object> goodsDetail(int goodsSeq);
 	public List<Map<String, Object>> goodsDetailThumbImg(int goodsSeq);

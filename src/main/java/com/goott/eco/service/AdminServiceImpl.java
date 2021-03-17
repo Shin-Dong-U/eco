@@ -24,6 +24,7 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired 
 	private GoodsMapper goodsDao;
 	
+	/*
 	@Transactional
 	@Override
 	public int getSampleData() throws Exception {
@@ -52,7 +53,7 @@ public class AdminServiceImpl implements AdminService{
 		
 		
 		return 0;
-	}
+	}*/
 	/* 모든 관리자 정보 가져오기 */
 	@Override
 	public List<HashMap<String, Object>> getAdminList() {

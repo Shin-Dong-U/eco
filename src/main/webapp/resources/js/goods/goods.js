@@ -265,7 +265,29 @@ function callInsertGoods(){
 	var url = '/goods/rest/form'; 
 	
 	goodsService.insertGoods(url, data, function(result){
-		alert('등록 되었습니다.');
+		if(result && result != -1){
+			var goodsSeq = result;
+			var formData = new FormData();
+		
+			var inputFile = $('input[name="uploadFile"]');
+			
+			var files = inputFile[0].files;
+			
+			for(var i = 0; i < files.length; i++){
+				formData.append("uploadFile", files[i]);
+			}
+			
+			$.ajax({
+				url : '/goods/rest/' + goodsSeq + '/form/upload/images/thumb',
+				processData: false,
+				contentType: false,
+				data: formData,
+				type: 'POST',
+				success: function(result){
+					alert('등록 되었습니다.');
+				}
+			});
+		}
 	});
 }
 

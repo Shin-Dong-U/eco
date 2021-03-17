@@ -141,7 +141,7 @@ public class GoodsController {
 		return sFileInfo;
 	}
 	
-		@GetMapping(value="/form/upload/images/thum")//, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
+		@GetMapping(value="/form/upload/images/thumb")//, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 		public String goodsThumbnailImagesUpload(HttpServletRequest request, HttpServletResponse response) throws IOException {
 			return "goods/thumb_upload";
 		}

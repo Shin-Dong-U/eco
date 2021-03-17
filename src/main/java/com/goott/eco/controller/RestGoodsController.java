@@ -43,6 +43,7 @@ import net.coobird.thumbnailator.Thumbnailator;
 
 import com.goott.eco.domain.AttachFileDTO;
 import com.goott.eco.domain.GoodsVO;
+import com.goott.eco.domain.GoodsVO.GoodsThumbNailVO;
 
 @RestController
 @RequestMapping("/goods/rest")
@@ -51,6 +52,7 @@ public class RestGoodsController {
 	
 	@Autowired private GoodsService goodsService;
 
+	//상품리스트
 	@GetMapping(value="", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public ResponseEntity<Map<String, Object>> goodsList(@ModelAttribute Criteria cri) {
 		Map<String, Object> goods = goodsService.goodsList(cri);
@@ -59,13 +61,14 @@ public class RestGoodsController {
 		return new ResponseEntity<>(goods, HttpStatus.OK);
 	}
 	
-	//리뷰
+	//리뷰리스트
 	@GetMapping(value="/{goodsSeq}/review", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public ResponseEntity<Map<String, Object>> getReview(@PathVariable int goodsSeq, @RequestParam int pageNum) {
 		Map<String, Object> comment = goodsService.goodsComment(goodsSeq, pageNum);
 		return new ResponseEntity<>(comment, HttpStatus.OK);
 	}
 	
+	//리뷰 수정
 	@PostMapping(value="/{goodsSeq}/review/{goodsCommentSeq}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public ResponseEntity<Integer> updateReview(HttpServletRequest request 
 												, @PathVariable int goodsSeq
@@ -82,6 +85,7 @@ public class RestGoodsController {
 				:  new ResponseEntity<>(HttpStatus.BAD_REQUEST);//적당한 오류 코드 번호 찾아서 수정 필요.
 	}
 	
+	//리뷰등록
 	@PutMapping(value="/{goodsSeq}/review", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public ResponseEntity<Integer> insertReview(HttpServletRequest request, @PathVariable int goodsSeq
 												, @RequestBody GoodsVO.GoodsCommentVO commentVO) {
@@ -97,9 +101,9 @@ public class RestGoodsController {
 				:  new ResponseEntity<>(HttpStatus.BAD_REQUEST);//적당한 오류 코드 번호 찾아서 수정 필요.
 	}
 	
-	//업로드 테스트 중 ing
+	//Naver smart editor에서 temp 폴더로 파일 임시 저장
 	@PostMapping(value="/form/upload/images", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
-	public ResponseEntity<String> goodsDetailImagesUpload(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public ResponseEntity<String> goodsDetailImagesUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile[] multifile) throws IOException {
 		//파일정보
 		String sFileInfo = "";
 		//파일명을 받는다 - 일반 원본파일명
@@ -126,7 +130,6 @@ public class RestGoodsController {
 		if(cnt == 0) {
 //			Todo. 이미지가 아니라면 return fail_status 으로 변경.
 //			out.println("NOTALLOW_"+filename);
-//			System.out.println("NOTALLOW");
 		} else {
 			//이미지이므로 신규 파일로 디렉토리 설정 및 업로드	
 			//파일 기본경로
@@ -143,6 +146,7 @@ public class RestGoodsController {
 			String today= formatter.format(new java.util.Date());
 			realFileNm = today+UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
 			rlFileNm = filePath + realFileNm;
+			
 			///////////////// 서버에 파일쓰기 ///////////////// 
 			InputStream is = request.getInputStream();
 			OutputStream os = new FileOutputStream(rlFileNm);
@@ -170,61 +174,11 @@ public class RestGoodsController {
 			}
 		
 		return new ResponseEntity<>(sFileInfo, HttpStatus.OK);
-		
-		/*
-		List<AttachFileDTO> attachList = new ArrayList<AttachFileDTO>();
-		
-		String defaultFolder = "c:\\upload\\temp";
-		
-		String yymmdd = new SimpleDateFormat("yyyyMMdd").format(System.currentTimeMillis());
-		String uploadFolder = defaultFolder + "\\" + yymmdd;
-		
-		for(MultipartFile multipartFile : uploadFile) {
-			
-			AttachFileDTO attachDTO = new AttachFileDTO();
-			
-			String uploadFileName = multipartFile.getOriginalFilename();
-			String uuid = UUID.randomUUID().toString();
-			
-			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1 );
-			uploadFileName = uuid + "_" + uploadFileName;
-			
-			File saveFile = new File(uploadFolder, uploadFileName);
-			
-			try {
-				File folder = new File(uploadFolder);
-				
-				if(!folder.exists()) { folder.mkdir(); }
-				
-				multipartFile.transferTo(saveFile);
-				
-				boolean isImage = checkImageType(saveFile);
-				
-				if(isImage) {
-					FileOutputStream thumbnail = new FileOutputStream(new File(uploadFolder, "s_" + uploadFileName));
-					
-					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
-					
-					thumbnail.close();
-				}
-				
-				attachDTO.setFileName(uploadFileName);
-				attachDTO.setUploadPath(uploadFolder);
-				attachDTO.setUuid(uuid);
-				attachDTO.setImage(isImage);
-				
-				attachList.add(attachDTO);
-			} catch (IllegalStateException | IOException e) {
-				//여기에 실패 처리 작성  
-				log.error(e.getMessage());
-			}
-		}
-		return new ResponseEntity<>(attachList, HttpStatus.OK);
-		*/
 	}
 	
+	//상품등록
 	@PutMapping(value="/form", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<String> insertGoods(HttpServletRequest request, @RequestBody GoodsVO goodsVO){
+	public ResponseEntity<Integer> insertGoods(HttpServletRequest request, @RequestBody GoodsVO goodsVO){
 //		String memberId = (String)request.getSession().getAttribute("memberId");
 //		Integer compSeq = (Integer)request.getSession().getAttribute("compSeq");
 
@@ -235,68 +189,27 @@ public class RestGoodsController {
 		
 		
 		String msg = "";
-		int cnt = goodsService.insertGoods(goodsVO);
+		int goods_seq = goodsService.insertGoods(goodsVO);
 		
 		System.out.println("@@@@@@@@@@회원 및 업체정보 하드코딩 되어있음. 시큐리티 적용 후 해당 라인 삭제 @@@@@@@");
 		
-		return cnt > 0 ? new ResponseEntity<>(msg, HttpStatus.OK)
-					   : new ResponseEntity<>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
+		return goods_seq > 0 ? new ResponseEntity<>(goods_seq, HttpStatus.OK)
+					   : new ResponseEntity<>(-1, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	//썸네일 테스트 
-	@PostMapping(value="/form/upload/images/thumb")//, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
-	public ResponseEntity<List<AttachFileDTO>> goodsThumnailImagesUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile[] uploadFile){
-		System.out.println("this is thumbnail controller");
-		List<AttachFileDTO> attachList = new ArrayList<AttachFileDTO>();
+	@PostMapping(value="/{goodsSeq}/form/upload/images/thumb", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
+	public ResponseEntity<List<Map<String, Object>>> goodsThumnailImagesUpload(@PathVariable int goodsSeq, @RequestBody MultipartFile[] uploadFile, HttpServletRequest request){
+		GoodsThumbNailVO thumbVO = new GoodsThumbNailVO();
+		System.out.println("@@@@@@@@@@하드코딩라인 있음 이 부분 수정 ");
+//				String memberId = (String)request.getSession().getAttribute("memberId");
+		String memberId = "compF";
+		thumbVO.setReguser(memberId);
+		thumbVO.setGoods_seq(goodsSeq);
+
+		List<Map<String, Object>> thumbList = goodsService.insertThumbnail(uploadFile, thumbVO);
 		
-		String defaultFolder = "c:\\upload\\img\\temp";
-		
-		String yymmdd = new SimpleDateFormat("yyyyMMdd").format(System.currentTimeMillis());
-		String uploadFolder = defaultFolder + File.separator + yymmdd;
-		
-		for(MultipartFile multipartFile : uploadFile) {
-			
-			AttachFileDTO attachDTO = new AttachFileDTO();
-			
-			String uploadFileName = multipartFile.getOriginalFilename();
-			String uuid = UUID.randomUUID().toString();
-			
-			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf(File.separator) + 1 );
-			uploadFileName = uuid + "_" + uploadFileName;
-			
-			File saveFile = new File(uploadFolder, uploadFileName);
-			
-			try {
-				File folder = new File(uploadFolder);
-				
-				if(!folder.exists()) { folder.mkdir(); }
-				
-				multipartFile.transferTo(saveFile);
-				
-				boolean isImage = checkImageType(saveFile);
-				
-				/* 별도의 썸네일 이미지 생성 로직
-				if(isImage) {
-					FileOutputStream thumbnail = new FileOutputStream(new File(uploadFolder, "s_" + uploadFileName));
-					
-					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
-					
-					thumbnail.close();
-				}
-				*/
-				
-				attachDTO.setFileName(uploadFileName);
-				attachDTO.setUploadPath(uploadFolder);
-				attachDTO.setUuid(uuid);
-				attachDTO.setImage(isImage);
-				
-				attachList.add(attachDTO);
-			} catch (IllegalStateException | IOException e) {
-				//여기에 실패 처리 작성  
-				log.error(e.getMessage());
-			}
-		}
-		return new ResponseEntity<>(attachList, HttpStatus.OK);
+		return new ResponseEntity<>(thumbList, HttpStatus.OK);
 	}
 	
 	private boolean checkImageType(File file) {
@@ -312,17 +225,5 @@ public class RestGoodsController {
 		return false;
 	}
 	
-	public static void main(String[] args) {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String pwd = "";
-		String encodePwd = encoder.encode(pwd);
-		String encodePwd2 = encoder.encode(pwd);
-		System.out.println("en 1 = " + encodePwd + " | en 2 = " + encodePwd2 );
-		
-		
-		boolean b = encoder.matches(pwd, encodePwd2);
-		System.out.println(b);
-		
-	}
 	
 }

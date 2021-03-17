@@ -8,17 +8,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.goott.eco.common.Criteria;
 import com.goott.eco.common.PageDTO;
 import com.goott.eco.domain.GoodsVO;
 import com.goott.eco.domain.GoodsVO.GoodsCommentVO;
 import com.goott.eco.domain.GoodsVO.GoodsDetailImgVO;
+import com.goott.eco.domain.GoodsVO.GoodsThumbNailVO;
 import com.goott.eco.mapper.GoodsMapper;
 
 import lombok.extern.log4j.Log4j;
@@ -30,18 +33,6 @@ import oracle.sql.CLOB;
 public class GoodsServiceimpl implements GoodsService{
 
 	@Autowired private GoodsMapper goodsDao; 
-	
-	@Override
-	public void txTest() {
-		Map<String, Object> goodMap = new HashMap<String, Object>();
-		goodMap.put("no", 1);
-		goodMap.put("val", "1");
-		Map<String, Object> badMap = new HashMap<String, Object>();
-		badMap.put("no", 2);
-		badMap.put("val", "555555555555555555555555555555555555555555555151513153111");
-		goodsDao.test(goodMap);
-		goodsDao.test(badMap);
-	}
 	
 	@Override
 	public Map<String, Object> goodsList(Criteria cri) {
@@ -181,6 +172,42 @@ public class GoodsServiceimpl implements GoodsService{
 	@Override
 	public int insertReview(GoodsCommentVO commentVO) {
 		return goodsDao.insertReview(commentVO);
+	}
+
+	@Override
+	public List<Map<String, Object>> insertThumbnail(MultipartFile[] files, GoodsVO.GoodsThumbNailVO thumbVO) {
+		String defaultFolder = "c:\\upload\\img";
+		String uploadFolder = defaultFolder + "\\" + thumbVO.getGoods_seq();
+		
+		for(int i = 0; i < files.length; i++) { 
+			MultipartFile multipartFile = files[i];
+			
+			String uploadFileName = multipartFile.getOriginalFilename();
+			String uuid = UUID.randomUUID().toString();
+			
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1 );
+			uploadFileName = "thumb_" + uuid + "_" + uploadFileName;
+			
+			File saveFile = new File(uploadFolder, uploadFileName);
+			
+			try {
+				File folder = new File(uploadFolder);
+				
+				if(!folder.exists()) { folder.mkdir(); }
+				
+				multipartFile.transferTo(saveFile);
+				
+				thumbVO.setImg_url(saveFile.getPath().substring(2).replaceAll("\\\\", "/"));// c:\\upload\\img\\ -> /upload/img/ 형식으로 변경
+				if(i == 0) {thumbVO.setMain_yn("Y"); }
+				
+				goodsDao.insertGoodsThumbNail(thumbVO);
+			} catch (IllegalStateException | IOException e) {
+				log.error(e.getMessage());
+			}
+		}
+		List<Map<String, Object>> thumbList = goodsDao.goodsDetailThumbImg(thumbVO.getGoods_seq());
+		
+		return thumbList;
 	}
 
 }
