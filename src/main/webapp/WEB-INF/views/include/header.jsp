@@ -30,6 +30,7 @@
 
         <!-- Template Stylesheet -->
         <link href="/resources/template/css/style.css" rel="stylesheet">
+
         <style>
 			/* Account - Detail */
 			#confirm_check {
@@ -51,6 +52,7 @@
 			}
 		
 	</style>
+
     </head>
 
     <body>
@@ -145,7 +147,7 @@
                     <div class="col-md-3">
                         <div class="logo">
                             <a href="http://localhost/home/index">
-                                <img src="/resources/template/img/logo.png" alt="Logo">
+                                <img src="/resources/template/img/ecoL.png" alt="Logo">
                             </a>
                         </div>
                     </div>

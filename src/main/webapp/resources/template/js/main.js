@@ -236,6 +236,7 @@
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
         var totalPrice=1;
+        $(".checkoutBtn").css("visibility", 'hidden')
         if ($button.hasClass('btn-plus')) {
            var newVal = Number(parseFloat(oldValue) + 1);
             var goodsPrice=Number($button.parentsUntil("tr").prev().children("span").text());
@@ -249,7 +250,6 @@
             var goods_seq = $button.parent().data("goods_seq");
             console.log("qty 증가 goods_seq: "+goods_seq);
         	changeQtyAtBasket(cust_id,goods_seq,newVal);
-        	$(".checkoutBtn").attr("disabled", true);
         	
         } else {
             if (oldValue > 0) {
@@ -262,7 +262,7 @@
                var goods_seq = $button.parent().data("goods_seq");
                console.log("qty 감소 goods_seq: "+goods_seq);
            	   changeQtyAtBasket(cust_id,goods_seq,newVal);
-           	$(".checkoutBtn").attr("disabled", true);
+           	
             } else {
                 newVal = 0;
             }

@@ -1,9 +1,8 @@
 package com.goott.eco.service;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 public interface ChartService {
 
-	public List<HashMap<String, Object>> getMonthSale(int searchRange);
+	public Map<String, Object> getMonthSale(int searchRange);
 }
