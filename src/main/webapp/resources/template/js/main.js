@@ -211,14 +211,14 @@
         var totalPrice=1;
         if ($button.hasClass('btn-plus')) {
             var newVal = parseFloat(oldValue) + 1;
-            console.log("goodsprice: "+goodsPrice);
+            
             totalPrice=goodsPrice*newVal;
-            console.log(totalPrice+"="+goodsPrice+"*"+newVal);
+            
         } else {
             if (oldValue > 0) {
                 var newVal = parseFloat(oldValue) - 1;
                 totalPrice=goodsPrice*newVal;
-                console.log(totalPrice+"="+goodsPrice+"*"+newVal);
+               
             } else {
                 newVal = 0;
             }
@@ -231,24 +231,24 @@
     //이벤트 위임
     $('.basketList').on('click', ".qty button",function () {
     	
-    	console.log(csrfHeaderName,csrfTokenValue);
-    	console.log("버튼클릭");
+    	
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
         var totalPrice=1;
         $(".checkoutBtn").css("visibility", 'hidden')
+        
         if ($button.hasClass('btn-plus')) {
            var newVal = Number(parseFloat(oldValue) + 1);
             var goodsPrice=Number($button.parentsUntil("tr").prev().children("span").text());
-            console.log("goodsprice: "+goodsPrice);
+           
             //$button.parentsUntil("tr").prev().children("span").css({"border": "2px solid red"});
             
             totalPrice=goodsPrice*newVal;
-            console.log(totalPrice+"="+goodsPrice+"*"+newVal);
+          
 
         	//장바구니 수량 업데이트
             var goods_seq = $button.parent().data("goods_seq");
-            console.log("qty 증가 goods_seq: "+goods_seq);
+           
         	changeQtyAtBasket(cust_id,goods_seq,newVal);
         	
         } else {
@@ -256,11 +256,11 @@
                 var newVal = parseFloat(oldValue) - 1;
                 var goodsPrice=Number($button.parentsUntil("tr").prev().children("span").text());
                 totalPrice=goodsPrice*newVal;
-               console.log(totalPrice+"="+goodsPrice+"*"+newVal);
+             
                
              //장바구니 수량 업데이트
                var goods_seq = $button.parent().data("goods_seq");
-               console.log("qty 감소 goods_seq: "+goods_seq);
+               
            	   changeQtyAtBasket(cust_id,goods_seq,newVal);
            	
             } else {
@@ -276,21 +276,18 @@
     $('.cartUpBtn').on('click', function () {
     	//금액계산
     	 var subCacul=0;
-    	 console.log("row1: "+$("tbody tr").length,typeof($("tbody tr").length));
+    	
     	 var loopCnt = Number($("tbody tr").length);
          for(var i=0; i<loopCnt;i++){
          subCacul=Number($(".calPrice"+[i]).text())+Number(subCacul);  	
-         console.log("subCacul: "+subCacul);
-         console.log("타입체크1: "+typeof(($(".calPrice"+[i]).text())));
-        
-         console.log("타입체크3: "+typeof(subCacul));
+         
          }
          
-         console.log("update cart: "+subCacul,typeof(subCacul));
+        
          $(".subTotalPrice").text(subCacul);
          
     	var totalPrice = subCacul+Number($(".shippingCost").text());
-    	console.log($(".shippingCost").text());
+    	
     	$(".grandTotalPrice").text(totalPrice);
     	
     	

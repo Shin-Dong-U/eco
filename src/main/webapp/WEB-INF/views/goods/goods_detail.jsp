@@ -340,14 +340,14 @@
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="/resources/template/lib/easing/easing.min.js"></script>
-        <script src="/resources/template/lib/slick/slick.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/easing/easing.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
-        <script src="/resources/template/js/main.js"></script>
+        <script src="${contextPath}/resources/template/js/main.js"></script>
         
-        <script src="/resources/js/common/common.js"></script>
-        <script src="/resources/js/goods/goods.js"></script>
+        <script src="${contextPath}/resources/js/common/common.js"></script>
+        <script src="${contextPath}/resources/js/goods/goods.js"></script>
         <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
         <script src="${contextPath}/resources/order/checkout.js?ver=3"></script>
         <script>
@@ -383,10 +383,7 @@
        		csrf={"csrfHeaderName":csrfHeaderName,
        				"csrfTokenValue":csrfTokenValue};
        		
-    	    console.log("장바구니cust_id: "+orderinfo.cust_id);
-    		console.log("장바구니qty: "+orderinfo.qty);
-    		console.log("장바구니orderOption: "+orderinfo.orderOption);
-    		console.log("장바구니goods_seq: "+orderinfo.goods_seq);
+    	   
     		basketService.addGoodsAtBasket(orderinfo,csrf,function(){
     			alert("장바구니에 해당상품이 담겼습니다");
         		if(window.confirm('장바구니로 이동하겠습니까??')){
@@ -397,7 +394,6 @@
        	})
        	
        	$('.buyNow').on("click",function(){
-       		console.log('바로구매')
        		orderinfo={
     	    		cust_id:"${memberId }",
     	    		qty:$(".orderQty").val(),
@@ -407,13 +403,23 @@
     	    } 
 		
 		
-		console.log("바로구매cust_id: "+orderinfo.cust_id);
-		console.log("바로구매qty: "+orderinfo.qty);
-		console.log("바로구매orderOption: "+orderinfo.orderOption);
-		console.log("바로구매goods_seq: "+orderinfo.goods_seq);
+	
 		checkoutService.orderNow(orderinfo);
        	})
       
         </script>
+        <!--Start of Tawk.to Script-->
+			<script type="text/javascript">
+				var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+				(function(){
+				var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+					s1.async=true;
+					s1.src='https://embed.tawk.to/6051161bf7ce18270930c865/1f0ubsnki';
+					s1.charset='UTF-8';
+					s1.setAttribute('crossorigin','*');
+					s0.parentNode.insertBefore(s1,s0);
+				})();
+			</script>
+		<!--End of Tawk.to Script-->
     </body>
 </html>

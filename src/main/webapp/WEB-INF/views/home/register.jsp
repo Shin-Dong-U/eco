@@ -168,8 +168,7 @@ $("#btn_register").on("click", function(e){
 			"addr_detail":$("#addr_detail").val(),
 		}
 	}
-	//console.log("custVO: "+JSON.stringify(custVO));
-	//console.log("compVO: "+JSON.stringify(compVO));
+
 	
 	customer.joinMember(
 		memberVO={custVO:custVO, compVO:compVO},

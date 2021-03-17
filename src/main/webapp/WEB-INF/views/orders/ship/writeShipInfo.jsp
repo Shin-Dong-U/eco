@@ -329,7 +329,6 @@
     var cust_id = "${memberId}";
     var orderInfo;
     var order_seq = ${order_seq};
-	console.log("order_seq"+order_seq);
 	
 	
     $(".writeShipInfoBtn").on('click',function(){
@@ -357,10 +356,8 @@
     	
     	checkoutService.getShipInfo(cust_id,order_seq,function(checkoutInfo){
     		orderInfo = checkoutInfo;
-    		console.log("orderInfo: "+orderInfo.NAME);
 			var address=$(".addressInfomation");
 			var str="";
-			console.log(checkoutInfo);
 			
 				str+="<h2>배송 정보(주문번호: "+checkoutInfo.ORDER_SEQ+")</h2>"
 					+"	<div class='divBind'>	"
@@ -446,8 +443,19 @@
 		})
 	}
     
-   
-    console.log("var orderInfo"+orderInfo);
   
     </script>
+    <!--Start of Tawk.to Script-->
+			<script type="text/javascript">
+				var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+				(function(){
+				var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+					s1.async=true;
+					s1.src='https://embed.tawk.to/6051161bf7ce18270930c865/1f0ubsnki';
+					s1.charset='UTF-8';
+					s1.setAttribute('crossorigin','*');
+					s0.parentNode.insertBefore(s1,s0);
+				})();
+			</script>
+		<!--End of Tawk.to Script-->
 </html>

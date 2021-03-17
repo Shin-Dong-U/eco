@@ -144,7 +144,7 @@ public class PageController {
 		String referrer = request.getHeader("Referer");	
 		if(referrer!=null) {
 			String result = referrer.substring(referrer.lastIndexOf("/")+1);
-			if(result.equals("login")) return;
+			if(result.equals("login")||result.equals("register")) return;
 			
 			System.out.println("이전페이지url: "+referrer);
 		    request.getSession().setAttribute("prevPage", referrer);

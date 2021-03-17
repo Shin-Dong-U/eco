@@ -182,7 +182,6 @@
     
     var cust_id = "${memberId}";
 	cartCnt(cust_id);
-	console.log(cust_id);
     $(document).ready(function(){
     	showList();
     	//var cust_id $(".sessionId").val();
@@ -202,9 +201,7 @@
     
     //check out button 장바구니목록 주문
     $('.checkoutBtn').on('click', function () {
-    	console.log("체크아웃 버튼클릭");
     	var total_price = $(".grandTotalPrice").text();
-    	console.log(total_price);
     	csrf={"csrfHeaderName":csrfHeaderName,
    				"csrfTokenValue":csrfTokenValue};
     	//addOrder
@@ -220,7 +217,6 @@
   	//상품제목 <p>클릭시
   	$('.basketList').on('click', "p",function () {
   		var goods_seq =  $(this).data("goods_seq");
-    	console.log("버튼클릭goods_seq: "+goods_seq);
       //현재 버튼클릭시 해당 goods_seq선택가능-->Ajax로 연동
 		selectBasketGoods(goods_seq);    
     });
@@ -229,7 +225,6 @@
 	$('.basketList').on('click',".delbasketBtn",function(){
 		//var goods_seq =  $(this).parents("td").children("p").data("goods_seq");
 		var goods_seq =  $(this).data("goods_seq");
-		console.log("삭제버튼클릭: "+goods_seq);
 		delBasketGoods(cust_id,goods_seq);
 		$(".checkoutBtn").css("visibility", 'hidden')
 		showList();
@@ -258,7 +253,6 @@
 	function delBasketGoods(cust_id,goods_seq){
 		csrf={"csrfHeaderName":csrfHeaderName,
    				"csrfTokenValue":csrfTokenValue};
-		$(".checkoutBtn").attr("disabled", true);
 		basketService.delBasketGoods(cust_id,goods_seq,csrf,function(result){
 			showList();
 		})
@@ -323,4 +317,17 @@
 		}
    
     </script>
+    <!--Start of Tawk.to Script-->
+			<script type="text/javascript">
+				var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+				(function(){
+				var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+					s1.async=true;
+					s1.src='https://embed.tawk.to/6051161bf7ce18270930c865/1f0ubsnki';
+					s1.charset='UTF-8';
+					s1.setAttribute('crossorigin','*');
+					s0.parentNode.insertBefore(s1,s0);
+				})();
+			</script>
+		<!--End of Tawk.to Script-->
 </html>

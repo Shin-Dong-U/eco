@@ -336,7 +336,7 @@ $(document).ready(function () {
         $(".carousel").carousel();
     });
 });
-*/
+
 
 (function ($) {
     "use strict";
@@ -575,7 +575,7 @@ $(document).ready(function () {
             $('#' + checkbox_id + '-show').slideDown();
         }
     });
-})(jQuery);
+})(jQuery);*/
 
 
 

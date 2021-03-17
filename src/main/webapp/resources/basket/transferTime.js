@@ -1,5 +1,3 @@
-console.log("transferTime.........");
-
 var trnasferTime=(function(){
 	
 //날짜시간 표시형식 설정: 날짜시간 형식 지정(서버와 상관 없음)
