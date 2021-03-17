@@ -5,15 +5,15 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goott.eco.mapper.GoodsMapper">
 <!-- 이부분 수정  -->
-	<resultMap id="goodsMap" type="com.goott.eco.domain.GoodsVO" >
-		<result property="goods_seq" column="GOODS_SEQ"/>
-		<result property="comp_seq" column="COMP_SEQ"/>
-		<result property="goods_name" column="GOODS_NAME"/>
-		<result property="price" column="PRICE"/>
-		<result property="qty" column="QTY"/>
-		<result property="material" column="MATERIAL"/>
-		<result property="category" column="CATEGORY"/>
-		<result property="req_option" column="REQ_OPTION"/>
+	<resultMap id="goodsMap" type="hashMap" >
+		<result property="GOODS_SEQ" column="GOODS_SEQ"/>
+		<result property="COMP_SEQ" column="COMP_SEQ"/>
+		<result property="GOODS_NAME" column="GOODS_NAME"/>
+		<result property="PRICE" column="PRICE"/>
+		<result property="QTY" column="QTY"/>
+		<result property="MATERIAL" column="MATERIAL"/>
+		<result property="CATEGORY" column="CATEGORY"/>
+		<result property="REQ_OPTION" column="REQ_OPTION"/>
 		<result property="STAR" column="STAR"/>
 		<result property="COMP_NAME" column="COMP_NAME"/>
 		<result property="GOODS_DETAIL" column="GOODS_DETAIL" jdbcType="CLOB" javaType="java.lang.String" />
@@ -55,7 +55,7 @@
 		OFFSET #{start} ROWS FETCH FIRST #{amount} ROWS ONLY
 	</select>
 	
-	<select id="goodsDetail" parameterType="int" resultType="goodsMap">
+	<select id="goodsDetail" parameterType="int" resultMap="goodsMap">
 		SELECT
 			  G.GOODS_SEQ, G.COMP_SEQ, G.GOODS_NAME, G.PRICE, G.QTY, G.MATERIAL, G.CATEGORY
 			, G.REQ_OPTION

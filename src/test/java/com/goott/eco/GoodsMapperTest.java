@@ -89,8 +89,10 @@ public class GoodsMapperTest {
 	
 	@Test
 	public void goodsDetailTest() {
-		int goodsSeq = 458;
+		int goodsSeq = 7;
 		Map<String, Object> goodsInfo = dao.goodsDetail(goodsSeq);
+		String detail = (String)goodsInfo.get("GOODS_DETAIL");
+		System.out.println(detail);
 	}
 	
 	@Test
