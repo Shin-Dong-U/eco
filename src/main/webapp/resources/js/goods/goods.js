@@ -96,11 +96,35 @@ var goodsService=(function(){
 		});
 	}
 	
+	function insertGoods(url, data, callback){
+		if(isRun === true) { return false; }
+		isRun = true;
+		
+		$.ajax({ 
+			type : 'put',						
+			url : url,	
+			data : JSON.stringify(data),
+			contentType : "application/json;charset=UTF-8",
+			
+			success : function(result, status, xhr){
+				if(callback){
+					callback(result);
+				}
+				isRun = false;
+			}, error : function(e){
+				console.log(e);
+				isRun = false;
+			}, complete : function() {
+    		}
+		});
+	}
+	
 	return {
 		getGoodsList : getGoodsList,
 		getCommentList : getCommentList,
 		updateComment : updateComment,
-		insertComment : insertComment
+		insertComment : insertComment,
+		insertGoods : insertGoods
 	};
 	
 })();
@@ -232,6 +256,15 @@ function callInsertComment(){
 	var url = '/goods/rest/' + goodsSeq + '/review';
 
 	goodsService.insertComment(url, data, function(result){
+		alert('등록 되었습니다.');
+	});
+}
+
+function callInsertGoods(){
+	var data = $('#goodsForm').serializeObject();
+	var url = '/goods/rest/form'; 
+	
+	goodsService.insertGoods(url, data, function(result){
 		alert('등록 되었습니다.');
 	});
 }

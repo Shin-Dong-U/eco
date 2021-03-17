@@ -60,8 +60,10 @@ public class GoodsController {
 	}
 	
 	@GetMapping("/form")
-	public String goodsInsert() {
-		return "company/goods_insert";
+	public ModelAndView goodsInsert() {
+		ModelAndView mav = new ModelAndView("company/goods_insert");
+		mav.addObject("cateList", commonService.categoryList());
+		return mav;
 	}
 	
 	//업로드 테스트 중 ing

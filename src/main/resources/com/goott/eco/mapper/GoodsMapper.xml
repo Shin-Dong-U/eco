@@ -171,5 +171,29 @@
 	<select id="goodsCategoryList" resultType="map">
 		SELECT CATE_SEQ, CATE_NAME FROM GOODS_CATEGORY ORDER BY CATE_SEQ ASC
 	</select>
-
+	
+	<insert id="insertGoodsDetailImg" parameterType="com.goott.eco.domain.GoodsVO$GoodsDetailImgVO">
+		INSERT INTO GOODS_DETAIL_IMG(
+			  GOODS_SEQ
+			, IMG_ORDER
+			, IMG_URL
+			, REGDATE
+			, REGUSER
+		) VALUES(
+			  #{goods_seq}
+			, #{img_order}
+			, #{img_url}
+			, SYSDATE
+			, #{reguser}
+		)
+	</insert>
+	
+	<!-- 상품 상세설명 컬럼만 업데이트 -->
+	<update id="updateGoodsOnlyGoodsDetailColumn" parameterType="com.goott.eco.domain.GoodsVO">
+		UPDATE GOODS SET 
+			GOODS_DETAIL = #{goods_detail}
+			, EDITDATE = SYSDATE
+			, EDITUSER = #{reguser} 
+		WHERE GOODS_SEQ = #{goods_seq}
+	</update>
 </mapper>

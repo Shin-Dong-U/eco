@@ -92,20 +92,38 @@ public class GoodsVO {
 		}
 	}
 	
-	//파일 관련 메소드 테스트 완료후 삭제 
-	public static void main(String[] args) throws IOException {
-		System.out.println("@@@파일 관련 메소드 테스트가 완료 되었다면 이 메소드를 삭제하시오@@@ ");
-		String absolutePath = (new File("/upload/temp/test_img.jpg")).getCanonicalPath();
-		System.out.println(absolutePath);
+	//상세페이지의 이미지 경로를 list로 반환
+	public List<String> getImgSrcList(String goods_detail){
+		List<String> list = new ArrayList<>();
+		String tmpStr = goods_detail; 
 		
-		GoodsVO vo = new GoodsVO();
-		String res = vo.makeNewFilePath("/upload/temp/test_img.jpg", 55);
-		System.out.println(res);
+		StringBuilder sb = new StringBuilder();
+		
+		while(true) {
+			int tmpStartIdx = tmpStr.indexOf("<img src=\"") + 10;
+			int tmpEndIdx = tmpStr.indexOf("\"", tmpStartIdx);
+			
+			if(tmpStartIdx < 10 || tmpEndIdx < 0) { break; }
+
+			String tmpSrc = tmpStr.substring(tmpStartIdx, tmpEndIdx);
+			
+			list.add(tmpSrc);
+			
+			tmpStr = tmpStr.substring(tmpEndIdx);
+			
+		}
+		
+		return list;
 	}
 	
 	//이동할 폴더 명 생성
 	// '/upload/temp/파일명' -> '/upload/상품번호폴더/파일명
 	public String makeNewFilePath(String orgFilePath, int goods_seq) {
+		//예외처리. local이 아닌 경로의 이미지는 변경 X 
+		if(isWebSrc(orgFilePath)) {
+			return orgFilePath;
+		}
+		
 		int targetStartIdx = orgFilePath.indexOf("temp");
 		int targetEndIdx = orgFilePath.indexOf("temp") + 4;
 		String newFilePath = "";
@@ -124,29 +142,7 @@ public class GoodsVO {
 		return new File("/upload/temp/test_img.jpg").getCanonicalPath();
 	}
 	
-	//상세페이지의 이미지 경로를 list로 반환
-	public List<String> getImgFileList(String goods_detail){
-		List<String> list = new ArrayList<>();
-		String tmpStr = goods_detail; 
-		
-		StringBuilder sb = new StringBuilder();
-		
-		while(true) {
-			int tmpStartIdx = tmpStr.indexOf("<img src=\"") + 10;
-			int tmpEndIdx = tmpStr.indexOf("\"", tmpStartIdx);
-			
-			if(tmpStartIdx < 0 || tmpEndIdx < 0) { break; }
-
-			String tmpSrc = tmpStr.substring(tmpStartIdx, tmpEndIdx);
-			
-			list.add(tmpSrc);
-			
-			tmpStr = tmpStr.substring(tmpEndIdx);
-			
-		}
-		
-		return list;
-	}
+	
 	
 	//기존 경로 - > 새로운 경로로 img src 변경
 	public void changeImgSrc(String goods_detail, List<String> orgSrcList, List<String> newSrcList) {
@@ -168,6 +164,11 @@ public class GoodsVO {
 		sb.append(tmpStr);
 		
 		this.goods_detail = sb.toString();
+	}
+	
+	//http:// or https:// 경로인지 판별 
+	public boolean isWebSrc(String imgSrc) {
+		return (imgSrc.contains("http://") || imgSrc.contains("https://"));
 	}
 	
 }

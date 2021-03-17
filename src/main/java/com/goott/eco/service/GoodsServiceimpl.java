@@ -1,9 +1,13 @@
 package com.goott.eco.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,10 +16,13 @@ import com.goott.eco.common.Criteria;
 import com.goott.eco.common.PageDTO;
 import com.goott.eco.domain.GoodsVO;
 import com.goott.eco.domain.GoodsVO.GoodsCommentVO;
+import com.goott.eco.domain.GoodsVO.GoodsDetailImgVO;
 import com.goott.eco.mapper.GoodsMapper;
 
-@Transactional
+import lombok.extern.log4j.Log4j;
+
 @Service
+@Log4j
 public class GoodsServiceimpl implements GoodsService{
 
 	@Autowired private GoodsMapper goodsDao; 
@@ -73,10 +80,67 @@ public class GoodsServiceimpl implements GoodsService{
 		return comment;
 	}
 
+	/**
+	 * 상품등록 
+	 * 1. 기본 정보로 상품을 등록. goodsSeq 획득
+	 * 2. 상품 상세정보 img src 추출.
+	 * 3. 이미지 파일 이동 tmp -> 상품번호 폴더 
+	 * 4. 상품 상세 이미지 테이블에 데이터 insert (이미지 갯수만큼) 
+	 * 5. 상품 상세 정보 변경 (변경 된 src 주소 적용) 후 UPDATE
+	 * 
+	 * Todo. 
+	 * transaction 작동안함
+	 * 코드 정리 ( 메서드 분리 등 ) 
+	 * 
+	 */
+	@Transactional
 	@Override
 	public int insertGoods(GoodsVO vo) {
-		goodsDao.insertGoods(vo);
-		return 0;
+		//등록 관련코드 차후 별도의 클래스에서 따로 관리. 
+		final int FAIL_CODE = -1;
+		
+		goodsDao.insertGoods(vo);//1. proc 호출하여 상품 등록.
+		
+		if(vo.getGoods_seq() != 0) {//goods_seq가 있으면 상품이 정상 등록 됨.
+			List<String> orgSrcList = vo.getImgSrcList(vo.getGoods_detail());//2. 이미지 src list 획득
+			List<String> newSrcList = new ArrayList<String>(orgSrcList.size());//5번 프로세스에서 사용.변경 된 경로. 
+			
+			for(int i = 0; i < orgSrcList.size(); i++) {
+				String orgSrc = orgSrcList.get(i);
+				String newSrc = vo.makeNewFilePath(orgSrc, vo.getGoods_seq());//3-1. 이동할 파일경로 지정
+				newSrcList.add(newSrc);
+				
+				if(vo.isWebSrc(orgSrc)) { continue; }//웹 경로의 이미지는 아래의 로직 생략.
+				
+				//3-2. 파일 이동
+				try {
+					File orgFile = new File(orgSrc);
+					File newFile = new File(newSrc);
+					FileUtils.moveFile(orgFile, newFile);
+				} catch (IOException e) {
+					log.error(e);
+					newSrcList.remove(i);
+					newSrcList.add("");//파일 이동에 실패 하였다면 src값을 "" 으로 변경.
+				}
+				
+				//4. 상품 상세 이미지 테이블에 데이터 insert. (메서드 분리 필요) 
+				//파라미터 셋팅.
+				GoodsDetailImgVO imgvo = new GoodsDetailImgVO();
+				imgvo.setGoods_seq(vo.getGoods_seq());
+				imgvo.setImg_order(i + 1);
+				imgvo.setImg_url(newSrc);
+				imgvo.setReguser(vo.getReguser());
+				vo.setGoodsDetailImgVO(imgvo);
+				
+				goodsDao.insertGoodsDetailImg(vo.getGoodsDetailImgVO());
+			}
+			//5. 상품 상세 정보 변경 후 업데이트
+			vo.changeImgSrc(vo.getGoods_detail(), orgSrcList, newSrcList);//상세정보 변경
+			goodsDao.updateGoodsOnlyGoodsDetailColumn(vo);
+			
+		}else { return FAIL_CODE; }
+		
+		return vo.getGoods_seq();
 	}
 
 	@Override

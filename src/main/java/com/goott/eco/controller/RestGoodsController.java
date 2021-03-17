@@ -96,10 +96,8 @@ public class RestGoodsController {
 	}
 	
 	//업로드 테스트 중 ing
-	@PostMapping(value="/form/upload/images")//, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
+	@PostMapping(value="/form/upload/images", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public ResponseEntity<String> goodsDetailImagesUpload(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		System.out.println("@@@@@@@@@@@@@@@@uplolad images");
-		
 		//파일정보
 		String sFileInfo = "";
 		//파일명을 받는다 - 일반 원본파일명
@@ -124,15 +122,16 @@ public class RestGoodsController {
 
 		//이미지가 아님
 		if(cnt == 0) {
+//			Todo. 이미지가 아니라면 return fail_status 으로 변경.
 //			out.println("NOTALLOW_"+filename);
-			System.out.println("NOTALLOW");
+//			System.out.println("NOTALLOW");
 		} else {
 			//이미지이므로 신규 파일로 디렉토리 설정 및 업로드	
 			//파일 기본경로
 //			String dftFilePath = request.getServletContext().getRealPath("/");
-			String dftFilePath = "c:\\upload\\temp\\";
+			String dftFilePath = "c:\\upload\\img\\temp\\";
 			//파일 기본경로 _ 상세경로
-			String filePath = dftFilePath + "editor" + File.separator +"multiupload" + File.separator;
+			String filePath = dftFilePath;
 			File file = new File(filePath);
 			
 			if(!file.exists()) { file.mkdirs(); }
@@ -144,7 +143,7 @@ public class RestGoodsController {
 			rlFileNm = filePath + realFileNm;
 			///////////////// 서버에 파일쓰기 ///////////////// 
 			InputStream is = request.getInputStream();
-			OutputStream os=new FileOutputStream(rlFileNm);
+			OutputStream os = new FileOutputStream(rlFileNm);
 			int numRead;
 			byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
 			
@@ -164,9 +163,7 @@ public class RestGoodsController {
 			//sFileInfo += "&sFileName="+ realFileNm;;
 			// img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함
 			sFileInfo += "&sFileName="+ filename;
-//			sFileInfo += "&sFileURL=" + "/editor/multiupload/" + realFileNm;
-			sFileInfo += "&sFileURL=" + "/upload/img/editor/multiupload/" + realFileNm;
-			
+			sFileInfo += "&sFileURL=" + "/upload/img/temp/" + realFileNm;
 		
 			}
 		
@@ -220,11 +217,29 @@ public class RestGoodsController {
 				log.error(e.getMessage());
 			}
 		}
-		return new ResponseEntity<>(attachList, HttpStatus.OK);*/
+		return new ResponseEntity<>(attachList, HttpStatus.OK);
+		*/
 	}
 	
+	@PutMapping(value="/form", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<String> insertGoods(HttpServletRequest request, @RequestBody GoodsVO goodsVO){
+//		String memberId = (String)request.getSession().getAttribute("memberId");
+//		Integer compSeq = (Integer)request.getSession().getAttribute("compSeq");
 
+		String memberId = "compF";
+		int compSeq = 61;
+		goodsVO.setComp_seq(compSeq);
+		goodsVO.setReguser(memberId);
 		
+		
+		String msg = "";
+		int cnt = goodsService.insertGoods(goodsVO);
+		
+		System.out.println("@@@@@@@@@@회원 및 업체정보 하드코딩 되어있음. 시큐리티 적용 후 해당 라인 삭제 @@@@@@@");
+		
+		return cnt > 0 ? new ResponseEntity<>(msg, HttpStatus.OK)
+					   : new ResponseEntity<>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 	
 	private boolean checkImageType(File file) {
 		
