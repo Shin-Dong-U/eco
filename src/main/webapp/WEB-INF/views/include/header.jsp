@@ -52,7 +52,6 @@
 		
 	</style>
 
-
         <link href="${contextPath}/resources/template/css/style.css" rel="stylesheet">
 
     </head>

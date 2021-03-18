@@ -14,8 +14,8 @@
         <meta content="eCommerce HTML Template Free Download" name="description">
 
         <!-- Favicon -->
-        <link href="${contextPath}/resources/template/img/favicon.ico" rel="icon">
-        
+
+        <link href="${contextPath}/resources/template/img/favicon.ico" rel="icon">   
         <!--  -->
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> 
 		
@@ -25,11 +25,13 @@
         <!-- CSS Libraries -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
         <link href="${contextPath}/resources/template/lib/slick/slick.css" rel="stylesheet">
         <link href="${contextPath}/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
         <link href="${contextPath}/resources/template/css/style.css" rel="stylesheet">
+
         <style>
 			/* Account - Detail */
 			#confirm_check {
@@ -156,9 +158,7 @@
 									<sec:authorize access="isAuthenticated()">
 										<a href="" class="dropdown-item logoutBtn">Logout</a>
 									</sec:authorize>
-
-								</div>
-                                
+								</div>                               
                             </div>
                         </div>
                     </div>
@@ -231,7 +231,9 @@
               
                     <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i> 내정보</a>
                     <sec:authorize access="hasAuthority('ROLE_ADMIN')">
+
 	                    <a class="nav-link" href="http://172.16.5.1:3000/" ><i class="fa fa-map-marker-alt"></i> 차트보기</a>
+
 	                    <a class="nav-link" id="member-nav" data-toggle="pill" href="#member-tab" role="tab"><i class="fa fa-user"></i> 사용자 관리 </a>
                     </sec:authorize>
                     <a class="nav-link logoutBtn"><i class="fa fa-sign-out-alt"></i>Logout</a>
@@ -1098,21 +1100,14 @@ function popUP() {
 }
 </script>
         
-        	<script>
-	//카트 상품 갯수 표시
-		if(cust_id=!null){
-			cartCnt(cust_id);
-		}
-		
-		function cartCnt(cust_id) {
-			var cartCount = 0;
-			basketService.countBasketGoods(cust_id,function(result){
-				cartCount="("+result+")";
-				$(".cartCntBtn").text(cartCount);
-			});
-    	}
-        </script>
-        
+<script>
+$(".logoutBtn").on("click",function(e){
+	e.preventDefault();
+      	console.log("로그아웃");
+      	$('.logoutForm').submit();
+      	
+});
+ </script>
         
         <!--Start of Tawk.to Script-->
 			<script type="text/javascript">
