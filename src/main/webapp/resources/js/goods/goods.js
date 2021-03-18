@@ -285,6 +285,7 @@ function callInsertGoods(){
 				type: 'POST',
 				success: function(result){
 					alert('등록 되었습니다.');
+					location.href = '/goods/' + goodsSeq;
 				}
 			});
 		}

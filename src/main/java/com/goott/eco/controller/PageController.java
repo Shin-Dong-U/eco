@@ -2,11 +2,16 @@ package com.goott.eco.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.goott.eco.service.CommonService;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,6 +22,7 @@ import lombok.extern.log4j.Log4j;
 @CrossOrigin(origins ="http://localhost:3000")
 //@RequestMapping("/orders/*")
 public class PageController {
+	@Autowired private CommonService commonService;
 	
 //	@GetMapping("/goods/{goods_seq}")
 //	public String goodsDetail(Model model,HttpServletRequest request,
@@ -106,8 +112,11 @@ public class PageController {
 	}
 	
 	@GetMapping("/cust/my-account")
-	public void myAccount(Model model) {
+	public ModelAndView myAccount(Model model) {
 		log.info("my-account페이지 이동");
+		ModelAndView mav = new ModelAndView("cust/my-account");
+		mav.addObject("cateList", commonService.categoryList());
+		return mav;
 		
 	}
 	
