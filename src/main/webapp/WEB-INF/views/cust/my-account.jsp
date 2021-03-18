@@ -1101,6 +1101,7 @@ var confirmflag = confirm("정말로 삭제하시겠습니까?");
 		document.getElementById("confirm_check").style.display = "none";
 		document.getElementById("modify_check").style.display = "block";
 		/* 로그아웃 설정 */
+		$('.logoutForm').submit();
 	}
 });
 </script>

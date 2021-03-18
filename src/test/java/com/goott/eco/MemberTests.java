@@ -99,10 +99,9 @@ public class MemberTests {
 	public void testInsertAuth() {
     
 	    String sql ="";
-	    sql +="insert into eco.cust_auth (memberId, auth, acc_level) "
-	    	+ "values (?,?,?)";
-	    for(int k = 0; k <2; k++) {
-		    for(int i = 0; i < 5; i++) {
+	    sql +="insert into eco.cust_auth (memberId, auth) "
+	    	+ "values (?,?)";
+		    for(int i = 0; i < 10; i++) {
 		      
 		      Connection con = null;
 		      PreparedStatement pstmt = null;
@@ -111,26 +110,9 @@ public class MemberTests {
 		        con = ds.getConnection();
 		        pstmt = con.prepareStatement(sql);
 		      
-		        if(k==0) {
-		        	pstmt.setString(1, "member"+i);
-		        	pstmt.setString(2, "ROLE_CUST");
-		        	pstmt.setString(3, "0");
-		        	//if(i<5) {
-		        	//	pstmt.setString(1, "member"+i);
-			        //	pstmt.setString(2, "ROLE_COOMPANY");
-			        //	pstmt.setString(3, "0");
-		        	//}
-		        	
-		        }else {
-		        	pstmt.setString(1, "admin"+i);
-		        	pstmt.setString(2,"ROLE_ADMIN");
-		        	pstmt.setString(3, "3");
-		        	//if(i<5) {
-		        	//	pstmt.setString(1, "admin"+i);
-		        	//	pstmt.setString(2, "ROLE_CUST");
-		        	//	pstmt.setString(3, "1");
-		        	//}
-		        }
+		        pstmt.setString(1, "admin"+i);
+		        pstmt.setString(2, "ROLE_CUST");
+
 		        pstmt.executeUpdate();
 		        
 		      }catch(Exception e) {
@@ -142,7 +124,7 @@ public class MemberTests {
 		    }//end for
 		}
 	}
-}
+
 
 
 

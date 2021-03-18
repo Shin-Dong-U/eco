@@ -130,4 +130,10 @@
 		SET member_yn = 'N'
 		WHERE memberId = #{memberId}
 	</update>
+	
+	<!-- 회원삭제 -->
+	<delete id="deleteCustAuth">
+		DELETE eco.cust_auth
+		WHERE memberId = #{memberId}
+	</delete>
 </mapper>
