@@ -12,7 +12,7 @@
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="eCommerce HTML Template Free Download" name="keywords">
         <meta content="eCommerce HTML Template Free Download" name="description">
-
+		<link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
         <!-- Favicon -->
         <link href="${contextPath}/resources/template/img/favicon.ico" rel="icon">
         
@@ -107,10 +107,21 @@
   <!--  http://localhost/cust/account-->                   
                             <a href="http://localhost/orders/basket/list" class="nav-item nav-link">장바구니</a>
                             <a href="http://localhost/cust/my-account" class="nav-item nav-link">내정보보기</a>
+                            <sec:authorize access="isAnonymous()">
+										<a href="/home/login" class="nav-item nav-link">로그인</a>
+										<a href="/home/register" class="nav-item nav-link">회원가입</a>
+							</sec:authorize>
+							<sec:authorize access="isAuthenticated()">
+										<a class="nav-item nav-link">로그아웃</a>
+									</sec:authorize>
+									<form action="/sample/logout" method="post" class="logoutForm">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+										
+									</form>
                             <div class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
-                                    <a href="wishlist.html" class="dropdown-item">Wishlist</a>
+                                    <!-- <a href="wishlist.html" class="dropdown-item">Wishlist</a> -->
                                     <a href="login.html" class="dropdown-item">Login & Register</a>
                                     <a href="http://localhost/cust/my-account" class="dropdown-item">마이페이지</a>
                                 </div>
@@ -118,7 +129,7 @@
                         </div>
                         <div class="navbar-nav ml-auto">
                             <div class="nav-item dropdown">
-                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                               <%--  <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
                                 
                                 <div class="dropdown-menu">
 									<sec:authorize access="isAnonymous()">
@@ -132,7 +143,7 @@
 										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 										
 									</form>
-								</div>
+								</div> --%>
                                 
                             </div>
                         </div>

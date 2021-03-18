@@ -334,6 +334,29 @@
         </div>
         <!-- Footer Bottom End -->       
         
+        <!--Basket Modal  -->
+        <div class="modal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">장바구니</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p>장바구니에 해당 상품이 저장되었습니다</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">계속쇼핑하기</button>
+		        <button type="button" class="btn btn-primary moveBasket">장바구니 이동하기</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+        
+        
+        
         <!-- Back to Top -->
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
         
@@ -369,7 +392,7 @@
     		callGetCommentList();
     	}
        	
-       	
+              	
 
     
        	//선택상품 장바구니에 담기
@@ -385,10 +408,10 @@
        		
     	   
     		basketService.addGoodsAtBasket(orderinfo,csrf,function(){
-    			alert("장바구니에 해당상품이 담겼습니다");
-        		if(window.confirm('장바구니로 이동하겠습니까??')){
-        			window.location.href = 'http://localhost/orders/basket/list';
-        		}
+    			$(".modal").modal("show");
+    			$('.moveBasket').on("click",function(){
+    				window.location.href = 'http://localhost/orders/basket/list';
+    			})
     		});
     		
        	})

@@ -60,8 +60,8 @@
                                             <h2>총 결제금액<span class="grandTotalPrice">0</span></h2>
                                         </div>
                                         <div class="cart-btn">
-                                            <button class="cartUpBtn">Update Cart</button>
-                                            <button class="checkoutBtn" style="visibility:hidden">Checkout</button>
+                                            <button class="cartUpBtn">선택완료</button>
+                                            <button class="checkoutBtn" style="visibility:hidden">주문하기</button>
                                         </div>
                                     </div>
                                 </div>
@@ -160,7 +160,9 @@
                 </div>
             </div>
         </div>
-        <!-- Footer Bottom End -->       
+        <!-- Footer Bottom End -->      
+        
+      
         
         <!-- Back to Top -->
         <a href="" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
@@ -196,9 +198,6 @@
     	$(".checkoutBtn").css("visibility", 'visible')
     })
  
-  
-    
-    
     //check out button 장바구니목록 주문
     $('.checkoutBtn').on('click', function () {
     	var total_price = $(".grandTotalPrice").text();
@@ -207,7 +206,6 @@
     	//addOrder
     	//체크아웃페이지 이동   	
     	 checkoutService.addOrderBasket(cust_id,total_price,csrf,function(){
-    		alert("checkout 성공"); 
     	}); 
     	
     	

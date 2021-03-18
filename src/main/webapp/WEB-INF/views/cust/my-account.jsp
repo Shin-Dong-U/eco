@@ -854,6 +854,8 @@ $("#modal_btn_submit").on("click",function(){
 	//display
 	document.getElementById("modal_confirm_check").style.display = "none";
 	document.getElementById("modal_modify_check").style.display = "block";
+	
+	document.getElementById("memberManager").style.display="none";
 });
 
 /* 모달 취소 버튼  */
