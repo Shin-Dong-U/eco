@@ -243,7 +243,10 @@ function callUpdateComment(goods_comment_seq){
 	var data = {"goods_comment_seq" : goods_comment_seq, "goods_seq" : goodsSeq, "memo" : memo, "star" : star};
 	 
 	goodsService.updateComment(url, data, function(result){
-		alert('수정 되었습니다.');
+		$("#totalModal").show();
+		$("#total_header").html("댓글");
+		$("#detail_chat").html("수정 되었습니다.");
+		//alert('수정 되었습니다.');
 	});
 }
 
@@ -256,7 +259,10 @@ function callInsertComment(){
 	var url = '/goods/rest/' + goodsSeq + '/review';
 
 	goodsService.insertComment(url, data, function(result){
-		alert('등록 되었습니다.');
+		$("#totalModal").show();
+		$("#total_header").html("댓글");
+		$("#detail_chat").html("등록 되었습니다.");
+		//alert('등록 되었습니다.');
 	});
 }
 
@@ -288,9 +294,12 @@ function callInsertGoods(){
 				data: formData,
 				type: 'POST',
 				success: function(result){
-					alert('등록 되었습니다.');
+					//alert('등록 되었습니다.');
+					$("#totalModal").show();
+					$("#total_header").html("상품");
+					$("#detail_chat2").html("등록 되었습니다.");
 					//location.href = '/goods/' + goodsSeq;
-					location.reload();
+					
 				}
 			});
 		}
