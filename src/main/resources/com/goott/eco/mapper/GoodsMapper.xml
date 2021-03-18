@@ -27,7 +27,7 @@
 	<select id="totalCountGoodsList" resultType="int" parameterType="com.goott.eco.common.Criteria">
 		SELECT COUNT(*) FROM GOODS  
 		WHERE
-			1=1
+			SALE_YN = 'Y'
 			<if test="category != null and category != ''">
 			AND CATEGORY = #{category}	
 			</if>
@@ -44,7 +44,7 @@
 		FROM GOODS G 
 			LEFT OUTER JOIN GOODS_THUMB_NAIL GTN ON G.GOODS_SEQ = GTN.GOODS_SEQ AND GTN.MAIN_YN = 'Y'
 		WHERE
-			1=1
+			G.SALE_YN = 'Y'
 			<if test="category != null and category != ''">
 			AND G.CATEGORY = #{category}	
 			</if>
