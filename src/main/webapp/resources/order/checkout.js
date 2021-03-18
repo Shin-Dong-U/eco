@@ -124,7 +124,6 @@ var checkoutService=(function(){
 			xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
 		},
 		success:(result)=>{
-			alert("주문취소: "+result),
 			location.href = "/cust/my-account"},	
 		error:(log)=>{console.log("실패 "+log)}
 		})

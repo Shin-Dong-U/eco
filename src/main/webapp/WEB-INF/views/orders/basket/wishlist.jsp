@@ -11,7 +11,7 @@
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="">홈</a></li>
                     <li class="breadcrumb-item"><a href="">상품목록</a></li>
-                    <li class="breadcrumb-item active">장바구니</li>
+                    <li class="breadcrumb-item active">담아두기</li>
                 </ul>
             </div>
         </div>
@@ -21,7 +21,7 @@
         <div class="cart-page">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
                         <div class="cart-page-inner">
                             <div class="table-responsive">
                                 <table class="table table-bordered">
@@ -29,12 +29,13 @@
                                         <tr>
                                             <th>상품명</th>
                                             <th>가격</th>
-                                            <th>수량</th>
-                                            <th>상품별 합계</th>
+                                            <!-- <th>수량</th>
+                                            <th>상품별 합계</th> -->
+                                            <th>장바구니</th>
                                             <th>제거</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="align-middle basketList">
+                                    <tbody class="align-middle wishList">
                                                                          
                                     </tbody>
                                     
@@ -42,32 +43,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="cart-page-inner">
-                            <div class="row">
-                                <div class="col-md-12">
-                                   <!--  <div class="coupon">
-                                        <input type="text" placeholder="Coupon Code">
-                                        <button>Apply Code</button>
-                                    </div> -->
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="cart-summary">
-                                        <div class="cart-content">
-                                            <h1>장바구니 구매금액</h1>
-                                            <p>상품 주문 금액<span class="subTotalPrice">0</span></p>
-                                            <p>배송비<span class="shippingCost">100</span></p>
-                                            <h2>총 결제금액<span class="grandTotalPrice">0</span></h2>
-                                        </div>
-                                        <div class="cart-btn">
-                                            <button class="cartUpBtn">상품선택 완료</button>
-                                            <button class="checkoutBtn" style="visibility:hidden">주문하기</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -114,7 +90,30 @@
 
                   
         </div>
-        <!-- Footer End -->     
+        <!-- Footer End -->
+        
+        <!--wish Modal  -->
+        <div class="modal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">장바구니</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p class="basketAlert">장바구니에 해당 상품이 저장되었습니다</p>
+		      </div>
+		      <div class="modal-footer">
+		      <button type="button" class="btn btn-primary moveBasket">장바구니 이동하기</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">계속쇼핑하기</button>
+		        
+		      </div>
+		    </div>
+		  </div>
+		</div>
+       
         
         <!-- Back to Top -->
         <a href="" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
@@ -128,6 +127,7 @@
         <!-- Template Javascript -->
         <script src="${contextPath}/resources/template/js/main.js?var=8"></script>
         <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
+        <script src="${contextPath}/resources/basket/wish.js?ver=10"></script>
 		<script src="${contextPath}/resources/basket/transferTime.js"></script>
 		<script src="${contextPath}/resources/order/checkout.js?ver=3"></script>
     </body>
@@ -138,84 +138,64 @@
 	cartCnt(cust_id);
     $(document).ready(function(){
     	showList();
+    	wishCnt();
     	//var cust_id $(".sessionId").val();
     });
     /* CSRF 데이터 변수 저장 */
     var csrfHeaderName="${_csrf.headerName}";
     var csrfTokenValue="${_csrf.token}";
     
-    
-    //카트 업데이트
-    $('.cartUpBtn').on('click', function () {
-    	$(".checkoutBtn").css("visibility", 'visible')
-    })
- 
-  
-    
-    
-    //check out button 장바구니목록 주문
-    $('.checkoutBtn').on('click', function () {
-    	var total_price = $(".grandTotalPrice").text();
-    	csrf={"csrfHeaderName":csrfHeaderName,
-   				"csrfTokenValue":csrfTokenValue};
-    	//addOrder
-    	//체크아웃페이지 이동   	
-    	 checkoutService.addOrderBasket(cust_id,total_price,csrf,function(){
-    		
-    	}); 
-    	
-    	
-    });
+
+
     
     
   	//상품제목 <p>클릭시
-  	$('.basketList').on('click', "p",function () {
+ /*  	$('.basketList').on('click', "p",function () {
   		var goods_seq =  $(this).data("goods_seq");
       //현재 버튼클릭시 해당 goods_seq선택가능-->Ajax로 연동
 		selectBasketGoods(goods_seq);    
-    });
+    }); */
   	
   	
-	$('.basketList').on('click',".delbasketBtn",function(){
+	$('.wishList').on('click',".delwishBtn",function(){
 		//var goods_seq =  $(this).parents("td").children("p").data("goods_seq");
 		var goods_seq =  $(this).data("goods_seq");
-		delBasketGoods(cust_id,goods_seq);
-		$(".checkoutBtn").css("visibility", 'hidden')
+		delWishGoods(cust_id,goods_seq);
 		showList();
 	});
   	
   	
 	//선택상품 장바구니에 담기
-	function addGoodsAtBasket(){
-		basketService.addGoodsAtBasket(function(){})
+	function addGoodsAtWish(){
+		wishService.addGoodsAtWish(function(){})
 	}
 	
 	//장바구니 수량변경
-	function changeQtyAtBasket(cust_id,goods_seq,qty){
-		basketService.changeQtyAtBasket(cust_id,goods_seq,qty,function(){})
+	function changeQtyAtWish(cust_id,goods_seq,qty){
+		wishService.changeQtyAtWish(cust_id,goods_seq,qty,function(){})
 	}
 	
 	
 	//장바구니에 구매된 상품 삭제
-	function purGoodsAtBasket(){
-		basketService.purGoodsAtBasket(function(result){
+	function purGoodsAtWish(){
+		wishService.purGoodsAtWish(function(result){
 			
 		})
 	}
 	
-	//장바구니에서 상품 삭제
-	function delBasketGoods(cust_id,goods_seq){
+	//담아두기에서 상품 삭제
+	function delWishGoods(cust_id,goods_seq){
 		csrf={"csrfHeaderName":csrfHeaderName,
    				"csrfTokenValue":csrfTokenValue};
-		basketService.delBasketGoods(cust_id,goods_seq,csrf,function(result){
+		wishService.delWishGoods(cust_id,goods_seq,csrf,function(result){
 			showList();
 		})
 	}
 	
 	//장바구니에서 특정상품 선택
-	function selectBasketGoods(goods_seq){
+	/* function selectBasketGoods(goods_seq){
 		basketService.getBasketGoods(goods_seq,function(){})
-	}
+	} */
    
 	//카트 상품 갯수 표시
 	function cartCnt(cust_id) {
@@ -226,50 +206,93 @@
 		})
 		
 	}
-
+	
+	//담아두기 상품 갯수 표시
+	function wishCnt(cust_id) {
+		var wishCount = 0;
+		wishService.countWishGoods(cust_id,function(result){
+			console.log("wish:"+wishCount)
+			wishCount="("+result+")";
+			$(".wishCntBtn").text(wishCount);
+		})
+		
+	}
 	
 	
-  //장바구니 리스트 보기
+  //담아두기 리스트 보기
 		function showList(){		
-			basketService.getBasketList(cust_id,function(basketList){
-				var basketListTable=$(".basketList");
+			wishService.getWishList(cust_id,function(wishList){
+				var wishListTable=$(".wishList");
 				var str="";
 				var firstTotal = 0;
 				var firstGrandTotal = 0;
 			
-				for(var i=0,len=basketList.length||0;i<len;i++){
+				for(var i=0,len=wishList.length||0;i<len;i++){
 					 //"+basketList[i].IMG_URL+"
 					str+="<tr>"
 		                +"   <td>"
 		                +"        <div class='img'>"
 		                +"            <a href=''><img src='/resources/template/img/product-1.jpg' alt='Image'></a>"		               
-		                +"            <p data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"+basketList[i].GOODS_NAME+"</p>"
+		                +"            <p data-goods_seq='"+wishList[i].GOODS_SEQ+"'>"+wishList[i].GOODS_NAME+"</p>"
 		                +"        </div>"
 		                +"    </td>"
-		                +"    <td><span>"+basketList[i].PRICE+"</span></td>"
-		                +"    <td>"
-		                +"        <div class='qty' data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"
+		                +"    <td><span>"+wishList[i].PRICE+"</span></td>"
+		                /* +"    <td>"
+		                 +"        <div class='qty' data-goods_seq='"+wishList[i].GOODS_SEQ+"'>"
 		                +"            <button class='btn-minus'><i class='fa fa-minus'></i></button>"
-		                +"            <input type='text' value='"+basketList[i].QTY+"'>"
+		                +"            <input type='text' class='orderQty' value='"+wishList[i].QTY+"'>"
 		                +"            <button class='btn-plus'><i class='fa fa-plus'></i></button>"
-		                +"        </div>"
+		                +"        </div>" 
 		                +"    </td>"
-		                +"    <td><span class='calPrice"+[i]+"'>"+Number(basketList[i].PRICE)*Number(basketList[i].QTY)+"</span></td>"                                           
-		                +"    <td><button class='delbasketBtn' data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"
+		                +"    <td><span class='calPrice"+[i]+"'>"+Number(wishList[i].PRICE)*Number(wishList[i].QTY)+"</span></td>" */       
+		                //상품상세 버튼 가져오기
+		               // +"    <td><button class='addCart' data-goods_seq='"+wishList[i].GOODS_SEQ+"'></button></td>"
+		                +"    <td><button class='btn-cart addCart' data-goods_seq='"+wishList[i].GOODS_SEQ+"'>추가하기</button></td>"
+		                +"    <td><button class='delwishBtn' data-goods_seq='"+wishList[i].GOODS_SEQ+"'>"
 		                +"		<i class='fa fa-trash'></i></button>"
 		                +"	  </td>"
                		    +"</tr>";
                		    
-					firstTotal+= Number(basketList[i].PRICE)*Number(basketList[i].QTY);
+					firstTotal+= Number(wishList[i].PRICE)*Number(wishList[i].QTY);
 						
 				}
-				basketListTable.html(str);
-				$(".subTotalPrice").text(firstTotal);
-				firstGrandTotal = Number(firstTotal)+Number($(".shippingCost").text());
-				$(".grandTotalPrice").text(firstGrandTotal);
+				wishListTable.html(str);
 			})
 		}
+  
+		
    
+		//선택상품 장바구니에 담기
+       	$(".wishList").on("click",".addCart",function(){
+       		var goods_seq =  $(this).data("goods_seq");
+       		orderinfo={
+    	    		cust_id:"${memberId}",
+    	    		qty:$(".orderQty").val(),
+    	    		orderOption:"",//$("#goodsReqOptionSeq option:selected").val(),    	    		
+    	    		goods_seq:goods_seq
+    	    };
+       		csrf={"csrfHeaderName":csrfHeaderName,
+       				"csrfTokenValue":csrfTokenValue};
+       		
+    	   
+    		basketService.addGoodsAtBasket(orderinfo,csrf,function(result){
+				var check = result==="exist";
+				
+    			if(check){
+    				var basketStr = "해당상품이 장바구니에 존재 합니다."
+    				$(".basketAlert").text(basketStr);
+    				//$(".moveBasket").css("visibility", 'hidden')
+    			}
+    			
+    			$(".modal").modal("show");    			
+    			
+    			$('.moveBasket').on("click",function(){
+    				window.location.href = 'http://localhost/orders/basket/list';
+    			})
+    		});
+    		
+       	})
+  
     </script>
     <!--Start of Tawk.to Script-->
 			<script type="text/javascript">

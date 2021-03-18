@@ -169,7 +169,7 @@
                                         <div class="action">
                                             <a class="btn addCart" ><i class="fa fa-shopping-cart"></i>장바구니</a>
                                             <a class="btn buyNow" href="#"><i class="fa fa-shopping-bag"></i>바로구매</a>
-                                         
+                                         	<a class="btn wish" href="#"><i class="far fa-heart"></i>담아두기</a>
                                         </div>
                                     </div>
                                 </div>
@@ -355,7 +355,27 @@
 		    </div>
 		  </div>
 		</div>
-        
+        <!--Wish Modal  -->
+        <div class="modal wishModal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">담아두기</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p class="wishAlert">담아두기에 해당 상품이 저장되었습니다</p>
+		      </div>
+		      <div class="modal-footer">
+		      <button type="button" class="btn btn-primary moveWish">담아두기 이동하기</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">계속쇼핑하기</button>
+		        
+		      </div>
+		    </div>
+		  </div>
+		</div>
         
         
         <!-- Back to Top -->
@@ -373,6 +393,7 @@
         <script src="${contextPath}/resources/js/common/common.js"></script>
         <script src="${contextPath}/resources/js/goods/goods.js"></script>
         <script src="${contextPath}/resources/basket/basket.js?ver=10"></script>
+        <script src="${contextPath}/resources/basket/wish.js?ver=10"></script>
         <script src="${contextPath}/resources/order/checkout.js?ver=3"></script>
         <script>
         $(document).ready(function(){
@@ -441,7 +462,59 @@
 	
 		checkoutService.orderNow(orderinfo,csrf);
        	})
-      
+       	
+       	
+       	    //하트
+				$('.wish').on('click', function () {
+				    console.log("haert click")
+				    var $button = $(this).children("i");
+				    if ($button.hasClass('far fa-heart')) {
+				        $button.attr('class','fa fa-heart');
+				        //추가
+					       		orderinfo={
+					    	    		cust_id:"${memberId}",
+					    	    		qty:$(".orderQty").val(),
+					    	    		orderOption:$("#goodsReqOptionSeq option:selected").val(),    	    		
+					    	    		goods_seq:"${goodsDetail.GOODS_SEQ }"
+					    	    };
+					       		csrf={"csrfHeaderName":csrfHeaderName,
+					       				"csrfTokenValue":csrfTokenValue};
+					       		
+					    	   
+					    		wishService.addGoodsAtWish(orderinfo,csrf,function(result){
+									var check = result==="exist";
+									
+					    			if(check){
+					    				var WishStr = "해당상품이 담아두기에 존재 합니다."
+					    				$(".WishAlert").text(basketStr);
+					    				//$(".moveBasket").css("visibility", 'hidden')
+					    			}
+					    			
+					    			$(".wishModal").modal("show");    			
+					    			
+					    			$('.moveWish').on("click",function(){
+					    				window.location.href = 'http://localhost/orders/basket/wishlist';
+					    			})
+					    		});
+					    	
+				    }else if ($button.hasClass('fa fa-heart')) {
+				        $button.attr('class','far fa-heart');
+				        //삭제
+				        var goods_seq =  orderinfo.goods_seq;
+				        cust_id=${memberId};
+						delWishGoods(cust_id,goods_seq);
+				    }
+				
+				})
+				      //담아두기에서 상품 삭제
+					function delWishGoods(cust_id,goods_seq){
+						csrf={"csrfHeaderName":csrfHeaderName,
+				   				"csrfTokenValue":csrfTokenValue};
+						
+						wishService.delWishGoods(cust_id,goods_seq,csrf,function(result){
+							showList();
+						})
+					}
         </script>
         <!--Start of Tawk.to Script-->
 			<script type="text/javascript">

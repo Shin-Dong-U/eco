@@ -56,11 +56,12 @@
                                         </div>
                                         <div class="cart-btn">
                                             <button class="cancelOrderBtn">주문 취소</button>
-                                            <button class="orderCommit">주문 확정</button>
+                                          	<button class="deliverySearch" data-target=".bd-example-modal-lg" data-toggle="modal">배송조회</button>
+                                           <!--  <button class="orderCommit">주문 확정</button> -->
                                         </div>
                                         <div class="checkout-btn">
                                    			 <!-- <button class="deliverySearch">배송조회</button> -->
-                                   			 <button type="button" class="btn btn-primary deliverySearch" data-toggle="modal" data-target=".bd-example-modal-lg">배송조회</button>
+                                   			 <!-- <button type="button" class="btn btn-primary deliverySearch" data-toggle="modal" data-target=".bd-example-modal-lg">배송조회</button> -->
                                			 </div>
                                     </div>
                                 </div>
@@ -162,7 +163,7 @@
         <!-- Footer Bottom End -->  
         
         <!--modal  -->
-        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal fade bd-example-modal-xl deliverymodal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
 		  <div class="modal-dialog modal-xl" role="document">
 		    <div class="modal-content">
 		      <div class="table-responsive">
@@ -187,7 +188,27 @@
 		  </div>
 		</div>
         
-      
+      <!--주문취소 Modal  -->
+        <div class="modal orderCancelModal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">주문취소</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p class="orderCancelCtx">주문을 취소하시겠습니까? ㅜㅜ</p>
+		      </div>
+		      <div class="modal-footer">
+		      <button type="button" class="btn btn-primary orderCancelBtn">주문취소</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+		        
+		      </div>
+		    </div>
+		  </div>
+		</div>
              
         
         <!-- Back to Top -->
@@ -202,7 +223,7 @@
         <!-- Template Javascript -->
         <script src="${contextPath}/resources/template/js/main.js?var=2"></script>
         <script src="${contextPath}/resources/basket/basket.js?ver=6"></script>
-		<script src="${contextPath}/resources/basket/transferTime.js"></script>
+		<script src="${contextPath}/resources/basket/transferTime.js?var=3"></script>
 		<script src="${contextPath}/resources/order/checkout.js?ver=9"></script>
     </body>
     
@@ -224,43 +245,75 @@
 		selectBasketGoods(goods_seq);    
     });
 	
-  	//주문취소
+  	//주문취소  
 	$('.cancelOrderBtn').on('click',function(){
 		
-		if(window.confirm('really?')){
-			
+		$(".orderCancelModal").modal("show");    			
+		
+		$('.orderCancelBtn').on("click",function(){
 			var csrf={"csrfHeaderName":csrfHeaderName,
 	   				"csrfTokenValue":csrfTokenValue};
 			checkoutService.getShipStatus(order_seq,function(shipStatus){
 				if(Number(shipStatus[0].delivery_status)===0){
-					
+					$(".orderCancelBtn").css("visibility", 'visible')
 					checkoutService.orderCancel(order_seq,csrf);
 				}else{
-					alert("현재 배송중인 상품은 취소가 불가능 합니다");
+					$(".orderCancelCtx").text("현재 배송중인 상품은 취소가 불가능 합니다");
+					$(".orderCancelBtn").css("visibility", 'hidden')
+					
 					return;
 				}
 			});
-		}
+			
+		})
+	
 	});
   	
 	//배송조회
 	$('.deliverySearch').on('click',function(){
-		$(".modal").modal("show");
+		
 		checkoutService.getShipStatus(order_seq,function(shipStatus){
 			
 			var str="";
+			var invoiceNum="";
+			var editDate="";
 			var shipInfoTable=$(".shipInfo");
+			var shipplingStatus="배송전";
 			
 			for(var i=0,len=shipStatus.length||0;i<len;i++){
+				
+				if(shipStatus[i].invoice_no==null){
+					invoiceNum="준비중"
+				}else{
+					invoiceNum=shipStatus[i].invoice_no
+				}
+				
+				
+				if(shipStatus[i].editDate==null){
+					editDate="준비중"
+				}else{
+					editDate=trnasferTime.displayDay(shipStatus[i].editDate);
+				}
+				
+				if(shipStatus[i].delivery_status==1){
+					shipplingStatus="배송중";
+				}
+				
+				
+				
 			str+="<tr>"
-             	+"	<td>"+shipStatus[i].invoice_no+"</td>"
-             	+"	<td>"+shipStatus[i].delivery_status+"</td>"
-             	+"	<td>"+shipStatus[i].editDate+"</td>"
+             	+"	<td>"+invoiceNum+"</td>"
+             	+"	<td>"+shipplingStatus+"</td>"
+             	+"	<td>"+editDate+"</td>"
              	+"	<td>"+shipStatus[i].delivery_company+"</td>"
          		+"</tr>"
 			}
 			shipInfoTable.html(str);
-		});		
+			
+			
+			
+		});	
+		$(".deliverymodal").modal("show");
 	});
   
 	//주문확정
@@ -305,6 +358,7 @@
 					
 			}
 			orderListTable.html(str);
+	
 			
 			$(".sub-total-price").text(subTotalPrice);
              var shippingCost = 100;
