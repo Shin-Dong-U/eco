@@ -96,11 +96,35 @@ var goodsService=(function(){
 		});
 	}
 	
+	function insertGoods(url, data, callback){
+		if(isRun === true) { return false; }
+		isRun = true;
+		
+		$.ajax({ 
+			type : 'put',						
+			url : url,	
+			data : JSON.stringify(data),
+			contentType : "application/json;charset=UTF-8",
+			
+			success : function(result, status, xhr){
+				if(callback){
+					callback(result);
+				}
+				isRun = false;
+			}, error : function(e){
+				console.log(e);
+				isRun = false;
+			}, complete : function() {
+    		}
+		});
+	}
+	
 	return {
 		getGoodsList : getGoodsList,
 		getCommentList : getCommentList,
 		updateComment : updateComment,
-		insertComment : insertComment
+		insertComment : insertComment,
+		insertGoods : insertGoods
 	};
 	
 })();
@@ -233,6 +257,37 @@ function callInsertComment(){
 
 	goodsService.insertComment(url, data, function(result){
 		alert('등록 되었습니다.');
+	});
+}
+
+function callInsertGoods(){
+	var data = $('#goodsForm').serializeObject();
+	var url = '/goods/rest/form'; 
+	
+	goodsService.insertGoods(url, data, function(result){
+		if(result && result != -1){
+			var goodsSeq = result;
+			var formData = new FormData();
+		
+			var inputFile = $('input[name="uploadFile"]');
+			
+			var files = inputFile[0].files;
+			
+			for(var i = 0; i < files.length; i++){
+				formData.append("uploadFile", files[i]);
+			}
+			
+			$.ajax({
+				url : '/goods/rest/' + goodsSeq + '/form/upload/images/thumb',
+				processData: false,
+				contentType: false,
+				data: formData,
+				type: 'POST',
+				success: function(result){
+					alert('등록 되었습니다.');
+				}
+			});
+		}
 	});
 }
 

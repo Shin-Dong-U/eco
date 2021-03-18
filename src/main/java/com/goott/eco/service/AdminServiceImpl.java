@@ -45,6 +45,7 @@ public class AdminServiceImpl implements AdminService{
 	@Setter(onMethod_ = { @Autowired})
 	private PasswordEncoder pwEncoder;
 	
+	/*
 	@Transactional
 	@Override
 	public int getSampleData() throws Exception {
@@ -75,6 +76,7 @@ public class AdminServiceImpl implements AdminService{
 		return 0;
 	}
 	
+	*/
 	/* 모든 관리자 정보 가져오기 */
 	@Override
 	public Map<String, Object> getAdminList(int pageNum) {
@@ -185,6 +187,12 @@ public class AdminServiceImpl implements AdminService{
 			custVO.setPassword(Encoder);
 		}
 		//custVO.setPassword(passwordEncoder.encode(custVO.getPassword()));
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getAdminList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
