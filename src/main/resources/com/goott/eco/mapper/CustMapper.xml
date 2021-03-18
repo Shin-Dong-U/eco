@@ -82,6 +82,14 @@
 		WHERE memberId=#{memberId} AND password=#{password} AND member_yn='Y' 
 	</select>
 	
+	<!-- 아이디 확인 -->
+	<select id="checkCustId" resultType="String">
+		SELECT CASE WHEN count(*)=1 then 'true'
+		ELSE 'false' end as idCheck
+		FROM eco.cust
+		WHERE memberId=#{memberId}
+	</select>
+	
 	<!-- 비밀번호 확인 -->
 	<select id="checkCustPassword" resultType="String">
 		SELECT password FROM eco.cust 

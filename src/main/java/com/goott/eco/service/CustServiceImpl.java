@@ -43,12 +43,17 @@ public class CustServiceImpl implements CustService{
 		return custDao.getCustLogin(custVO);
 	}
 	
+	/* 아이디 확인 */
+	public String checkCustId(String memberId) {
+		return custDao.checkCustId(memberId);
+	}
+	
 	/* 비밀번호 확인 */
 	@Override
 	public int checkCustPassword(CustVO custVO) {
 		String db_password = custDao.checkCustPassword(custVO.getMemberId());
-		System.out.println("password 입력값: "+custVO.getPassword());
-		System.out.println("password DB 값: "+db_password);
+		//System.out.println("password 입력값: "+custVO.getPassword());
+		//System.out.println("password DB 값: "+db_password);
 		boolean value = pwEncoder.matches(custVO.getPassword(), db_password);
 		System.out.println("value 값: "+value);
 		return pwEncoder.matches(custVO.getPassword(), db_password)
