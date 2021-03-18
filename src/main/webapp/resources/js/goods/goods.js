@@ -263,6 +263,10 @@ function callInsertComment(){
 function callInsertGoods(){
 	var data = $('#goodsForm').serializeObject();
 	var url = '/goods/rest/form'; 
+
+//  필수 옵션 관련 작업 중지.
+//	var req_option_name = $('input[name="req_option_name"]');
+//	var req_price = $('input[name="req_price"]');
 	
 	goodsService.insertGoods(url, data, function(result){
 		if(result && result != -1){
@@ -285,6 +289,8 @@ function callInsertGoods(){
 				type: 'POST',
 				success: function(result){
 					alert('등록 되었습니다.');
+					//location.href = '/goods/' + goodsSeq;
+					location.reload();
 				}
 			});
 		}

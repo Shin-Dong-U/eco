@@ -421,7 +421,7 @@ var images = new Array();
 
 
 $(document).ready(function(){
-	var seq = 0;
+	var seq = 0;//객체 중복 생성을 막기위한 시퀀스
 	$('#account-tab').click(function(e){
 		if(seq++ == 0){
 			nhn.husky.EZCreator.createInIFrame({
@@ -430,21 +430,10 @@ $(document).ready(function(){
 				sSkinURI: "/resources/vender/smarteditor2/SmartEditor2Skin.html",
 				fCreator: "createSEditor2",
 				fOnAppLoad : function(){
-					
-					//예제 코드
-
-					//oEditors.getById["ir1"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
-
-//					document.getElementById("goods_detail").setAttribute('style','display:none;')
-					//$('#goods_detail').next().css('display','none');
 			    }
 			});
 		}
-		
-		//$('#goods_detail').next().css('display','block');
-		//$('#goods_detail').next().css('height','412px');
 	});
-	
 });
 
 function submitContents(elClickedObj) {
@@ -453,7 +442,6 @@ function submitContents(elClickedObj) {
 
 	 // 에디터의 내용에 대한 값 검증은 이곳에서
 	 // document.getElementById("ir1").value를 이용해서 처리한다.
-
 	 try {
 		 //console.log(document.getElementById("goods_detail").value);
 		 //console.log(elClickedObj);

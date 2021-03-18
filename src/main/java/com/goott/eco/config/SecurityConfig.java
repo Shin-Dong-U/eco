@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	}
 	
 	/* Access Denied Handler */
-	//@Bean
+//	@Bean
 	//public AccessDeniedHandler accessDeniedHandler() {
 	//	return new CustomAccessDeniedHandler();	
 	//}
@@ -122,6 +122,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		/* naver smart editor 설정 */
 		http.headers().frameOptions().sameOrigin();
 		//http.csrf().disable();
+		http.csrf()
+	        .ignoringAntMatchers("/goods/rest/**")
+	        .and();
+//		http.csrf().disable();
 	}
 
 	/* Authorization */

@@ -1,4 +1,90 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html>
+
+<html lang="kr">
+    <head>
+        <meta charset="utf-8">
+        <title>ECO FRIENDS</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="eCommerce HTML Template Free Download" name="keywords">
+        <meta content="eCommerce HTML Template Free Download" name="description">
+
+        <!-- Favicon -->
+        <link href="${contextPath}/resources/template/img/favicon.ico" rel="icon">
+        
+        <!--  -->
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> 
+		
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="${contextPath}/resources/template/css/style.css" rel="stylesheet">
+        <style>
+			/* Account - Detail */
+			#confirm_check {
+				display: none
+			}
+			
+			#modify_check {
+				display: none
+			}
+			
+			/* Admin - none display */
+			#modal_confirm_check {
+				display: none
+			}
+			/* Admin - 사용자 업체 관리자  */
+			.userBind {
+				display: flex;
+			}
+			/* Admin - The Modal (background) */
+			.modal {
+				display: none; /* Hidden by default */
+				position: fixed; /* Stay in place */
+				z-index: 1; /* Sit on top */
+				left: 0;
+				top: 0;
+				width: 100%; /* Full width */
+				height: 100%; /* Full height */
+				overflow: auto; /* Enable scroll if needed */
+				background-color: rgb(0, 0, 0); /* Fallback color */
+				background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+			}
+			/* Admin - Modal Content Box Title */
+			.modal-content {
+				background-color: #fefefe;
+				margin: 15% auto; /* 15% from the top and centered */
+				padding: 20px;
+				border: 1px solid #888;
+				width: 50%; /* Could be more or less, depending on screen size */
+			}
+			/* Admin - The Close Button */
+			.close {
+				color: #aaa;
+				float: right;
+				font-size: 28px;
+				font-weight: bold;
+			}
+			/* Admin -  Modal*/
+			.close:hover, .close:focus {
+				color: black;
+				text-decoration: none;
+				cursor: pointer;
+			}
+	</style>
+    </head>
 
 <%@include file="../include/header.jsp" %>
         <!-- Bottom Bar End -->
@@ -30,7 +116,9 @@
                    		<a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i> 배송정보입력(업체)</a>
 					</sec:authorize>
                     <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i> 주문정보</a>
-              
+                    <sec:authorize access="hasAuthority('ROLE_COMPANY')">
+                    	<a class="nav-link" id="goods-ins-nav" data-toggle="pill" href="#goods-ins-tab" role="tab"><i class="fa fa-shopping-bag"></i>상품등록</a>
+              		</sec:authorize>
                     <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i> 내정보</a>
                     <sec:authorize access="hasAuthority('ROLE_ADMIN')">
 	                    <a class="nav-link" href="http://172.16.5.1:3000/" ><i class="fa fa-map-marker-alt"></i> 차트보기</a>
@@ -88,6 +176,85 @@
                                     </table>
                                 </div>
                     </div>
+                    
+                    
+                    <!-- 상품등록 탭 -->
+                    <div class="tab-pane fade" id="goods-ins-tab" role="tabpanel" aria-labelledby="goods-ins-nav">
+                    	<form:form role="form" action="/goods/form" method="put" id="goodsForm" onSubmit="return false;">
+                    	<div class="row">
+                    		<div class="col-md-1">
+                    			<lable>상품명</lable>
+                    		</div>
+                    		<div class="col-md-3">
+                    			<input class="form-control" type="text" id="goods_name" name="goods_name">
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-1">
+                    			<lable>썸네일</lable>
+                    		</div>
+                    		<div class="col-md-3">
+                    			<div id="uploadDiv"></div>
+								<input class="" type="file" id="uploadFile" name="uploadFile" multiple="multiple"> 
+                            </div>
+                    	</div>
+                    	<div class="row">
+                    	</div>
+                    	<div class="row">
+                    		<div class="col-md-1">
+                    			<lable>가격</lable>
+                    		</div>
+                    		<div class="col-md-2">
+                    			<input class="form-control" type="number" id="price" name="price" min="0" max="210000000" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+                            </div>
+                    	</div>
+                    	<div class="row">
+                    		<div class="col-md-1">
+                    			<lable>재고수량</lable>
+                    		</div>
+                    		<div class="col-md-2">
+                    			<input class="form-control" type="number" id="qty" name="qty" min="0" max="210000000" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+                            </div>
+                    	</div>
+                    	<div class="row">
+                    		<div class="col-md-1">
+                    			<lable>성분</lable>
+                    		</div>
+                    		<div class="col-md-3">
+                    			<input class="form-control" type="text" id="material" name="material">
+                            </div>
+                    	</div>
+                    	<div class="row">
+                    		<div class="col-md-1">
+                    			<lable>카테고리</lable>
+                    		</div>
+                    		<div class="col-md-2">
+                    			<select class="form-control" id="category" name="category">
+						        <c:forEach var="cate" items="${cateList }" >
+							       <option value="${cate.CATE_SEQ }">${cate.CATE_NAME }</option>
+							    </c:forEach></select>
+                            </div>
+                    	</div>
+                    	<div class="row">
+                    		<div class="col-md-1">
+                    			<lable>필수 옵션</lable>
+                    		</div>
+                    		<div class="col-md-4">
+                    			<label class="radio-inline">없음<input type="radio" name="req_option" value="N" checked="checked"></label>&nbsp;&nbsp;
+                    			<label class="radio-inline">있음<input type="radio" name="req_option" id="req_option_y" value="Y"></label>
+                            </div>
+                    	</div>
+                    	<div class="row" id="req_option_div"></div>
+                    	<div class="row" style="margin-top:20px;">
+            				<textarea name="goods_detail" id="goods_detail" rows="10" cols="100" style="width:100%; height:412px; min-width:610px;"></textarea>        	
+                    	</div>
+						</form:form>
+						<div class="row" style="margin-top:20px;">
+							<button class="btn" id="goodsInsBtn" onclick="submitContents(this);">등록</button>
+						</div>
+                    </div><!-- 상품 등록 탭의 끝  -->
+                    
+                    
                     <div class="tab-pane fade" id="address-tab" role="tabpanel" aria-labelledby="address-nav">
                         <h4>Address</h4>
                         <div class="row">
@@ -400,10 +567,13 @@
         
 <!-- Admin Member -->
 <%----%>
+<!-- Naver Smart Editor -->
+<script type="text/javascript" src="/resources/vender/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="/resources/js/common/common.js?v=<%=System.currentTimeMillis() %>"></script>
 <script type="text/javascript" src="/resources/basket/transferTime.js?v=<%=System.currentTimeMillis() %>"></script> 
 <script type="text/javascript" src="/resources/admin/adminRest.js?v=<%=System.currentTimeMillis() %>"></script>
 <script type="text/javascript" src="/resources/admin/adminHtml.js?v=<%=System.currentTimeMillis() %>"></script>
+<script type="text/javascript" src="/resources/js/goods/goods.js?v=<%=System.currentTimeMillis() %>"></script>
 <script>
 /* CSRF 데이터 변수 저장 */
 var csrfHeaderName="${_csrf.headerName}";
@@ -412,6 +582,9 @@ var csrfTokenValue="${_csrf.token}";
 /* session에 저장된 로그인된 아이디 */
 //var loginId="${memberId}";
 var loginId="${memberId}";
+
+var oEditors = [];//스마트 에디터
+var images = new Array();//이미지 파일이 담길 객체 
 
 /* 스타일 변경 */
 function styleUpdate(divBtn){
@@ -692,7 +865,90 @@ function checkModal(memberId){
 	document.getElementById("memberManager").style.display="block";
 }
 
+/* 스마트에디터 객체 생성  */
+var seq = 0;//객체 중복 생성을 막기위한 시퀀스
+$('#goods-ins-tab').click(function(e){
+	if(seq++ == 0){//최초만 객체 생성
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef: oEditors,
+			elPlaceHolder: "goods_detail",
+			sSkinURI: "/resources/vender/smarteditor2/SmartEditor2Skin.html",
+			fCreator: "createSEditor2",
+			fOnAppLoad : function(){
+		    }
+		});
+	}
+});
+function submitContents(elClickedObj) {
+	 // 에디터의 내용이 textarea에 적용된다.
+	 oEditors.getById["goods_detail"].exec("UPDATE_CONTENTS_FIELD", []);
 
+	 // 에디터의 내용에 대한 값 검증은 이곳에서
+	 // document.getElementById("ir1").value를 이용해서 처리한다.
+	 try {
+		 //console.log(document.getElementById("goods_detail").value);
+		 //console.log(elClickedObj);
+	     //elClickedObj.form.submit();
+		 callInsertGoods();//goods.js 상품 등록 함수 호출
+	 } catch(e) {}
+}
+
+//스마트 에디터 리턴 값 -> 파일 경로 + 파일명만 추출
+function getFilePath(queryStr){
+	return queryStr.substring(t.indexOf("sFileURL=") + 9);
+}
+
+function checkExtension(fileName, fileSize){
+	var regex = new RegExp("(.*?)\.(jpg|png|bmp|rle|dib|gif|tif|tiff)");
+	var maxSize = 5242880;
+	
+	if(fileSize >= maxSize){
+		alert('파일 사이즈 초과');
+		return false;
+	}
+	
+	if(!regex.test(fileName)){
+		alert('이미지 파일만 업로드 가능합니다. \n jpg, png, bmp, rle, dib, gif, tif, tiff');
+		return false;
+	}
+	
+	return true;
+}
+//----------------------------------- naver smart editor -------------------------------
+
+var reqLen = 0;
+//radio 버튼 클릭 이벤트 
+$("input:radio[name=req_option]").click(function(){
+            
+    if($("input:radio[name=req_option]:checked").val()=='Y'){
+    	if(reqLen === 0){ makeReqOptionInputHtml(); }
+    }else{
+    	$('#req_option_div').empty();
+    	reqLen = 0;
+    }
+});
+
+function makeReqOptionInputHtml(){
+	var optionNameArr = $('input:text[name=req_option_name]');
+	
+	if(reqLen != 0 && !optionNameArr[reqLen -1].value){ 
+		alert ('옵션명을 입력 해주세요. (금액 : 입력안함 -> 0원)');
+		return;
+	}
+	
+	reqLen++;
+	var htmlStr = '<div class="col-lg-12" id="tmp' + reqLen + '"> ';
+	htmlStr += ' 옵션명 <input type="text" name="req_option_name"> '; 
+	htmlStr += ' 가격 <input type="number" name="req_price" value="0"> ';
+	htmlStr += '<button class="btn" onclick="makeReqOptionInputHtml();">추가</button> <button class="btn" onclick="removeReqOptionInputHtml();">제거</button></div>';
+	
+	$('#req_option_div').append(htmlStr);
+}
+
+function removeReqOptionInputHtml(){
+	if(reqLen == 0){ return; }
+	$('#tmp' + reqLen--).remove();
+}
 
 </script>
 
