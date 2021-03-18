@@ -173,9 +173,9 @@
                         <div class="user">
                             <a href="wishlist.html" class="btn wishlist">
                                 <i class="fa fa-heart"></i>
-                                <span>(0)</span>
+                                <span class="wishCntBtn">(0)</span>
                             </a>
-                            <a href="cart.html" class="btn cart">
+                            <a href="/orders/basket/list" class="btn cart">
                                 <i class="fa fa-shopping-cart"></i>
                                <span class="cartCntBtn">(0)</span>
                             </a>

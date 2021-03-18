@@ -59,6 +59,16 @@ public class PageController {
 		
 		//return "orders/basket/list";
 	}
+	
+	@GetMapping("/orders/basket/wishlist")
+	public void wishlist(Model model,HttpServletRequest request ) {
+		String cust_id = (String) request.getSession().getAttribute("memberId");
+		log.info("session cust_id: "+cust_id);
+		log.info("wishlistlist페이지 이동");
+		
+		//return "orders/basket/list";
+	}
+	
 	@GetMapping("/orders/order/checkout")
 	public void checkout(@RequestParam Long order_seq,Model model) {
 		log.info("checkout페이지 이동");
