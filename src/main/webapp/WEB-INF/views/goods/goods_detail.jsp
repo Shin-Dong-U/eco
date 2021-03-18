@@ -345,11 +345,12 @@
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		        <p>장바구니에 해당 상품이 저장되었습니다</p>
+		        <p class="basketAlert">장바구니에 해당 상품이 저장되었습니다</p>
 		      </div>
 		      <div class="modal-footer">
+		      <button type="button" class="btn btn-primary moveBasket">장바구니 이동하기</button>
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">계속쇼핑하기</button>
-		        <button type="button" class="btn btn-primary moveBasket">장바구니 이동하기</button>
+		        
 		      </div>
 		    </div>
 		  </div>
@@ -371,7 +372,7 @@
         
         <script src="${contextPath}/resources/js/common/common.js"></script>
         <script src="${contextPath}/resources/js/goods/goods.js"></script>
-        <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
+        <script src="${contextPath}/resources/basket/basket.js?ver=10"></script>
         <script src="${contextPath}/resources/order/checkout.js?ver=3"></script>
         <script>
         $(document).ready(function(){
@@ -407,8 +408,17 @@
        				"csrfTokenValue":csrfTokenValue};
        		
     	   
-    		basketService.addGoodsAtBasket(orderinfo,csrf,function(){
-    			$(".modal").modal("show");
+    		basketService.addGoodsAtBasket(orderinfo,csrf,function(result){
+				var check = result==="exist";
+				
+    			if(check){
+    				var basketStr = "해당상품이 장바구니에 존재 합니다."
+    				$(".basketAlert").text(basketStr);
+    				//$(".moveBasket").css("visibility", 'hidden')
+    			}
+    			
+    			$(".modal").modal("show");    			
+    			
     			$('.moveBasket').on("click",function(){
     				window.location.href = 'http://localhost/orders/basket/list';
     			})
@@ -424,10 +434,12 @@
     	    		total_price:Number($(".orderQty").val())*Number("${goodsDetail.PRICE }"),
     	    		goods_seq:"${goodsDetail.GOODS_SEQ }"
     	    } 
+       		csrf={"csrfHeaderName":csrfHeaderName,
+       				"csrfTokenValue":csrfTokenValue};
 		
 		
 	
-		checkoutService.orderNow(orderinfo);
+		checkoutService.orderNow(orderinfo,csrf);
        	})
       
         </script>

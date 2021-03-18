@@ -173,6 +173,27 @@
         </div>
         <!-- Footer End -->
         
+        <!--Basket Modal  -->
+        <div class="modal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">상품결제</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p class="errorMsg"></p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		
         <!-- Footer Bottom Start -->
         <div class="footer-bottom">
             <div class="container">
@@ -355,10 +376,12 @@
 					
 			      
 		}else {
-	        var msg = '결제에 실패하였습니다.';
-	        msg += '에러내용 : ' + rsp.error_msg;
+	        var msg = rsp.error_msg;
+	        $(".modal").modal("show");
+		    $(".errorMsg").text(msg);
 	    }
-	    alert(msg);
+	   
+		
 	}) ; 
    });
  });
