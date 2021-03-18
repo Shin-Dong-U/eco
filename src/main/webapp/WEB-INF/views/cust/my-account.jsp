@@ -735,7 +735,7 @@ $("#modal_btn_modify").on("click",function(){
 $("#modal_btn_submit").on("click",function(){
 
 	memberId=$(this).parent().parent().parent().children().children().find("#memberId").val();
-	alert(memberId);
+	//alert(memberId);
 	$(this).parent().parent().parent().children().children().find("#memberId").css({"border": "2px solid blue"});
 	var $form=$(this).parent().parent().parent().children().children();
 	var birth=$form.find("#birth").val();
@@ -920,7 +920,7 @@ function removeReqOptionInputHtml(){
 var csrfHeaderName="${_csrf.headerName}";
 var csrfTokenValue="${_csrf.token}";
 
-console.log("csrfHeaderName: "+ csrfHeaderName) ;
+
 
 var modify_value= $("#modify_value").val;
 var memId="${memberId}";
@@ -938,7 +938,7 @@ $("#account-nav").on("click", function(){
 		+ '	<div class="row" id="cust_detailChat">'
 		+ '		<div class="col-md-6">'
 		+ '			<label>Password</label>'
-		+ '			<input class="form-control" type="text" id="password" name="password">'
+		+ '			<input class="form-control" type="password" id="password" name="password">'
 		+ '		</div>'
 		+ '		<div class="col-md-6">'
 		+ '			<label>　</label>'
@@ -1115,13 +1115,12 @@ function popUP() {
 }
 </script>
         
-        	<script>
+ <script>
 	//카트 상품 갯수 표시
-		if(cust_id=!null){
-			cartCnt(cust_id);
-		}
-		
-		function cartCnt(cust_id) {
+		var cust_id = "${memberId}";
+    	cartCnt(cust_id);
+       
+    	function cartCnt(cust_id) {
 			var cartCount = 0;
 			basketService.countBasketGoods(cust_id,function(result){
 				cartCount="("+result+")";

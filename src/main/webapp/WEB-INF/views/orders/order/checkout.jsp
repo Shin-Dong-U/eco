@@ -241,6 +241,16 @@
     var orderInfo;
     var order_seq = ${order_seq};
 	
+    
+	cartCnt(cust_id);
+   
+	function cartCnt(cust_id) {
+		var cartCount = 0;
+		basketService.countBasketGoods(cust_id,function(result){
+			cartCount="("+result+")";
+			$(".cartCntBtn").text(cartCount);
+		});
+	}
 	
     $(".deliveryBtn").on('click',function(){
     	var addressInfo ={

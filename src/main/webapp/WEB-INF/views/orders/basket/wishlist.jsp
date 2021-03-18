@@ -137,8 +137,8 @@
     var cust_id = "${memberId}";
 	cartCnt(cust_id);
     $(document).ready(function(){
-    	showList();
-    	wishCnt();
+    	showList(cust_id);
+    	wishCnt(cust_id);
     	//var cust_id $(".sessionId").val();
     });
     /* CSRF 데이터 변수 저장 */
@@ -232,7 +232,7 @@
 					str+="<tr>"
 		                +"   <td>"
 		                +"        <div class='img'>"
-		                +"            <a href=''><img src='/resources/template/img/product-1.jpg' alt='Image'></a>"		               
+		                +"            <a href=''><img src='"+wishList[i].IMG_URL+"' alt='Image'></a>"		               
 		                +"            <p data-goods_seq='"+wishList[i].GOODS_SEQ+"'>"+wishList[i].GOODS_NAME+"</p>"
 		                +"        </div>"
 		                +"    </td>"

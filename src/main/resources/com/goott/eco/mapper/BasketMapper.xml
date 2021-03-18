@@ -9,9 +9,9 @@
 		SELECT a.basket_seq,a.qty,b.goods_seq,b.goods_name, b.price,c.img_url 
 		FROM ECO.BASKET_detail a LEFT OUTER JOIN ECO.GOODS b
 		ON a.goods_seq = b.goods_seq
-		LEFT OUTER JOIN ECO.GOODS_DETAIL_IMG c 
+		LEFT OUTER JOIN ECO.GOODS_THUMB_NAIL c 
 		ON a.goods_seq = c.goods_seq
-		WHERE a.BASKET_SEQ IN (SELECT basket.basket_seq FROM ECO.basket where cust_id=#{cust_id} AND delete_yn='N' AND purchase_yn='N')
+		WHERE a.BASKET_SEQ IN (SELECT basket.basket_seq FROM ECO.basket where cust_id=#{csut_id} AND delete_yn='N' AND purchase_yn='N') AND main_yn ='Y'
 	</select>
 	
 	<select id="getGoodsInfo" resultType="com.goott.eco.domain.GoodsVOtest">
@@ -29,11 +29,12 @@
 	</update>
 	
 	<select id="checkExistBasket"  resultType='Long'>
-		SELECT BASKET_SEQ FROM eco.basket WHERE cust_id = #{cust_id}
+		<!-- SELECT BASKET_SEQ FROM eco.basket WHERE cust_id = #{cust_id} -->
+		SELECT count(*) FROM eco.basket WHERE cust_id = #{cust_id}
 	</select>
 	
 	<select id="checkSameGoods"  resultType='Long'>
-		SELECT * FROM eco.basket_detail WHERE goods_seq = #{goods_seq} and basket_seq=#{basket_seq} and purchase_yn='N' and delete_yn='N'
+		SELECT count(*) FROM eco.basket_detail WHERE goods_seq = #{goods_seq} and basket_seq=#{basket_seq} and purchase_yn='N' and delete_yn='N'
 	</select>
 	
 	<insert id="createBasket">

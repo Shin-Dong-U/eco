@@ -335,7 +335,7 @@
         <!-- Footer Bottom End -->       
         
         <!--Basket Modal  -->
-        <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal basketModal" tabindex="-1" role="dialog">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
@@ -376,6 +376,8 @@
 		    </div>
 		  </div>
 		</div>
+		
+	
         
         
         <!-- Back to Top -->
@@ -401,12 +403,23 @@
         	var rattingHtml = makeStarIconHtml(star);
         	$('#goods_ratting_div').html(rattingHtml);
         	
+			
+			
         	movePage(1);
      	});
         /* CSRF 데이터 변수 저장 */
         var csrfHeaderName="${_csrf.headerName}";
         var csrfTokenValue="${_csrf.token}";
-        
+        var cust_id = "${memberId}";
+    	cartCnt(cust_id);
+       
+    	function cartCnt(cust_id) {
+			var cartCount = 0;
+			basketService.countBasketGoods(cust_id,function(result){
+				cartCount="("+result+")";
+				$(".cartCntBtn").text(cartCount);
+			});
+    	}
         
        	//리뷰 페이지 이동 
     	function movePage(pageNum){
@@ -433,12 +446,13 @@
 				var check = result==="exist";
 				
     			if(check){
-    				var basketStr = "해당상품이 장바구니에 존재 합니다."
+    				var basketStr = "이미  존재하는 상품입니다."
     				$(".basketAlert").text(basketStr);
     				//$(".moveBasket").css("visibility", 'hidden')
     			}
     			
-    			$(".modal").modal("show");    			
+    			$(".basketModal").modal("show");    			
+    			cartCnt(cust_id)
     			
     			$('.moveBasket').on("click",function(){
     				window.location.href = 'http://localhost/orders/basket/list';
@@ -466,7 +480,7 @@
        	
        	    //하트
 				$('.wish').on('click', function () {
-				    console.log("haert click")
+					
 				    var $button = $(this).children("i");
 				    if ($button.hasClass('far fa-heart')) {
 				        $button.attr('class','fa fa-heart');
@@ -486,7 +500,7 @@
 									
 					    			if(check){
 					    				var WishStr = "해당상품이 담아두기에 존재 합니다."
-					    				$(".WishAlert").text(basketStr);
+					    				$(".WishAlert").text(WishStr);
 					    				//$(".moveBasket").css("visibility", 'hidden')
 					    			}
 					    			
@@ -501,7 +515,7 @@
 				        $button.attr('class','far fa-heart');
 				        //삭제
 				        var goods_seq =  orderinfo.goods_seq;
-				        cust_id=${memberId};
+				        cust_id="${memberId}";
 						delWishGoods(cust_id,goods_seq);
 				    }
 				
@@ -515,6 +529,8 @@
 							showList();
 						})
 					}
+       	
+       
         </script>
         <!--Start of Tawk.to Script-->
 			<script type="text/javascript">

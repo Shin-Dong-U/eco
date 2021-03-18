@@ -237,6 +237,17 @@
     
     var order_seq = ${order_seq};
     var cust_id = "${memberId}";
+    
+    cartCnt(cust_id);
+    
+	function cartCnt(cust_id) {
+		var cartCount = 0;
+		basketService.countBasketGoods(cust_id,function(result){
+			cartCount="("+result+")";
+			$(".cartCntBtn").text(cartCount);
+		});
+	}
+    
   	//상품제목 <p>클릭시
   	$('.basketList').on('click', "p",function () {
   		var goods_seq =  $(this).data("goods_seq");

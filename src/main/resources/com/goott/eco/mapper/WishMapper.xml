@@ -9,9 +9,9 @@
 		SELECT a.wish_seq,a.qty,b.goods_seq,b.goods_name, b.price,c.img_url 
 		FROM ECO.wish_detail a LEFT OUTER JOIN ECO.GOODS b
 		ON a.goods_seq = b.goods_seq
-		LEFT OUTER JOIN ECO.GOODS_DETAIL_IMG c 
+		LEFT OUTER JOIN ECO.GOODS_THUMB_NAIL c  
 		ON a.goods_seq = c.goods_seq
-		WHERE a.wish_SEQ IN (SELECT wish_seq FROM ECO.wish where cust_id=#{cust_id} AND delete_yn='N' AND purchase_yn='N')
+		WHERE a.wish_SEQ IN (SELECT wish_seq FROM ECO.wish where cust_id=#{cust_id} AND delete_yn='N' AND purchase_yn='N') AND main_yn ='Y'
 	</select>
 	
 	<select id="getGoodsInfo" resultType="com.goott.eco.domain.GoodsVOtest">
@@ -29,11 +29,11 @@
 	</update>
 	
 	<select id="checkExistWish"  resultType='Long'>
-		SELECT wish_SEQ FROM eco.wish WHERE cust_id = #{cust_id}
+		SELECT count(*) FROM eco.wish WHERE cust_id = #{cust_id}
 	</select>
 	
 	<select id="checkSameGoods"  resultType='Long'>
-		SELECT * FROM eco.wish_detail WHERE goods_seq = #{goods_seq} and wish_seq=#{wish_seq} and purchase_yn='N' and delete_yn='N'
+		SELECT count(*) FROM eco.wish_detail WHERE goods_seq = #{goods_seq} and wish_seq=#{wish_seq} and purchase_yn='N' and delete_yn='N'
 	</select>
 	
 	<insert id="createWish">

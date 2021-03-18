@@ -181,6 +181,7 @@
 		var goods_seq =  $(this).data("goods_seq");
 		delBasketGoods(cust_id,goods_seq);
 		$(".checkoutBtn").css("visibility", 'hidden')
+		cartCnt(cust_id);
 		showList();
 	});
   	
@@ -242,7 +243,7 @@
 					str+="<tr>"
 		                +"   <td>"
 		                +"        <div class='img'>"
-		                +"            <a href=''><img src='/resources/template/img/product-1.jpg' alt='Image'></a>"		               
+		                +"            <a href=''><img src='"+basketList[i].IMG_URL+"' alt='Image'></a>"		               
 		                +"            <p data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"+basketList[i].GOODS_NAME+"</p>"
 		                +"        </div>"
 		                +"    </td>"

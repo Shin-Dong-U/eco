@@ -56,16 +56,15 @@ public class BasketServiceImpl implements BasketService {
 		Long checkExist = basketMapper.checkExistBasket(orderInfo);
 		orderInfo.put("basket_seq", checkExist);
 		//Long checkExist = basketMapper.checkExistBasket(cust_id);
-		log.info("checkExist: "+checkExist);
-		
-		if(checkExist==0) {
+
+		if(checkExist==0L || checkExist==null) {
 			int createBasket = basketMapper.createBasket(orderInfo);
 			//int createBasket = basketMapper.createBasket(cust_id);
 			log.info("createBasket: "+createBasket);
 			return basketMapper.addGoodsAtBasket(orderInfo);
 			
-		}else if(checkExist!=0) {
-			if(basketMapper.checkSameGoods(orderInfo) !=null) {
+		}else if(checkExist!=0L) {
+			if(basketMapper.checkSameGoods(orderInfo) !=0L) {
 				return 0;
 			}
 			return basketMapper.addGoodsAtBasket(orderInfo);
