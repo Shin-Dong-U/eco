@@ -378,6 +378,7 @@
 		</div>
         
         
+        
         <!-- Back to Top -->
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
         
@@ -403,6 +404,22 @@
         	
         	movePage(1);
      	});
+        
+        $('.all_cate_search').click(function(e){
+			mainSearch();
+		});
+		
+		$('#main_search').keydown(function(key) {
+			if (key.keyCode == 13) { mainSearch(); }
+			});
+    	
+ 		//header 검색바 사용.  키워드를 이용하여 전체 카테고리에 대한 검색을 실행.
+    	function mainSearch(){
+    		var keyword = $('#main_search').val();
+			location.href = '/goods?keyword=' + keyword;			
+    	}
+        
+        
         /* CSRF 데이터 변수 저장 */
         var csrfHeaderName="${_csrf.headerName}";
         var csrfTokenValue="${_csrf.token}";
