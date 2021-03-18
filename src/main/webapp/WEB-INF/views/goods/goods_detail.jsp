@@ -129,7 +129,7 @@
                                     </div>
                                     <div class="product-slider-single-nav normal-slider">
                                     	<c:forEach var="thumbList" items="${thumbList }">
-                                        <div class="slider-nav-img"><img src="${thumbList.IMG_URL}" alt="Product Image"></div>
+                                        <div class="slider-nav-img"><img src="${thumbList.IMG_URL}" alt="Product Image" onerror="this.src='/resources/upload/img/default/no_img.jpg'"></div>
                                         </c:forEach>
                                     </div>
                                 </div>

@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class GoodsVO {
 	private int goods_seq;
-	private int comp_seq;
+	private long comp_seq;
 	private String goods_name;
 	private long price;
 	private int qty;

@@ -56,7 +56,6 @@ public class RestGoodsController {
 	@GetMapping(value="", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public ResponseEntity<Map<String, Object>> goodsList(@ModelAttribute Criteria cri) {
 		Map<String, Object> goods = goodsService.goodsList(cri);
-		System.out.println("@@@list");
 		
 		return new ResponseEntity<>(goods, HttpStatus.OK);
 	}
@@ -73,11 +72,8 @@ public class RestGoodsController {
 	public ResponseEntity<Integer> updateReview(HttpServletRequest request 
 												, @PathVariable int goodsSeq
 												, @RequestBody GoodsVO.GoodsCommentVO commentVO) {
-//		System.out.println("@@@@@ update review 하드코딩 삭제해요!!!!@@@@");
-//		테스트 완료후 세션 하드코딩 값 삭제!!!. 
 		String memberId = (String)request.getSession().getAttribute("memberId");
 		if(memberId == null || memberId.equals("")) { new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-//		String memberId = "kate";
 		commentVO.setCust_id(memberId);
 		
 		int record = goodsService.updateReview(commentVO);
@@ -89,11 +85,8 @@ public class RestGoodsController {
 	@PutMapping(value="/{goodsSeq}/review", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public ResponseEntity<Integer> insertReview(HttpServletRequest request, @PathVariable int goodsSeq
 												, @RequestBody GoodsVO.GoodsCommentVO commentVO) {
-//		System.out.println("@@@@@ insert review 하드코딩 삭제해요!!!!@@@@");
-//		테스트 완료후 세션 하드코딩 값 삭제!!!. 
 		String memberId = (String)request.getSession().getAttribute("memberId");
 		if(memberId == null || memberId.equals("")) { new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-//		String memberId = "kate";
 		commentVO.setCust_id(memberId);
 		
 		int record = goodsService.insertReview(commentVO); 
@@ -179,19 +172,19 @@ public class RestGoodsController {
 	//상품등록
 	@PutMapping(value="/form", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Integer> insertGoods(HttpServletRequest request, @RequestBody GoodsVO goodsVO){
-//		String memberId = (String)request.getSession().getAttribute("memberId");
+//		String[] option_name = request.getParameterValues("req_option_name");
+//		String[] option_price = request.getParameterValues("req_price");
+		
+		String memberId = (String)request.getSession().getAttribute("memberId");
 //		Integer compSeq = (Integer)request.getSession().getAttribute("compSeq");
 
-		String memberId = "compF";
-		int compSeq = 61;
-		goodsVO.setComp_seq(compSeq);
+//		String memberId = "compF";
+//		int compSeq = 61;
+//		goodsVO.setComp_seq(compSeq);
 		goodsVO.setReguser(memberId);
-		
 		
 		String msg = "";
 		int goods_seq = goodsService.insertGoods(goodsVO);
-		
-		System.out.println("@@@@@@@@@@회원 및 업체정보 하드코딩 되어있음. 시큐리티 적용 후 해당 라인 삭제 @@@@@@@");
 		
 		return goods_seq > 0 ? new ResponseEntity<>(goods_seq, HttpStatus.OK)
 					   : new ResponseEntity<>(-1, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -201,9 +194,7 @@ public class RestGoodsController {
 	@PostMapping(value="/{goodsSeq}/form/upload/images/thumb", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public ResponseEntity<List<Map<String, Object>>> goodsThumnailImagesUpload(@PathVariable int goodsSeq, @RequestBody MultipartFile[] uploadFile, HttpServletRequest request){
 		GoodsThumbNailVO thumbVO = new GoodsThumbNailVO();
-		System.out.println("@@@@@@@@@@하드코딩라인 있음 이 부분 수정 ");
-//				String memberId = (String)request.getSession().getAttribute("memberId");
-		String memberId = "compF";
+		String memberId = (String)request.getSession().getAttribute("memberId");
 		thumbVO.setReguser(memberId);
 		thumbVO.setGoods_seq(goodsSeq);
 

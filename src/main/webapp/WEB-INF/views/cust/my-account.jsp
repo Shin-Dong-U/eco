@@ -353,12 +353,11 @@
                     			<lable>필수 옵션</lable>
                     		</div>
                     		<div class="col-md-4">
-                    			<label class="radio-inline">없음<input type="radio" name="req_option" value="N"></label>&nbsp;&nbsp;
+                    			<label class="radio-inline">없음<input type="radio" name="req_option" value="N" checked="checked"></label>&nbsp;&nbsp;
                     			<label class="radio-inline">있음<input type="radio" name="req_option" id="req_option_y" value="Y"></label>
                             </div>
                     	</div>
-                    	<div class="row" id="req_option_div">
-                    	</div>
+                    	<div class="row" id="req_option_div"></div>
                     	<div class="row" style="margin-top:20px;">
             				<textarea name="goods_detail" id="goods_detail" rows="10" cols="100" style="width:100%; height:412px; min-width:610px;"></textarea>        	
                     	</div>
@@ -1025,6 +1024,41 @@ function checkExtension(fileName, fileSize){
 	}
 	
 	return true;
+}
+//----------------------------------- naver smart editor -------------------------------
+
+var reqLen = 0;
+//radio 버튼 클릭 이벤트 
+$("input:radio[name=req_option]").click(function(){
+            
+    if($("input:radio[name=req_option]:checked").val()=='Y'){
+    	if(reqLen === 0){ makeReqOptionInputHtml(); }
+    }else{
+    	$('#req_option_div').empty();
+    	reqLen = 0;
+    }
+});
+
+function makeReqOptionInputHtml(){
+	var optionNameArr = $('input:text[name=req_option_name]');
+	
+	if(reqLen != 0 && !optionNameArr[reqLen -1].value){ 
+		alert ('옵션명을 입력 해주세요. (금액 : 입력안함 -> 0원)');
+		return;
+	}
+	
+	reqLen++;
+	var htmlStr = '<div class="col-lg-12" id="tmp' + reqLen + '"> ';
+	htmlStr += ' 옵션명 <input type="text" name="req_option_name"> '; 
+	htmlStr += ' 가격 <input type="number" name="req_price" value="0"> ';
+	htmlStr += '<button class="btn" onclick="makeReqOptionInputHtml();">추가</button> <button class="btn" onclick="removeReqOptionInputHtml();">제거</button></div>';
+	
+	$('#req_option_div').append(htmlStr);
+}
+
+function removeReqOptionInputHtml(){
+	if(reqLen == 0){ return; }
+	$('#tmp' + reqLen--).remove();
 }
 
 </script>

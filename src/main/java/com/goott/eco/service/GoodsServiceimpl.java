@@ -18,10 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.goott.eco.common.Criteria;
 import com.goott.eco.common.PageDTO;
+import com.goott.eco.domain.CompanyVO;
 import com.goott.eco.domain.GoodsVO;
 import com.goott.eco.domain.GoodsVO.GoodsCommentVO;
 import com.goott.eco.domain.GoodsVO.GoodsDetailImgVO;
 import com.goott.eco.domain.GoodsVO.GoodsThumbNailVO;
+import com.goott.eco.mapper.CompanyMapper;
 import com.goott.eco.mapper.GoodsMapper;
 
 import lombok.extern.log4j.Log4j;
@@ -33,6 +35,7 @@ import oracle.sql.CLOB;
 public class GoodsServiceimpl implements GoodsService{
 
 	@Autowired private GoodsMapper goodsDao; 
+	@Autowired private CompanyMapper compDao;
 	
 	@Override
 	public Map<String, Object> goodsList(Criteria cri) {
@@ -119,6 +122,9 @@ public class GoodsServiceimpl implements GoodsService{
 	public int insertGoods(GoodsVO vo) {
 		//등록 관련코드 차후 별도의 클래스에서 따로 관리. 
 		final int FAIL_CODE = -1;
+		String memberId = vo.getReguser();
+		CompanyVO comp = compDao.getCompany(memberId);
+		vo.setComp_seq(comp.getComp_seq());
 		
 		goodsDao.insertGoods(vo);//1. proc 호출하여 상품 등록.
 		

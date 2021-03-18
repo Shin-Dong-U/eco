@@ -69,7 +69,6 @@ public class GoodsController {
 	//안쓸듯...
 	@PostMapping(value="/form/upload/images")//, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public String goodsDetailImagesUpload(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		System.out.println("@@@@@@@@@@@@@@@@uplolad images");
 		
 		//파일정보
 		String sFileInfo = "";
