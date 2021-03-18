@@ -35,6 +35,9 @@
 			#confirm_check {
 				display: none
 			}
+			#test {
+				display: none
+			}
 			
 			#modify_check {
 				display: none

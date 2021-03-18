@@ -29,6 +29,9 @@ public interface CustMapper {
 	/* 로그인  */
 	public CustVO getCustLogin(CustVO custVO);
 	
+	/* 아이디 확인 */
+	public String checkCustId(String memberId);
+	
 	/* 비밀번호 확인 */
 	public String checkCustPassword(String memberId);
 	

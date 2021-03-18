@@ -2,29 +2,46 @@
 
 
 var customer=(function(){
+	
+	/* id 확인 */
+	function idCheck(memberId, csrf, callback, error){	
+		$.ajax({
+			type:"get",
+			url:"/cust/idCheck/"+memberId,
+			contentType:"application/json; charset=UTF-8",
+			
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
+			
+			success:function(data){
+				callback(data);		
+			},
+			error:function(request,status,error){
+       		}
 
+		});	//end ajax
+	}	//end function getCustLogin
 
 	/* password 확인 */
 	function passwordCheck(custVO, csrf, callback, error){
-		//console.log("getCust 실행");
 		
 		$.ajax({
 			type:"post",
 			url:"/cust/pwCheck",
 			data:JSON.stringify(custVO),
 			contentType:"application/json; charset=UTF-8",
+			
 			beforeSend:function(xhr){
 				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
 			},
+			
 			success:function(data){
-				callback(data);
-				//console.log("customer.ajax실행중 passwordCheck 성공");				
+				callback(data);		
 			},
-			error:function(xhr,status,err){
-				error(err);
-				//console.log("customer.ajax실행중 passwordCheck 오류");
+			error:function(request,status,error){
+       		}
 
-			}
 		});	//end ajax
 	}	//end function getCustLogin
 	
@@ -123,6 +140,7 @@ var customer=(function(){
 	
 
 	return{
+		idCheck:idCheck,
 		passwordCheck:passwordCheck,	//비밀번호확인
 		joinMember:joinMember, 			//회원가입
 		getCust:getCust,				//회원 정보 불러오기

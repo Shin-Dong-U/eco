@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
 <html lang="kr">
@@ -50,40 +50,7 @@
 			.userBind {
 				display: flex;
 			}
-			/* Admin - The Modal (background) */
-			.modal {
-				display: none; /* Hidden by default */
-				position: fixed; /* Stay in place */
-				z-index: 1; /* Sit on top */
-				left: 0;
-				top: 0;
-				width: 100%; /* Full width */
-				height: 100%; /* Full height */
-				overflow: auto; /* Enable scroll if needed */
-				background-color: rgb(0, 0, 0); /* Fallback color */
-				background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-			}
-			/* Admin - Modal Content Box Title */
-			.modal-content {
-				background-color: #fefefe;
-				margin: 15% auto; /* 15% from the top and centered */
-				padding: 20px;
-				border: 1px solid #888;
-				width: 50%; /* Could be more or less, depending on screen size */
-			}
-			/* Admin - The Close Button */
-			.close {
-				color: #aaa;
-				float: right;
-				font-size: 28px;
-				font-weight: bold;
-			}
-			/* Admin -  Modal*/
-			.close:hover, .close:focus {
-				color: black;
-				text-decoration: none;
-				cursor: pointer;
-			}
+
 	</style>
     </head>
 
@@ -352,10 +319,10 @@
 </div>
 
 <!-- modal 시작 -->
-<div class="modal" id="memberManager" tabindex="-1" role="dialog">
+<div class="modal" id="memberManager" tabindex="-1" role="dialog" ria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<div class="modal-header">
+			<div class="modal-header ">
 				<h5 class="modal-title">회원 상세 정보</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -807,6 +774,8 @@ $("#modal_btn_modify").on("click",function(){
 $("#modal_btn_submit").on("click",function(){
 
 	memberId=$(this).parent().parent().parent().children().children().find("#memberId").val();
+	alert(memberId);
+	$(this).parent().parent().parent().children().children().find("#memberId").css({"border": "2px solid blue"});
 	var $form=$(this).parent().parent().parent().children().children();
 	var birth=$form.find("#birth").val();
 	birth=birth.replace("-","")
@@ -842,7 +811,7 @@ $("#modal_btn_submit").on("click",function(){
 	//alert(memberId);
 	//alert(loginId);
 	adminRest.modAdmin(
-		memberVO={custVO, compVO, adminVO}, loginId,
+		memberVO={custVO:custVO, compVO:compVO, adminVO:adminVO}, loginId,
 		csrf={
 			"csrfHeaderName":csrfHeaderName,
 			"csrfTokenValue":csrfTokenValue
@@ -907,6 +876,7 @@ function checkModal(memberId){
 var csrfHeaderName="${_csrf.headerName}";
 var csrfTokenValue="${_csrf.token}";
 
+console.log("csrfHeaderName: "+ csrfHeaderName) ;
 
 var modify_value= $("#modify_value").val;
 var memId="${memberId}";
@@ -921,36 +891,36 @@ $("#account-nav").on("click", function(){
 	
 	str="";
 	str +='<h5>비밀번호 확인</h5>'
-		+ '<form id="pwCheckForm" action="">'
 		+ '	<div class="row" id="cust_detailChat">'
 		+ '		<div class="col-md-6">'
 		+ '			<label>Password</label>'
-		+ '			<input class="form-control" type="text" id="pwCheck" name="pwCheck">'
+		+ '			<input class="form-control" type="text" id="password" name="password">'
 		+ '		</div>'
 		+ '		<div class="col-md-6">'
 		+ '			<label>　</label>'
 		+ '			<input type="button" class="form-control btn btn-primary" id="btn_check" value="submit">'
 		+ '		</div>'
-		+ '	</div>'
-		+ '</form>';
+		+ '	</div>';
+
 	
 	$("#account_custChat").html(str);
 });
 
 /* 비밀번호 확인 */
-$("#account_custChat").on("click","#btn_check", function(){
+$("#account_custChat").on("click","#btn_check", function(e){
+	e.preventDefault();
+	var custVO={memberId:memId, password:$("#password").val()} ;
+	var csrf={csrfHeaderName:csrfHeaderName, csrfTokenValue:csrfTokenValue};
 	customer.passwordCheck(
-		custVO={"memberId":memId, "password":$("#pwCheck").val()},	
-		csrf={"csrfHeaderName":csrfHeaderName, "csrfTokenValue":csrfTokenValue},
+		custVO,	
+		csrf,
 		function(data){
-			if(data="success"){
+			if(data=="success"){
 				get_chat();
 			 	document.getElementById("modify_check").style.display="block";
 			}
 		},
-		function(data){
-			//alert("비밀번호가 일치 하지 않습니다");
-		}
+		function(){alert("비밀번호가 일치하지 않습니다.");}
 	);
 
 });
