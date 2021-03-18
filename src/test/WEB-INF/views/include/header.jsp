@@ -95,7 +95,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="search">
-                            <input type="text" placeholder="Search">
+                            <input type="text" placeholder="Search" id="all_cate_search">
                             <button><i class="fa fa-search"></i></button>
                         </div>
                     </div>

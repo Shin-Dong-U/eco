@@ -166,8 +166,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="search">
-                            <input type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
+                            <input type="text" placeholder="Search" id="main_search">
+                            <button class="all_cate_search"><i class="fa fa-search"></i></button>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -208,4 +208,5 @@
         	$('.logoutForm').submit();
         	
         })  
+        
         </script>
