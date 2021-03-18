@@ -91,7 +91,7 @@ var basketService=(function(){
 			beforeSend:function(xhr){
 				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
 			},
-			success:(result)=>{console.log(result),callback(result)},
+			success:(result)=>{callback(result)},
 			error:(log)=>{console.log("실패 "+log)}
 			
 		})
