@@ -11,7 +11,7 @@
 		ON a.goods_seq = b.goods_seq
 		LEFT OUTER JOIN ECO.GOODS_DETAIL_IMG c 
 		ON a.goods_seq = c.goods_seq
-		WHERE a.BASKET_SEQ IN (SELECT basket.basket_seq FROM ECO.basket where cust_id=#{cust_id} AND delete_yn='N')
+		WHERE a.BASKET_SEQ IN (SELECT basket.basket_seq FROM ECO.basket where cust_id=#{cust_id} AND delete_yn='N' AND purchase_yn='N')
 	</select>
 	
 	<select id="getGoodsInfo" resultType="com.goott.eco.domain.GoodsVOtest">
@@ -45,5 +45,8 @@
 		UPDATE eco.basket_detail SET qty=#{qty} WHERE goods_seq=#{goods_seq} and basket_seq in 
 		(SELECT basket_seq FROM basket where cust_id =#{cust_id})
 	</update>
-
+	
+	<select id="countBasketGoods" resultType="int">
+		SELECT count(*) FROM basket_detail where basket_seq = (select basket_seq from basket where cust_id=#{cust_id}) AND purchase_yn='N' AND delete_yn='N'
+	</select>
 </mapper>

@@ -46,6 +46,7 @@
                                 <li><a href="">Pyament Policy</a></li>
                                 <li><a href="">Shipping Policy</a></li>
                                 <li><a href="">Return Policy</a></li>
+                                
                             </ul>
                         </div>
                     </div>
@@ -90,6 +91,27 @@
         <!-- Back to Top -->
         <a href="" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
         
-
+         <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/easing/easing.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/slick/slick.min.js"></script>
+        
+        <!-- Template Javascript -->
+        <script src="${contextPath}/resources/template/js/main.js?var=6"></script>
+  
+	<!--Start of Tawk.to Script-->
+		<script type="text/javascript">
+			var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+			(function(){
+			var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+				s1.async=true;
+				s1.src='https://embed.tawk.to/6051161bf7ce18270930c865/1f0ubsnki';
+				s1.charset='UTF-8';
+				s1.setAttribute('crossorigin','*');
+				s0.parentNode.insertBefore(s1,s0);
+			})();
+		</script>
+	<!--End of Tawk.to Script-->
     </body>
 </html>

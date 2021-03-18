@@ -3,6 +3,7 @@ package com.goott.eco.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.goott.eco.domain.AdminVO;
 import com.goott.eco.domain.CustVO;
 
 
@@ -15,6 +16,12 @@ public interface CustMapper {
 
 	/* 특정 회원정보 가져오기 */
 	public CustVO getCust(String memberId);
+	
+	/* 특정 회원정보 가져오기 */
+	public AdminVO getAdmin(String memberId);
+	
+	/* 특정 회원정보 가져오기 */
+	public String getCustName(String memberId);
 	
 	/* 특정 회원 권한  가져오기 */
 	public CustVO getCustAuth(String memberId);

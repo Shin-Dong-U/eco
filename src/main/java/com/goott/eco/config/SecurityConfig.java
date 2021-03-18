@@ -12,10 +12,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import com.goott.eco.security.CustLoginFailHandler;
 import com.goott.eco.security.CustomLoginSuccessHandler;
 import com.goott.eco.security.CustomUserDetailsService;
 
@@ -40,6 +42,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	/* Login Fail Handler */
+	@Bean
+	public AuthenticationFailureHandler CustLoginFailHandler() {
+		return new CustLoginFailHandler();
 	}
 	
 	/* Access Denied Handler */
@@ -70,30 +78,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			
 
 		http.authorizeRequests()
-		
-//			.antMatchers("/orders/basket/list").authenticated()
-//			.antMatchers("/orders/order/checkout").authenticated()
-//			.antMatchers("/home/my-account-order").authenticated()
-//			.antMatchers("/orders/ship/writeShipInfo").authenticated()
-//			.antMatchers("/orders/order/orderCheck").authenticated();
-		
-		
-//			.antMatchers("/orders/basket/list").authenticated();
-			.antMatchers("/cust/account","/cust/account1").authenticated();
-		//	.antMatchers("/order/list").authenticated();
-		//	.exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+			.antMatchers("/cust/account").authenticated()
+			.antMatchers("/orders/basket/list").authenticated()
+			.antMatchers("/orders/order/checkout").authenticated()
+			.antMatchers("/home/my-account-order").authenticated()
+			.antMatchers("/orders/ship/writeShipInfo").authenticated()
+			.antMatchers("/orders/order/orderCheck").authenticated()
+			.antMatchers("/cust/my-account").authenticated();
+			
+			//.antMatchers("/order/list").authenticated();
+			//.exceptionHandling().accessDeniedHandler(accessDeniedHandler())		
+			//.antMatchers("/orders/ship/writeShipInfo").authenticated()
+			//.antMatchers("/orders/order/orderCheck").authenticated()
+			//.antMatchers("/orders/basket/list").authenticated()
+			//.antMatchers("/cust/account","/cust/account1").authenticated();
+			//.antMatchers("/order/list").authenticated();
+			//.exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+
 
 		/* 로그인 */
 		http.formLogin()
 			.loginPage("/home/login")
-			.loginProcessingUrl("/login")
-			.successHandler(loginSuccessHandler());
+			.loginProcessingUrl("/home/login")
+			.failureUrl("/home/login?error=true")
+			.successHandler(loginSuccessHandler())
+			.failureHandler(CustLoginFailHandler())
+			.usernameParameter("username")
+			.passwordParameter("password");
 		
 		/* 로그아웃 */
 		http.logout()
-		.logoutUrl("/sample/logout")
-		.invalidateHttpSession(true)
-		.deleteCookies("remember-me","JSESSION_ID");
+			.logoutUrl("/sample/logout")
+			.logoutSuccessUrl("/home/index")
+			.invalidateHttpSession(true)
+			.deleteCookies("remember-me","JSESSION_ID");
 		
 		/* 자동로그인 */
 		http.rememberMe()

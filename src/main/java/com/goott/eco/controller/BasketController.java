@@ -2,7 +2,6 @@ package com.goott.eco.controller;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,9 +42,6 @@ public class BasketController {
 		log.info("custId: "+cust_id);
 		List<HashMap<String,Object>> result = basketService.getBasketList(cust_id);
 		log.info("jsp로 넘겨질 데이터: "+result);
-		log.info("jsp로 넘겨질 데이터1: "+result.get(0));
-		log.info("jsp로 넘겨질 데이터2: "+result.get(1));
-		log.info("jsp로 넘겨질 데이터3: "+result.get(1).get("IMG_URL"));
 		
 		return new ResponseEntity<>(result,HttpStatus.OK);
 		
@@ -105,22 +103,32 @@ public class BasketController {
 	}
 	
 	//선택상품 장바구니에 넣기
-	@GetMapping(value="/new/{cust_id}/{goods_seq}/{qty}",
+	@PostMapping(value="/new",
 			produces= {"text/plain;charset=UTF-8"})
 	public ResponseEntity<String> addGoodsAtBasket(
-			@PathVariable("cust_id") String cust_id,
-			@PathVariable("goods_seq") Long goods_seq,
-			@PathVariable("qty") Long qty){
-		log.info("장바구니 추가 소유 id: "+ cust_id);
-		log.info("장바구니 추가 상품번호: "+goods_seq);
-		log.info("장바구니 추가 상품번호: "+qty);
+			@RequestBody HashMap<String,Object> orderInfo){
+		log.info("장바구니 추가 orderInfo"+orderInfo);
+		log.info("장바구니 추가 소유 id: "+ orderInfo.get("cust_id"));
+		log.info("장바구니 추가 상품번호: "+orderInfo.get("goods_seq"));
+		log.info("장바구니 추가 상품수량: "+orderInfo.get("qty"));
+		log.info("장바구니 추가 옵션: "+orderInfo.get("orderOption"));
 		
-		return basketService.addGoodsAtBasket(cust_id,goods_seq,qty)>0?
+		return basketService.addGoodsAtBasket(orderInfo)>0?
 				new ResponseEntity<>("성공",HttpStatus.OK):
 				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	
+	//장바구니 수량 파악
+		@GetMapping(value="/count/{cust_id}",
+				produces= {"application/json; charset=UTF-8"})
+		public ResponseEntity<Integer> countBasketGoods(
+				@PathVariable("cust_id") String cust_id){
+			
+			int result = basketService.countBasketGoods(cust_id);
+			
+			
+			return 	new ResponseEntity<>(result,HttpStatus.OK);
+		}
 	
 	
 	

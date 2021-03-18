@@ -1,27 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<!-- <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!-- Favicon -->
+        Favicon
 		<link href="/resources/template/img/favicon.ico" rel="icon">
 		
-		<!-- Google Fonts -->
+		Google Fonts
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
 		
-		<!-- CSS Libraries -->
+		CSS Libraries
 		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 		<link href="/resources/template/lib/slick/slick.css" rel="stylesheet">
 		<link href="/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
 		
-		<!-- Template Stylesheet -->
+		Template Stylesheet
 		<link href="/resources/template/css/style.css" rel="stylesheet">
     </head>
 
     <body>
-        <!-- Top bar Start -->
+        Top bar Start
         <div class="top-bar">
             <div class="container-fluid">
                 <div class="row">
@@ -36,9 +37,9 @@
                 </div>
             </div>
         </div>
-        <!-- Top bar End -->
+        Top bar End
         
-        <!-- Nav Bar Start -->
+        Nav Bar Start
         <div class="nav">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -75,9 +76,9 @@
                 </nav>
             </div>
         </div>
-        <!-- Nav Bar End -->      
+        Nav Bar End      
         
-        <!-- Bottom Bar Start -->
+        Bottom Bar Start
         <div class="bottom-bar">
             <div class="container-fluid">
                 <div class="row align-items-center">
@@ -91,9 +92,9 @@
                 </div>
             </div>
         </div>
-        <!-- Bottom Bar End -->  
+        Bottom Bar End  
         
-        <!-- Breadcrumb Start -->
+        Breadcrumb Start
         <div class="breadcrumb-wrap">
             <div class="container-fluid">
                 <ul class="breadcrumb">
@@ -102,7 +103,8 @@
                     <li class="breadcrumb-item active">상품상세</li>
                 </ul>
             </div>
-        </div>
+        </div> -->
+        <%@include file="../include/header.jsp" %>
         <!-- Breadcrumb End -->
         
         <!-- Product Detail Start -->
@@ -137,13 +139,13 @@
                                         <div class="ratting" id="goods_ratting_div"></div>
                                         <div class="price">
                                             <h4>가격:</h4>
-                                            <p>${goodsDetail.PRICE }</p>
+                                            <p class="goods-price">${goodsDetail.PRICE }</p><a>원</a>
                                         </div>
                                         <div class="quantity">
                                             <h4>수량:</h4>
-                                            <div class="qty">
+                                            <div class="qty goodsQty">
                                                 <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
+                                                <input type="text"  class="orderQty" value="1">
                                                 <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                             </div>
                                         </div>
@@ -165,8 +167,9 @@
                                         
                                         
                                         <div class="action">
-                                            <a class="btn" href="#"><i class="fa fa-shopping-cart"></i>장바구니</a>
-                                            <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>바로구매</a>
+                                            <a class="btn addCart" ><i class="fa fa-shopping-cart"></i>장바구니</a>
+                                            <a class="btn buyNow" href="#"><i class="fa fa-shopping-bag"></i>바로구매</a>
+                                         
                                         </div>
                                     </div>
                                 </div>
@@ -331,21 +334,45 @@
         </div>
         <!-- Footer Bottom End -->       
         
+        <!--Basket Modal  -->
+        <div class="modal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">장바구니</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p>장바구니에 해당 상품이 저장되었습니다</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">계속쇼핑하기</button>
+		        <button type="button" class="btn btn-primary moveBasket">장바구니 이동하기</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+        
+        
+        
         <!-- Back to Top -->
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
         
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="/resources/template/lib/easing/easing.min.js"></script>
-        <script src="/resources/template/lib/slick/slick.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/easing/easing.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
-        <script src="/resources/template/js/main.js"></script>
+        <script src="${contextPath}/resources/template/js/main.js"></script>
         
-        <script src="/resources/js/common/common.js"></script>
-        <script src="/resources/js/goods/goods.js"></script>
-        
+        <script src="${contextPath}/resources/js/common/common.js"></script>
+        <script src="${contextPath}/resources/js/goods/goods.js"></script>
+        <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
+        <script src="${contextPath}/resources/order/checkout.js?ver=3"></script>
         <script>
         $(document).ready(function(){
         	var star = $('#star').val();
@@ -354,12 +381,68 @@
         	
         	movePage(1);
      	});
+        /* CSRF 데이터 변수 저장 */
+        var csrfHeaderName="${_csrf.headerName}";
+        var csrfTokenValue="${_csrf.token}";
+        
         
        	//리뷰 페이지 이동 
     	function movePage(pageNum){
     		selectedPage(pageNum);
     		callGetCommentList();
     	}
+       	
+              	
+
+    
+       	//선택상품 장바구니에 담기
+       	$('.addCart').on("click",function(){
+       		orderinfo={
+    	    		cust_id:"${memberId}",
+    	    		qty:$(".orderQty").val(),
+    	    		orderOption:$("#goodsReqOptionSeq option:selected").val(),    	    		
+    	    		goods_seq:"${goodsDetail.GOODS_SEQ }"
+    	    };
+       		csrf={"csrfHeaderName":csrfHeaderName,
+       				"csrfTokenValue":csrfTokenValue};
+       		
+    	   
+    		basketService.addGoodsAtBasket(orderinfo,csrf,function(){
+    			$(".modal").modal("show");
+    			$('.moveBasket').on("click",function(){
+    				window.location.href = 'http://localhost/orders/basket/list';
+    			})
+    		});
+    		
+       	})
+       	
+       	$('.buyNow').on("click",function(){
+       		orderinfo={
+    	    		cust_id:"${memberId }",
+    	    		qty:$(".orderQty").val(),
+    	    		orderOption:$("#goodsReqOptionSeq option:selected").val(),
+    	    		total_price:Number($(".orderQty").val())*Number("${goodsDetail.PRICE }"),
+    	    		goods_seq:"${goodsDetail.GOODS_SEQ }"
+    	    } 
+		
+		
+	
+		checkoutService.orderNow(orderinfo);
+       	})
+      
         </script>
+        <!--Start of Tawk.to Script-->
+			<script type="text/javascript">
+				var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+				(function(){
+				var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+					s1.async=true;
+					s1.src='https://embed.tawk.to/6051161bf7ce18270930c865/1f0ubsnki';
+					s1.charset='UTF-8';
+					s1.setAttribute('crossorigin','*');
+					s0.parentNode.insertBefore(s1,s0);
+				})();
+			</script>
+		<!--End of Tawk.to Script-->
     </body>
 </html>

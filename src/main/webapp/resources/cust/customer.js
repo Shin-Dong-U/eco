@@ -1,4 +1,4 @@
-console.log("customer.ajax실행");
+//console.log("customer.ajax실행");
 
 
 var customer=(function(){
@@ -6,7 +6,7 @@ var customer=(function(){
 
 	/* password 확인 */
 	function passwordCheck(custVO, csrf, callback, error){
-		console.log("getCust 실행");
+		//console.log("getCust 실행");
 		
 		$.ajax({
 			type:"post",
@@ -18,11 +18,11 @@ var customer=(function(){
 			},
 			success:function(data){
 				callback(data);
-				console.log("customer.ajax실행중 passwordCheck 성공");				
+				//console.log("customer.ajax실행중 passwordCheck 성공");				
 			},
 			error:function(xhr,status,err){
 				error(err);
-				console.log("customer.ajax실행중 passwordCheck 오류");
+				//console.log("customer.ajax실행중 passwordCheck 오류");
 
 			}
 		});	//end ajax
@@ -31,7 +31,7 @@ var customer=(function(){
 	
 	/* 회원가입 */
 	function joinMember(memberVO, csrf, callback, error){
-		console.log("joinCust 실행");
+		//console.log("joinCust 실행");
 		
 		$.ajax({
 			type:"post",
@@ -42,17 +42,13 @@ var customer=(function(){
 				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
 			},
 			success:function(data){
-				if(callback){
-					console.log("restCust.ajax실행중 joinCust 완료: "+data);
-					callback(data);
-				}
+				callback(data);
+				//console.log("restCust.ajax실행중 joinCust 완료: "+data);
 			},
 			
 			error:function(xhr,status,err){
-				if(error){
-					console.log("restCust.ajax실행중 joinCust 오류");
-					error(err);
-				}
+				error(err);
+				//console.log("restCust.ajax실행중 joinCust 오류");
 			}
 		});	//end ajax
 	}//end function joinCust
@@ -66,14 +62,14 @@ var customer=(function(){
 			
 			success:function(data){
 				if(callback){
-					console.log("restCust.ajax실행중 getCust 완료");
+					//console.log("restCust.ajax실행중 getCust 완료");
 					//alert("data타입정의"+data["memberVO"]);
 					callback(data["memberVO"]);
 				}
 			},
 			
 			error:function(xhr,status,err){
-				console.log("restCust.ajax실행중 getCustLogin 오류");
+				//console.log("restCust.ajax실행중 getCustLogin 오류");
 			}
 		});	//end ajax
 	}	//end function getCust
@@ -81,7 +77,7 @@ var customer=(function(){
 	
 	/* 회원 수정 */
 	function modifyMember(custVO, csrf, callback, error){
-		console.log("modifyMember 실행");
+		//console.log("modifyMember 실행");
 		
 		$.ajax({
 			type:"put",
@@ -96,7 +92,7 @@ var customer=(function(){
 				callback(data);
 			},
 			error:function(xhr,status,err){
-				console.log("restCust.ajax실행중 modifMember오류");
+				//console.log("restCust.ajax실행중 modifMember오류");
 			}
 		});	//end ajax
 	}	//end function modifyMember
@@ -104,7 +100,7 @@ var customer=(function(){
 	
 	/* 회원 탈퇴  */
 	function deleteMember(memberId, csrf, callback, error){
-		console.log("modifyMember 실행");
+		//console.log("modifyMember 실행");
 		
 		$.ajax({
 			type:"put",
@@ -117,10 +113,10 @@ var customer=(function(){
 			
 			success:function(data){
 				callback(data);
-				console.log("restCust.ajax실행중 modifyMember완료");
+				//console.log("restCust.ajax실행중 modifyMember완료");
 			},
 			error:function(xhr,status,err){
-					console.log("restCust.ajax실행중 modifMember오류")
+					//console.log("restCust.ajax실행중 modifMember오류")
 			}
 		});	//end ajax
 	}	//end function modifyMember

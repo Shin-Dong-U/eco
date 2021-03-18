@@ -1,10 +1,8 @@
-console.log("basket Module.........");
-
 var basketService=(function(){
 	
 	
 	function getBasketList(cust_id,callback){
-			console.log("basket List................");
+			
 			
 		$.ajax({ //자바스크립트 객체 시작
 			type:'get',						//전송유형
@@ -12,7 +10,7 @@ var basketService=(function(){
 			//JSON.stringify()자바스크립트 객체를 JSON형식의 문자열로 변환해주는 웹브라우저 내부 메소드
 			data:JSON.stringify(),			//data키에 설정되는 값은 컨트롤러 메소드의 consumes속성 설정 값의 데이터 유형과 일치
 			contentType: "application/json; charset=utf-8", //서버에게 보내는 데이터 유형(MIME타입)
-			success:(basketList)=>{console.log("장바구니 리스트",basketList),
+			success:(basketList)=>{
 				callback(basketList)},	
 			error:(log)=>{console.log("실패 "+log)}
 		})
@@ -20,72 +18,82 @@ var basketService=(function(){
 	
 	
 	function getBasketGoods(goods_seq){		
-			console.log("basket select one goods................");
+			
 			
 		$.ajax({ 
 			type:'get',						
 			url:'/basket/'+goods_seq,					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
-			success:(basketGoods)=>{console.log("장바구니 상품선택",basketGoods),
+			success:(basketGoods)=>{
 				location.href = "/goods/"+goods_seq},
 			error:(log)=>{console.log("실패 "+log)}
 		})
 	}
 	
 	
-	function delBasketGoods(cust_id,goods_seq){		
-		console.log("basket delete one goods................");
+	function delBasketGoods(cust_id,goods_seq,csrf,callback){		
+		
 		
 		$.ajax({ 
 			type:'get',						
 			url:'/basket/'+cust_id+'/'+goods_seq,					
 			data:JSON.stringify(),			
-			contentType: "application/json; charset=utf-8", 
-			success:(result)=>{console.log("삭제결과 "+result)},
+			contentType: "application/json; charset=utf-8",
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
+			success:(result)=>{callback()},
 			error:(log)=>{console.log("실패 "+log)}
 		
 		})
 	}
 	
-	function purGoodsAtBasket(){		
-		console.log("basket delete purchase goods................");
+	function purGoodsAtBasket(csrf){		
+		
 		
 		$.ajax({ 
 			type:'get',						
 			url:'/basket/pur/nana/6',					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
-			success:(result)=>{console.log("구매상품 삭제결과 "+result)},
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
+			success:(result)=>{},
 			error:(log)=>{console.log("실패 "+log)}
 				
 		})
 	}
 	
 	function changeQtyAtBasket(cust_id,goods_seq,qty,callback){		
-		console.log("basket change qty................");
+		
 		
 		$.ajax({ 
 			type:'get',						
 			url:'/basket/'+cust_id+'/'+goods_seq+'/'+qty,					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
-			success:(result)=>{console.log("상품 수량 변경 결과 "+result)},
+			
+			success:(result)=>{},
 			error:(log)=>{console.log("실패 "+log)}
 			
 		})
 	}
 	
 	//장바구니에 상품넣기
-	function addGoodsAtBasket(orderinfo){		
-		console.log("basket add................");
+	function addGoodsAtBasket(orderinfo,csrf,callback){		
+		
 		
 		$.ajax({ 
 			type:'post',						
 			url:'/basket/new',					
 			data:JSON.stringify(orderinfo),			
 			contentType: "application/json; charset=utf-8", 
-			success:(result)=>{console.log("장바구니 담기 결과 "+result)},
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
+			success:(result)=>{callback()},
 			error:(log)=>{console.log("실패 "+log)}
 			
 		})
@@ -93,14 +101,14 @@ var basketService=(function(){
 	
 	//장바구니 상품 갯수
 	function countBasketGoods(cust_id,callback){		
-		console.log("countBasketGoods.........");
+		
 		
 		$.ajax({ 
 			type:'get',						
 			url:'/basket/count/'+cust_id,					
 			data:JSON.stringify(),			
 			contentType: "application/json; charset=utf-8", 
-			success:(result)=>{console.log("장바구니 상품 갯수 "+result),
+			success:(result)=>{
 				callback(result)},
 			error:(log)=>{console.log("실패 "+log)}
 			

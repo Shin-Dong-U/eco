@@ -75,15 +75,15 @@ public class ShipController {
 	
 	
 	//배송정보 보기(회원)
-	@GetMapping(value="/user/{cust_id}",
-			produces= {"application/json; charset=UTF-8"})
-	public ResponseEntity<List<ShipVO>> getShipList(
-			@PathVariable("cust_id") String cust_id
-			){
-		log.info("getShipList 시작");
-		List<ShipVO> result = shipService.getShipList(cust_id);
-		return new ResponseEntity<>(result,HttpStatus.OK);
-	}
+		@GetMapping(value="/user/{order_seq}",
+				produces= {"application/json; charset=UTF-8"})
+		public ResponseEntity<List<ShipVO>> getShipList(
+				@PathVariable("order_seq") Long order_seq
+				){
+			log.info("getShipList 시작");
+			List<ShipVO> result = shipService.getShipList(order_seq);
+			return new ResponseEntity<>(result,HttpStatus.OK);
+		}
 	 
 
 }

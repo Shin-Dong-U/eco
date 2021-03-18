@@ -3,29 +3,29 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ECO FRIENDS</title>
-<!-- Favicon -->
+Favicon
 <link href="/resources/template/img/favicon.ico" rel="icon">
 
-<!-- Google Fonts -->
+Google Fonts
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
 
-<!-- CSS Libraries -->
+CSS Libraries
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 <link href="/resources/template/lib/slick/slick.css" rel="stylesheet">
 <link href="/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
 
-<!-- Template Stylesheet -->
+Template Stylesheet
 <link href="/resources/template/css/style.css" rel="stylesheet">
 </head>
 
 	<body>
-        <!-- Top bar Start -->
+        Top bar Start
         <div class="top-bar">
             <div class="container-fluid">
                 <div class="row">
@@ -40,9 +40,9 @@
                 </div>
             </div>
         </div>
-        <!-- Top bar End -->
+        Top bar End
         
-        <!-- Nav Bar Start -->
+        Nav Bar Start
         <div class="nav">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -79,9 +79,9 @@
                 </nav>
             </div>
         </div>
-        <!-- Nav Bar End -->      
+        Nav Bar End      
         
-        <!-- Bottom Bar Start -->
+        Bottom Bar Start
         <div class="bottom-bar">
             <div class="container-fluid">
                 <div class="row align-items-center">
@@ -95,9 +95,9 @@
                 </div>
             </div>
         </div>
-        <!-- Bottom Bar End -->  
+        Bottom Bar End  
         
-        <!-- Breadcrumb Start -->
+        Breadcrumb Start
         <div class="breadcrumb-wrap">
             <div class="container-fluid">
                 <ul class="breadcrumb">
@@ -106,9 +106,9 @@
                     <li class="breadcrumb-item active">상품리스트</li>
                 </ul>
             </div>
-        </div>
+        </div> -->
         <!-- Breadcrumb End -->
-        
+        <%@include file="../include/header.jsp" %>
         <!-- Product List Start -->
         <div class="product-view">
             <div class="container">
@@ -176,14 +176,14 @@
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="/resources/template/lib/easing/easing.min.js"></script>
-        <script src="/resources/template/lib/slick/slick.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/easing/easing.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
-        <script src="/resources/template/js/main.js"></script>
+        <script src="${contextPath}/resources/template/js/main.js"></script>
         
-        <script src="/resources/js/common/common.js"></script>
-        <script src="/resources/js/goods/goods.js"></script>
+        <script src="${contextPath}/resources/js/common/common.js"></script>
+        <script src="${contextPath}/resources/js/goods/goods.js"></script>
         <script>
         	$(document).ready(function(){
         		movePage(1);
@@ -199,5 +199,18 @@
         		callGetGoodsList();
         	}
         </script>
+        <!--Start of Tawk.to Script-->
+			<script type="text/javascript">
+				var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+				(function(){
+				var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+					s1.async=true;
+					s1.src='https://embed.tawk.to/6051161bf7ce18270930c865/1f0ubsnki';
+					s1.charset='UTF-8';
+					s1.setAttribute('crossorigin','*');
+					s0.parentNode.insertBefore(s1,s0);
+				})();
+			</script>
+		<!--End of Tawk.to Script-->
 	</body>
 </html>
