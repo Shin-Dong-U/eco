@@ -194,6 +194,23 @@ Template Stylesheet
        			});
         	});
         	
+        	$('.all_cate_search').click(function(e){
+    			mainSearch();
+			});
+    		
+    		$('#main_search').keydown(function(key) {
+    			if (key.keyCode == 13) { mainSearch(); }
+   			});
+        	
+     		//header 검색바 사용.  키워드를 이용하여 전체 카테고리에 대한 검색을 실행.
+        	function mainSearch(){
+        		var keyword = $('#main_search').val();
+				$('#category').val('').prop("selected",true);
+				$('#keyword').val(keyword);
+				
+				movePage(1); 
+        	}
+        	
         	function movePage(pageNum){
         		selectedPage(pageNum);
         		callGetGoodsList();
@@ -210,6 +227,7 @@ Template Stylesheet
 					s1.setAttribute('crossorigin','*');
 					s0.parentNode.insertBefore(s1,s0);
 				})();
+				
 			</script>
 		<!--End of Tawk.to Script-->
 	</body>
