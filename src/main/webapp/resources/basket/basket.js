@@ -83,8 +83,6 @@ var basketService=(function(){
 	
 	//장바구니에 상품넣기
 	function addGoodsAtBasket(orderinfo,csrf,callback){		
-		
-		
 		$.ajax({ 
 			type:'post',						
 			url:'/basket/new',					
@@ -93,7 +91,7 @@ var basketService=(function(){
 			beforeSend:function(xhr){
 				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
 			},
-			success:(result)=>{callback()},
+			success:(result)=>{console.log(result),callback(result)},
 			error:(log)=>{console.log("실패 "+log)}
 			
 		})

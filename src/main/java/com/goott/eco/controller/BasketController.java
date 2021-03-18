@@ -112,10 +112,15 @@ public class BasketController {
 		log.info("장바구니 추가 상품번호: "+orderInfo.get("goods_seq"));
 		log.info("장바구니 추가 상품수량: "+orderInfo.get("qty"));
 		log.info("장바구니 추가 옵션: "+orderInfo.get("orderOption"));
-		
-		return basketService.addGoodsAtBasket(orderInfo)>0?
-				new ResponseEntity<>("성공",HttpStatus.OK):
-				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		int result=basketService.addGoodsAtBasket(orderInfo);
+		String sendResult = null;
+		if(result==0) {
+			sendResult = "exist";
+		}else {
+			sendResult = "notexist";
+		}
+		log.info("결과: "+result+"/"+sendResult);
+		return new ResponseEntity<>(sendResult,HttpStatus.OK);
 	}
 	
 	//장바구니 수량 파악

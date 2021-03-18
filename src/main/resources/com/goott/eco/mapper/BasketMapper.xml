@@ -32,6 +32,10 @@
 		SELECT BASKET_SEQ FROM eco.basket WHERE cust_id = #{cust_id}
 	</select>
 	
+	<select id="checkSameGoods"  resultType='Long'>
+		SELECT * FROM eco.basket_detail WHERE goods_seq = #{goods_seq} and basket_seq=#{basket_seq} and purchase_yn='N' and delete_yn='N'
+	</select>
+	
 	<insert id="createBasket">
 		insert into BASKET values(seq_basket_seq.nextval,#{cust_id},default,#{cust_id},'','')
 	</insert>

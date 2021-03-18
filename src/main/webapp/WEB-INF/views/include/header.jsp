@@ -106,13 +106,13 @@
   <!-- admin1 pw1 -->   
   <!--  http://localhost/cust/account-->                   
                             <a href="http://localhost/orders/basket/list" class="nav-item nav-link">장바구니</a>
-                            <a href="http://localhost/cust/my-account" class="nav-item nav-link">내정보보기</a>
+                            <a href="http://localhost/cust/my-account" class="nav-item nav-link">마이페이지</a>
                             <sec:authorize access="isAnonymous()">
 										<a href="/home/login" class="nav-item nav-link">로그인</a>
 										<a href="/home/register" class="nav-item nav-link">회원가입</a>
 							</sec:authorize>
 							<sec:authorize access="isAuthenticated()">
-										<a class="nav-item nav-link">로그아웃</a>
+										<a class="nav-item nav-link logoutBtn">로그아웃</a>
 									</sec:authorize>
 									<form action="/sample/logout" method="post" class="logoutForm">
 										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

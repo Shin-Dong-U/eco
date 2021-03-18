@@ -21,13 +21,16 @@ var checkoutService=(function(){
 	}
 	
 	//상품 바로 주문하기
-	function orderNow(orderinfo){
+	function orderNow(orderinfo,csrf){
 		
 		$.ajax({ 
 			type:'post',						
 			url:'/checkout/now/',		
 			data:JSON.stringify(orderinfo),			
 			contentType: "application/json; charset=utf-8", 
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+			},
 			success:(order_seq)=>{location.href = "/orders/order/checkout?order_seq="+order_seq;
 					},	
 			error:(log)=>{console.log("실패 "+log)}
