@@ -419,13 +419,13 @@
     
        	//선택상품 장바구니에 담기
        	$('.addCart').on("click",function(){
-       		orderinfo={
+       		var orderinfo={
     	    		cust_id:"${memberId}",
     	    		qty:$(".orderQty").val(),
     	    		orderOption:$("#goodsReqOptionSeq option:selected").val(),    	    		
     	    		goods_seq:"${goodsDetail.GOODS_SEQ }"
     	    };
-       		csrf={"csrfHeaderName":csrfHeaderName,
+       		var csrf={"csrfHeaderName":csrfHeaderName,
        				"csrfTokenValue":csrfTokenValue};
        		
     	   
@@ -433,7 +433,7 @@
 				var check = result==="exist";
 				
     			if(check){
-    				var basketStr = "해당상품이 장바구니에 존재 합니다."
+    				var basketStr = "해당상품이 장바구니에 존재 합니다.";
     				$(".basketAlert").text(basketStr);
     				//$(".moveBasket").css("visibility", 'hidden')
     			}
@@ -442,31 +442,31 @@
     			
     			$('.moveBasket').on("click",function(){
     				window.location.href = 'http://localhost/orders/basket/list';
-    			})
+    			});
     		});
     		
-       	})
+       	});
        	
        	$('.buyNow').on("click",function(){
-       		orderinfo={
+       		var orderinfo={
     	    		cust_id:"${memberId }",
     	    		qty:$(".orderQty").val(),
     	    		orderOption:$("#goodsReqOptionSeq option:selected").val(),
     	    		total_price:Number($(".orderQty").val())*Number("${goodsDetail.PRICE }"),
     	    		goods_seq:"${goodsDetail.GOODS_SEQ }"
     	    } 
-       		csrf={"csrfHeaderName":csrfHeaderName,
+       		var csrf={"csrfHeaderName":csrfHeaderName,
        				"csrfTokenValue":csrfTokenValue};
 		
 		
 	
 		checkoutService.orderNow(orderinfo,csrf);
-       	})
+       	});
        	
        	
        	    //하트
 				$('.wish').on('click', function () {
-				    console.log("haert click")
+				    console.log("haert click");
 				    var $button = $(this).children("i");
 				    if ($button.hasClass('far fa-heart')) {
 				        $button.attr('class','fa fa-heart');
@@ -485,7 +485,7 @@
 									var check = result==="exist";
 									
 					    			if(check){
-					    				var WishStr = "해당상품이 담아두기에 존재 합니다."
+					    				var WishStr = "해당상품이 담아두기에 존재 합니다.";
 					    				$(".WishAlert").text(basketStr);
 					    				//$(".moveBasket").css("visibility", 'hidden')
 					    			}
@@ -494,18 +494,19 @@
 					    			
 					    			$('.moveWish').on("click",function(){
 					    				window.location.href = 'http://localhost/orders/basket/wishlist';
-					    			})
+					    			});
 					    		});
 					    	
 				    }else if ($button.hasClass('fa fa-heart')) {
 				        $button.attr('class','far fa-heart');
 				        //삭제
 				        var goods_seq =  orderinfo.goods_seq;
-				        cust_id=${memberId};
+				      //@@@@@@@@@@@@@@@@@@이라인 에러나서 일단 막아놓았어요
+				        //cust_id=${memberId}; 
 						delWishGoods(cust_id,goods_seq);
 				    }
 				
-				})
+				});
 				      //담아두기에서 상품 삭제
 					function delWishGoods(cust_id,goods_seq){
 						csrf={"csrfHeaderName":csrfHeaderName,
@@ -513,7 +514,7 @@
 						
 						wishService.delWishGoods(cust_id,goods_seq,csrf,function(result){
 							showList();
-						})
+						});
 					}
         </script>
         <!--Start of Tawk.to Script-->
