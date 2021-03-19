@@ -218,6 +218,7 @@
                                         <!-- Pagination -->
 										<div class="col-md-12" id="pageDiv"></div>
 										
+										<sec:authorize access="isAuthenticated()">
                                         <div class="reviews-submit" id="write_review_div">
                                             <h4>Give your Review:</h4>
                                             <div class="nav-item dropdown">
@@ -242,6 +243,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        </sec:authorize>
                                     </div>
                                 </div>
 
