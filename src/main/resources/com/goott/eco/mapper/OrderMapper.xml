@@ -96,14 +96,16 @@
 		LEFT OUTER JOIN eco.delivery_main c
 		ON  b.order_seq IN c.order_seq where cust_id=#{cust_id} AND order_status=3 -->
 		
-		    SELECT a.qty,a.order_seq,a.goods_seq,to_char(b.regdate, 'yyyymmdd') regdate,c.goods_name,c.price,d.delivery_status
+		   SELECT a.qty,a.order_seq,a.goods_seq,to_char(b.regdate, 'yyyymmdd') regdate,c.goods_name,c.price,d.delivery_status,e.IMG_URL
 			  FROM order_detail a LEFT OUTER JOIN order_main b
 			  ON a.order_seq = b.order_seq
 			  LEFT OUTER JOIN goods c
 			  ON a.goods_seq = c.goods_seq
 			  LEFT OUTER JOIN delivery_main d
 			  ON a.order_seq = d.order_seq
-			   WHERE a.order_seq = #{order_seq}
+        LEFT OUTER JOIN goods_thumb_nail e
+        ON a.goods_seq = e.goods_seq
+			   WHERE a.order_seq = #{order_seq} AND e.MAIN_YN='Y'
 	</select>
 	
 	<select id="getOrderedList" resultType="hashMap">

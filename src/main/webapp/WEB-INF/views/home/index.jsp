@@ -237,6 +237,8 @@
         
         <script src="${contextPath}/resources/template/js/main.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="${contextPath}/resources/basket/wish.js?ver=9"></script>
+        <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
         <script type="text/javascript">
 			$("#1").on("click", function() {
 				location.href = "/cust/login1";
@@ -252,6 +254,15 @@
 						cartCount="("+result+")";
 						$(".cartCntBtn").text(cartCount);
 					});
+		    	}
+		    	heartCnt(cust_id);
+		        
+		    	function heartCnt(cust_id) {
+		    		var heartCount = 0;
+		    		wishService.countWishGoods(cust_id,function(result){
+		    			heartCount="("+result+")";
+		    			$(".wishCntBtn").text(heartCount);
+		    		});
 		    	}
 		</script>
 		

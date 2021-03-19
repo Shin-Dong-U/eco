@@ -174,7 +174,7 @@
                     </div> 
                     <div class="col-md-3">
                         <div class="user">
-                            <a href="wishlist.html" class="btn wishlist">
+                            <a href="/orders/basket/wishlist" class="btn wishlist">
                                 <i class="fa fa-heart"></i>
                                 <span class="wishCntBtn">(0)</span>
                             </a>

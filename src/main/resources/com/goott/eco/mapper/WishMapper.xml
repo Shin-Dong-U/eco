@@ -33,7 +33,7 @@
 	</select>
 	
 	<select id="checkSameGoods"  resultType='Long'>
-		SELECT count(*) FROM eco.wish_detail WHERE goods_seq = #{goods_seq} and wish_seq=#{wish_seq} and purchase_yn='N' and delete_yn='N'
+		SELECT count(*) FROM eco.wish_detail WHERE goods_seq = #{goods_seq} and wish_seq=(SELECT wish_seq FROM WISH where cust_id=#{cust_id} ) and purchase_yn='N' and delete_yn='N'
 	</select>
 	
 	<insert id="createWish">

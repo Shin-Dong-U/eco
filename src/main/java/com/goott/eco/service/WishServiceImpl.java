@@ -51,7 +51,6 @@ public class WishServiceImpl implements WishService {
 	public int addGoodsAtWish(HashMap<String,Object> orderInfo) {
 	
 		Long checkExist = wishMapper.checkExistWish(orderInfo);
-		orderInfo.put("basket_seq", checkExist);
 		//Long checkExist = basketMapper.checkExistBasket(cust_id);
 		log.info("checkExist: "+checkExist);
 		
@@ -62,7 +61,7 @@ public class WishServiceImpl implements WishService {
 			return wishMapper.addGoodsAtWish(orderInfo);
 			
 		}else if(checkExist!=0L) {
-			if(wishMapper.checkSameGoods(orderInfo) !=null) {
+			if(wishMapper.checkSameGoods(orderInfo) !=0L) {
 				return 0;
 			}
 			return wishMapper.addGoodsAtWish(orderInfo);

@@ -169,7 +169,7 @@
                                         <div class="action">
                                             <a class="btn addCart" ><i class="fa fa-shopping-cart"></i>장바구니</a>
                                             <a class="btn buyNow" href="#"><i class="fa fa-shopping-bag"></i>바로구매</a>
-                                         	<a class="btn wish" href="#"><i class="far fa-heart"></i>담아두기</a>
+                                         	<a class="btn wish" href="#" style="margin-left: 10px;"><i class="far fa-heart wishHeart"></i>담아두기</a>
                                         </div>
                                     </div>
                                 </div>
@@ -420,7 +420,41 @@
 				$(".cartCntBtn").text(cartCount);
 			});
     	}
+    	
+    	heartCnt(cust_id);
         
+    	function heartCnt(cust_id) {
+			var heartCount = 0;
+			wishService.countWishGoods(cust_id,function(result){
+				heartCount="("+result+")";
+				$(".wishCntBtn").text(heartCount);
+			});
+    	}
+    	
+    	heartChaeck(cust_id);
+    	function heartChaeck(cust_id) {
+				       		orderinfo={
+				    	    		cust_id:"${memberId}",
+				    	    		qty:$(".orderQty").val(),
+				    	    		orderOption:$("#goodsReqOptionSeq option:selected").val(),    	    		
+				    	    		goods_seq:"${goodsDetail.GOODS_SEQ }"
+				    	    };
+				       		
+				       		csrf={"csrfHeaderName":csrfHeaderName,
+				       				"csrfTokenValue":csrfTokenValue};
+				       		
+				    	   
+				    		wishService.addGoodsAtWish(orderinfo,csrf,function(result){
+								var check = result==="exist";
+								
+				    		if(check){
+				    			 $(".wishHeart").attr('class','fa fa-heart');
+				   			}
+    					})
+    		}
+    	
+    	
+    	
        	//리뷰 페이지 이동 
     	function movePage(pageNum){
     		selectedPage(pageNum);
@@ -526,7 +560,7 @@
 				   				"csrfTokenValue":csrfTokenValue};
 						
 						wishService.delWishGoods(cust_id,goods_seq,csrf,function(result){
-							showList();
+							
 						})
 					}
        	

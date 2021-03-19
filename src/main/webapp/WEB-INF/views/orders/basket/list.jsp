@@ -128,6 +128,7 @@
         <!-- Template Javascript -->
         <script src="${contextPath}/resources/template/js/main.js?var=8"></script>
         <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
+         <script src="${contextPath}/resources/basket/wish.js?ver=9"></script>
 		<script src="${contextPath}/resources/basket/transferTime.js"></script>
 		<script src="${contextPath}/resources/order/checkout.js?ver=3"></script>
     </body>
@@ -150,7 +151,15 @@
     	$(".checkoutBtn").css("visibility", 'visible')
     })
  
-  
+  heartCnt(cust_id);
+        
+    	function heartCnt(cust_id) {
+			var heartCount = 0;
+			wishService.countWishGoods(cust_id,function(result){
+				heartCount="("+result+")";
+				$(".wishCntBtn").text(heartCount);
+			});
+    	}
     
     
     //check out button 장바구니목록 주문

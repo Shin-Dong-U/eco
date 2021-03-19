@@ -54,7 +54,7 @@ public class BasketServiceImpl implements BasketService {
 	public int addGoodsAtBasket(HashMap<String,Object> orderInfo) {
 	
 		Long checkExist = basketMapper.checkExistBasket(orderInfo);
-		orderInfo.put("basket_seq", checkExist);
+		
 		//Long checkExist = basketMapper.checkExistBasket(cust_id);
 
 		if(checkExist==0L || checkExist==null) {

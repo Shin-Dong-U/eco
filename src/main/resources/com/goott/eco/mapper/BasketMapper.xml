@@ -34,7 +34,7 @@
 	</select>
 	
 	<select id="checkSameGoods"  resultType='Long'>
-		SELECT count(*) FROM eco.basket_detail WHERE goods_seq = #{goods_seq} and basket_seq=#{basket_seq} and purchase_yn='N' and delete_yn='N'
+		SELECT count(*) FROM eco.basket_detail WHERE goods_seq = #{goods_seq} and basket_seq=(SELECT basket_seq FROM BASKET where cust_id=#{cust_id} ) and purchase_yn='N' and delete_yn='N'
 	</select>
 	
 	<insert id="createBasket">

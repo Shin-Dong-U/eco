@@ -146,7 +146,15 @@
     var csrfTokenValue="${_csrf.token}";
     
 
-
+    heartCnt(cust_id);
+    
+	function heartCnt(cust_id) {
+		var heartCount = 0;
+		wishService.countWishGoods(cust_id,function(result){
+			heartCount="("+result+")";
+			$(".wishCntBtn").text(heartCount);
+		});
+	}
     
     
   	//상품제목 <p>클릭시
@@ -211,7 +219,6 @@
 	function wishCnt(cust_id) {
 		var wishCount = 0;
 		wishService.countWishGoods(cust_id,function(result){
-			console.log("wish:"+wishCount)
 			wishCount="("+result+")";
 			$(".wishCntBtn").text(wishCount);
 		})
@@ -267,7 +274,7 @@
        		var goods_seq =  $(this).data("goods_seq");
        		orderinfo={
     	    		cust_id:"${memberId}",
-    	    		qty:$(".orderQty").val(),
+    	    		qty:1,//$(".orderQty").val(),
     	    		orderOption:"",//$("#goodsReqOptionSeq option:selected").val(),    	    		
     	    		goods_seq:goods_seq
     	    };
