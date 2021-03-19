@@ -207,6 +207,22 @@
 			e.preventDefault();
         	$('.logoutForm').submit();
         	
-        })  
+        });
+		
+		//검색기능 
+		$('.all_cate_search').click(function(e){
+			mainSearch();
+		});
+		
+		$('#main_search').keydown(function(key) {
+			if (key.keyCode == 13) { mainSearch(); }
+		});
+    	
+ 		//header 검색바 사용.  키워드를 이용하여 전체 카테고리에 대한 검색을 실행.
+    	function mainSearch(){
+    		var keyword = $('#main_search').val();
+			
+			location.href = '/goods?keyword=' + keyword;
+    	}
         
         </script>
