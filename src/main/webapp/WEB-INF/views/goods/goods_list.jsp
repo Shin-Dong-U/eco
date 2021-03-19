@@ -215,6 +215,17 @@ Template Stylesheet
         		selectedPage(pageNum);
         		callGetGoodsList();
         	}
+        	
+        	var cust_id = "${memberId}";
+           	cartCnt(cust_id);
+              
+           	function cartCnt(cust_id) {
+       			var cartCount = 0;
+       			basketService.countBasketGoods(cust_id,function(result){
+       				cartCount="("+result+")";
+       				$(".cartCntBtn").text(cartCount);
+       			});
+           	}
         </script>
         <!--Start of Tawk.to Script-->
 			<script type="text/javascript">

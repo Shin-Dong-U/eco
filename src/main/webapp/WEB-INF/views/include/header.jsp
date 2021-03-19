@@ -171,10 +171,10 @@
                             <input type="text" placeholder="Search" id="main_search">
                             <button class="all_cate_search"><i class="fa fa-search"></i></button>
                         </div>
-                    </div>
+                    </div> 
                     <div class="col-md-3">
                         <div class="user">
-                            <a href="wishlist.html" class="btn wishlist">
+                            <a href="/orders/basket/wishlist" class="btn wishlist">
                                 <i class="fa fa-heart"></i>
                                 <span class="wishCntBtn">(0)</span>
                             </a>
@@ -194,16 +194,6 @@
 	//카트 상품 갯수 표시
 		var cust_id = "${memberId}";
 		
-		if(cust_id=!null){
-			cartCnt(cust_id)
-		}
-		function cartCnt(cust_id) {
-			var cartCount = 0;
-			basketService.countBasketGoods(cust_id,function(result){
-				cartCount="("+result+")";
-				$(".cartCntBtn").text(cartCount);
-			});
-    	}
 		
 		$(".logoutBtn").on("click",function(e){
 			e.preventDefault();

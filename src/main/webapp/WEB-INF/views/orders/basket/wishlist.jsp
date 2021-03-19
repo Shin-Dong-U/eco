@@ -137,8 +137,8 @@
     var cust_id = "${memberId}";
 	cartCnt(cust_id);
     $(document).ready(function(){
-    	showList();
-    	wishCnt();
+    	showList(cust_id);
+    	wishCnt(cust_id);
     	//var cust_id $(".sessionId").val();
     });
     /* CSRF 데이터 변수 저장 */
@@ -146,7 +146,15 @@
     var csrfTokenValue="${_csrf.token}";
     
 
-
+    heartCnt(cust_id);
+    
+	function heartCnt(cust_id) {
+		var heartCount = 0;
+		wishService.countWishGoods(cust_id,function(result){
+			heartCount="("+result+")";
+			$(".wishCntBtn").text(heartCount);
+		});
+	}
     
     
   	//상품제목 <p>클릭시
@@ -211,7 +219,6 @@
 	function wishCnt(cust_id) {
 		var wishCount = 0;
 		wishService.countWishGoods(cust_id,function(result){
-			console.log("wish:"+wishCount)
 			wishCount="("+result+")";
 			$(".wishCntBtn").text(wishCount);
 		})
@@ -232,7 +239,7 @@
 					str+="<tr>"
 		                +"   <td>"
 		                +"        <div class='img'>"
-		                +"            <a href=''><img src='/resources/template/img/product-1.jpg' alt='Image'></a>"		               
+		                +"            <a href=''><img src='"+wishList[i].IMG_URL+"' alt='Image'></a>"		               
 		                +"            <p data-goods_seq='"+wishList[i].GOODS_SEQ+"'>"+wishList[i].GOODS_NAME+"</p>"
 		                +"        </div>"
 		                +"    </td>"
@@ -267,7 +274,7 @@
        		var goods_seq =  $(this).data("goods_seq");
        		orderinfo={
     	    		cust_id:"${memberId}",
-    	    		qty:$(".orderQty").val(),
+    	    		qty:1,//$(".orderQty").val(),
     	    		orderOption:"",//$("#goodsReqOptionSeq option:selected").val(),    	    		
     	    		goods_seq:goods_seq
     	    };

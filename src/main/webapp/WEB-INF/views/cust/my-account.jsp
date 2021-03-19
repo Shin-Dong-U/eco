@@ -110,13 +110,13 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
+                    <!-- <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a> -->
         <!--주문목록조회  -->
-        			<a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i> 배송정보입력(업체)</a>
+        			
                     <sec:authorize access="hasAuthority('ROLE_COMPANY')">
                    		<a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i> 배송정보입력(업체)</a>
 					</sec:authorize>
-                    <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i> 주문정보</a>
+                    <a class="nav-link active" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i> 주문정보</a>
                     <sec:authorize access="hasAuthority('ROLE_COMPANY')">
                     	<a class="nav-link" id="goods-ins-nav" data-toggle="pill" href="#goods-ins-tab" role="tab"><i class="fa fa-shopping-bag"></i>상품등록</a>
               		</sec:authorize>
@@ -133,13 +133,13 @@
             </div>
             <div class="col-md-9">
                 <div class="tab-content">
-                    <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
+                <!--     <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
                         <h4>Dashboard</h4>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac mi viverra dictum. In efficitur ipsum diam, at dignissim lorem tempor in. Vivamus tempor hendrerit finibus. Nulla tristique viverra nisl, sit amet bibendum ante suscipit non. Praesent in faucibus tellus, sed gravida lacus. Vivamus eu diam eros. Aliquam et sapien eget arcu rhoncus scelerisque.
                         </p> 
-                    </div>
-                    <div class="tab-pane fade" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
+                    </div> -->
+                    <div class="tab-pane fade show active" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                <thead class="thead-dark">
@@ -427,6 +427,7 @@
         <!--add JavaScript  -->
         <script src="${contextPath}/resources/order/checkout.js?ver=2"></script>
         <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
+         <script src="${contextPath}/resources/basket/wish.js?ver=9"></script>
         
         <script type="text/javascript">
         $(document).ready(function(){
@@ -446,10 +447,20 @@
         	$('.logoutForm').submit();
         	
         })  
+          var cust_id="${memberId}";
+          heartCnt(cust_id);
+        
+    	function heartCnt(cust_id) {
+			var heartCount = 0;
+			wishService.countWishGoods(cust_id,function(result){
+				heartCount="("+result+")";
+				$(".wishCntBtn").text(heartCount);
+			});
+    	}
        
         
         
-        var cust_id="${memberId}";
+      
 
       //주문 리스트 보기
 		function showOrderedInfo(cust_id){		
@@ -755,7 +766,7 @@ $("#modal_btn_modify").on("click",function(){
 $("#modal_btn_submit").on("click",function(){
 
 	memberId=$(this).parent().parent().parent().children().children().find("#memberId").val();
-	alert(memberId);
+	//alert(memberId);
 	$(this).parent().parent().parent().children().children().find("#memberId").css({"border": "2px solid blue"});
 	var $form=$(this).parent().parent().parent().children().children();
 	var birth=$form.find("#birth").val();
@@ -947,7 +958,7 @@ $(".close1").on("click",function(){
 var csrfHeaderName="${_csrf.headerName}";
 var csrfTokenValue="${_csrf.token}";
 
-console.log("csrfHeaderName: "+ csrfHeaderName) ;
+
 
 var modify_value= $("#modify_value").val;
 var memId="${memberId}";
@@ -965,7 +976,7 @@ $("#account-nav").on("click", function(){
 		+ '	<div class="row" id="cust_detailChat">'
 		+ '		<div class="col-md-6">'
 		+ '			<label>Password</label>'
-		+ '			<input class="form-control" type="text" id="password" name="password">'
+		+ '			<input class="form-control" type="password" id="password" name="password">'
 		+ '		</div>'
 		+ '		<div class="col-md-6">'
 		+ '			<label>　</label>'
@@ -1142,19 +1153,31 @@ function popUP() {
 }
 </script>
         
-        	<script>
+ <script>
+
+ 
+ 
 	//카트 상품 갯수 표시
-		if(cust_id=!null){
-			cartCnt(cust_id);
-		}
-		
-		function cartCnt(cust_id) {
+		var cust_id = "${memberId}";
+    	cartCnt(cust_id);
+       
+    	function cartCnt(cust_id) {
 			var cartCount = 0;
 			basketService.countBasketGoods(cust_id,function(result){
 				cartCount="("+result+")";
 				$(".cartCntBtn").text(cartCount);
 			});
     	}
+    	
+    	 heartCnt(cust_id);
+    	 
+    		function heartCnt(cust_id) {
+    			var heartCount = 0;
+    			wishService.countWishGoods(cust_id,function(result){
+    				heartCount="("+result+")";
+    				$(".wishCntBtn").text(heartCount);
+    			});
+    		}
         </script>
         
         

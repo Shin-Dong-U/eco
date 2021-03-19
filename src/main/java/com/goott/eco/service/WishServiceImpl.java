@@ -46,23 +46,22 @@ public class WishServiceImpl implements WishService {
 		return wishMapper.purGoodsAtWish(cust_id,goods_seq);
 	}
 
-	//상품 장바구니에 추가
+	//상품 담아두기에 추가
 	@Override
 	public int addGoodsAtWish(HashMap<String,Object> orderInfo) {
 	
 		Long checkExist = wishMapper.checkExistWish(orderInfo);
-		orderInfo.put("basket_seq", checkExist);
 		//Long checkExist = basketMapper.checkExistBasket(cust_id);
 		log.info("checkExist: "+checkExist);
 		
-		if(checkExist==0) {
+		if(checkExist==0L || checkExist==null) {
 			int createBasket = wishMapper.createWish(orderInfo);
 			//int createBasket = basketMapper.createBasket(cust_id);
 			log.info("createBasket: "+createBasket);
 			return wishMapper.addGoodsAtWish(orderInfo);
 			
-		}else if(checkExist!=0) {
-			if(wishMapper.checkSameGoods(orderInfo) !=null) {
+		}else if(checkExist!=0L) {
+			if(wishMapper.checkSameGoods(orderInfo) !=0L) {
 				return 0;
 			}
 			return wishMapper.addGoodsAtWish(orderInfo);

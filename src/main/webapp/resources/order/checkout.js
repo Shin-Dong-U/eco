@@ -140,7 +140,7 @@ var checkoutService=(function(){
 			beforeSend:function(xhr){
 				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
 			},
-			success:(result)=>{alert("주문확정 결과: "+result),
+			success:(result)=>{
 				location.href = "/cust/my-account"},	
 			error:(log)=>{console.log("실패 "+log)}
 			})
@@ -158,7 +158,7 @@ var checkoutService=(function(){
 			beforeSend:function(xhr){
 				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
 			},
-			success:(result)=>{alert("송장번호 입력: "+result),
+			success:(result)=>{
 				location.href = "/cust/my-account"},	
 			error:(log)=>{console.log("실패 "+log)}
 			})		

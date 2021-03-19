@@ -311,7 +311,9 @@
         <script src="${contextPath}/resources/template/js/main.js"></script>
         
         <!--add js  -->
-        <script src="${contextPath}/resources/order/checkout.js?var=2"></script>
+        <script src="${contextPath}/resources/order/checkout.js?var=3"></script>
+        <script src="${contextPath}/resources/basket/wish.js?ver=9"></script>
+        <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
         <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     </body>
    
@@ -330,6 +332,25 @@
     var orderInfo;
     var order_seq = ${order_seq};
 	
+	heartCnt(cust_id);
+	    
+		function heartCnt(cust_id) {
+			var heartCount = 0;
+			wishService.countWishGoods(cust_id,function(result){
+				heartCount="("+result+")";
+				$(".wishCntBtn").text(heartCount);
+			});
+		}
+    
+	cartCnt(cust_id);
+   
+	function cartCnt(cust_id) {
+		var cartCount = 0;
+		basketService.countBasketGoods(cust_id,function(result){
+			cartCount="("+result+")";
+			$(".cartCntBtn").text(cartCount);
+		});
+	}
 	
     $(".writeShipInfoBtn").on('click',function(){
     	var csrf={"csrfHeaderName":csrfHeaderName,

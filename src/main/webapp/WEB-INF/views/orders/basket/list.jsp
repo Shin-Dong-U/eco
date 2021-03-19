@@ -128,6 +128,7 @@
         <!-- Template Javascript -->
         <script src="${contextPath}/resources/template/js/main.js?var=8"></script>
         <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
+         <script src="${contextPath}/resources/basket/wish.js?ver=9"></script>
 		<script src="${contextPath}/resources/basket/transferTime.js"></script>
 		<script src="${contextPath}/resources/order/checkout.js?ver=3"></script>
     </body>
@@ -150,7 +151,15 @@
     	$(".checkoutBtn").css("visibility", 'visible')
     })
  
-  
+  heartCnt(cust_id);
+        
+    	function heartCnt(cust_id) {
+			var heartCount = 0;
+			wishService.countWishGoods(cust_id,function(result){
+				heartCount="("+result+")";
+				$(".wishCntBtn").text(heartCount);
+			});
+    	}
     
     
     //check out button 장바구니목록 주문
@@ -181,6 +190,7 @@
 		var goods_seq =  $(this).data("goods_seq");
 		delBasketGoods(cust_id,goods_seq);
 		$(".checkoutBtn").css("visibility", 'hidden')
+		cartCnt(cust_id);
 		showList();
 	});
   	
@@ -242,7 +252,7 @@
 					str+="<tr>"
 		                +"   <td>"
 		                +"        <div class='img'>"
-		                +"            <a href=''><img src='/resources/template/img/product-1.jpg' alt='Image'></a>"		               
+		                +"            <a href=''><img src='"+basketList[i].IMG_URL+"' alt='Image'></a>"		               
 		                +"            <p data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"+basketList[i].GOODS_NAME+"</p>"
 		                +"        </div>"
 		                +"    </td>"
