@@ -42,7 +42,7 @@ var wishService=(function(){
 			beforeSend:function(xhr){
 				xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
 			},
-			success:(result)=>{callback()},
+			success:(result)=>{callback(), heartCnt(cust_id)},
 			error:(log)=>{console.log("실패 "+log)}
 		
 		})

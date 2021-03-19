@@ -379,8 +379,8 @@
     		orderInfo = checkoutInfo;
 			var address=$(".addressInfomation");
 			var str="";
-			
-				str+="<h2>배송 정보(주문번호: "+checkoutInfo.ORDER_SEQ+")</h2>"
+			/* (주문번호: "+checkoutInfo.ORDER_SEQ+") */
+				str+="<h2>배송 정보</h2>"
 					+"	<div class='divBind'>	"
 					+"  	 <div class='row'>"
 	                +"    	    	<div class='col-md-6'>"

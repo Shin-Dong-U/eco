@@ -378,7 +378,28 @@
 		    </div>
 		  </div>
 		</div>
+		<!-- modal 시작 -->
 		
+<div class="modal" id="totalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header ">
+				<h5 id="total_header"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div id="detail_chat"></div>
+			</div>
+			<div class="modal-footer">
+				<span class="basic">
+				<button type="button" id="close" class="btn close3" data-dismiss="modal">닫기</button>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
 	
         
         
@@ -552,6 +573,7 @@
 				        //삭제
 				        var goods_seq =  orderinfo.goods_seq;
 				        cust_id="${memberId}";
+				       
 						delWishGoods(cust_id,goods_seq);
 				    }
 				
@@ -579,6 +601,14 @@
 					s1.setAttribute('crossorigin','*');
 					s0.parentNode.insertBefore(s1,s0);
 				})();
+				
+			
+				
+				$(".close3").on("click",function(){
+					//display
+					$(".modal").hide();
+					location.reload();
+				});
 			</script>
 		<!--End of Tawk.to Script-->
     </body>

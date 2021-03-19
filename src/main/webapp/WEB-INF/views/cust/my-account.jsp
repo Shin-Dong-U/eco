@@ -36,7 +36,9 @@
 			#confirm_check {
 				display: none
 			}
-			
+			.custRemoveButton{
+				display: none
+			}
 			#modify_check {
 				display: none
 			}
