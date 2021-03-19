@@ -115,7 +115,7 @@ public class PageController {
 //		
 //	}
 
-	@GetMapping("/home/index")
+	@GetMapping({"", "/home/index"})
 	public String index(Model model) {
 		log.info("index페이지 이동");
         return "home/index";
