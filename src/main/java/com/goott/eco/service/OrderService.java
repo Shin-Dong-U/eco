@@ -24,4 +24,6 @@ public interface OrderService {
 	public int orderCommit(Long order_seq, Long point,String cust_id);
 	
 	public List<HashMap<String,Object>> getOrderedList(String cust_id);
+	
+	public List<HashMap<String,Object>> getOrderedListAll();
 }

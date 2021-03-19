@@ -80,6 +80,8 @@ public class OrderServiceImpl implements OrderService {
 		log.info(result);
 		return result;
 	}
+	
+
 
 
 	@Override
@@ -126,6 +128,12 @@ public class OrderServiceImpl implements OrderService {
 	public List<HashMap<String, Object>> getOrderedList(String cust_id) {
 		
 		return orderMapper.getOrderedList(cust_id);
+	}	
+	
+	@Override
+	public List<HashMap<String, Object>> getOrderedListAll() {
+		
+		return orderMapper.getOrderedListAll();
 	}	
 
 

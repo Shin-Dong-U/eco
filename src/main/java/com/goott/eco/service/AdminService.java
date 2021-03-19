@@ -10,7 +10,7 @@ import com.goott.eco.domain.MemberVO;
 public interface AdminService {
 //	public int getSampleData() throws Exception ;
 	/* 모든 관리자 정보 가져오기 */
-	public List<HashMap<String, Object>> getAdminList(); //(PageDTO page);
+	//public List<HashMap<String, Object>> getAdminList(); //(PageDTO page);
 	
 	/* 모든 관리자 정보 가져오기 */
 	//public List<MemberVO> getAdminList(); 

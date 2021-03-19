@@ -58,5 +58,12 @@ public interface AdminMapper {
 	/* 관리자가  관리자 변경 */	
 	public int modAdmin_admin(@Param("adminVO")AdminVO adminVO, @Param("loginId")String loginId);
 	
+	/* 회원  탈퇴 -> 복구 */
+	public int  regCust_Auth(String memberId);
+	
+	/* 회원이 존재 하는가?  */
+	public String getCustAuth(String memberId);
+	
+	
 	
 }

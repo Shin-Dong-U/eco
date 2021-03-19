@@ -284,9 +284,9 @@
 									<input type="button" class="btn btn-primary" id="btn_modify" value="Modify" />
 								</div>
 								<div id="confirm_check">
-									<input type="button" class="btn btn-primary" id="btn_modSubmit" value="Submit" />
-									<input type="button" class="btn btn-primary" id="btn_remSubmit" value="Remove" />
-									<input type="button" class="btn btn-primary" id="btn_modCancel" value="Cancel" />
+									<input type="button" class="btn btn-primary" id="btn_modSubmit" value="확인" />
+									<input type="button" class="btn btn-primary" id="btn_remSubmit" value="탈퇴" />
+									<input type="button" class="btn btn-primary" id="btn_modCancel" value="취소" />
 								</div>
 							</div>
 						</form>
@@ -361,7 +361,13 @@
 				<div id="detail_chat2"></div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn close1" data-dismiss="modal">닫기</button>
+				<span class="custRemoveButton">
+					<button type="button" class="btn custRemoveSubmit" >확인</button>
+					<button type="button" class="btn custRemoveCancel" >취소</button>
+				</span>
+				<span class="basic">
+				<button type="button" id="close1" class="btn close1" data-dismiss="modal">닫기</button>
+				</span>
 			</div>
 		</div>
 	</div>
@@ -508,7 +514,7 @@
       
 		 //주문 리스트 보기(업체)
 		function showShipListInfo(cust_id){		
-			checkoutService.getOrderList(cust_id,function(orderedInfoList){
+			checkoutService.getOrderAllList(function(orderedInfoList){
 				var shipOrderedInfoTable=$(".shipOrderedInfo");
 				var str="";
 
@@ -1073,30 +1079,83 @@ $("#btn_modSubmit").on("click", function(){
 
 
 
-/* 삭제버튼 클릭시 */
+/* 탈퇴버튼 클릭시 */
 $("#btn_remSubmit").on("click", function(){
 
-var confirmflag = confirm("정말로 삭제하시겠습니까?");
-	if (confirmflag == true) {
-		//alert("완료되었나요?");
-		customer.deleteMember(memId, 
+	//탈퇴 모달 display설정
+	$(".custRemoveButton").css("display","block");
+	$(".basic").css("display","none");
+	
+	//내용추가
+	$("#detail_chat2").html("정말로 탈퇴하시겠습니까?");
+	$("#total_header").html("삭제");
+	
+	//모달 보여주기
+	$("#totalModal").show();
+	
+//var confirmflag = confirm("정말로 삭제하시겠습니까?");
+//	if (confirmflag == true) {
+//		//alert("완료되었나요?");
+//		customer.deleteMember(memId, 
+//		csrf = {
+//				"csrfHeaderName" : csrfHeaderName,
+//				"csrfTokenValue" : csrfTokenValue
+//		}, 
+//		function(data) {
+//			if (data == "success") {
+//				//alert(data);	
+//			}
+//		});
+//		
+//		//display
+//		document.getElementById("confirm_check").style.display = "none";
+//		document.getElementById("modify_check").style.display = "block";
+//		/* 로그아웃 설정 */
+//		$('.logoutForm').submit();
+//	}
+});
+
+/* 삭제 - 모달 취소 */
+$(".custRemoveCancel").on("click",function(){
+	//display
+	$(".modal").hide();
+	$(".custRemoveButton").css("display","none");
+	$(".basic").css("display","block");
+});
+/* 삭제 - 모달 x */
+$(".close").on("click",function(){
+	//display
+	$(".modal").hide();
+	$(".custRemoveButton").css("display","none");
+	$(".basic").css("display","block");
+});
+
+/* 삭제 - 모달 확인 */
+$(".custRemoveSubmit").on("click",function(){
+	customer.deleteMember(
+		memId, 
 		csrf = {
-				"csrfHeaderName" : csrfHeaderName,
-				"csrfTokenValue" : csrfTokenValue
+			"csrfHeaderName" : csrfHeaderName,
+			"csrfTokenValue" : csrfTokenValue
 		}, 
 		function(data) {
 			if (data == "success") {
-				//alert(data);	
 			}
-		});
-		
-		//display
-		document.getElementById("confirm_check").style.display = "none";
-		document.getElementById("modify_check").style.display = "block";
-		/* 로그아웃 설정 */
-		$('.logoutForm').submit();
-	}
+	});
+			
+	//display
+	document.getElementById("confirm_check").style.display = "none";
+	document.getElementById("modify_check").style.display = "block";
+	
+	//display
+	$(".modal").hide();
+	$(".custRemoveButton").css("display","none");
+	
+	/* 로그아웃 설정 */
+	$('.logoutForm').submit();
+	
 });
+
 </script>
 
 
