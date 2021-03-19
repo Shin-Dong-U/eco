@@ -29,6 +29,7 @@ public interface GoodsMapper {
 	public List<Map<String, Object>> goodsComment(@Param("goodsSeq") int goodsSeq, @Param("start") int start);	
 	public int updateReview(GoodsCommentVO commentVO);
 	public int insertReview(GoodsCommentVO commentVO);
+	public int deleteReview(GoodsCommentVO commentVO);
 	
 	public int insertGoodsDetailImg(GoodsDetailImgVO imgVO);
 	public int updateGoodsOnlyGoodsDetailColumn(GoodsVO goodsVO);

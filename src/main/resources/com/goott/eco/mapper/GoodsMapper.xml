@@ -141,6 +141,14 @@
 			AND GOODS_COMMENT_SEQ = #{goods_comment_seq}
 	</update>
 	
+	<delete id="deleteReview" parameterType="com.goott.eco.domain.GoodsVO$GoodsCommentVO">
+		DELETE GOODS_COMMENT 
+		WHERE 
+			CUST_ID = #{cust_id}
+			AND GOODS_COMMENT_SEQ = #{goods_comment_seq}
+	</delete>
+	
+	
 	<insert id="insertReview" parameterType="com.goott.eco.domain.GoodsVO$GoodsCommentVO">
 		INSERT INTO GOODS_COMMENT(
 			  GOODS_COMMENT_SEQ

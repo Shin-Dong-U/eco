@@ -20,4 +20,5 @@ public interface GoodsService {
 	
 	public int updateReview(GoodsVO.GoodsCommentVO commentVO);
 	public int insertReview(GoodsVO.GoodsCommentVO commentVO);
+	public int deleteReview(GoodsVO.GoodsCommentVO commentVO);
 }

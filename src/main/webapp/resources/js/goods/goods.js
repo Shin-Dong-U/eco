@@ -96,6 +96,31 @@ var goodsService=(function(){
 		});
 	}
 	
+	function deleteComment(url, data, callback){
+		if(isRun === true) { return false; }
+		isRun = true;
+		
+		$.ajax({ 
+			type : 'delete',						
+			url : url,	
+			data : JSON.stringify(data),
+			contentType : "application/json;charset=UTF-8",
+			
+			success : function(result, status, xhr){
+				if(callback){
+					callback(result);
+				}
+				isRun = false;
+			}, error : function(e){
+				console.log(e);
+				isRun = false;
+			}, complete : function() {
+				commentInsertFormReset();
+				movePage(1);
+    		}
+		});
+	}
+	
 	function insertGoods(url, data, callback){
 		if(isRun === true) { return false; }
 		isRun = true;
@@ -124,7 +149,8 @@ var goodsService=(function(){
 		getCommentList : getCommentList,
 		updateComment : updateComment,
 		insertComment : insertComment,
-		insertGoods : insertGoods
+		insertGoods : insertGoods,
+		deleteComment : deleteComment
 	};
 	
 })();
@@ -204,7 +230,9 @@ function callGetCommentList(){
 				htmlStr += '<div class="reviews-submitted" id="commentDiv_' + result.commentList[i].GOODS_COMMENT_SEQ + '">';
 				htmlStr += '<div class="reviewer">' + result.commentList[i].NAME + ' - <span>' + result.commentList[i].REGDATE;
 				if(result.commentList[i].CUST_ID === memberId) {
-					htmlStr += '<span style="float:right"><a href="#this" onClick="modifyComment(' + result.commentList[i].GOODS_COMMENT_SEQ + ');">수정</a></span>';
+					htmlStr += '<span style="float:right">';
+					htmlStr += '<a href="#this" onClick="modifyComment(' + result.commentList[i].GOODS_COMMENT_SEQ + ');">수정</a> &nbsp;';
+					htmlStr += '<a href="#this" onClick="commentDelete(' + result.commentList[i].GOODS_COMMENT_SEQ + ');">삭제</a></span>';
 				}
 				htmlStr += '</span></div>';
 				
@@ -247,6 +275,19 @@ function callUpdateComment(goods_comment_seq){
 		$("#total_header").html("댓글");
 		$("#detail_chat").html("수정 되었습니다.");
 		//alert('수정 되었습니다.');
+	});
+}
+
+function callDeleteComment(goods_comment_seq){
+	const goodsSeq = $('#goodsSeq').val();
+	var url = '/goods/rest/' + goodsSeq + '/review/' + goods_comment_seq;
+
+	var data = {"goods_comment_seq" : goods_comment_seq, "goods_seq" : goodsSeq};
+	 
+	goodsService.deleteComment(url, data, function(result){
+		$("#totalModal").show();
+		$("#total_header").html("댓글");
+		$("#detail_chat").html("삭제 되었습니다.");
 	});
 }
 
@@ -380,6 +421,12 @@ function commentInsertFormReset(){
 //상세 - 리뷰 수정 실행
 function commentUpdate(goodsCommentSeq){
 	callUpdateComment(goodsCommentSeq);
+	commentReset();
+}
+
+//상세 - 리뷰 삭제 실행
+function commentDelete(goodsCommentSeq){
+	callDeleteComment(goodsCommentSeq);
 	commentReset();
 }
    	

@@ -174,6 +174,11 @@ public class GoodsServiceimpl implements GoodsService{
 	public int updateReview(GoodsCommentVO commentVO) {
 		return goodsDao.updateReview(commentVO);
 	}
+	
+	@Override
+	public int deleteReview(GoodsCommentVO commentVO) {
+		return goodsDao.deleteReview(commentVO);
+	}
 
 	@Override
 	public int insertReview(GoodsCommentVO commentVO) {

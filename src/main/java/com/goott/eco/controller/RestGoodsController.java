@@ -23,6 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -77,6 +78,20 @@ public class RestGoodsController {
 		commentVO.setCust_id(memberId);
 		
 		int record = goodsService.updateReview(commentVO);
+		return record == 1 ? new ResponseEntity<>(HttpStatus.OK)
+				:  new ResponseEntity<>(HttpStatus.BAD_REQUEST);//적당한 오류 코드 번호 찾아서 수정 필요.
+	}
+	
+	//리뷰 삭제
+	@DeleteMapping(value="/{goodsSeq}/review/{goodsCommentSeq}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
+	public ResponseEntity<Integer> deleteReview(HttpServletRequest request 
+			, @PathVariable int goodsSeq
+			, @RequestBody GoodsVO.GoodsCommentVO commentVO) {
+		String memberId = (String)request.getSession().getAttribute("memberId");
+		if(memberId == null || memberId.equals("")) { new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
+		commentVO.setCust_id(memberId);
+		
+		int record = goodsService.deleteReview(commentVO);
 		return record == 1 ? new ResponseEntity<>(HttpStatus.OK)
 				:  new ResponseEntity<>(HttpStatus.BAD_REQUEST);//적당한 오류 코드 번호 찾아서 수정 필요.
 	}
