@@ -198,5 +198,18 @@
 		where cust_id=#{adminVO.cust_id}
 	</update>
 
+	<!-- 회원 탈퇴 -> 복구 -->
+	<insert id="regCust_Auth">
+		INSERT INTO eco.cust_auth
+		VALUES(#{memberId}, 'ROLE_CUST')
+	</insert>
 	
+	<!-- 회원 존재 -->
+	<select id="getCustAuth" resultType="String">
+		SELECT case when count(*)=0 then 'false' else 'true' end
+		FROM eco.cust_auth 
+		WHERE memberId=#{memberId}
+	</select>
+
+
 </mapper>

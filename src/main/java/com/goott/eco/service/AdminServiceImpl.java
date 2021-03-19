@@ -163,22 +163,39 @@ public class AdminServiceImpl implements AdminService{
 		int v1=0, v2=0, v3 =0;
 		passwordEncoding(memberVO.getCustVO());
 		
+		//회원 정보 변경
 		v3 = adminDao.modAdmin_cust(memberVO.getCustVO(), loginId);
 		
+		//회원탈퇴???
+		//회원 가입여부 *존재*
+		if(memberVO.getCustVO().getMember_yn().equals("Y")) {
+			String exgist_auth=adminDao.getCustAuth(memberVO.getCustVO().getMemberId());
+			if(exgist_auth.equals("false")) {
+				adminDao.regCust_Auth(memberVO.getCustVO().getMemberId());
+			}
+		}else {
+			String exgist_auth=adminDao.getCustAuth(memberVO.getCustVO().getMemberId());
+			if(exgist_auth.equals("true")) {
+				custDao.deleteCustAuth(memberVO.getCustVO().getMemberId());
+			}
+		}
+		
+		
+		//관리자 정보 변경
 		if(newCustVO.getAdmin_yn().equals("Y")) {
 			v1=adminDao.modAdmin_admin(memberVO.getAdminVO(),loginId);
 		}
 		
+		//업체 정보 변경
 		if(newCustVO.getCompany_yn().equals("Y")) {
 			v2=adminDao.modAdmin_comp(memberVO.getCompVO(),loginId);
 		}
 		
-		
-		
 		System.out.println("v1: "+v1+" v2: "+v2+" v3:"+v3);
-
 		return 1;
 	}
+
+
 
 	public void passwordEncoding(CustVO custVO) {
 		if(custVO.getPassword() !=null && !custVO.getPassword().equals("")) {
@@ -189,10 +206,5 @@ public class AdminServiceImpl implements AdminService{
 		//custVO.setPassword(passwordEncoder.encode(custVO.getPassword()));
 	}
 
-	@Override
-	public List<HashMap<String, Object>> getAdminList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
