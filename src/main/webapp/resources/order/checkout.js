@@ -67,6 +67,20 @@ var checkoutService=(function(){
 		})
 	}	
 	
+	//주문정보 업체 리스트 가져오기
+	function getOrderAllList(callback){
+		
+	$.ajax({ 
+		type:'get',						
+		url:'/checkout/orderedlist',
+		data:JSON.stringify(),			
+		contentType: "application/json; charset=utf-8", 
+		success:(orderList)=>{
+			callback(orderList)},	
+		error:(log)=>{console.log("실패 "+log)}
+		})
+	}	
+	
 	//주문상세정보리스트 가져오기
 	function getOrderedDetail(cust_id,callback){
 		
@@ -176,7 +190,8 @@ var checkoutService=(function(){
 		orderCancel:orderCancel,
 		orderCommit:orderCommit,
 		insertShipInfoCom:insertShipInfoCom,
-		orderNow:orderNow
+		orderNow:orderNow,
+		getOrderAllList:getOrderAllList
 	};
 	
 })()

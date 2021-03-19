@@ -246,8 +246,11 @@
 			
 			
 			   var cust_id = "${memberId}";
-		    	cartCnt(cust_id);
-		       
+		    	if(cust_id !=null&&cust_id !=""){
+			   		cartCnt(cust_id);
+		    		heartCnt(cust_id);
+		    	}
+		    	
 		    	function cartCnt(cust_id) {
 					var cartCount = 0;
 					basketService.countBasketGoods(cust_id,function(result){
@@ -255,7 +258,7 @@
 						$(".cartCntBtn").text(cartCount);
 					});
 		    	}
-		    	heartCnt(cust_id);
+		    	
 		        
 		    	function heartCnt(cust_id) {
 		    		var heartCount = 0;
