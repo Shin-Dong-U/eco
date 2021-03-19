@@ -104,7 +104,9 @@ public class CustServiceImpl implements CustService{
 	/* 회원 탈퇴 */
 	@Override
 	public int deleteCust(String memberId) {
-		return custDao.deleteCust(memberId);
+		int v1 = custDao.deleteCust(memberId);
+		int v2 = custDao.deleteCustAuth(memberId);
+		return (v1==1 && v2==1) ? 1 :0;
 	}
 
 	public void passwordEncoding(CustVO custVO) {

@@ -47,4 +47,8 @@ public interface CustMapper {
 	/* 회원 삭제 */
 	public int deleteCust(String memberId);
 	
+	
+	/* 회원 삭제 */
+	public int deleteCustAuth(String memberId);
+	
 }
