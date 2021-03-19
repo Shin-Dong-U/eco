@@ -508,7 +508,7 @@
       
 		 //주문 리스트 보기(업체)
 		function showShipListInfo(cust_id){		
-			checkoutService.getOrderList(cust_id,function(orderedInfoList){
+			checkoutService.getOrderAllList(function(orderedInfoList){
 				var shipOrderedInfoTable=$(".shipOrderedInfo");
 				var str="";
 
