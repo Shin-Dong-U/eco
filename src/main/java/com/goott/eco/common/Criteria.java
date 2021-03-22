@@ -108,7 +108,7 @@ public class Criteria {
 	public void validCategory() {
 		if(this.category == null || this.category.length() == 0) {
 			return;
-		}else if(this.category.length() > 1) {
+		}else if(this.category.length() > 2) {
 			this.category = "";
 		}else if(!(this.category.charAt(0) >= 48 && this.category.charAt(0) <= 57)){//숫자가 아니면	
 			this.category = "";

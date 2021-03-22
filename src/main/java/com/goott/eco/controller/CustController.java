@@ -19,7 +19,7 @@ import com.goott.eco.service.CustService;
 
 
 @RestController
-@RequestMapping("/cust/*")
+@RequestMapping("/cust")
 public class CustController {
 
 	@Autowired
@@ -50,6 +50,16 @@ public class CustController {
 		return new ResponseEntity<>(custMap,HttpStatus.OK);
 	}
 
+	/* 아이디확인 */
+	@GetMapping(value="/idCheck/{memberId}", produces = {"text/plain; charset=UTF-8"})	
+	public ResponseEntity<String> idCheck(@PathVariable("memberId") String memberId) {
+		System.out.println("memberId: "+memberId);
+		String idCheck=custService.checkCustId(memberId);
+		System.out.println("idCheck: "+idCheck);
+		
+		return new ResponseEntity<>(idCheck,HttpStatus.OK);
+
+	}
 	
 	/* 비밀번호 확인 */
 	@PostMapping(value="/pwCheck", produces = {"text/plain; charset=UTF-8"})	
@@ -63,7 +73,7 @@ public class CustController {
 	
 	
 	/* 회원가입  - cust와 company */
-	@PostMapping(value="/join", produces="application/json; charset=UTF-8")
+	@PostMapping(value="/join", produces="text/plain; charset=UTF-8")
 	public ResponseEntity<String> joinCust(@RequestBody MemberVO memberVO) {
 		System.out.println("memberVO: "+memberVO);
 		return custService.joinCust(memberVO) == 1

@@ -19,6 +19,5 @@ public interface CompanyMapper {
 	/* 회원 수정 */
 	public int modifyCompany(CompanyVO compVO);
 	
-
 	
 }

@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	}
 	
 	/* Access Denied Handler */
-	//@Bean
+//	@Bean
 	//public AccessDeniedHandler accessDeniedHandler() {
 	//	return new CustomAccessDeniedHandler();	
 	//}
@@ -81,10 +81,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/cust/account").authenticated()
 			.antMatchers("/orders/basket/list").authenticated()
 			.antMatchers("/orders/order/checkout").authenticated()
-
 			.antMatchers("/home/my-account-order").authenticated()
 			.antMatchers("/orders/ship/writeShipInfo").authenticated()
 			.antMatchers("/orders/order/orderCheck").authenticated()
+			.antMatchers("/orders/basket/wishlist").authenticated()
 			.antMatchers("/cust/my-account").authenticated();
 			
 			//.antMatchers("/order/list").authenticated();
@@ -110,6 +110,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		/* 로그아웃 */
 		http.logout()
 			.logoutUrl("/sample/logout")
+			.logoutSuccessUrl("/home/index")
 			.invalidateHttpSession(true)
 			.deleteCookies("remember-me","JSESSION_ID");
 		
@@ -119,6 +120,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.tokenRepository(persistentTokenRepository())
 			.tokenValiditySeconds(604800);
 		
+		/* naver smart editor 설정 */
+		http.headers().frameOptions().sameOrigin();
+		//http.csrf().disable();
+		http.csrf()
+	        .ignoringAntMatchers("/goods/rest/**")
+	        .and();
+//		http.csrf().disable();
 	}
 
 	/* Authorization */

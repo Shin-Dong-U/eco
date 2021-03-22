@@ -51,5 +51,7 @@ public interface OrderMapper {
 	public int addPoint(@Param("order_seq")Long order_seq,@Param("point") Long point, @Param("cust_id")String cust_id);
 	
 	public List<HashMap<String,Object>> getOrderedList(String cust_id);
+	
+	public List<HashMap<String,Object>> getOrderedListAll();
 
 }

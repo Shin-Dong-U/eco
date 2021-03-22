@@ -8,11 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.goott.eco.domain.AdminVO;
+import com.goott.eco.domain.MemberVO;
 import com.goott.eco.service.AdminService;
 
 @RestController
@@ -78,6 +80,37 @@ public class AdminController {
 				?new ResponseEntity<>("success", HttpStatus.OK)
 				:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+	/* 관리자가 수정 */
+	@PutMapping(value="/mofify/member/{loginId}", produces={"text/plain; charset=UTF-8"})
+	public ResponseEntity<String>confirmAdmin(@RequestBody MemberVO memberVO, 
+			@PathVariable("loginId")String loginId){
+		
+		System.out.println("memberId: "+memberVO);
+		System.out.println("loginId: "+loginId);
+		
+		return adminService.modAdmin_cust(memberVO, loginId) ==1
+				?new ResponseEntity<>("success", HttpStatus.OK)
+				:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

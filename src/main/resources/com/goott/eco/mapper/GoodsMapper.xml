@@ -4,6 +4,21 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goott.eco.mapper.GoodsMapper">
+<!-- 이부분 수정  -->
+	<resultMap id="goodsMap" type="hashMap" >
+		<result property="GOODS_SEQ" column="GOODS_SEQ"/>
+		<result property="COMP_SEQ" column="COMP_SEQ"/>
+		<result property="GOODS_NAME" column="GOODS_NAME"/>
+		<result property="PRICE" column="PRICE"/>
+		<result property="QTY" column="QTY"/>
+		<result property="MATERIAL" column="MATERIAL"/>
+		<result property="CATEGORY" column="CATEGORY"/>
+		<result property="REQ_OPTION" column="REQ_OPTION"/>
+		<result property="STAR" column="STAR"/>
+		<result property="COMP_NAME" column="COMP_NAME"/>
+		<result property="GOODS_DETAIL" column="GOODS_DETAIL" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+	
 	
 	<insert id="test" parameterType="map">
 		INSERT INTO TB_TEST VALUES(#{no}, #{val})
@@ -12,7 +27,7 @@
 	<select id="totalCountGoodsList" resultType="int" parameterType="com.goott.eco.common.Criteria">
 		SELECT COUNT(*) FROM GOODS  
 		WHERE
-			1=1
+			SALE_YN = 'Y'
 			<if test="category != null and category != ''">
 			AND CATEGORY = #{category}	
 			</if>
@@ -29,7 +44,7 @@
 		FROM GOODS G 
 			LEFT OUTER JOIN GOODS_THUMB_NAIL GTN ON G.GOODS_SEQ = GTN.GOODS_SEQ AND GTN.MAIN_YN = 'Y'
 		WHERE
-			1=1
+			G.SALE_YN = 'Y'
 			<if test="category != null and category != ''">
 			AND G.CATEGORY = #{category}	
 			</if>
@@ -40,10 +55,11 @@
 		OFFSET #{start} ROWS FETCH FIRST #{amount} ROWS ONLY
 	</select>
 	
-	<select id="goodsDetail" parameterType="int" resultType="map">
+	<select id="goodsDetail" parameterType="int" resultMap="goodsMap">
 		SELECT
 			  G.GOODS_SEQ, G.COMP_SEQ, G.GOODS_NAME, G.PRICE, G.QTY, G.MATERIAL, G.CATEGORY
-			, G.REQ_OPTION, to_char(G.GOODS_DETAIL) "GOODS_DETAIL"
+			, G.REQ_OPTION
+			, G.GOODS_DETAIL
 			, (SELECT NVL( ROUND( AVG( NVL(STAR,0) ), 1 ), 0) FROM GOODS_COMMENT WHERE GOODS_COMMENT.GOODS_SEQ = G.GOODS_SEQ) AS STAR
 			, COMP.COMP_NAME
 		FROM GOODS G
@@ -125,6 +141,14 @@
 			AND GOODS_COMMENT_SEQ = #{goods_comment_seq}
 	</update>
 	
+	<delete id="deleteReview" parameterType="com.goott.eco.domain.GoodsVO$GoodsCommentVO">
+		DELETE GOODS_COMMENT 
+		WHERE 
+			CUST_ID = #{cust_id}
+			AND GOODS_COMMENT_SEQ = #{goods_comment_seq}
+	</delete>
+	
+	
 	<insert id="insertReview" parameterType="com.goott.eco.domain.GoodsVO$GoodsCommentVO">
 		INSERT INTO GOODS_COMMENT(
 			  GOODS_COMMENT_SEQ
@@ -147,10 +171,10 @@
 		DELETE FROM GOODS WHERE GOODS_SEQ = #{goodsSeq}
 	</delete>
 	
-	<insert id="insertGoodsThumbNail" parameterType="com.goott.eco.domain.GoodsVO">
+	<insert id="insertGoodsThumbNail" parameterType="com.goott.eco.domain.GoodsVO$GoodsThumbNailVO">
 		INSERT INTO GOODS_THUMB_NAIL(
 			 GOODS_SEQ
-			,GOODS_THUM_NAIL_SEQ
+			,GOODS_THUMB_NAIL_SEQ
 			,IMG_URL
 			,MAIN_YN
 			,REGDATE
@@ -159,9 +183,9 @@
 			,EDITUSER
 		) VALUES (
 			#{goods_seq}
-			,(SELECT NVL(MAX(GOODS_THUM_NAIL_SEQ),0) + 1 FROM GOODS_THUMB_NAIL WHERE GOODS_SEQ = #{goods_seq})
-			,#{GoodsThumbNailVO.img_url}
-			,#{GoodsThumbNailVO.main_yn}
+			,(SELECT NVL(MAX(GOODS_THUMB_NAIL_SEQ),0) + 1 FROM GOODS_THUMB_NAIL WHERE GOODS_SEQ = #{goods_seq})
+			,#{img_url}
+			,(SELECT CASE WHEN NVL(MAX(GOODS_THUMB_NAIL_SEQ),0) = 0 THEN 'Y' ELSE 'N' END FROM GOODS_THUMB_NAIL WHERE GOODS_SEQ = #{goods_seq}) 
 			,SYSDATE
 			,#{reguser}
 			,NULL
@@ -171,5 +195,31 @@
 	<select id="goodsCategoryList" resultType="map">
 		SELECT CATE_SEQ, CATE_NAME FROM GOODS_CATEGORY ORDER BY CATE_SEQ ASC
 	</select>
-
+	
+	<insert id="insertGoodsDetailImg" parameterType="com.goott.eco.domain.GoodsVO$GoodsDetailImgVO">
+		INSERT INTO GOODS_DETAIL_IMG(
+			  GOODS_SEQ
+			, IMG_ORDER
+			, IMG_URL
+			, REGDATE
+			, REGUSER
+		) VALUES(
+			  #{goods_seq}
+			, #{img_order}
+			, #{img_url}
+			, SYSDATE
+			, #{reguser}
+		)
+	</insert>
+	
+	<!-- 상품 상세설명 컬럼만 업데이트 -->
+	<update id="updateGoodsOnlyGoodsDetailColumn" parameterType="com.goott.eco.domain.GoodsVO">
+		UPDATE GOODS SET 
+			GOODS_DETAIL = #{goods_detail}
+			, EDITDATE = SYSDATE
+			, EDITUSER = #{reguser} 
+		WHERE 
+			GOODS_SEQ = #{goods_seq}
+			AND COMP_SEQ = (SELECT COMP_SEQ FROM COMPANY WHERE CUST_ID = #{reguser})
+	</update>
 </mapper>

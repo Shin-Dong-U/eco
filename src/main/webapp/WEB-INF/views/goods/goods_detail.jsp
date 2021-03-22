@@ -129,7 +129,7 @@
                                     </div>
                                     <div class="product-slider-single-nav normal-slider">
                                     	<c:forEach var="thumbList" items="${thumbList }">
-                                        <div class="slider-nav-img"><img src="${thumbList.IMG_URL}" alt="Product Image"></div>
+                                        <div class="slider-nav-img"><img src="${thumbList.IMG_URL}" alt="Product Image" onerror="this.src='/resources/upload/img/default/no_img.jpg'"></div>
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -169,7 +169,7 @@
                                         <div class="action">
                                             <a class="btn addCart" ><i class="fa fa-shopping-cart"></i>장바구니</a>
                                             <a class="btn buyNow" href="#"><i class="fa fa-shopping-bag"></i>바로구매</a>
-                                         
+                                         	<a class="btn wish" href="#" style="margin-left: 10px;"><i class="far fa-heart wishHeart"></i>담아두기</a>
                                         </div>
                                     </div>
                                 </div>
@@ -218,6 +218,7 @@
                                         <!-- Pagination -->
 										<div class="col-md-12" id="pageDiv"></div>
 										
+										<sec:authorize access="isAuthenticated()">
                                         <div class="reviews-submit" id="write_review_div">
                                             <h4>Give your Review:</h4>
                                             <div class="nav-item dropdown">
@@ -242,6 +243,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        </sec:authorize>
                                     </div>
                                 </div>
 
@@ -334,21 +336,89 @@
         </div>
         <!-- Footer Bottom End -->       
         
+        <!--Basket Modal  -->
+        <div class="modal basketModal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">장바구니</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p class="basketAlert">장바구니에 해당 상품이 저장되었습니다</p>
+		      </div>
+		      <div class="modal-footer">
+		      <button type="button" class="btn btn-primary moveBasket">장바구니 이동하기</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">계속쇼핑하기</button>
+		        
+		      </div>
+		    </div>
+		  </div>
+		</div>
+        <!--Wish Modal  -->
+        <div class="modal wishModal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">담아두기</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p class="wishAlert">담아두기에 해당 상품이 저장되었습니다</p>
+		      </div>
+		      <div class="modal-footer">
+		      <button type="button" class="btn btn-primary moveWish">담아두기 이동하기</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">계속쇼핑하기</button>
+		        
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- modal 시작 -->
+		
+<div class="modal" id="totalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header ">
+				<h5 id="total_header"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div id="detail_chat"></div>
+			</div>
+			<div class="modal-footer">
+				<span class="basic">
+				<button type="button" id="close" class="btn close3" data-dismiss="modal">닫기</button>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+	
+        
+        
         <!-- Back to Top -->
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
         
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="/resources/template/lib/easing/easing.min.js"></script>
-        <script src="/resources/template/lib/slick/slick.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/easing/easing.min.js"></script>
+        <script src="${contextPath}/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
-        <script src="/resources/template/js/main.js"></script>
+        <script src="${contextPath}/resources/template/js/main.js"></script>
         
-        <script src="/resources/js/common/common.js"></script>
-        <script src="/resources/js/goods/goods.js"></script>
-        <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
+        <script src="${contextPath}/resources/js/common/common.js"></script>
+        <script src="${contextPath}/resources/js/goods/goods.js"></script>
+        <script src="${contextPath}/resources/basket/basket.js?ver=10"></script>
+        <script src="${contextPath}/resources/basket/wish.js?ver=10"></script>
         <script src="${contextPath}/resources/order/checkout.js?ver=3"></script>
         <script>
         $(document).ready(function(){
@@ -356,20 +426,65 @@
         	var rattingHtml = makeStarIconHtml(star);
         	$('#goods_ratting_div').html(rattingHtml);
         	
+			
+			
         	movePage(1);
      	});
         /* CSRF 데이터 변수 저장 */
         var csrfHeaderName="${_csrf.headerName}";
         var csrfTokenValue="${_csrf.token}";
+        var cust_id = "${memberId}";
+    	cartCnt(cust_id);
+       
+    	function cartCnt(cust_id) {
+			var cartCount = 0;
+			basketService.countBasketGoods(cust_id,function(result){
+				cartCount="("+result+")";
+				$(".cartCntBtn").text(cartCount);
+			});
+    	}
+    	
+    	heartCnt(cust_id);
         
-        
+    	function heartCnt(cust_id) {
+			var heartCount = 0;
+			wishService.countWishGoods(cust_id,function(result){
+				heartCount="("+result+")";
+				$(".wishCntBtn").text(heartCount);
+			});
+    	}
+    	
+    	heartChaeck(cust_id);
+    	function heartChaeck(cust_id) {
+				       		orderinfo={
+				    	    		cust_id:"${memberId}",
+				    	    		qty:$(".orderQty").val(),
+				    	    		orderOption:$("#goodsReqOptionSeq option:selected").val(),    	    		
+				    	    		goods_seq:"${goodsDetail.GOODS_SEQ }"
+				    	    };
+				       		
+				       		csrf={"csrfHeaderName":csrfHeaderName,
+				       				"csrfTokenValue":csrfTokenValue};
+				       		
+				    	   
+				    		wishService.addGoodsAtWish(orderinfo,csrf,function(result){
+								var check = result==="exist";
+								
+				    		if(check){
+				    			 $(".wishHeart").attr('class','fa fa-heart');
+				   			}
+    					})
+    		}
+    	
+    	
+    	
        	//리뷰 페이지 이동 
     	function movePage(pageNum){
     		selectedPage(pageNum);
     		callGetCommentList();
     	}
        	
-       	
+              	
 
     
        	//선택상품 장바구니에 담기
@@ -383,21 +498,27 @@
        		csrf={"csrfHeaderName":csrfHeaderName,
        				"csrfTokenValue":csrfTokenValue};
        		
-    	    console.log("장바구니cust_id: "+orderinfo.cust_id);
-    		console.log("장바구니qty: "+orderinfo.qty);
-    		console.log("장바구니orderOption: "+orderinfo.orderOption);
-    		console.log("장바구니goods_seq: "+orderinfo.goods_seq);
-    		basketService.addGoodsAtBasket(orderinfo,csrf,function(){
-    			alert("장바구니에 해당상품이 담겼습니다");
-        		if(window.confirm('장바구니로 이동하겠습니까??')){
-        			window.location.href = 'http://localhost/orders/basket/list';
-        		}
+    	   
+    		basketService.addGoodsAtBasket(orderinfo,csrf,function(result){
+				var check = result==="exist";
+				
+    			if(check){
+    				var basketStr = "이미  존재하는 상품입니다."
+    				$(".basketAlert").text(basketStr);
+    				//$(".moveBasket").css("visibility", 'hidden')
+    			}
+    			
+    			$(".basketModal").modal("show");    			
+    			cartCnt(cust_id)
+    			
+    			$('.moveBasket').on("click",function(){
+    				window.location.href = 'http://localhost/orders/basket/list';
+    			})
     		});
     		
        	})
        	
        	$('.buyNow').on("click",function(){
-       		console.log('바로구매')
        		orderinfo={
     	    		cust_id:"${memberId }",
     	    		qty:$(".orderQty").val(),
@@ -405,15 +526,90 @@
     	    		total_price:Number($(".orderQty").val())*Number("${goodsDetail.PRICE }"),
     	    		goods_seq:"${goodsDetail.GOODS_SEQ }"
     	    } 
+       		csrf={"csrfHeaderName":csrfHeaderName,
+       				"csrfTokenValue":csrfTokenValue};
 		
 		
-		console.log("바로구매cust_id: "+orderinfo.cust_id);
-		console.log("바로구매qty: "+orderinfo.qty);
-		console.log("바로구매orderOption: "+orderinfo.orderOption);
-		console.log("바로구매goods_seq: "+orderinfo.goods_seq);
-		checkoutService.orderNow(orderinfo);
+	
+		checkoutService.orderNow(orderinfo,csrf);
        	})
-      
+       	
+       	
+       	    //하트
+				$('.wish').on('click', function () {
+					
+				    var $button = $(this).children("i");
+				    if ($button.hasClass('far fa-heart')) {
+				        $button.attr('class','fa fa-heart');
+				        //추가
+					       		orderinfo={
+					    	    		cust_id:"${memberId}",
+					    	    		qty:$(".orderQty").val(),
+					    	    		orderOption:$("#goodsReqOptionSeq option:selected").val(),    	    		
+					    	    		goods_seq:"${goodsDetail.GOODS_SEQ }"
+					    	    };
+					       		csrf={"csrfHeaderName":csrfHeaderName,
+					       				"csrfTokenValue":csrfTokenValue};
+					       		
+					    	   
+					    		wishService.addGoodsAtWish(orderinfo,csrf,function(result){
+									var check = result==="exist";
+									
+					    			if(check){
+					    				var WishStr = "해당상품이 담아두기에 존재 합니다."
+					    				$(".WishAlert").text(WishStr);
+					    				//$(".moveBasket").css("visibility", 'hidden')
+					    			}
+					    			
+					    			$(".wishModal").modal("show");    			
+					    			heartCnt(cust_id);
+					    			$('.moveWish').on("click",function(){
+					    				window.location.href = 'http://localhost/orders/basket/wishlist';
+					    			})
+					    		});
+					    	
+				    }else if ($button.hasClass('fa fa-heart')) {
+				        $button.attr('class','far fa-heart');
+				        //삭제
+				        var goods_seq =  orderinfo.goods_seq;
+				        cust_id="${memberId}";
+				       
+						delWishGoods(cust_id,goods_seq);
+				    }
+				
+				})
+				      //담아두기에서 상품 삭제
+					function delWishGoods(cust_id,goods_seq){
+						csrf={"csrfHeaderName":csrfHeaderName,
+				   				"csrfTokenValue":csrfTokenValue};
+						
+						wishService.delWishGoods(cust_id,goods_seq,csrf,function(result){
+							
+						})
+					}
+       	
+       
         </script>
+        <!--Start of Tawk.to Script-->
+			<script type="text/javascript">
+				var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+				(function(){
+				var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+					s1.async=true;
+					s1.src='https://embed.tawk.to/6051161bf7ce18270930c865/1f0ubsnki';
+					s1.charset='UTF-8';
+					s1.setAttribute('crossorigin','*');
+					s0.parentNode.insertBefore(s1,s0);
+				})();
+				
+			
+				
+				$(".close3").on("click",function(){
+					//display
+					$(".modal").hide();
+					location.reload();
+				});
+			</script>
+		<!--End of Tawk.to Script-->
     </body>
 </html>

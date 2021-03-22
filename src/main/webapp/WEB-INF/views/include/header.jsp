@@ -12,24 +12,30 @@
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="eCommerce HTML Template Free Download" name="keywords">
         <meta content="eCommerce HTML Template Free Download" name="description">
-
+		<link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
         <!-- Favicon -->
-        <link href="/resources/template/img/favicon.ico" rel="icon">
-
+        <link href="${contextPath}/resources/template/img/favicon.ico" rel="icon">
+        
+        <!--  -->
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> 
+		
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
 
         <!-- CSS Libraries -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="/resources/template/lib/slick/slick.css" rel="stylesheet">
-        <link href="/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="/resources/template/css/style.css" rel="stylesheet">
+
         <style>
 			/* Account - Detail */
 			#confirm_check {
+				display: none
+			}
+			#test {
 				display: none
 			}
 			
@@ -44,42 +50,13 @@
 			/* Admin - 사용자 업체 관리자  */
 			.userBind {
 				display: flex;
+				text-align:center;
 			}
-			/* Admin - The Modal (background) */
-			.modal {
-				display: none; /* Hidden by default */
-				position: fixed; /* Stay in place */
-				z-index: 1; /* Sit on top */
-				left: 0;
-				top: 0;
-				width: 100%; /* Full width */
-				height: 100%; /* Full height */
-				overflow: auto; /* Enable scroll if needed */
-				background-color: rgb(0, 0, 0); /* Fallback color */
-				background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-			}
-			/* Admin - Modal Content Box Title */
-			.modal-content {
-				background-color: #fefefe;
-				margin: 15% auto; /* 15% from the top and centered */
-				padding: 20px;
-				border: 1px solid #888;
-				width: 50%; /* Could be more or less, depending on screen size */
-			}
-			/* Admin - The Close Button */
-			.close {
-				color: #aaa;
-				float: right;
-				font-size: 28px;
-				font-weight: bold;
-			}
-			/* Admin -  Modal*/
-			.close:hover, .close:focus {
-				color: black;
-				text-decoration: none;
-				cursor: pointer;
-			}
+		
 	</style>
+
+        <link href="${contextPath}/resources/template/css/style.css" rel="stylesheet">
+
     </head>
 
     <body>
@@ -131,11 +108,22 @@
   <!-- admin1 pw1 -->   
   <!--  http://localhost/cust/account-->                   
                             <a href="http://localhost/orders/basket/list" class="nav-item nav-link">장바구니</a>
-                            <a href="http://localhost/cust/my-account" class="nav-item nav-link">내정보보기</a>
+                            <a href="http://localhost/cust/my-account" class="nav-item nav-link">마이페이지</a>
+                            <sec:authorize access="isAnonymous()">
+										<a href="/home/login" class="nav-item nav-link">로그인</a>
+										<a href="/home/register" class="nav-item nav-link">회원가입</a>
+							</sec:authorize>
+							<sec:authorize access="isAuthenticated()">
+										<a class="nav-item nav-link logoutBtn">로그아웃</a>
+									</sec:authorize>
+									<form action="/sample/logout" method="post" class="logoutForm">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+										
+									</form>
                             <div class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
-                                    <a href="wishlist.html" class="dropdown-item">Wishlist</a>
+                                    <!-- <a href="wishlist.html" class="dropdown-item">Wishlist</a> -->
                                     <a href="login.html" class="dropdown-item">Login & Register</a>
                                     <a href="http://localhost/cust/my-account" class="dropdown-item">마이페이지</a>
                                 </div>
@@ -143,11 +131,22 @@
                         </div>
                         <div class="navbar-nav ml-auto">
                             <div class="nav-item dropdown">
-                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                               <%--  <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                                
                                 <div class="dropdown-menu">
-                                    <a href="" class="dropdown-item">Login</a>
-                                    <a href="" class="dropdown-item">Register</a>
-                                </div>
+									<sec:authorize access="isAnonymous()">
+										<a href="/home/login" class="dropdown-item">Login</a>
+										<a href="/home/register" class="dropdown-item">Register</a>
+									</sec:authorize>
+									<sec:authorize access="isAuthenticated()">
+										<a class="dropdown-item logoutBtn">Logout</a>
+									</sec:authorize>
+									<form action="/sample/logout" method="post" class="logoutForm">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+										
+									</form>
+								</div> --%>
+                                
                             </div>
                         </div>
                     </div>
@@ -163,23 +162,23 @@
                     <div class="col-md-3">
                         <div class="logo">
                             <a href="http://localhost/home/index">
-                                <img src="/resources/template/img/logo.png" alt="Logo">
+                                <img src="/resources/template/img/ecoL.png" alt="Logo">
                             </a>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="search">
-                            <input type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
+                            <input type="text" placeholder="Search" id="main_search">
+                            <button class="all_cate_search"><i class="fa fa-search"></i></button>
                         </div>
-                    </div>
+                    </div> 
                     <div class="col-md-3">
                         <div class="user">
-                            <a href="wishlist.html" class="btn wishlist">
+                            <a href="/orders/basket/wishlist" class="btn wishlist">
                                 <i class="fa fa-heart"></i>
-                                <span>(0)</span>
+                                <span class="wishCntBtn">(0)</span>
                             </a>
-                            <a href="cart.html" class="btn cart">
+                            <a href="/orders/basket/list" class="btn cart">
                                 <i class="fa fa-shopping-cart"></i>
                                <span class="cartCntBtn">(0)</span>
                             </a>
@@ -188,19 +187,34 @@
                 </div>
             </div>
         </div>
-        <!-- Bottom Bar End --> 
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-         <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
-        <script>
-      //카트 상품 갯수 표시
-     	 var cust_id = "${memberId}";
-		cartCnt(cust_id);
-    	function cartCnt(cust_id) {
-    		var cartCount = 0;
-    		basketService.countBasketGoods(cust_id,function(result){
-    			cartCount="("+result+")";
-    			$(".cartCntBtn").text(cartCount);
-    		})
-    		
+        <!-- Bottom Bar End -->
+
+	<script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
+	<script>
+	//카트 상품 갯수 표시
+		var cust_id = "${memberId}";
+		
+		
+		$(".logoutBtn").on("click",function(e){
+			e.preventDefault();
+        	$('.logoutForm').submit();
+        	
+        });
+		
+		//검색기능 
+		$('.all_cate_search').click(function(e){
+			mainSearch();
+		});
+		
+		$('#main_search').keydown(function(key) {
+			if (key.keyCode == 13) { mainSearch(); }
+		});
+    	
+ 		//header 검색바 사용.  키워드를 이용하여 전체 카테고리에 대한 검색을 실행.
+    	function mainSearch(){
+    		var keyword = $('#main_search').val();
+			
+			location.href = '/goods?keyword=' + keyword;
     	}
+        
         </script>

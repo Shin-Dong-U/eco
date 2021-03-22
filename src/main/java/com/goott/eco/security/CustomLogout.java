@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.extern.log4j.Log4j;
 
-@Controller
+//@Controller
 @Log4j
 public class CustomLogout {
 
 	
-	@GetMapping("/sample/logout")
+	//@GetMapping("/sample/logout")
 	public String loginInput(String error, String logout, Model model) {
 		
 		log.info("error: "+ error);
@@ -25,7 +25,7 @@ public class CustomLogout {
 			model.addAttribute("logout","Logout!!!");
 		}
 		
-		return "home/index";
+		return "/home/index";
 	}
 	
 }

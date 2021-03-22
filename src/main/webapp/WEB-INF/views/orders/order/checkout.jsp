@@ -87,8 +87,10 @@
                             <div class="checkout-payment">
                              
                                 <div class="checkout-btn">
-                                    <button class="payOrderBtn" disabled>결제하기</button>
-                                    <button class="deliveryBtn">배송정보 입력</button>
+                                
+                                	<button class="deliveryBtn"style="margin-bottom:5px">배송정보 입력</button>
+                                    <button class="payOrderBtn" style="visibility:hidden">결제하기</button>
+                                    
                                 </div>
                             </div> 
                         </div>
@@ -171,6 +173,27 @@
         </div>
         <!-- Footer End -->
         
+        <!--Basket Modal  -->
+        <div class="modal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">상품결제</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p class="errorMsg"></p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		
         <!-- Footer Bottom Start -->
         <div class="footer-bottom">
             <div class="container">
@@ -201,6 +224,8 @@
         
         <!--add js  -->
         <script src="${contextPath}/resources/order/checkout.js?var=3"></script>
+         <script src="${contextPath}/resources/basket/wish.js?ver=9"></script>
+         <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
         <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     </body>
    
@@ -215,11 +240,28 @@
 
     
     var cust_id = "${memberId}";
-    console.log("session id: "+cust_id);
     var orderInfo;
     var order_seq = ${order_seq};
-	console.log("order_seq"+order_seq);
 	
+   
+    cartCnt(cust_id);
+    
+	function cartCnt(cust_id) {
+		var cartCount = 0;
+		basketService.countBasketGoods(cust_id,function(result){
+			cartCount="("+result+")";
+			$(".cartCntBtn").text(cartCount);
+		});
+	}
+	heartCnt(cust_id);
+     
+ 	function heartCnt(cust_id) {
+			var heartCount = 0;
+			wishService.countWishGoods(cust_id,function(result){
+				heartCount="("+result+")";
+				$(".wishCntBtn").text(heartCount);
+			});
+ 	}
 	
     $(".deliveryBtn").on('click',function(){
     	var addressInfo ={
@@ -236,7 +278,7 @@
     	checkoutService.insertShipInfo(addressInfo,csrf);
     	
     	
-    	$(".payOrderBtn").attr("disabled", false);
+    	$(".payOrderBtn").css("visibility", 'visible')
     	})
     
     
@@ -245,10 +287,8 @@
     	
     	checkoutService.getShipInfo(cust_id,order_seq,function(checkoutInfo){
     		orderInfo = checkoutInfo;
-    		console.log("orderInfo: "+orderInfo.NAME);
 			var address=$(".addressInfomation");
 			var str="";
-			console.log(checkoutInfo);
 			
 				str+="<h2>배송정보</h2>"
 	                +"   <div class='row'>"
@@ -302,12 +342,9 @@
 	}
     
    
-    console.log("var orderInfo"+orderInfo);
-    
     $('.payOrderBtn').on('click', function (){
     checkoutService.getShipInfo(cust_id,order_seq,function(checkoutInfo){
     	orderInfo = checkoutInfo;
-    console.log("orderInfo: "+orderInfo.TOTAL_PRICE);
 	
 	var IMP = window.IMP; // 생략가능
 	IMP.init('imp03498848'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -326,8 +363,8 @@
 	    m_redirect_url : 'https://www.yourdomain.com/payments/complete',
 	    custom_data : {cust_id:cust_id,order_seq:orderInfo.ORDER_SEQ}
 	}, function(rsp) {
-		console.log(rsp);
-	
+		csrf={"csrfHeaderName":csrfHeaderName,
+   				"csrfTokenValue":csrfTokenValue};
 				//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
 				if ( rsp.success ) {
 					
@@ -336,8 +373,7 @@
 			        msg += '상점 거래ID : ' + rsp.merchant_uid;
 			        msg += '결제 금액 : ' + rsp.paid_amount;
 			        msg += '카드 승인번호 : ' + rsp.apply_num;
-			       // alert(msg);
-			       console.log("메세지"+msg)
+			    
 					
 					//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
 					$.ajax({
@@ -351,19 +387,37 @@
 							custom_data:rsp.custom_data					
 						}),
 						contentType: "application/json; charset=utf-8",
-						success: function(result){console.log("결제후 페이지이동 "+result),
-							location.href = "/home/index"},
+						beforeSend:function(xhr){
+							xhr.setRequestHeader(csrf.csrfHeaderName, csrf.csrfTokenValue);
+						},
+						success: function(result){
+							location.href = "/cust/my-account"},
 						error:function(log){console.log("실패 "+log)}
 			    });
 					
 			      
 		}else {
-	        var msg = '결제에 실패하였습니다.';
-	        msg += '에러내용 : ' + rsp.error_msg;
+	        var msg = rsp.error_msg;
+	        $(".modal").modal("show");
+		    $(".errorMsg").text(msg);
 	    }
-	    alert(msg);
+	   
+		
 	}) ; 
    });
  });
     </script>
+    <!--Start of Tawk.to Script-->
+			<script type="text/javascript">
+				var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+				(function(){
+				var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+					s1.async=true;
+					s1.src='https://embed.tawk.to/6051161bf7ce18270930c865/1f0ubsnki';
+					s1.charset='UTF-8';
+					s1.setAttribute('crossorigin','*');
+					s0.parentNode.insertBefore(s1,s0);
+				})();
+			</script>
+		<!--End of Tawk.to Script-->
 </html>

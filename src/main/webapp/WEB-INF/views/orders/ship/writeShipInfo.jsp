@@ -311,7 +311,9 @@
         <script src="${contextPath}/resources/template/js/main.js"></script>
         
         <!--add js  -->
-        <script src="${contextPath}/resources/order/checkout.js?var=2"></script>
+        <script src="${contextPath}/resources/order/checkout.js?var=3"></script>
+        <script src="${contextPath}/resources/basket/wish.js?ver=9"></script>
+        <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
         <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     </body>
    
@@ -329,8 +331,26 @@
     var cust_id = "${memberId}";
     var orderInfo;
     var order_seq = ${order_seq};
-	console.log("order_seq"+order_seq);
 	
+	heartCnt(cust_id);
+	    
+		function heartCnt(cust_id) {
+			var heartCount = 0;
+			wishService.countWishGoods(cust_id,function(result){
+				heartCount="("+result+")";
+				$(".wishCntBtn").text(heartCount);
+			});
+		}
+    
+	cartCnt(cust_id);
+   
+	function cartCnt(cust_id) {
+		var cartCount = 0;
+		basketService.countBasketGoods(cust_id,function(result){
+			cartCount="("+result+")";
+			$(".cartCntBtn").text(cartCount);
+		});
+	}
 	
     $(".writeShipInfoBtn").on('click',function(){
     	var csrf={"csrfHeaderName":csrfHeaderName,
@@ -357,12 +377,10 @@
     	
     	checkoutService.getShipInfo(cust_id,order_seq,function(checkoutInfo){
     		orderInfo = checkoutInfo;
-    		console.log("orderInfo: "+orderInfo.NAME);
 			var address=$(".addressInfomation");
 			var str="";
-			console.log(checkoutInfo);
-			
-				str+="<h2>배송 정보(주문번호: "+checkoutInfo.ORDER_SEQ+")</h2>"
+			/* (주문번호: "+checkoutInfo.ORDER_SEQ+") */
+				str+="<h2>배송 정보</h2>"
 					+"	<div class='divBind'>	"
 					+"  	 <div class='row'>"
 	                +"    	    	<div class='col-md-6'>"
@@ -446,8 +464,19 @@
 		})
 	}
     
-   
-    console.log("var orderInfo"+orderInfo);
   
     </script>
+    <!--Start of Tawk.to Script-->
+			<script type="text/javascript">
+				var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+				(function(){
+				var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+					s1.async=true;
+					s1.src='https://embed.tawk.to/6051161bf7ce18270930c865/1f0ubsnki';
+					s1.charset='UTF-8';
+					s1.setAttribute('crossorigin','*');
+					s0.parentNode.insertBefore(s1,s0);
+				})();
+			</script>
+		<!--End of Tawk.to Script-->
 </html>

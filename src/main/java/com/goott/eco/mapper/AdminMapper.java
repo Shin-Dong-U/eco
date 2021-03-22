@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.goott.eco.common.Criteria;
 import com.goott.eco.domain.AdminVO;
+import com.goott.eco.domain.CompanyVO;
+import com.goott.eco.domain.CustVO;
 import com.goott.eco.domain.MemberVO;
 
 public interface AdminMapper {
@@ -28,7 +30,6 @@ public interface AdminMapper {
 	/* 모든 일반사용자 목록 갯수 */
 	public int totalCountCustList();
 	
-	
 	/* 업체 승인 */
 	public int confirmCompany(@Param("memberId")String memberId, @Param("loginId")String loginId);
 	
@@ -46,4 +47,23 @@ public interface AdminMapper {
 	
 	/* 관리자 cust변경 */
 	public int confirmCustAdmin(@Param("memberId")String memberId, @Param("loginId")String loginId);
+	
+	
+	/* 관리자가 사용자 변경 */
+	public int modAdmin_cust(@Param("custVO")CustVO custVO, @Param("loginId")String loginId);
+	
+	/* 관리자가 업체 변경 */	
+	public int modAdmin_comp(@Param("compVO")CompanyVO compVO, @Param("loginId")String loginId);
+	
+	/* 관리자가  관리자 변경 */	
+	public int modAdmin_admin(@Param("adminVO")AdminVO adminVO, @Param("loginId")String loginId);
+	
+	/* 회원  탈퇴 -> 복구 */
+	public int  regCust_Auth(String memberId);
+	
+	/* 회원이 존재 하는가?  */
+	public String getCustAuth(String memberId);
+	
+	
+	
 }

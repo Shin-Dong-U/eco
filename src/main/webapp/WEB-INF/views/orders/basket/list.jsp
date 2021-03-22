@@ -60,8 +60,8 @@
                                             <h2>총 결제금액<span class="grandTotalPrice">0</span></h2>
                                         </div>
                                         <div class="cart-btn">
-                                            <button class="cartUpBtn">Update Cart</button>
-                                            <button class="checkoutBtn" disabled>Checkout</button>
+                                            <button class="cartUpBtn">상품선택 완료</button>
+                                            <button class="checkoutBtn" style="visibility:hidden">주문하기</button>
                                         </div>
                                     </div>
                                 </div>
@@ -73,17 +73,17 @@
         </div>
         <!-- Cart End -->
         
-        <!-- Footer Start -->
+ <!-- Footer Start -->
         <div class="footer">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-widget">
-                            <h2>Get in Touch</h2>
+                            <h2>고객센터</h2>
                             <div class="contact-info">
-                                <p><i class="fa fa-map-marker"></i>123 E Store, Los Angeles, USA</p>
-                                <p><i class="fa fa-envelope"></i>email@example.com</p>
-                                <p><i class="fa fa-phone"></i>+123-456-7890</p>
+                                <p><i class="fa fa-map-marker"></i>Eco Friends, 서울특별시 구로구 시흥대로 163길 33, 대한민국</p>
+                                <p><i class="fa fa-envelope"></i>eco_friends@gmail.com</p>
+                                <p><i class="fa fa-phone"></i>02-456-7890</p>
                             </div>
                         </div>
                     </div>
@@ -93,11 +93,11 @@
                             <h2>Follow Us</h2>
                             <div class="contact-info">
                                 <div class="social">
-                                    <a href=""><i class="fab fa-twitter"></i></a>
-                                    <a href=""><i class="fab fa-facebook-f"></i></a>
-                                    <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                    <a href=""><i class="fab fa-instagram"></i></a>
-                                    <a href=""><i class="fab fa-youtube"></i></a>
+                                    <a href="https://twitter.com/greenstandards" target="_blank"><i class="fab fa-twitter"></i></a>
+                                    <a href="https://www.facebook.com/greenstandards/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="https://www.linkedin.com/company/green-standards-ltd" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="https://www.instagram.com/greenstandards/" target="_blank"><i class="fab fa-instagram"></i></a>
+                                    <a href="https://www.youtube.com/channel/UClPHbrXdlb3h7mQ8MoGPeVA" target="_blank"><i class="fab fa-youtube"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -105,62 +105,16 @@
 
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-widget">
-                            <h2>Company Info</h2>
+                            <h2>Eco Friends</h2>
                             <ul>
-                                <li><a href="">About Us</a></li>
-                                <li><a href="">Privacy Policy</a></li>
-                                <li><a href="">Terms & Condition</a></li>
+                              <p><i class="fas fa-address-card"></i>친환경 온라인 쇼핑몰</p>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-widget">
-                            <h2>Purchase Info</h2>
-                            <ul>
-                                <li><a href="">Pyament Policy</a></li>
-                                <li><a href="">Shipping Policy</a></li>
-                                <li><a href="">Return Policy</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row payment align-items-center">
-                    <div class="col-md-6">
-                        <div class="payment-method">
-                            <h2>We Accept:</h2>
-                            <img src="/resources/template/img/payment-method.png" alt="Payment Method" />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="payment-security">
-                            <h2>Secured By:</h2>
-                            <img src="/resources/template/img/godaddy.svg" alt="Payment Security" />
-                            <img src="/resources/template/img/norton.svg" alt="Payment Security" />
-                            <img src="/resources/template/img/ssl.svg" alt="Payment Security" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+                  
         </div>
-        <!-- Footer End -->
-        
-        <!-- Footer Bottom Start -->
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 copyright">
-                        <p>Copyright &copy; <a href="https://htmlcodex.com">HTML Codex</a>. All Rights Reserved</p>
-                    </div>
-
-                    <div class="col-md-6 template-by">
-                        <p>Template By <a href="https://htmlcodex.com">HTML Codex</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer Bottom End -->       
+        <!-- Footer End -->     
         
         <!-- Back to Top -->
         <a href="" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
@@ -172,8 +126,9 @@
         <script src="${contextPath}/resources/template/lib/slick/slick.min.js"></script>
         
         <!-- Template Javascript -->
-        <script src="${contextPath}/resources/template/js/main.js?var=7"></script>
+        <script src="${contextPath}/resources/template/js/main.js?var=8"></script>
         <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
+         <script src="${contextPath}/resources/basket/wish.js?ver=9"></script>
 		<script src="${contextPath}/resources/basket/transferTime.js"></script>
 		<script src="${contextPath}/resources/order/checkout.js?ver=3"></script>
     </body>
@@ -182,7 +137,6 @@
     
     var cust_id = "${memberId}";
 	cartCnt(cust_id);
-	console.log(cust_id);
     $(document).ready(function(){
     	showList();
     	//var cust_id $(".sessionId").val();
@@ -192,23 +146,31 @@
     var csrfTokenValue="${_csrf.token}";
     
     
-    
+    //카트 업데이트
     $('.cartUpBtn').on('click', function () {
-    	$(".checkoutBtn").attr("disabled", false)
+    	$(".checkoutBtn").css("visibility", 'visible')
     })
  
-  
+  heartCnt(cust_id);
+        
+    	function heartCnt(cust_id) {
+			var heartCount = 0;
+			wishService.countWishGoods(cust_id,function(result){
+				heartCount="("+result+")";
+				$(".wishCntBtn").text(heartCount);
+			});
+    	}
     
     
     //check out button 장바구니목록 주문
     $('.checkoutBtn').on('click', function () {
-    	console.log("체크아웃 버튼클릭");
     	var total_price = $(".grandTotalPrice").text();
-    	console.log(total_price);
+    	csrf={"csrfHeaderName":csrfHeaderName,
+   				"csrfTokenValue":csrfTokenValue};
     	//addOrder
     	//체크아웃페이지 이동   	
-    	 checkoutService.addOrderBasket(cust_id,total_price,function(){
-    		alert("checkout 성공"); 
+    	 checkoutService.addOrderBasket(cust_id,total_price,csrf,function(){
+    		
     	}); 
     	
     	
@@ -218,7 +180,6 @@
   	//상품제목 <p>클릭시
   	$('.basketList').on('click', "p",function () {
   		var goods_seq =  $(this).data("goods_seq");
-    	console.log("버튼클릭goods_seq: "+goods_seq);
       //현재 버튼클릭시 해당 goods_seq선택가능-->Ajax로 연동
 		selectBasketGoods(goods_seq);    
     });
@@ -227,8 +188,9 @@
 	$('.basketList').on('click',".delbasketBtn",function(){
 		//var goods_seq =  $(this).parents("td").children("p").data("goods_seq");
 		var goods_seq =  $(this).data("goods_seq");
-		console.log("삭제버튼클릭: "+goods_seq);
 		delBasketGoods(cust_id,goods_seq);
+		$(".checkoutBtn").css("visibility", 'hidden')
+		cartCnt(cust_id);
 		showList();
 	});
   	
@@ -255,7 +217,6 @@
 	function delBasketGoods(cust_id,goods_seq){
 		csrf={"csrfHeaderName":csrfHeaderName,
    				"csrfTokenValue":csrfTokenValue};
-		$(".checkoutBtn").attr("disabled", true);
 		basketService.delBasketGoods(cust_id,goods_seq,csrf,function(result){
 			showList();
 		})
@@ -291,7 +252,7 @@
 					str+="<tr>"
 		                +"   <td>"
 		                +"        <div class='img'>"
-		                +"            <a href=''><img src='/resources/template/img/product-1.jpg' alt='Image'></a>"		               
+		                +"            <a href=''><img src='"+basketList[i].IMG_URL+"' alt='Image'></a>"		               
 		                +"            <p data-goods_seq='"+basketList[i].GOODS_SEQ+"'>"+basketList[i].GOODS_NAME+"</p>"
 		                +"        </div>"
 		                +"    </td>"
@@ -320,4 +281,17 @@
 		}
    
     </script>
+    <!--Start of Tawk.to Script-->
+			<script type="text/javascript">
+				var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+				(function(){
+				var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+					s1.async=true;
+					s1.src='https://embed.tawk.to/6051161bf7ce18270930c865/1f0ubsnki';
+					s1.charset='UTF-8';
+					s1.setAttribute('crossorigin','*');
+					s0.parentNode.insertBefore(s1,s0);
+				})();
+			</script>
+		<!--End of Tawk.to Script-->
 </html>

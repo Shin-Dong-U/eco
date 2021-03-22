@@ -1,7 +1,97 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
+
+<html lang="kr">
+    <head>
+        <meta charset="utf-8">
+        <title>ECO FRIENDS</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="eCommerce HTML Template Free Download" name="keywords">
+        <meta content="eCommerce HTML Template Free Download" name="description">
+
+        <!-- Favicon -->
+        <link href="${contextPath}/resources/template/img/favicon.ico" rel="icon">
+        
+        <!--  -->
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> 
+		
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick.css" rel="stylesheet">
+        <link href="${contextPath}/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="${contextPath}/resources/template/css/style.css" rel="stylesheet">
+        <style>
+			/* Account - Detail */
+			#confirm_check {
+				display: none
+			}
+			.custRemoveButton{
+				display: none
+			}
+			#modify_check {
+				display: none
+			}
+			
+			/* Admin - none display */
+			#modal_confirm_check {
+				display: none
+			}
+			/* Admin - 사용자 업체 관리자  */
+			.userBind {
+				display: flex;
+			}
+			/* Admin - The Modal (background) */
+			.modal {
+				display: none; /* Hidden by default */
+				position: fixed; /* Stay in place */
+				z-index: 1; /* Sit on top */
+				left: 0;
+				top: 0;
+				width: 100%; /* Full width */
+				height: 100%; /* Full height */
+				overflow: auto; /* Enable scroll if needed */
+				background-color: rgb(0, 0, 0); /* Fallback color */
+				background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+			}
+			/* Admin - Modal Content Box Title */
+			.modal-content {
+				background-color: #fefefe;
+				margin: 15% auto; /* 15% from the top and centered */
+				padding: 20px;
+				border: 1px solid #888;
+				width: 50%; /* Could be more or less, depending on screen size */
+			}
+			/* Admin - The Close Button */
+			.close {
+				color: #aaa;
+				float: right;
+				font-size: 28px;
+				font-weight: bold;
+			}
+			/* Admin -  Modal*/
+			.close:hover, .close:focus {
+				color: black;
+				text-decoration: none;
+				cursor: pointer;
+			}
+	</style>
+    </head>
+
 <%@include file="../include/header.jsp" %>
+        <!-- Bottom Bar End -->
+
+
 <!-- Bottom Bar End --> 
 
 <!-- Breadcrumb Start -->
@@ -22,14 +112,19 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
+                    <!-- <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a> -->
         <!--주문목록조회  -->
-                    <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i> 주문정보</a>                             
-                    <a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i> 배송정보입력(업체)</a>
-
+        			
+                    <sec:authorize access="hasAuthority('ROLE_COMPANY')">
+                   		<a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i> 배송정보입력(업체)</a>
+					</sec:authorize>
+                    <a class="nav-link active" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i> 주문정보</a>
+                    <sec:authorize access="hasAuthority('ROLE_COMPANY')">
+                    	<a class="nav-link" id="goods-ins-nav" data-toggle="pill" href="#goods-ins-tab" role="tab"><i class="fa fa-shopping-bag"></i>상품등록</a>
+              		</sec:authorize>
                     <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i> 내정보</a>
                     <sec:authorize access="hasAuthority('ROLE_ADMIN')">
-	                    <a class="nav-link" id="address-nav" data-toggle="pill" href="http://localhost:3000" role="tab"><i class="fa fa-map-marker-alt"></i> 차트보기</a>
+	                    <a class="nav-link" href="http://172.16.5.1:3000/" ><i class="fa fa-map-marker-alt"></i> 차트보기</a>
 	                    <a class="nav-link" id="member-nav" data-toggle="pill" href="#member-tab" role="tab"><i class="fa fa-user"></i> 사용자 관리 </a>
                     </sec:authorize>
                     <a class="nav-link logoutBtn"><i class="fa fa-sign-out-alt"></i>Logout</a>
@@ -40,13 +135,13 @@
             </div>
             <div class="col-md-9">
                 <div class="tab-content">
-                    <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
+                <!--     <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
                         <h4>Dashboard</h4>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac mi viverra dictum. In efficitur ipsum diam, at dignissim lorem tempor in. Vivamus tempor hendrerit finibus. Nulla tristique viverra nisl, sit amet bibendum ante suscipit non. Praesent in faucibus tellus, sed gravida lacus. Vivamus eu diam eros. Aliquam et sapien eget arcu rhoncus scelerisque.
                         </p> 
-                    </div>
-                    <div class="tab-pane fade" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
+                    </div> -->
+                    <div class="tab-pane fade show active" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                <thead class="thead-dark">
@@ -84,6 +179,85 @@
                                     </table>
                                 </div>
                     </div>
+                    
+                    
+                    <!-- 상품등록 탭 -->
+                    <div class="tab-pane fade" id="goods-ins-tab" role="tabpanel" aria-labelledby="goods-ins-nav">
+                    	<form:form role="form" action="/goods/form" method="put" id="goodsForm" onSubmit="return false;">
+                    	<div class="row">
+                    		<div class="col-md-1">
+                    			<lable>상품명</lable>
+                    		</div>
+                    		<div class="col-md-3">
+                    			<input class="form-control" type="text" id="goods_name" name="goods_name">
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-1">
+                    			<lable>썸네일</lable>
+                    		</div>
+                    		<div class="col-md-3">
+                    			<div id="uploadDiv"></div>
+								<input class="" type="file" id="uploadFile" name="uploadFile" multiple="multiple"> 
+                            </div>
+                    	</div>
+                    	<div class="row">
+                    	</div>
+                    	<div class="row">
+                    		<div class="col-md-1">
+                    			<lable>가격</lable>
+                    		</div>
+                    		<div class="col-md-2">
+                    			<input class="form-control" type="number" id="price" name="price" min="0" max="210000000" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+                            </div>
+                    	</div>
+                    	<div class="row">
+                    		<div class="col-md-1">
+                    			<lable>재고수량</lable>
+                    		</div>
+                    		<div class="col-md-2">
+                    			<input class="form-control" type="number" id="qty" name="qty" min="0" max="210000000" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+                            </div>
+                    	</div>
+                    	<div class="row">
+                    		<div class="col-md-1">
+                    			<lable>성분</lable>
+                    		</div>
+                    		<div class="col-md-3">
+                    			<input class="form-control" type="text" id="material" name="material">
+                            </div>
+                    	</div>
+                    	<div class="row">
+                    		<div class="col-md-1">
+                    			<lable>카테고리</lable>
+                    		</div>
+                    		<div class="col-md-2">
+                    			<select class="form-control" id="category" name="category">
+						        <c:forEach var="cate" items="${cateList }" >
+							       <option value="${cate.CATE_SEQ }">${cate.CATE_NAME }</option>
+							    </c:forEach></select>
+                            </div>
+                    	</div>
+                    	<div class="row">
+                    		<div class="col-md-1">
+                    			<lable>필수 옵션</lable>
+                    		</div>
+                    		<div class="col-md-4">
+                    			<label class="radio-inline">없음<input type="radio" name="req_option" value="N" checked="checked"></label>&nbsp;&nbsp;
+                    			<label class="radio-inline">있음<input type="radio" name="req_option" id="req_option_y" value="Y"></label>
+                            </div>
+                    	</div>
+                    	<div class="row" id="req_option_div"></div>
+                    	<div class="row" style="margin-top:20px;">
+            				<textarea name="goods_detail" id="goods_detail" rows="10" cols="100" style="width:100%; height:412px; min-width:610px;"></textarea>        	
+                    	</div>
+						</form:form>
+						<div class="row" style="margin-top:20px;">
+							<button class="btn" id="goodsInsBtn" onclick="submitContents(this);">등록</button>
+						</div>
+                    </div><!-- 상품 등록 탭의 끝  -->
+                    
+                    
                     <div class="tab-pane fade" id="address-tab" role="tabpanel" aria-labelledby="address-nav">
                         <h4>Address</h4>
                         <div class="row">
@@ -112,9 +286,9 @@
 									<input type="button" class="btn btn-primary" id="btn_modify" value="Modify" />
 								</div>
 								<div id="confirm_check">
-									<input type="button" class="btn btn-primary" id="btn_modSubmit" value="Submit" />
-									<input type="button" class="btn btn-primary" id="btn_remSubmit" value="Remove" />
-									<input type="button" class="btn btn-primary" id="btn_modCancel" value="Cancel" />
+									<input type="button" class="btn btn-primary" id="btn_modSubmit" value="확인" />
+									<input type="button" class="btn btn-primary" id="btn_remSubmit" value="탈퇴" />
+									<input type="button" class="btn btn-primary" id="btn_modCancel" value="취소" />
 								</div>
 							</div>
 						</form>
@@ -123,11 +297,12 @@
 <!-- 관리자 Member -->
 					<div class="tab-pane fade" id="member-tab" role="tabpanel"	aria-labelledby="member-tab">
 						<div class="table-responsive">
-							<div class="col-md-12 userBind">
-								<div class="col-4 customer" id="customer"> <h4 style="text-align:center"> 사용자 </h4> </div>
-								<div class="col-4 company" id="company"> <h4 style="text-align:center"> 업체  </h4> </div>
-								<div class="col-4 admin" id="admin"> <h4 style="text-align:center"> 관리자  </h4> </div>
+							<div class="col-md-4 userBind">
+								<div class="col-md-4 customer" id="customer" > <h4 style="text-align:center"> 사용자 </h4> </div>
+								<div class="col-md-4 company" id="company"> <h4 style="text-align:center"> 업체  </h4> </div>
+								<div class="col-md-4 admin" id="admin"> <h4 style="text-align:center"> 관리자  </h4> </div>
 							</div>
+
 							<div class="col-md-12 chatParent" >
 								<div class="col-md-12 member_chat" id="member_chat" ></div><p/>
 								<div class="col-md-12" id="pageDiv"> </div><!-- 페이지 번호 -->
@@ -147,39 +322,72 @@
 </div>
 
 <!-- modal 시작 -->
-<div id="modal" class="modal">
-	<div id="modal-content" class="modal-content">
-		<span id="close-modal" class="close">&times;</span> 
-		<!-- content -->
-		<h3>회원 정보 </h3><hr/>
-		<div>
-			<div id="detail_chat">
-		
+<div class="modal" id="memberManager" tabindex="-1" role="dialog" ria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header ">
+				<h5 class="modal-title">회원 상세 정보</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
-			<!-- content -->
-			<div id="modal_modify_check">		
-				<input type="button" class="btn" id="modal_btn_modify" value="수정">
+			<div class="modal-body">
+				<div id="detail_chat">
+
+				</div>
 			</div>
-			<div id="modal_confirm_check">
-				<input type="button" class="btn" id="modal_btn_submit" value="확인">
-				<input type="button" class="btn" id="modal_btn_cancel" value="취소">
+			<div class="modal-footer">
+				<div id="modal_modify_check">		
+					<input type="button" class="btn" id="modal_btn_modify" value="수정">
+				</div>
+				<div id="modal_confirm_check">
+					<input type="button" class="btn" id="modal_btn_submit" value="확인">
+					<input type="button" class="btn" id="modal_btn_cancel" value="취소">
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- modal 끝 -->
 
-  <!-- Footer Start -->
+        <!-- modal 시작 -->
+<div class="modal" id="totalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header ">
+				<h5 id="total_header"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div id="detail_chat2"></div>
+			</div>
+			<div class="modal-footer">
+				<span class="custRemoveButton">
+					<button type="button" class="btn custRemoveSubmit" >확인</button>
+					<button type="button" class="btn custRemoveCancel" >취소</button>
+				</span>
+				<span class="basic">
+				<button type="button" id="close1" class="btn close1" data-dismiss="modal">닫기</button>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Ajax 실행 Javascript -->
+
+
+   <!-- Footer Start -->
         <div class="footer">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-widget">
-                            <h2>Get in Touch</h2>
+                            <h2>고객센터</h2>
                             <div class="contact-info">
-                                <p><i class="fa fa-map-marker"></i>123 E Store, Los Angeles, USA</p>
-                                <p><i class="fa fa-envelope"></i>email@example.com</p>
-                                <p><i class="fa fa-phone"></i>+123-456-7890</p>
+                                <p><i class="fa fa-map-marker"></i>Eco Friends, 서울특별시 구로구 시흥대로 163길 33, 대한민국</p>
+                                <p><i class="fa fa-envelope"></i>eco_friends@gmail.com</p>
+                                <p><i class="fa fa-phone"></i>02-456-7890</p>
                             </div>
                         </div>
                     </div>
@@ -189,11 +397,11 @@
                             <h2>Follow Us</h2>
                             <div class="contact-info">
                                 <div class="social">
-                                    <a href=""><i class="fab fa-twitter"></i></a>
-                                    <a href=""><i class="fab fa-facebook-f"></i></a>
-                                    <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                    <a href=""><i class="fab fa-instagram"></i></a>
-                                    <a href=""><i class="fab fa-youtube"></i></a>
+                                    <a href="https://twitter.com/greenstandards" target="_blank"><i class="fab fa-twitter"></i></a>
+                                    <a href="https://www.facebook.com/greenstandards/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="https://www.linkedin.com/company/green-standards-ltd" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="https://www.instagram.com/greenstandards/" target="_blank"><i class="fab fa-instagram"></i></a>
+                                    <a href="https://www.youtube.com/channel/UClPHbrXdlb3h7mQ8MoGPeVA" target="_blank"><i class="fab fa-youtube"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -201,62 +409,16 @@
 
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-widget">
-                            <h2>Company Info</h2>
+                            <h2>Eco Friends</h2>
                             <ul>
-                                <li><a href="">About Us</a></li>
-                                <li><a href="">Privacy Policy</a></li>
-                                <li><a href="">Terms & Condition</a></li>
+                              <p><i class="fas fa-address-card"></i>친환경 온라인 쇼핑몰</p>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-widget">
-                            <h2>Purchase Info</h2>
-                            <ul>
-                                <li><a href="">Pyament Policy</a></li>
-                                <li><a href="">Shipping Policy</a></li>
-                                <li><a href="">Return Policy</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row payment align-items-center">
-                    <div class="col-md-6">
-                        <div class="payment-method">
-                            <h2>We Accept:</h2>
-                            <img src="/resources/template/img/payment-method.png" alt="Payment Method" />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="payment-security">
-                            <h2>Secured By:</h2>
-                            <img src="/resources/template/img/godaddy.svg" alt="Payment Security" />
-                            <img src="/resources/template/img/norton.svg" alt="Payment Security" />
-                            <img src="/resources/template/img/ssl.svg" alt="Payment Security" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+                  
         </div>
-        <!-- Footer End -->
-        
-        <!-- Footer Bottom Start -->
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 copyright">
-                        <p>Copyright &copy; <a href="https://htmlcodex.com">HTML Codex</a>. All Rights Reserved</p>
-                    </div>
-
-                    <div class="col-md-6 template-by">
-                        <p>Template By <a href="https://htmlcodex.com">HTML Codex</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer Bottom End -->       
+        <!-- Footer End -->     
         
         <!-- Back to Top -->
         <a href="" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
@@ -272,11 +434,14 @@
         
         <!--add JavaScript  -->
         <script src="${contextPath}/resources/order/checkout.js?ver=2"></script>
+        <script src="${contextPath}/resources/basket/basket.js?ver=9"></script>
+         <script src="${contextPath}/resources/basket/wish.js?ver=9"></script>
         
         <script type="text/javascript">
         $(document).ready(function(){
-        	showOrderedInfo();
-        	showShipListInfo();
+        	var cust_id="${memberId}";
+        	showOrderedInfo(cust_id);
+        	showShipListInfo(cust_id);
         });
         
         /* CSRF 데이터 변수 저장 */
@@ -286,25 +451,35 @@
         //로그아웃
                     
          $(".logoutBtn").on("click",function(){
-        	console.log("로그아웃");
+
         	$('.logoutForm').submit();
         	
         })  
+          var cust_id="${memberId}";
+          heartCnt(cust_id);
+        
+    	function heartCnt(cust_id) {
+			var heartCount = 0;
+			wishService.countWishGoods(cust_id,function(result){
+				heartCount="("+result+")";
+				$(".wishCntBtn").text(heartCount);
+			});
+    	}
        
         
         
-        var cust_id="${memberId}";
-        console.log("session id: "+cust_id);
+      
+
       //주문 리스트 보기
-		function showOrderedInfo(){		
+		function showOrderedInfo(cust_id){		
 			checkoutService.getOrderList(cust_id,function(orderedInfoList){
 				var showOrderedInfoTable=$(".showOrderedInfo");
 				var str="";
-				console.log(orderedInfoList);
+
+				
 				for(var i=0,len=orderedInfoList.length||0;i<len;i++){
 					var delivery_status= '배송정보';
-					console.log(typeof(orderedInfoList[i].DELIVERY_STATUS));
-					console.log(typeof(Number(orderedInfoList[i].DELIVERY_STATUS)));
+
 					switch(Number(orderedInfoList[i].DELIVERY_STATUS)){
 					
 					case 0:
@@ -340,16 +515,14 @@
 		}
       
 		 //주문 리스트 보기(업체)
-		function showShipListInfo(){		
-			checkoutService.getOrderList(cust_id,function(orderedInfoList){
+		function showShipListInfo(cust_id){		
+			checkoutService.getOrderAllList(function(orderedInfoList){
 				var shipOrderedInfoTable=$(".shipOrderedInfo");
 				var str="";
-				console.log(orderedInfoList);
+
 				for(var i=0,len=orderedInfoList.length||0;i<len;i++){
 					var delivery_status= '배송정보';
-					console.log("업체 배송: "+orderedInfoList);
-					console.log(typeof(orderedInfoList[i].DELIVERY_STATUS));
-					console.log(typeof(Number(orderedInfoList[i].DELIVERY_STATUS)));
+
 					switch(Number(orderedInfoList[i].DELIVERY_STATUS)){
 					
 					case 0:
@@ -387,8 +560,14 @@
         </script>
         
 <!-- Admin Member -->
+<%----%>
+<!-- Naver Smart Editor -->
+<script type="text/javascript" src="/resources/vender/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="/resources/js/common/common.js?v=<%=System.currentTimeMillis() %>"></script>
+<script type="text/javascript" src="/resources/basket/transferTime.js?v=<%=System.currentTimeMillis() %>"></script> 
 <script type="text/javascript" src="/resources/admin/adminRest.js?v=<%=System.currentTimeMillis() %>"></script>
+<script type="text/javascript" src="/resources/admin/adminHtml.js?v=<%=System.currentTimeMillis() %>"></script>
+<script type="text/javascript" src="/resources/js/goods/goods.js?v=<%=System.currentTimeMillis() %>"></script>
 <script>
 /* CSRF 데이터 변수 저장 */
 var csrfHeaderName="${_csrf.headerName}";
@@ -397,6 +576,9 @@ var csrfTokenValue="${_csrf.token}";
 /* session에 저장된 로그인된 아이디 */
 //var loginId="${memberId}";
 var loginId="${memberId}";
+
+var oEditors = [];//스마트 에디터
+var images = new Array();//이미지 파일이 담길 객체 
 
 /* 스타일 변경 */
 function styleUpdate(divBtn){
@@ -413,7 +595,7 @@ function styleUpdate(divBtn){
 		$(".company").css("background",""); 
 		$(".admin").css("background","#ABF200"); 
 	}
-	//$(".chatParent").css("border","1px solid #90c62b"); 
+	$(".chatParent").css("border","1px solid #90c62b"); 
 }
 
 /* 페이징 처리 */
@@ -492,9 +674,14 @@ $(".member_chat").on("click", ".btn_modDetail", function(){
     //var button = $(this).css({"border": "2px solid blue"});
 	//var memberId = $(this).parent().parent().find("span").css({"border": "2px solid yellow"});
 	var memberId = $(this).parent().parent().find("span").text();
-	alert(memberId);
+	//alert(memberId);
 
 	checkModal(memberId);
+	//display
+	document.getElementById("modal_confirm_check").style.display = "none";
+	document.getElementById("modal_modify_check").style.display = "block";
+	
+	//document.getElementById("memberManager").style.display="none";
 });
 
 /* 관리자 위임  */
@@ -520,8 +707,8 @@ $(".member_chat").on("click",".btn_upAdmin", function(){
 /* 업체 승인 */
 $(".member_chat").on("click",".btn_confirmComp", function(){
 	var memberId = $(this).parent().parent().find("span").text();
-	alert("memberId: "+memberId);
-	alert("loginId: "+loginId);
+	//alert("memberId: "+memberId);
+	//alert("loginId: "+loginId);
 	
 	adminRest.confirmCompany(
 		memberId, loginId,
@@ -542,35 +729,37 @@ function checkModal(memberId){
 	adminRest.getCust(
 		memberId,
 		function(memberVO){
-			console.log(memberVO);
+
 			showDetail(memberVO);
 		}
 	);
 	
-	document.getElementById("modal").style.display="block";
+	document.getElementById("memberManager").style.display="block";
 }
 
 /* 모달 닫기 */
-$("#close-modal").on("click",function(){
+$(".close").on("click",function(){
 	
 	//display
 	document.getElementById("modal_confirm_check").style.display = "none";
 	document.getElementById("modal_modify_check").style.display = "block";
 	
-	document.getElementById("modal").style.display="none";
+	document.getElementById("memberManager").style.display="none";
 });
 
 /* 모달 수정 버튼  */
 $("#modal_btn_modify").on("click",function(){
     //var button = $(this).css({"border": "2px solid blue"});
 	//var memberId = $(this).parent().parent().find("span").css({"border": "2px solid yellow"});
-	var memberId = $(this).parent().parent().find("span").text();
-	alert("id값: "+memberId);
+	
+	//var memberId1 = $(this).parent().parent().parent().children().next().find("span").css({"border": "2px solid yellow"});
+	var memberId = $(this).parent().parent().parent().children().next().find("span").text();
+	//alert("id값: "+memberId);
 
 	adminRest.getCust(
 		memberId,
 		function(memberVO){
-			console.log(memberVO);
+
 			showDetail_modify(memberVO);
 		}
 	);
@@ -584,9 +773,60 @@ $("#modal_btn_modify").on("click",function(){
 /* 모달 완료 버튼  */
 $("#modal_btn_submit").on("click",function(){
 
+	memberId=$(this).parent().parent().parent().children().children().find("#memberId").val();
+	//alert(memberId);
+	$(this).parent().parent().parent().children().children().find("#memberId").css({"border": "2px solid blue"});
+	var $form=$(this).parent().parent().parent().children().children();
+	var birth=$form.find("#birth").val();
+	birth=birth.replace("-","");
+	var birth_int= parseInt(birth.replace("-",""));
+	//alert(birth_int);
+	
+
+	var acc_level=$form.find('input[name="acc_level_check"]:checked').val();
+	var member_yn=$form.find('input[name="member_check"]:checked').val();
+	var sex=$form.find('input[name="sex_check"]:checked').val();
+	//alert(sex);
+
+	var custVO = {
+		"memberId" : memberId,
+		"password" : $form.find("#password").val(),
+		"email" : $form.find("#email").val(),
+		"birth" : birth_int,
+		"member_yn":member_yn,
+		"sex":sex
+	};
+	
+	var compVO = {
+		"cust_id" : memberId,
+		"comp_name" : $form.find("#comp_name").val(),
+		"corp_num" : $form.find("#corp_num").val()
+	};
+	
+	var adminVO = {
+		"cust_id" : memberId,
+		"acc_level" :acc_level
+	};
+	
+	//alert(memberId);
+	//alert(loginId);
+	adminRest.modAdmin(
+		memberVO={custVO:custVO, compVO:compVO, adminVO:adminVO}, loginId,
+		csrf={
+			"csrfHeaderName":csrfHeaderName,
+			"csrfTokenValue":csrfTokenValue
+		},
+		function(data){
+			var pageNum=$("#pageNum").val();
+			movePage(pageNum);
+		}
+	);
+	
 	//display
 	document.getElementById("modal_confirm_check").style.display = "none";
 	document.getElementById("modal_modify_check").style.display = "block";
+	
+	document.getElementById("memberManager").style.display="none";
 });
 
 /* 모달 취소 버튼  */
@@ -596,7 +836,7 @@ $("#modal_btn_cancel").on("click",function(){
 	adminRest.getCust(
 			memberId,
 			function(memberVO){
-				console.log(memberVO);
+
 				showDetail(memberVO);
 			}
 		);
@@ -611,333 +851,104 @@ function checkModal(memberId){
 	adminRest.getCust(
 		memberId,
 		function(memberVO){
-			console.log(memberVO);
+
 			showDetail(memberVO);
 		}
 	);
 	
-	document.getElementById("modal").style.display="block";
+	document.getElementById("memberManager").style.display="block";
 }
 
+/* 스마트에디터 객체 생성  */
+var seq = 0;//객체 중복 생성을 막기위한 시퀀스
+$('#goods-ins-tab').click(function(e){
+	if(seq++ == 0){//최초만 객체 생성
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef: oEditors,
+			elPlaceHolder: "goods_detail",
+			sSkinURI: "/resources/vender/smarteditor2/SmartEditor2Skin.html",
+			fCreator: "createSEditor2",
+			fOnAppLoad : function(){
+		    }
+		});
+	}
+});
+function submitContents(elClickedObj) {
+	 // 에디터의 내용이 textarea에 적용된다.
+	 oEditors.getById["goods_detail"].exec("UPDATE_CONTENTS_FIELD", []);
 
-/* 기본 정보 보여주기 */
-function showBasic(check, data){
-	//alert(check);
-	var str="";
-	var str1="";
-	var str2="";
-	
-	if(check==1){
-		str1 = "<th>관리자 등업</th>";
-	}else if(check==2){
-		str1 = "<th>업체</th>"
-			 + "<th>승인</th>";
-	}else{
-		str1 = "<th>레벨</th>";
-	}
-	
-	str +="<table class='table table-bordered' style='width:100%'>"
-		 + "<tr>"
-		 + "<th>아이디</th>"
-		 + "<th>이름</th>"
-		 + "<th>이메일</th>"
-		 + "<th>성별</th>"
-		 + "<th>가입여부</th>"
-		 + "<th>가입날짜</th>"
-		 + "<th>가입유저</th>"
-		 + str1
-		 + "<th>상세보기</th>"
-		 + "</tr>";
-		
-
-	for(var i=0; i<data.memberVO.length; i++){
-		//alert(data[i])
-		
-		if(check==1){
-			str2 = "<td><input type='button' class='btn_upAdmin' value='관리자 위임' /></td>";
-		}else if(check==2){
-			str2 = "<td>"+ data.memberVO[i].compVO.confirm_yn +"</td>"
-				 + "<td><input type='button' class='btn_confirmComp' value='승인' /></td>";
-		}else if(check==3){
-			str2 = "<td>"+ data.memberVO[i].adminVO.acc_level + "</td>";
-		}
-		
-		str +="<tr>"
-			+ "<td><span>"+ data.memberVO[i].custVO.memberId +"</span></td>"
-			+ "<td>"+ data.memberVO[i].custVO.name + "</td>"
-			+ "<td>"+ data.memberVO[i].custVO.email + "</td>"
-			+ "<td>"+ data.memberVO[i].custVO.sex + "</td>"
-			+ "<td>"+ data.memberVO[i].custVO.member_yn + "</td>"
-			+ "<td>"+ data.memberVO[i].custVO.regDate +	"</td>"
-			+ "<td>"+ data.memberVO[i].custVO.regUser +	"</td>"
-			+ str2
-			+ "<td><input type='button' class='btn_modDetail' value='상세보기' /></td>"
-			+ "</tr>";
-	}
-	str += "</table>";
-	//alert("출력"+str);
-	
-	$(".member_chat").html();
-	$(".member_chat").html(str);
-	
-	if(data.page){
-		const pageHtml = makePageHtml(data.page);
-		
-		const pageDiv = $('#pageDiv');
-		$('#pageNum').val(data.page.cri.pageNum);
-		pageDiv.empty();
-		pageDiv.html(pageHtml);
-	}
+	 // 에디터의 내용에 대한 값 검증은 이곳에서
+	 // document.getElementById("ir1").value를 이용해서 처리한다.
+	 try {
+		 //console.log(document.getElementById("goods_detail").value);
+		 //console.log(elClickedObj);
+	     //elClickedObj.form.submit();
+		 callInsertGoods();//goods.js 상품 등록 함수 호출
+	 } catch(e) {}
 }
 
-
-/* 상세정보 보여주기 */
-function showDetail(memberVO){
-/*
-	-일반 사용자
-	아이디 이름 핸드폰 이메일 생일 성별  주소 가입여부 
-	가입날짜 가입유저 트리 마일리지 트리바  씨앗
-*/
-
-/*
-	-업체 
-	아이디 이름 핸드폰 이메일 생일 성별  주소 가입여부 
-	[회사이름 사업자번호] 트리 마일리지 트리바  씨앗
-*/
-
-/*
-	-관리자
-	아이디 이름 핸드폰 이메일 생일 성별  주소 가입여부 
-	[관리자 레벨] 트리 마일리지 트리바  씨앗
-*/
-	var check="";
-	if(memberVO['custVO'].admin_yn=="Y"){
-		check=3;
-	}else if(memberVO['custVO'].company_yn=="Y"){
-		check=2;
-	}else{
-		check=1;
-	}
-	
-	//alert(check);
-	var str="";
-	str +="<table>"
-		+ "	<tr>"
-		+ "		<td>아이디</td>"
-		+ "		<td><span>"+memberVO['custVO'].memberId+"</span></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>이름</td>"
-		+ "		<td>"+memberVO['custVO'].name+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>핸드폰</td>"
-		+ "		<td>"+memberVO['custVO'].phone+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>이메일</td>"
-		+ "		<td>"+memberVO['custVO'].email+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>생일</td>"
-		+ "		<td>"+memberVO['custVO'].birth+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>성별</td>"
-		+ "		<td>"+memberVO['custVO'].sex+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td rowspan='4'>주소</td>"
-		+ "		<tr>"
-		+ "			<td>"+memberVO['custVO'].addr_post+"</td>"
-		+ " 	</tr>"
-		+ "		<tr>"
-		+ "			<td>"+memberVO['custVO'].addr_city+"</td>"
-		+ " 	</tr>"
-		+ "		<tr>"
-		+ "			<td>"+memberVO['custVO'].addr_detail+"</td>"
-		+ " 	</tr>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>가입여부</td>"
-		+ "		<td>"+memberVO['custVO'].member_yn+"</td>"
-		+ " </tr>"
-	
-	if(check==2){
-		str +="	<tr>"
-			+ "		<td>회사 이름</td>"
-			+ "		<td>"+memberVO['compVO'].comp_name+"</td>"
-			+ " </tr>"
-			+ "	<tr>"
-			+ "		<td>사업자 번호</td>"
-			+ "		<td>"+memberVO['compVO'].corp_num+"</td>"
-			+ " </tr>"
-	}else if(check==3){
-		str +="	<tr>"
-			+ "		<td>관리자 레벨</td>"
-			+ "		<td>"+memberVO['adminVO'].acc_level+"</td>"
-			+ " </tr>"
-	}
-		
-	str +="	<tr>"
-		+ "		<td>가입날짜</td>"
-		+ "		<td>"+memberVO['custVO'].regDate+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>가입유저</td>"
-		+ "		<td>"+memberVO['custVO'].regUser+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>수정날짜</td>"
-		+ "		<td>"+memberVO['custVO'].editDate+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>수정유저</td>"
-		+ "		<td>"+memberVO['custVO'].editUser+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>마일리지</td>"
-		+ "		<td>"+memberVO['custVO'].myMil+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td rowspan='3'>나무정보</td>"
-		+ "		<tr>"
-		+ "			<td>"+memberVO['custVO'].myTree+"</td>"
-		+ " 	</tr>"
-		+ "		<tr>"
-		+ "			<td>"+memberVO['custVO'].my_bar+"</td>"		
-		+ " 	</tr>"
-		+ " </tr>";
-		
-	$("#detail_chat").html(str);	//modal
+//스마트 에디터 리턴 값 -> 파일 경로 + 파일명만 추출
+function getFilePath(queryStr){
+	return queryStr.substring(t.indexOf("sFileURL=") + 9);
 }
 
-/* 상세보기 게시판 수정 판*/
-function showDetail_modify(memberVO){
-	var check="";
-	if(memberVO['custVO'].admin_yn=="Y"){
-		check=3;
-	}else if(memberVO['custVO'].company_yn=="Y"){
-		check=2;
-	}else{
-		check=1;
+function checkExtension(fileName, fileSize){
+	var regex = new RegExp("(.*?)\.(jpg|png|bmp|rle|dib|gif|tif|tiff)");
+	var maxSize = 5242880;
+	
+	if(fileSize >= maxSize){
+		alert('파일 사이즈 초과');
+		return false;
 	}
 	
-	//alert(check);
-	var str="";
-	str +="<table>"
-		+ "	<tr>"
-		+ "		<td>아이디</td>"
-		+ "		<td><input type='text' class='' name='memberId' id='memberId' value='"+memberVO['custVO'].memberId+"' readOnly></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>비밀번호</td>"
-		+ "		<td><input type='text' class='' name='password' id='password' ></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>이름</td>"
-		+ "		<td><input type='text' class='' name='name' id='name' value='"+memberVO['custVO'].name+"' ></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>핸드폰</td>"
-		+ "		<td><input type='text' class='' name='phone' id='phone' value='"+memberVO['custVO'].phone+"' ></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>이메일</td>"
-		+ "		<td><input type='text' class='' name='email' id='email' value='"+memberVO['custVO'].email+"' ></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>생일</td>"
-		+ "		<td><input type='date' class='' name='birth' id='birth' value='"+memberVO['custVO'].birth+"' ></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>성별</td>"
-		+ "		<td>"
-		+ "		<input type='radio' id='male' name='sex_check' value=1 >남자 "
-		+ "		<input type='radio' id='female' name='sex_check' value=2 >여자 "
-		+ "		</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td rowspan='5'>주소</td>"
-		+ "		<tr>"
-		+ "			<td>"
-		+ "				<input type='text' class='' name='addr_post' id='addr_post' value='"+memberVO['custVO'].addr_post+"' > &nbsp;&nbsp;"
-		+ " 			<input class='btn btn-link' type='button' onclick='popUP()' value='우편번호 찾기'>"
-		+ "			</td>"
-		+ " 	</tr>"
-		+ "		<tr>"
-		+ "			<td><input type='text' class='' name='addr_city' id='addr_city' value='"+memberVO['custVO'].addr_city+"' ></td>"
-		+ " 	</tr>"
-		+ "		<tr>"
-		+ "			<td><input type='text' class='' name='addr_city_old' id='addr_city_old' ></td>"
-		+ " 	</tr>"
-		+ "		<tr>"
-		+ "			<td><input type='text' class='' name='addr_detail' id='addr_detail' value='"+memberVO['custVO'].addr_detail+"' ></td>"
-		+ " 	</tr>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>가입여부</td>"
-		+ "		<td>"
-		+ "		<input type='radio' id='member_y' name='member_check' value='Y'>가입 "
-		+ "		<input type='radio' id='member_n' name='member_check' value='N'>탈퇴 "
-		+ "		</td>"
-		+ " </tr>";
-		
-	if(check==2){
-		str +="	<tr>"
-			+ "		<td>회사 이름</td>"
-			+ "		<td><input type='text' class='' name='comp_name' id='comp_name' value='"+memberVO['compVO'].comp_name+"' ></td>"
-			+ " </tr>"
-			+ "	<tr>"
-			+ "		<td>사업자 번호</td>"
-			+ "		<td><input type='text' class='' name='corp_num' id='corp_num' value='"+memberVO['compVO'].corp_num+"' ></td>"
-			+ " </tr>";
-	}else if(check==3){
-		str +="	<tr>"
-			+ "		<td>관리자 레벨</td>"
-			+ "		<td>"
-			+ "			<select name='acc_level'>"
-			+ "				<option value=1>1-총관리자</option>"
-			+ "				<option value=2>2-중간관리자</option>"
-			+ "				<option value=3>3-신입관리자</option>"
-			+ "			<select>"
-			+ "		</td>"
-			+ " </tr>";
+	if(!regex.test(fileName)){
+		alert('이미지 파일만 업로드 가능합니다. \n jpg, png, bmp, rle, dib, gif, tif, tiff');
+		return false;
 	}
-		
-	str +="	<tr>"
-		+ "		<td>가입날짜</td>"
-		+ "		<td>"+memberVO['custVO'].regDate+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>가입유저</td>"
-		+ "		<td>"+memberVO['custVO'].regUser+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>수정날짜</td>"
-		+ "		<td>"+memberVO['custVO'].editDate+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>수정유저</td>"
-		+ "		<td>"+memberVO['custVO'].editUser+"</td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td>포인트</td>"
-		+ "		<td><input type='text' class='' name='myMil' id='myMil' value='"+memberVO['custVO'].myMil+"' ></td>"
-		+ " </tr>"
-		+ "	<tr>"
-		+ "		<td rowspan='3'>나무정보</td>"
-		+ "		<tr>"
-		+ "			<td><input type='text' class='' name='myTree' id='myTree' value='"+memberVO['custVO'].myTree+"' ></td>"
-		+ " 	</tr>"
-		+ "		<tr>"
-		+ "			<td><input type='text' class='' name='my_bar' id='my_bar' value='"+memberVO['custVO'].my_bar+"' ></td>"
-		+ " 	</tr>"
-		+ " </tr>";
-		
-	$("#detail_chat").html(str);	//modal
+	
+	return true;
+}
+//----------------------------------- naver smart editor -------------------------------
+
+var reqLen = 0;
+//radio 버튼 클릭 이벤트 
+$("input:radio[name=req_option]").click(function(){
+            
+    if($("input:radio[name=req_option]:checked").val()=='Y'){
+    	if(reqLen === 0){ makeReqOptionInputHtml(); }
+    }else{
+    	$('#req_option_div').empty();
+    	reqLen = 0;
+    }
+});
+
+function makeReqOptionInputHtml(){
+	var optionNameArr = $('input:text[name=req_option_name]');
+	
+	if(reqLen != 0 && !optionNameArr[reqLen -1].value){ 
+		alert ('옵션명을 입력 해주세요. (금액 : 입력안함 -> 0원)');
+		return;
+	}
+	
+	reqLen++;
+	var htmlStr = '<div class="col-lg-12" id="tmp' + reqLen + '"> ';
+	htmlStr += ' 옵션명 <input type="text" name="req_option_name"> '; 
+	htmlStr += ' 가격 <input type="number" name="req_price" value="0"> ';
+	htmlStr += '<button class="btn" onclick="makeReqOptionInputHtml();">추가</button> <button class="btn" onclick="removeReqOptionInputHtml();">제거</button></div>';
+	
+	$('#req_option_div').append(htmlStr);
 }
 
+function removeReqOptionInputHtml(){
+	if(reqLen == 0){ return; }
+	$('#tmp' + reqLen--).remove();
+}
+
+$(".close1").on("click",function(){
+	//display
+	$(".modal").hide();
+	location.reload();
+});
 
 
 </script>
@@ -948,11 +959,13 @@ function showDetail_modify(memberVO){
 
 
 <!-- My Account -->
-<script src="/resources/home/customer.js?v=<%=System.currentTimeMillis() %>"></script>
+<script src="/resources/cust/customer.js?v=<%=System.currentTimeMillis() %>"></script>
+<script src="/resources/cust/custHtml.js?v=<%=System.currentTimeMillis() %>"></script>
 <script>
 /* CSRF 데이터 변수 저장 */
 var csrfHeaderName="${_csrf.headerName}";
 var csrfTokenValue="${_csrf.token}";
+
 
 
 var modify_value= $("#modify_value").val;
@@ -960,7 +973,7 @@ var memId="${memberId}";
 
 /* 비밀번호 체크 html 생성 */
 $("#account-nav").on("click", function(){
-	alert("id는? "+memId);
+	//alert("id는? "+memId);
 	$("#account_custChat").html("");
 	$("#account_compChat").html("");
  	document.getElementById("confirm_check").style.display="none";
@@ -968,176 +981,41 @@ $("#account-nav").on("click", function(){
 	
 	str="";
 	str +='<h5>비밀번호 확인</h5>'
-		+ '<form id="pwCheckForm" action="">'
 		+ '	<div class="row" id="cust_detailChat">'
 		+ '		<div class="col-md-6">'
 		+ '			<label>Password</label>'
-		+ '			<input class="form-control" type="text" id="pwCheck" name="pwCheck">'
+		+ '			<input class="form-control" type="password" id="password" name="password">'
 		+ '		</div>'
 		+ '		<div class="col-md-6">'
 		+ '			<label>　</label>'
 		+ '			<input type="button" class="form-control btn btn-primary" id="btn_check" value="submit">'
 		+ '		</div>'
-		+ '	</div>'
-		+ '</form>';
+		+ '	</div>';
+
 	
 	$("#account_custChat").html(str);
 });
 
 /* 비밀번호 확인 */
-$("#account_custChat").on("click","#btn_check", function(){
+$("#account_custChat").on("click","#btn_check", function(e){
+	e.preventDefault();
+	var custVO={memberId:memId, password:$("#password").val()} ;
+	var csrf={csrfHeaderName:csrfHeaderName, csrfTokenValue:csrfTokenValue};
 	customer.passwordCheck(
-		custVO={"memberId":memId, "password":$("#pwCheck").val()},	
-		csrf={"csrfHeaderName":csrfHeaderName, "csrfTokenValue":csrfTokenValue},
+		custVO,	
+		csrf,
 		function(data){
-			if(data="success"){
+			if(data=="success"){
 				get_chat();
 			 	document.getElementById("modify_check").style.display="block";
 			}
 		},
-		function(data){
-			alert("비밀번호가 일치 하지 않습니다");
-		}
+		function(){alert("비밀번호가 일치하지 않습니다.");}
 	);
 
 });
 
-/* 특정 회원 정보 가져오기 */
-function get_chat(){
-	customer.getCust(
-			memId,
-			function(memberVO){
-				console.log(memberVO['custVO'].memberId);
-				if(memberVO["custVO"].sex == 1){var sex="남자"}else{var sex="여자"}
-				str1="";
-				str2="";
-				str1 +='<h4> My Account Details</h4>'
-					 + '<div style="border:1px solid gray;" class="row">'
-					 + '	<div class="col-md-8">'
-					 + '		<label>ID</label>'
-					 + '		<input class="form-control" type="text" id="memberId" name="memberId" value="'+memberVO["custVO"].memberId+'" disabled>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Name</label>'
-					 + '		<input class="form-control" type="text" id="name" name="name" value="'+memberVO["custVO"].name+'" disabled>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Phone Number</label>'
-					 + '		<input class="form-control" type="text" id="phone" name="phone" value="'+memberVO["custVO"].phone+'" disabled>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Email</label>'
-					 + '		<input class="form-control" type="text" id="email" name="email" value="'+memberVO["custVO"].email+'" disabled>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Address</label>'
-					 + '		<input class="form-control" type="text" id="addr_post1" name="addr_post" value='+memberVO["custVO"].addr_post+' disabled>'
-					 + '		<input class="form-control" type="text" id="addr_city1" name="addr_city" value="'+memberVO["custVO"].addr_city+'" disabled>'
-					 + '		<input class="form-control" type="text" id="addr_detail1" name="addr_detail" value="'+memberVO["custVO"].addr_detail+'" disabled>'
-					 + '		<span id="guide" style="color:#999display:none"></span>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Birth</label>'
-					 + '		<input class="form-control" type="text" id="birth" name="birth" value='+memberVO["custVO"].birth+' disabled>'
-					 + '	</div>'	
-					 + '	<div class="col-md-8">'
-					 + '		<label>Sex</label>'
-					 + '		<input class="form-control" type="text" id="sex" name="sex" value='+sex+' disabled>'
-					 + '	</div>'
-					 + '	<div class="hiddenValue">'
-					 + '		<input class="form-control" type="hidden" id="company_yn" name="company_yn" value='+memberVO["custVO"].company_yn+' disabled>'
-					 + '	</div>'
-					 + '</div><p/>';
 
-				if(memberVO["custVO"].company_yn == "Y"){
-					str2 +='<h4> My Company Details</h4>'
-						 + '<div style="border:1px solid gray;" class="row">'
-						 + '	<div class="col-md-8">'
-						 + '		<label>Company Name</label> '
-						 + '		<input class="form-control" type="text" id="comp_name" name="comp_name"  value='+memberVO["compVO"].comp_name+' disabled>'
-						 + '	</div>'
-						 + '	<div class="col-md-8">'
-						 + '		<label>Company Corporate Number</label> '
-						 + '		<input class="form-control" type="text" id="corp_num" name="corp_num"  value='+memberVO["compVO"].corp_num+' disabled>'
-						 + '	</div>'
-						 + '	<div class="col-md-8">'
-						 + '		<label>Address</label>'
-						 + '		<input class="form-control" type="text" id="addr_post2" name="addr_postC" value='+memberVO["custVO"].addr_post+' disabled>'
-						 + '		<input class="form-control" type="text" id="addr_city2" name="addr_cityC" value='+memberVO["custVO"].addr_city+' disabled>'
-						 + '		<input class="form-control" type="text" id="addr_detail2" name="addr_detailC" value='+memberVO["custVO"].addr_detail+' disabled>'
-						 + '		<span id="guide" style="color:#999display:none"></span>'
-						 + '		</div>'
-						 + '	</div>'
-						 + '</div><p>';
-					}	        	
-
-				$("#account_custChat").html("");
-				$("#account_compChat").html("");
-				$("#account_custChat").html(str1);
-				$("#account_compChat").html(str2);
-	});
-};
-
-
-
-/* 수정 회원 정보 가져오기 */
-function modify_chat(){
-	customer.getCust(
-			memId,
-			function(memberVO){
-				console.log(memberVO['custVO'].memberId);
-				if(memberVO["custVO"].sex == 1){var sex="남자"}else{var sex="여자"}
-				str1="";
-				str2="";
-				str1 +='<h4> My Account Details</h4>'
-					 + '<div style="border:1px solid gray;" class="row">'
-					 + '	<div class="col-md-8">'
-					 + '		<label>ID</label>'
-					 + '		<input class="form-control" type="text" id="memberId" name="memberId" value="'+memberVO["custVO"].memberId+'" disabled>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Password</label>'
-					 + '		<input class="form-control" type="text" id="password" name="password" />'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Name</label>'
-					 + '		<input class="form-control" type="text" id="name" name="name" value="'+memberVO["custVO"].name+'" >'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Phone Number</label>'
-					 + '		<input class="form-control" type="text" id="phone" name="phone" value="'+memberVO["custVO"].phone+'" >'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Email</label>'
-					 + '		<input class="form-control" type="text" id="email" name="email" value="'+memberVO["custVO"].email+'" disabled>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Address</label>'
-					 + '		<input class="form-control" type="text" id="addr_post" name="addr_post" value='+memberVO["custVO"].addr_post+' >'
-					 + '		<input class="btn btn-link" type="button" onclick="popUP()" value="우편번호 찾기">'
-					 + '		<input class="form-control" type="text" id="addr_city_new1" name="addr_city" value="'+memberVO["custVO"].addr_city+'" >'
-					 + '		<input class="form-control" type="text" id="addr_city_old1" 	name="addr_city_O" >'
-					 + '		<input class="form-control" type="text" id="addr_detail1" name="addr_detail" value="'+memberVO["custVO"].addr_detail+'" >'
-					 + '		<span id="guide" style="color:#999display:none"></span>'
-					 + '	</div>'
-					 + '	<div class="col-md-8">'
-					 + '		<label>Birth</label>'
-					 + '		<input class="form-control" type="text" id="birth" name="birth" value='+memberVO["custVO"].birth+' disabled>'
-					 + '	</div>'	
-					 + '	<div class="col-md-8">'
-					 + '		<label>Sex</label>'
-					 + '		<input class="form-control" type="text" id="sex" name="sex" value='+sex+' disabled>'
-					 + '	</div>'
-					 + '	<div class="hiddenValue">'
-					 + '		<input class="form-control" type="hidden" id="company_yn" name="company_yn" value='+memberVO["custVO"].company_yn+' disabled>'
-					 + '	</div>'
-					 + '</div><p/>';
-
-				$("#account_custChat").html("");
-				$("#account_custChat").html(str1);
-
-	});
-}
 
 /* 수정 버튼 선택시 수정  */
 $("#btn_modify").on("click", function(){
@@ -1162,6 +1040,9 @@ $("#btn_modCancel").on("click", function(){
 $("#btn_modSubmit").on("click", function(){
 	
 	var company_yn=$("#company_yn").val();
+	var password_old=$("#password_new").val();
+	$("#password").val(password_old);
+	
 	//var company_yn1=document.getElementById("company_yn");
 	
 	//alert("company_yn: "+company_yn);
@@ -1179,7 +1060,6 @@ $("#btn_modSubmit").on("click", function(){
 		"addr_detail" : $("#addr_detail1").val(),
 	};
 
-	console.log("custVO: " + JSON.stringify(custVO));
 
 	customer.modifyMember(
 		custVO, 
@@ -1201,29 +1081,83 @@ $("#btn_modSubmit").on("click", function(){
 
 
 
-/* 삭제버튼 클릭시 */
+/* 탈퇴버튼 클릭시 */
 $("#btn_remSubmit").on("click", function(){
 
-var confirmflag = confirm("정말로 삭제하시겠습니까?");
-	if (confirmflag == true) {
-		//alert("완료되었나요?");
-		customer.deleteMember(memId, 
+	//탈퇴 모달 display설정
+	$(".custRemoveButton").css("display","block");
+	$(".basic").css("display","none");
+	
+	//내용추가
+	$("#detail_chat2").html("정말로 탈퇴하시겠습니까?");
+	$("#total_header").html("삭제");
+	
+	//모달 보여주기
+	$("#totalModal").show();
+	
+//var confirmflag = confirm("정말로 삭제하시겠습니까?");
+//	if (confirmflag == true) {
+//		//alert("완료되었나요?");
+//		customer.deleteMember(memId, 
+//		csrf = {
+//				"csrfHeaderName" : csrfHeaderName,
+//				"csrfTokenValue" : csrfTokenValue
+//		}, 
+//		function(data) {
+//			if (data == "success") {
+//				//alert(data);	
+//			}
+//		});
+//		
+//		//display
+//		document.getElementById("confirm_check").style.display = "none";
+//		document.getElementById("modify_check").style.display = "block";
+//		/* 로그아웃 설정 */
+//		$('.logoutForm').submit();
+//	}
+});
+
+/* 삭제 - 모달 취소 */
+$(".custRemoveCancel").on("click",function(){
+	//display
+	$(".modal").hide();
+	$(".custRemoveButton").css("display","none");
+	$(".basic").css("display","block");
+});
+/* 삭제 - 모달 x */
+$(".close").on("click",function(){
+	//display
+	$(".modal").hide();
+	$(".custRemoveButton").css("display","none");
+	$(".basic").css("display","block");
+});
+
+/* 삭제 - 모달 확인 */
+$(".custRemoveSubmit").on("click",function(){
+	customer.deleteMember(
+		memId, 
 		csrf = {
-				"csrfHeaderName" : csrfHeaderName,
-				"csrfTokenValue" : csrfTokenValue
+			"csrfHeaderName" : csrfHeaderName,
+			"csrfTokenValue" : csrfTokenValue
 		}, 
 		function(data) {
 			if (data == "success") {
-				alert(data);	
 			}
-		});
-		
-		//display
-		document.getElementById("confirm_check").style.display = "none";
-		document.getElementById("modify_check").style.display = "block";
-		/* 로그아웃 설정 */
-	}
+	});
+			
+	//display
+	document.getElementById("confirm_check").style.display = "none";
+	document.getElementById("modify_check").style.display = "block";
+	
+	//display
+	$(".modal").hide();
+	$(".custRemoveButton").css("display","none");
+	
+	/* 로그아웃 설정 */
+	$('.logoutForm').submit();
+	
 });
+
 </script>
 
 
@@ -1255,34 +1189,72 @@ function popUP() {
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            
             document.getElementById('addr_post').value = data.zonecode;
             document.getElementById("addr_city_new1").value = roadAddr;
             document.getElementById("addr_city_old1").value = data.jibunAddress;
             
             var guideTextBox = document.getElementById("guide");
             // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-            if(data.autoRoadAddress) {
-                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                guideTextBox.style.display = 'block';
-
-            } else if(data.autoJibunAddress) {
-                var expJibunAddr = data.autoJibunAddress;
-                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                guideTextBox.style.display = 'block';
-            } else {
-                guideTextBox.innerHTML = '';
-                guideTextBox.style.display = 'none';
-            }
+            //if(data.autoRoadAddress) {
+            //    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+            //    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+            //    guideTextBox.style.display = 'block';
+            //
+            //} else if(data.autoJibunAddress) {
+            //    var expJibunAddr = data.autoJibunAddress;
+            //    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+            //    guideTextBox.style.display = 'block';
+            //} else {
+            //    guideTextBox.innerHTML = '';
+            //    guideTextBox.style.display = 'none';
+            //}
         }
     }).open();
 }
 </script>
         
+ <script>
+
+ 
+ 
+	//카트 상품 갯수 표시
+		var cust_id = "${memberId}";
+    	cartCnt(cust_id);
+       
+    	function cartCnt(cust_id) {
+			var cartCount = 0;
+			basketService.countBasketGoods(cust_id,function(result){
+				cartCount="("+result+")";
+				$(".cartCntBtn").text(cartCount);
+			});
+    	}
+    	
+    	 heartCnt(cust_id);
+    	 
+    		function heartCnt(cust_id) {
+    			var heartCount = 0;
+    			wishService.countWishGoods(cust_id,function(result){
+    				heartCount="("+result+")";
+    				$(".wishCntBtn").text(heartCount);
+    			});
+    		}
+        </script>
         
         
-        
-        
+        <!--Start of Tawk.to Script-->
+			<script type="text/javascript">
+				var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+				(function(){
+				var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+					s1.async=true;
+					s1.src='https://embed.tawk.to/6051161bf7ce18270930c865/1f0ubsnki';
+					s1.charset='UTF-8';
+					s1.setAttribute('crossorigin','*');
+					s0.parentNode.insertBefore(s1,s0);
+				})();
+			</script>
+		<!--End of Tawk.to Script-->
         
         
         

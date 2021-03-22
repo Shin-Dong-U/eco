@@ -161,6 +161,16 @@ public class OrderController {
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 	
+	//메인 주문정보 조회 업체
+		@GetMapping(value="/orderedlist",
+				produces= {"application/json; charset=UTF-8"})
+		public ResponseEntity<List<HashMap<String,Object>>> getOrderedListCom(
+				){ 
+			List<HashMap<String,Object>> result = orderService.getOrderedListAll();
+			log.info("getOrderedList 결과"+result);
+			return new ResponseEntity<>(result,HttpStatus.OK);
+		}
+	
 	
 	
 	//세부주문정보 조회

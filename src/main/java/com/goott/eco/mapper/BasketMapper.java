@@ -24,6 +24,8 @@ public interface BasketMapper {
 	
 	public Long checkExistBasket(HashMap<String,Object> orderInfo);
 	
+	public Long checkSameGoods(HashMap<String,Object> orderInfo);
+	
 	//public int createBasket(String cust_id);
 	public int createBasket(HashMap<String,Object> orderInfo);
 	

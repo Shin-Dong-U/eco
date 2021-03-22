@@ -2,11 +2,16 @@ package com.goott.eco.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.goott.eco.service.CommonService;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,6 +22,7 @@ import lombok.extern.log4j.Log4j;
 @CrossOrigin(origins ="http://localhost:3000")
 //@RequestMapping("/orders/*")
 public class PageController {
+	@Autowired private CommonService commonService;
 	
 //	@GetMapping("/goods/{goods_seq}")
 //	public String goodsDetail(Model model,HttpServletRequest request,
@@ -59,6 +65,16 @@ public class PageController {
 		
 		//return "orders/basket/list";
 	}
+	
+	@GetMapping("/orders/basket/wishlist")
+	public void wishlist(Model model,HttpServletRequest request ) {
+		String cust_id = (String) request.getSession().getAttribute("memberId");
+		log.info("session cust_id: "+cust_id);
+		log.info("wishlistlist페이지 이동");
+		
+		//return "orders/basket/list";
+	}
+	
 	@GetMapping("/orders/order/checkout")
 	public void checkout(@RequestParam Long order_seq,Model model) {
 		log.info("checkout페이지 이동");
@@ -99,15 +115,18 @@ public class PageController {
 //		
 //	}
 
-	@GetMapping("/home/index")
+	@GetMapping({"", "/home/index"})
 	public String index(Model model) {
 		log.info("index페이지 이동");
         return "home/index";
 	}
 	
 	@GetMapping("/cust/my-account")
-	public void myAccount(Model model) {
+	public ModelAndView myAccount(Model model) {
 		log.info("my-account페이지 이동");
+		ModelAndView mav = new ModelAndView("cust/my-account");
+		mav.addObject("cateList", commonService.categoryList());
+		return mav;
 		
 	}
 	
@@ -144,7 +163,7 @@ public class PageController {
 		String referrer = request.getHeader("Referer");	
 		if(referrer!=null) {
 			String result = referrer.substring(referrer.lastIndexOf("/")+1);
-			if(result.equals("login")) return;
+			if(result.equals("login")||result.equals("register")) return;
 			
 			System.out.println("이전페이지url: "+referrer);
 		    request.getSession().setAttribute("prevPage", referrer);

@@ -103,32 +103,37 @@ public class BasketController {
 	}
 	
 	//선택상품 장바구니에 넣기
-	//@PostMapping(value="/new",
-	//		produces= {"text/plain;charset=UTF-8"})
-	//public ResponseEntity<String> addGoodsAtBasket(
-	//		@RequestBody HashMap<String,Object> orderInfo){
-	//	log.info("장바구니 추가 orderInfo"+orderInfo);
-	//	log.info("장바구니 추가 소유 id: "+ orderInfo.get("cust_id"));
-	//	log.info("장바구니 추가 상품번호: "+orderInfo.get("goods_seq"));
-	//	log.info("장바구니 추가 상품수량: "+orderInfo.get("qty"));
-	//	log.info("장바구니 추가 옵션: "+orderInfo.get("orderOption"));
-	//	
-	//	return basketService.addGoodsAtBasket(orderInfo)>0?
-	//			new ResponseEntity<>("성공",HttpStatus.OK):
-	//			new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	//}
+	@PostMapping(value="/new",
+			produces= {"text/plain;charset=UTF-8"})
+	public ResponseEntity<String> addGoodsAtBasket(
+			@RequestBody HashMap<String,Object> orderInfo){
+		log.info("장바구니 추가 orderInfo"+orderInfo);
+		log.info("장바구니 추가 소유 id: "+ orderInfo.get("cust_id"));
+		log.info("장바구니 추가 상품번호: "+orderInfo.get("goods_seq"));
+		log.info("장바구니 추가 상품수량: "+orderInfo.get("qty"));
+		log.info("장바구니 추가 옵션: "+orderInfo.get("orderOption"));
+		int result=basketService.addGoodsAtBasket(orderInfo);
+		String sendResult = null;
+		if(result==0) {
+			sendResult = "exist";
+		}else {
+			sendResult = "notexist";
+		}
+		log.info("결과: "+result+"/"+sendResult);
+		return new ResponseEntity<>(sendResult,HttpStatus.OK);
+	}
 	
 	//장바구니 수량 파악
-	//	@GetMapping(value="/count/{cust_id}",
-	//			produces= {"application/json; charset=UTF-8"})
-	//	public ResponseEntity<Integer> countBasketGoods(
-	//			@PathVariable("cust_id") String cust_id){
-	//		
-	//		//int result = basketService.countBasketGoods(cust_id);
-	//		
-	//		
-	//		return 	new ResponseEntity<>(result,HttpStatus.OK);
-	//	}
+		@GetMapping(value="/count/{cust_id}",
+				produces= {"application/json; charset=UTF-8"})
+		public ResponseEntity<Integer> countBasketGoods(
+				@PathVariable("cust_id") String cust_id){
+			
+			int result = basketService.countBasketGoods(cust_id);
+			
+			
+			return 	new ResponseEntity<>(result,HttpStatus.OK);
+		}
 	
 	
 	

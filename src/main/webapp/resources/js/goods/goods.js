@@ -96,11 +96,61 @@ var goodsService=(function(){
 		});
 	}
 	
+	function deleteComment(url, data, callback){
+		if(isRun === true) { return false; }
+		isRun = true;
+		
+		$.ajax({ 
+			type : 'delete',						
+			url : url,	
+			data : JSON.stringify(data),
+			contentType : "application/json;charset=UTF-8",
+			
+			success : function(result, status, xhr){
+				if(callback){
+					callback(result);
+				}
+				isRun = false;
+			}, error : function(e){
+				console.log(e);
+				isRun = false;
+			}, complete : function() {
+				commentInsertFormReset();
+				movePage(1);
+    		}
+		});
+	}
+	
+	function insertGoods(url, data, callback){
+		if(isRun === true) { return false; }
+		isRun = true;
+		
+		$.ajax({ 
+			type : 'put',						
+			url : url,	
+			data : JSON.stringify(data),
+			contentType : "application/json;charset=UTF-8",
+			
+			success : function(result, status, xhr){
+				if(callback){
+					callback(result);
+				}
+				isRun = false;
+			}, error : function(e){
+				console.log(e);
+				isRun = false;
+			}, complete : function() {
+    		}
+		});
+	}
+	
 	return {
 		getGoodsList : getGoodsList,
 		getCommentList : getCommentList,
 		updateComment : updateComment,
-		insertComment : insertComment
+		insertComment : insertComment,
+		insertGoods : insertGoods,
+		deleteComment : deleteComment
 	};
 	
 })();
@@ -130,7 +180,7 @@ function callGetGoodsList(isNewSearch){
 				htmlStr += '</div>';
 				htmlStr += '<div class="product-image">';
 				htmlStr += '<a href="' + linkUrl + result.goodsList[i].GOODS_SEQ + '">';
-				htmlStr += '<img src="' + imgUrl + '" alt="상품 이미지" onerror="this.src=' + "'/resources/upload/img/default/no_img.jpg'" + '" style="overflow: hidden;height:250px;"/>';
+				htmlStr += '<img src="' + imgUrl + '" alt="상품 이미지" onerror="this.src=' + "'/resources/image/no_img.png'" + '" style="overflow: hidden;height:250px;"/>';
 				htmlStr += '</a>';
 				
 				htmlStr += '<div class="product-action">';
@@ -180,7 +230,9 @@ function callGetCommentList(){
 				htmlStr += '<div class="reviews-submitted" id="commentDiv_' + result.commentList[i].GOODS_COMMENT_SEQ + '">';
 				htmlStr += '<div class="reviewer">' + result.commentList[i].NAME + ' - <span>' + result.commentList[i].REGDATE;
 				if(result.commentList[i].CUST_ID === memberId) {
-					htmlStr += '<span style="float:right"><a href="#this" onClick="modifyComment(' + result.commentList[i].GOODS_COMMENT_SEQ + ');">수정</a></span>';
+					htmlStr += '<span style="float:right">';
+					htmlStr += '<a href="#this" onClick="modifyComment(' + result.commentList[i].GOODS_COMMENT_SEQ + ');">수정</a> &nbsp;';
+					htmlStr += '<a href="#this" onClick="commentDelete(' + result.commentList[i].GOODS_COMMENT_SEQ + ');">삭제</a></span>';
 				}
 				htmlStr += '</span></div>';
 				
@@ -219,7 +271,23 @@ function callUpdateComment(goods_comment_seq){
 	var data = {"goods_comment_seq" : goods_comment_seq, "goods_seq" : goodsSeq, "memo" : memo, "star" : star};
 	 
 	goodsService.updateComment(url, data, function(result){
-		alert('수정 되었습니다.');
+		$("#totalModal").show();
+		$("#total_header").html("댓글");
+		$("#detail_chat").html("수정 되었습니다.");
+		//alert('수정 되었습니다.');
+	});
+}
+
+function callDeleteComment(goods_comment_seq){
+	const goodsSeq = $('#goodsSeq').val();
+	var url = '/goods/rest/' + goodsSeq + '/review/' + goods_comment_seq;
+
+	var data = {"goods_comment_seq" : goods_comment_seq, "goods_seq" : goodsSeq};
+	 
+	goodsService.deleteComment(url, data, function(result){
+		$("#totalModal").show();
+		$("#total_header").html("댓글");
+		$("#detail_chat").html("삭제 되었습니다.");
 	});
 }
 
@@ -232,7 +300,50 @@ function callInsertComment(){
 	var url = '/goods/rest/' + goodsSeq + '/review';
 
 	goodsService.insertComment(url, data, function(result){
-		alert('등록 되었습니다.');
+		$("#totalModal").show();
+		$("#total_header").html("댓글");
+		$("#detail_chat").html("등록 되었습니다.");
+		//alert('등록 되었습니다.');
+	});
+}
+
+function callInsertGoods(){
+	var data = $('#goodsForm').serializeObject();
+	var url = '/goods/rest/form'; 
+
+//  필수 옵션 관련 작업 중지.
+//	var req_option_name = $('input[name="req_option_name"]');
+//	var req_price = $('input[name="req_price"]');
+	
+	goodsService.insertGoods(url, data, function(result){
+		if(result && result != -1){
+			var goodsSeq = result;
+			var formData = new FormData();
+		
+			var inputFile = $('input[name="uploadFile"]');
+			
+			var files = inputFile[0].files;
+			
+			for(var i = 0; i < files.length; i++){
+				formData.append("uploadFile", files[i]);
+			}
+			
+			$.ajax({
+				url : '/goods/rest/' + goodsSeq + '/form/upload/images/thumb',
+				processData: false,
+				contentType: false,
+				data: formData,
+				type: 'POST',
+				success: function(result){
+					//alert('등록 되었습니다.');
+					$("#totalModal").show();
+					$("#total_header").html("상품");
+					$("#detail_chat2").html("등록 되었습니다.");
+					//location.href = '/goods/' + goodsSeq;
+					
+				}
+			});
+		}
 	});
 }
 
@@ -312,6 +423,12 @@ function commentUpdate(goodsCommentSeq){
 	callUpdateComment(goodsCommentSeq);
 	commentReset();
 }
+
+//상세 - 리뷰 삭제 실행
+function commentDelete(goodsCommentSeq){
+	callDeleteComment(goodsCommentSeq);
+	commentReset();
+}
    	
 //상세 - 리뷰 등록 실행
 function commentInsert(){
@@ -336,7 +453,7 @@ $(document).ready(function () {
         $(".carousel").carousel();
     });
 });
-*/
+
 
 (function ($) {
     "use strict";
@@ -575,7 +692,7 @@ $(document).ready(function () {
             $('#' + checkbox_id + '-show').slideDown();
         }
     });
-})(jQuery);
+})(jQuery);*/
 
 
 

@@ -1,8 +1,8 @@
 package com.goott.eco.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class ChartServiceImpl implements ChartService {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getMonthSale(int searchRange) {
+	public Map<String, Object> getMonthSale(int searchRange) {
 //		List<HashMap<String, Object>> sales = new ArrayList<HashMap<String, Object>>(12);
 //		for(int i=1 ; i<=12 ;i++) {
 //			String dateRange1= null;
@@ -45,10 +45,15 @@ public class ChartServiceImpl implements ChartService {
 //			HashMap<String, Object> salesResult = chartMapper.getMonthSale(dateRange1,dateRange2);
 //			sales.add(salesResult);
 //		}
-		List<HashMap<String, Object>> sales = chartMapper.getMonthSale(searchRange);
-		log.info(sales);
+		//List<HashMap<String, Object>> sales = chartMapper.getMonthSale(searchRange);
+		List<HashMap<String, Object>> sales = chartMapper.getMonthSale(2020);
+		List<HashMap<String, Object>> sales2 = chartMapper.getMonthSale(2021);
+		Map<String, Object> data = new HashMap<>();
+		data.put("sales2020", sales);
+		data.put("sales2021", sales2);
 		
-		return sales;
+		
+		return data;
 	}
 
 }

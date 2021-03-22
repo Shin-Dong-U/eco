@@ -4,21 +4,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.goott.eco.common.Criteria;
 import com.goott.eco.common.PageDTO;
 import com.goott.eco.domain.AdminVO;
+import com.goott.eco.domain.CompanyVO;
+import com.goott.eco.domain.CustVO;
 import com.goott.eco.domain.GoodsVO;
 import com.goott.eco.domain.MemberVO;
 import com.goott.eco.mapper.GoodsMapper;
 import com.goott.eco.util.GoodsSampleDataMaker;
 
+import lombok.Setter;
+
 import java.util.List;
 import java.util.Map;
 
 import com.goott.eco.mapper.AdminMapper;
+import com.goott.eco.mapper.CompanyMapper;
 import com.goott.eco.mapper.CustMapper;
 
 @Service
@@ -30,8 +36,16 @@ public class AdminServiceImpl implements AdminService{
 	private CustMapper custDao;
 	
 	@Autowired 
+	private CompanyMapper compDao;
+	
+	@Autowired 
 	private GoodsMapper goodsDao;
 	
+	
+	@Setter(onMethod_ = { @Autowired})
+	private PasswordEncoder pwEncoder;
+	
+	/*
 	@Transactional
 	@Override
 	public int getSampleData() throws Exception {
@@ -62,6 +76,7 @@ public class AdminServiceImpl implements AdminService{
 		return 0;
 	}
 	
+	*/
 	/* 모든 관리자 정보 가져오기 */
 	@Override
 	public Map<String, Object> getAdminList(int pageNum) {
@@ -137,7 +152,59 @@ public class AdminServiceImpl implements AdminService{
 		//	return 0;
 		//}
 	}
+	
+	/* 관리자 - 변경 */
+	@Override
+	public int modAdmin_cust(MemberVO memberVO, String loginId) {
+		String memberId = memberVO.getCustVO().getMemberId();
+		
+		CustVO newCustVO = custDao.getCust(memberId);
 
+		int v1=0, v2=0, v3 =0;
+		passwordEncoding(memberVO.getCustVO());
+		
+		//회원 정보 변경
+		v3 = adminDao.modAdmin_cust(memberVO.getCustVO(), loginId);
+		
+		//회원탈퇴???
+		//회원 가입여부 *존재*
+		if(memberVO.getCustVO().getMember_yn().equals("Y")) {
+			String exgist_auth=adminDao.getCustAuth(memberVO.getCustVO().getMemberId());
+			if(exgist_auth.equals("false")) {
+				adminDao.regCust_Auth(memberVO.getCustVO().getMemberId());
+			}
+		}else {
+			String exgist_auth=adminDao.getCustAuth(memberVO.getCustVO().getMemberId());
+			if(exgist_auth.equals("true")) {
+				custDao.deleteCustAuth(memberVO.getCustVO().getMemberId());
+			}
+		}
+		
+		
+		//관리자 정보 변경
+		if(newCustVO.getAdmin_yn().equals("Y")) {
+			v1=adminDao.modAdmin_admin(memberVO.getAdminVO(),loginId);
+		}
+		
+		//업체 정보 변경
+		if(newCustVO.getCompany_yn().equals("Y")) {
+			v2=adminDao.modAdmin_comp(memberVO.getCompVO(),loginId);
+		}
+		
+		System.out.println("v1: "+v1+" v2: "+v2+" v3:"+v3);
+		return 1;
+	}
+
+
+
+	public void passwordEncoding(CustVO custVO) {
+		if(custVO.getPassword() !=null && !custVO.getPassword().equals("")) {
+			System.out.println("hh"+custVO.getPassword());
+			String Encoder=pwEncoder.encode(custVO.getPassword());
+			custVO.setPassword(Encoder);
+		}
+		//custVO.setPassword(passwordEncoder.encode(custVO.getPassword()));
+	}
 
 
 }

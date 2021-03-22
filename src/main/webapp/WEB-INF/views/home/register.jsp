@@ -1,144 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>E Store - eCommerce HTML Template</title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="eCommerce HTML Template Free Download" name="keywords">
-<meta content="eCommerce HTML Template Free Download" name="description">
-
-    <!-- Favicon -->
-<link href="/resources/template/img/favicon.ico" rel="icon">
-
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
-
-<!-- CSS Libraries -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-<link href="/resources/template/lib/slick/slick.css" rel="stylesheet">
-<link href="/resources/template/lib/slick/slick-theme.css" rel="stylesheet">
-
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-<script src="/resources/template/lib/easing/easing.min.js"></script>
-<script src="/resources/template/lib/slick/slick.min.js"></script>
-
-<!-- Template Javascript -->
-<script src="/resources/template/js/main.js"></script>
-        
-<!-- Template Stylesheet -->
-<link href="/resources/template/css/style.css" rel="stylesheet">
-<style>
-	.loginOver{
-		/* flex 부모태그에 설정 */
-		display: flex; 
-		/* 주축변경 */
-		flex-direction: column;
-		/* 주축에 대한 center */
-		align-items: center;
-	}
-	
-</style>
-</head>
-
-<body>
-    <!-- Top bar Start -->
-<div class="top-bar">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-6">
-                <i class="fa fa-envelope"></i>
-                support@email.com
-            </div>
-            <div class="col-sm-6">
-                <i class="fa fa-phone-alt"></i>
-                +012-345-6789
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Top bar End -->
-
-<!-- Nav Bar Start -->
-<div class="nav">
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-            <a href="" class="navbar-brand">MENU</a>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                <div class="navbar-nav mr-auto">
-                    <a href="index.html" class="nav-item nav-link">Home</a>
-                    <a href="product-list.html" class="nav-item nav-link">Products</a>
-                    <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
-                    <a href="cart.html" class="nav-item nav-link">Cart</a>
-                    <a href="checkout.html" class="nav-item nav-link">Checkout</a>
-                    <a href="my-account.html" class="nav-item nav-link">My Account</a>
-                    <div class="nav-item dropdown">
-                        <a href="" class="nav-link dropdown-toggle active" data-toggle="dropdown">More Pages</a>
-                        <div class="dropdown-menu">
-                            <a href="wishlist.html" class="dropdown-item">Wishlist</a>
-                            <a href="login.html" class="dropdown-item active">Login & Register</a>
-                            <a href="contact.html" class="dropdown-item">Contact Us</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="navbar-nav ml-auto">
-                    <div class="nav-item dropdown">
-                        <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
-                        <div class="dropdown-menu">
-                            <a href="" class="dropdown-item">Login</a>
-                            <a href="" class="dropdown-item">Register</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
-</div>
-<!-- Nav Bar End -->      
-
-<!-- Bottom Bar Start -->
-<div class="bottom-bar">
-    <div class="container-fluid">
-        <div class="row align-items-center">
-            <div class="col-md-3">
-                <div class="logo">
-                    <a href="index.html">
-                        <img src="/resources/template/img/logo.png" alt="Logo">
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="search">
-                    <input type="text" placeholder="Search">
-                    <button><i class="fa fa-search"></i></button>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="user">
-                    <a href="wishlist.html" class="btn wishlist">
-                        <i class="fa fa-heart"></i>
-                        <span>(0)</span>
-                    </a>
-                    <a href="cart.html" class="btn cart">
-                        <i class="fa fa-shopping-cart"></i>
-                        <span>(0)</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Bottom Bar End --> 
+<%@ include file="../include/header.jsp" %>
 
 
 <!-- Breadcrumb Start -->
@@ -167,8 +28,8 @@
 								<div class="col-md-6">
 									<table style="width:100%; text-align:center;">
 										<tr>
-											<td><label>CUSTOMER</label></td>
-											<td><label>COMPANY</label></td>
+											<td><label>일반 사용자</label></td>
+											<td><label>회사</label></td>
 										</tr>
 										<tr>
 											<td><input class="form-control companyCheck" id="customer" type="radio" name="company_yn" value="N" checked/></td>
@@ -176,48 +37,56 @@
 										</tr>
 									</table>
 								</div>
-								<div class="col-md-6">
-									<label>ID</label>
-									<input class="form-control" type="text" id="memberId" name="memberId" placeholder="ID">
+								<div class="col-md-6 " >
+									<label>아이디</label>
+									<div class="userBind">
+										<input class="form-control" type="text" id="memberId" name="memberId" placeholder="ID">&nbsp;&nbsp;&nbsp;&nbsp;
+										<div class="idCheck_div">
+											<input class="btn idCheck" type="button" id="idCheck" value="중복검사" />
+										</div>
+									</div>
 								</div>
 								<div class="col-md-6">
-									<label>Password</label>
+									<label>비밀번호</label>
 									<input class="form-control" type="password" id="password" name="password" placeholder="password">
+									<input class="form-control" type="password" id="password_confirm" name="password_confirm" placeholder="password">
+									<span class="passwordCheck"> </span>
 								</div>
 								<div class="col-md-6">
-									<label>Name</label>
+									<label>이름</label>
 									<input class="form-control" type="text" id="name" name="name" placeholder="Name">
 								</div>
 								<div class="col-md-6">
-									<label>Email</label>
+									<label>이메일</label>
 									<input class="form-control" type="text" id="email" name="email" placeholder="E-mail">
 								</div>
 								<div class="col-md-6">
-									<label>Mobile No</label>
-									<input class="form-control" type="text" id="phone" name="phone" placeholder="Mobile No">
+									<label>핸드폰</label>
+									<input class="form-control" type="text" id="phone" name="phone" placeholder="-없이 입력하세요">
+									<span class="phoneCheck"></span>
 								</div>
 	                              
 								<div class="col-md-6">
-									<label>ADDR</label>
-									<input class="form-control" type="text" id="addr_post" 		name="addr_post" 	placeholder="Addr Post Number">	
+									<label>주소</label>
+									<input class="form-control" type="text" id="addr_post" 		name="addr_post" 	placeholder="우편주소" readOnly>	
 									<input class="btn btn-link" type="button" onclick="popUP()" value="우편번호 찾기">
-									<input class="form-control" type="text" id="addr_city_new" 	name="addr_city" 	placeholder="New address system">
-									<input class="form-control" type="text" id="addr_city_old" 	name="addr_city_O" 	placeholder="Parcel address system">
-									<input class="form-control" type="text" id="addr_detail" 	name="addr_detail" 	placeholder="detail address system">
+									<input class="form-control" type="text" id="addr_city_new" 	name="addr_city" 	placeholder="도로명 주소" readOnly>
+									<input class="form-control" type="text" id="addr_city_old" 	name="addr_city_O" 	placeholder="지번 주소" readOnly>
+									<input class="form-control" type="text" id="addr_detail" 	name="addr_detail" 	placeholder="상세 주소">
 									<span id="guide" style="color:#999;display:none"></span>
 								</div>		
 	                              
 								<div class="col-md-6">
-									<label>Birth</label>
-									<input class="form-control" type="date" id="birth" name="birth" placeholder="birth">	<!-- value="날짜" 초기값 설정 -->
+									<label>생일</label>
+									<input class="form-control" type="date" id="birth" name="birth" placeholder="birth" max="9999-12-31">	<!-- value="날짜" 초기값 설정 -->
 								</div>
 	            									 
 								<div class="col-md-6">
-									<label>Sex</label>
+									<label>성별</label>
 									<table style="width:100%; text-align:center;">
 										<tr>
-											<td><label>MALE</label></td>
-											<td><label>FEMALE</label></td>
+											<td><label>남성</label></td>
+											<td><label>여성</label></td>
 										</tr>
 										<tr>
 											<td><input class="form-control companyCheck" type="radio"	id="male"  	name="sex" value=1 checked /></td>
@@ -228,16 +97,16 @@
 								<!-- Company_yn 이  y일경우 -->
 								<div id="company_addDiv" style="display:none;">
 									<div class="col-md-6">
-										<label>Company Name</label> 
+										<label>회사 이름</label> 
 										<input class="form-control" type="text" id="comp_name" name="comp_name"  placeholder="Company name" >
 									</div>
 									<div class="col-md-6">
-										<label>Company Num</label> 
+										<label>사업자 번호</label> 
 										<input class="form-control" type="text" id="corp_num" name="corp_num"  placeholder="Corporate number">
 									</div>
 								</div>
-								<div class="col-md-12">
-									<button class="btn" id="btn_register" >Submit</button>
+								<div class="col-md-12" id="test">
+									<button class="btn" id="btn_register">가입하기</button>
 								</div>
 							</div><!-- ./col-md-12 -->
                        </div><!-- ./row -->
@@ -246,15 +115,39 @@
            </div><!-- ./row -->
        </div><!-- ./container-fluid -->
 	</div><!-- ./login -->
-</form>		
- 
+</form>	
+	
+<!-- modal 시작 -->
+<div class="modal" id="memberManager" tabindex="-1" role="dialog" ria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header ">
+				<h5>아이디 검사</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div id="detail_chat"></div>
+			</div>
+			<div class="modal-footer">
+				<input type="button" class="btn close" id="close" value="닫기">
+			</div>
+		</div>
+	</div>
+</div>
 <!-- Ajax 실행 Javascript -->
 
-<script src="/resources/home/customer.js?v=<%=System.currentTimeMillis() %>"></script>
+<script src="/resources/cust/customer.js?v=<%=System.currentTimeMillis() %>"></script>
 <script>
 /* CSRF 데이터 변수 저장 */
 var csrfHeaderName="${_csrf.headerName}";
 var csrfTokenValue="${_csrf.token}";
+
+/* 유효성 검사 변수 */
+var passCheck = false;
+var idCheck = false;
+var phoneCheck = false;
 
 /* company일 경우만 company의 항목을 보여준다. */
 $("input[type='radio'][name='company_yn']").on("click", function(){
@@ -265,6 +158,124 @@ $("input[type='radio'][name='company_yn']").on("click", function(){
 	}else{
 		$("#company_addDiv").css('display','block');
 	}
+});
+
+/* submit 유효성 검사 */
+function btn_check(){	
+	if(passCheck==true && idCheck==true && phoneCheck==true){
+		$("#test").css('display','block');
+	}
+}
+
+/* 아이디 입력 시 유효성 체크 */
+$("#idCheck").on("click", function(){
+	var memberId = $("#memberId").val();
+	//alert(memberId);
+	var csrf={
+		csrfHeaderName:csrfHeaderName,
+		csrfTokenValue:csrfTokenValue
+	}
+	
+	customer.idCheck(
+			memberId,
+			csrf={
+				"csrfHeaderName":csrfHeaderName,
+				"csrfTokenValue":csrfTokenValue
+			},
+			function(data){
+				if(data=="false"){
+					idCheck=true;
+					$("#detail_chat").html("사용가능한 아이디 입니다.");
+					$(".idCheck_div").css('display','none');
+					$(".modal").show();
+					btn_check();
+				}else{
+					idCheck=false;
+					$(".modal").show();
+					$("#detail_chat").html("사용 불가능한 아이디 입니다.");
+					btn_check();
+				}
+		}
+	);
+});
+
+/* 모달 닫기 */
+$(".close").on("click",function(){
+	//display
+	$(".modal").hide();
+});
+
+
+/* 아이디가 변경 되었을때  */
+$("#memberId").on("change keyup paste", function(){
+	idCheck=false;
+	$(".idCheck_div").css('display','block');
+	btn_check();
+});
+
+/* 비밀번호 입력 시 유효성 체크 */
+$("#password_confirm").on("change keyup paste", function(){
+	var password= $("#password").val();
+	var password_confirm=$("#password_confirm").val();
+
+	if(password==password_confirm){
+		$(".passwordCheck").css("color","blue");
+		$(".passwordCheck").html("비밀번호가 일치 합니다.");
+		passCheck = true;
+		btn_check();
+		
+	}else{
+		$(".passwordCheck").css("color","red");
+		$(".passwordCheck").html("비밀번호가 일치하지 않습니다.");
+		passCheck = false;
+		btn_check();
+	}
+	
+});
+
+/* 비밀번호 입력 시 유효성 체크2 */
+$("#password").on("change keyup paste", function(){
+	var password= $("#password").val();
+	var password_confirm=$("#password_confirm").val();
+
+	if(password==password_confirm){
+		$(".passwordCheck").css("color","blue");
+		$(".passwordCheck").html("비밀번호가 일치 합니다.");
+		passCheck = true;
+		btn_check();
+		
+	}else{
+		$(".passwordCheck").css("color","red");
+		$(".passwordCheck").html("비밀번호가 일치하지 않습니다.");
+		passCheck = false;
+		btn_check();
+	}
+	
+});
+
+/* 핸드폰 입력 시 유효성 체크 */
+$("#phone").on("change keyup paste", function(){
+	var phone= $("#phone").val();
+	//alert(phone);
+	if(phone.length=='11'){
+		if(isNaN(phone)){
+			$(".phoneCheck").css("color","red");
+			$(".phoneCheck").html("형식에 맞게 입력하십시오.");
+			phoneCheck = false;
+			btn_check();
+		}else{
+			$(".phoneCheck").css("color","blue");
+			$(".phoneCheck").html("형식에 맞게 입력하였습니다.");
+			phoneCheck = true;
+			btn_check();
+		}
+	}else{
+		$(".phoneCheck").css("color","red");
+		$(".phoneCheck").html("형식에 맞게 입력하십시오.");
+		phoneCheck = false;
+		btn_check();
+	}
+	
 	
 });
 
@@ -276,6 +287,7 @@ $("#btn_register").on("click", function(e){
 	var sex=$("input[type='radio'][name='sex']:checked").val();
 	var birth=$('#birth').val();
 	/* 생일 = 문자열 -> 숫자 */
+	birth=birth.replace("-","")
 	var birth_int= parseInt(birth.replace("-",""));
 
 	var custVO={
@@ -300,20 +312,38 @@ $("#btn_register").on("click", function(e){
 			"addr_detail":$("#addr_detail").val(),
 		}
 	}
-	console.log("custVO: "+JSON.stringify(custVO));
-	console.log("compVO: "+JSON.stringify(compVO));
+
 	
 	customer.joinMember(
-		memberVO={custVO:custVO, compVO:compVO,},
-		csrf={"csrfHeaderName":csrfHeaderName,
-			"csrfTokenValue":csrfTokenValue},
+		memberVO={custVO:custVO, compVO:compVO},
+		csrf={
+			"csrfHeaderName":csrfHeaderName,
+			"csrfTokenValue":csrfTokenValue
+		},
 		function(data){
-			alert("joinMember"+data);
+			//alert("joinMember"+data);
+			registerSuccess();
 		}
 	);
     
 });
 
+function registerSuccess(){
+	
+	var str= "";
+		str +="<div class='col-md-12 '>"
+			+ "	<p/><p/><p/>"
+			+ "	<h1 style='text-align:center'>회원 가입 완료되었습니다.</h1>"
+			+ " <p/><p/>"
+			+ " "
+			+ "</div>"
+			+ "<div class='col-md-12' style='text-align:center;'>"
+			+ "<div style='text-align:center'><a href='/home/login'> 로그인하러 가기</a></div></div>";
+			//alert("str"+str);
+	$(".register-form").html();
+	$(".register-form").html(str);
+	
+}
 
 
 

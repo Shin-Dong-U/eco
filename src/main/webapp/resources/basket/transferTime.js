@@ -1,5 +1,3 @@
-console.log("transferTime.........");
-
 var trnasferTime=(function(){
 	
 //날짜시간 표시형식 설정: 날짜시간 형식 지정(서버와 상관 없음)
@@ -31,9 +29,27 @@ var trnasferTime=(function(){
 	};
 	
 	
+	function displayDay(timeValue){
+		var today = new Date();
+		
+		var gap = today.getTime() - timeValue;
+		
+		var dateObj = new Date(timeValue);
+		var str="";
+		
+			var yy= dateObj.getFullYear();
+			var mm= dateObj.getMonth()+1; //getMonth() is zero-based
+			var dd= dateObj.getDate();
+			
+			return[yy, '/', (mm>9 ? '':'0')+mm, '/',
+					(dd>9 ? '':'0')+dd].join('');				
+				
+	};
+	
 	return {
 		
-		displayTime:displayTime
+		displayTime:displayTime,
+		displayDay:displayDay
 	};
 	
 })();

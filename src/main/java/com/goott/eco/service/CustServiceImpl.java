@@ -43,12 +43,17 @@ public class CustServiceImpl implements CustService{
 		return custDao.getCustLogin(custVO);
 	}
 	
+	/* 아이디 확인 */
+	public String checkCustId(String memberId) {
+		return custDao.checkCustId(memberId);
+	}
+	
 	/* 비밀번호 확인 */
 	@Override
 	public int checkCustPassword(CustVO custVO) {
 		String db_password = custDao.checkCustPassword(custVO.getMemberId());
-		System.out.println("password 입력값: "+custVO.getPassword());
-		System.out.println("password DB 값: "+db_password);
+		//System.out.println("password 입력값: "+custVO.getPassword());
+		//System.out.println("password DB 값: "+db_password);
 		boolean value = pwEncoder.matches(custVO.getPassword(), db_password);
 		System.out.println("value 값: "+value);
 		return pwEncoder.matches(custVO.getPassword(), db_password)
@@ -62,6 +67,9 @@ public class CustServiceImpl implements CustService{
 		//MemberVO memberVO = new MemberVO();
 		//memberVO.setCustVO(custDao.getCust(memberId));
 		memberVO.setCustVO(custDao.getCust(memberVO.getCustVO().getMemberId()));
+		if(memberVO.getCustVO().getAdmin_yn().equals("Y")) {
+			memberVO.setAdminVO(custDao.getAdmin(memberVO.getCustVO().getMemberId()));
+		}
 		if(memberVO.getCustVO().getCompany_yn().equals("Y")) {
 			memberVO.setCompVO(compDao.getCompany(memberVO.getCustVO().getMemberId()));
 		}
@@ -96,12 +104,17 @@ public class CustServiceImpl implements CustService{
 	/* 회원 탈퇴 */
 	@Override
 	public int deleteCust(String memberId) {
-		return custDao.deleteCust(memberId);
+		int v1 = custDao.deleteCust(memberId);
+		int v2 = custDao.deleteCustAuth(memberId);
+		return (v1==1 && v2==1) ? 1 :0;
 	}
 
 	public void passwordEncoding(CustVO custVO) {
-		String Encoder=pwEncoder.encode(custVO.getPassword());
-		custVO.setPassword(Encoder);
+		if(custVO.getPassword() !=null && !custVO.getPassword().equals("")) {
+			System.out.println("hh"+custVO.getPassword());
+			String Encoder=pwEncoder.encode(custVO.getPassword());
+			custVO.setPassword(Encoder);
+		}
 		//custVO.setPassword(passwordEncoder.encode(custVO.getPassword()));
 	}
 
