@@ -5,6 +5,8 @@
 <!-- <!DOCTYPE html>
 <html lang="en">
     <head>
+    	
+    
         Favicon
 		<link href="/resources/template/img/favicon.ico" rel="icon">
 		
@@ -105,6 +107,7 @@
             </div>
         </div> -->
         <%@include file="../include/header.jsp" %>
+        
         <!-- Breadcrumb End -->
         
         <!-- Product Detail Start -->
@@ -194,9 +197,7 @@
                                 <div class="tab-content">
                                     <div id="description" class="container tab-pane active">
                                         <h4>상품 설명</h4>
-                                        <p>
                                             ${goodsDetail.GOODS_DETAIL } 
-                                        </p>
                                     </div>
                                     <div id="specification" class="container tab-pane fade">
                                         <h4>Product specification</h4>

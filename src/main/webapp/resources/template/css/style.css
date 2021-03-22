@@ -2394,3 +2394,5 @@ h2 {
         text-align: center; 
     } 
 }
+
+#description img {max-width:1100px;}

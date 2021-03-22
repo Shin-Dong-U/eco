@@ -193,8 +193,6 @@ public class RestGoodsController {
 		String memberId = (String)request.getSession().getAttribute("memberId");
 //		Integer compSeq = (Integer)request.getSession().getAttribute("compSeq");
 
-//		String memberId = "compF";
-//		int compSeq = 61;
 //		goodsVO.setComp_seq(compSeq);
 		goodsVO.setReguser(memberId);
 		
