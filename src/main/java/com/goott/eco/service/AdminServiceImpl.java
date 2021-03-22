@@ -1,6 +1,6 @@
 package com.goott.eco.service;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.goott.eco.common.Criteria;
 import com.goott.eco.common.PageDTO;
 import com.goott.eco.domain.AdminVO;
-import com.goott.eco.domain.CompanyVO;
+//import com.goott.eco.domain.CompanyVO;
 import com.goott.eco.domain.CustVO;
-import com.goott.eco.domain.GoodsVO;
+//import com.goott.eco.domain.GoodsVO;
 import com.goott.eco.domain.MemberVO;
-import com.goott.eco.mapper.GoodsMapper;
-import com.goott.eco.util.GoodsSampleDataMaker;
+//import com.goott.eco.mapper.GoodsMapper;
+//import com.goott.eco.util.GoodsSampleDataMaker;
 
 import lombok.Setter;
 
@@ -38,8 +38,8 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired 
 	private CompanyMapper compDao;
 	
-	@Autowired 
-	private GoodsMapper goodsDao;
+//	@Autowired 
+//	private GoodsMapper goodsDao;
 	
 	
 	@Setter(onMethod_ = { @Autowired})
@@ -78,6 +78,7 @@ public class AdminServiceImpl implements AdminService{
 	
 	*/
 	/* 모든 관리자 정보 가져오기 */
+	@Transactional
 	@Override
 	public Map<String, Object> getAdminList(int pageNum) {
 		Criteria cri = new Criteria(pageNum,10);
@@ -92,6 +93,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	/* 모든 업체 정보 가져오기 */
+	@Transactional
 	@Override
 	public Map<String, Object> getCompanyList(int pageNum) {
 		Criteria cri = new Criteria(pageNum,10);
@@ -106,6 +108,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	/* 모든 일반사용자 정보 가져오기 */
+	@Transactional
 	@Override
 	public Map<String, Object> getCustList(int pageNum) {
 		Criteria cri = new Criteria(pageNum,10);
@@ -122,6 +125,7 @@ public class AdminServiceImpl implements AdminService{
 	
 	
 	/* 업체 관한 및 승인 */
+	@Transactional
 	@Override
 	public int confirmCompany(String memberId, String loginId) {	
 		if(adminDao.confirmCompany(memberId,loginId)==1 
@@ -133,6 +137,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	/* 관리자 권한 및 등업 */
+	@Transactional
 	@Override
 	public int regAdmin(AdminVO adminVO, String loginId) {
 		adminVO.setName(custDao.getCustName(adminVO.getCust_id()));
@@ -154,6 +159,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	/* 관리자 - 변경 */
+	@Transactional
 	@Override
 	public int modAdmin_cust(MemberVO memberVO, String loginId) {
 		String memberId = memberVO.getCustVO().getMemberId();
@@ -170,13 +176,19 @@ public class AdminServiceImpl implements AdminService{
 		//회원 가입여부 *존재*
 		if(memberVO.getCustVO().getMember_yn().equals("Y")) {
 			String exgist_auth=adminDao.getCustAuth(memberVO.getCustVO().getMemberId());
-			if(exgist_auth.equals("false")) {
+			if(exgist_auth.equals("false")) {	//cust_auth에 권한이 존재하지 않는다.
 				adminDao.regCust_Auth(memberVO.getCustVO().getMemberId());
 			}
 		}else {
 			String exgist_auth=adminDao.getCustAuth(memberVO.getCustVO().getMemberId());
-			if(exgist_auth.equals("true")) {
+			if(exgist_auth.equals("true")) {	//cust_auth에 권한이 존재한다.
 				custDao.deleteCustAuth(memberVO.getCustVO().getMemberId());
+			}
+			
+			if(newCustVO.getCompany_yn().equals("Y")) {
+				compDao.removeCompany(memberId);
+			}else if(newCustVO.getAdmin_yn().equals("Y")) {
+				
 			}
 		}
 		
@@ -184,6 +196,12 @@ public class AdminServiceImpl implements AdminService{
 		//관리자 정보 변경
 		if(newCustVO.getAdmin_yn().equals("Y")) {
 			v1=adminDao.modAdmin_admin(memberVO.getAdminVO(),loginId);
+			//관리자 ->일반 사용자로 변경
+			if(memberVO.getAdminVO().getAcc_level().equals("-1")) {
+				adminDao.modCust_adminYN(memberId, loginId);
+				adminDao.removeAdmin_custAuth(memberId);
+				adminDao.removeAdmin_admin(memberId);
+			}
 		}
 		
 		//업체 정보 변경
@@ -191,19 +209,20 @@ public class AdminServiceImpl implements AdminService{
 			v2=adminDao.modAdmin_comp(memberVO.getCompVO(),loginId);
 		}
 		
+
+		
 		System.out.println("v1: "+v1+" v2: "+v2+" v3:"+v3);
 		return 1;
 	}
 
 
-
+	//비밀번호 BcryptEncoder
 	public void passwordEncoding(CustVO custVO) {
 		if(custVO.getPassword() !=null && !custVO.getPassword().equals("")) {
-			System.out.println("hh"+custVO.getPassword());
+			System.out.println("encode하기 전 PW: "+custVO.getPassword());
 			String Encoder=pwEncoder.encode(custVO.getPassword());
 			custVO.setPassword(Encoder);
 		}
-		//custVO.setPassword(passwordEncoder.encode(custVO.getPassword()));
 	}
 
 

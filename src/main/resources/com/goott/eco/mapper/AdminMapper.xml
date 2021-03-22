@@ -165,8 +165,6 @@
 		where cust_id=#{cust_id}
 	</update>
 	
-
-	
 	<!-- cust 정보 수정 -->
 	<update id="modAdmin_cust">
 		update eco.cust
@@ -210,6 +208,27 @@
 		FROM eco.cust_auth 
 		WHERE memberId=#{memberId}
 	</select>
+	
+	
+	<!-- 관리자 -> 일반상용자 이동: cust_auth에 권한 삭제 -->
+	<delete id="removeAdmin_custAuth">
+		delete eco.cust_auth 
+		WHERE memberId=#{memberId} and auth='ROLE_ADMIN'
+	</delete>
+	
+	<!-- 관리자 -> 일반상용자 이동: admin에 권한 삭제 -->
+	<delete id="removeAdmin_admin">
+		delete eco.admin
+		WHERE cust_id=#{cust_id}
+	</delete>
+	
+	<!-- 관리자 -> 일반사용자 이동: cust admin_yn변경 -->
+	<update id="modCust_adminYN" >
+		UPDATE eco.cust 
+		SET admin_yn='N', 
+		editDate=default, editUser=#{loginId} 
+		WHERE memberId=#{memberId}
+	</update>
 
 
 </mapper>

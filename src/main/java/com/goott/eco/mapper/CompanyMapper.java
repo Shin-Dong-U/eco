@@ -19,5 +19,6 @@ public interface CompanyMapper {
 	/* 회원 수정 */
 	public int modifyCompany(CompanyVO compVO);
 	
-	
+	/* 업체 회원 삭제 */
+	public int removeCompany(String cust_id);
 }

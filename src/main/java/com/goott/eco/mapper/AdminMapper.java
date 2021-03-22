@@ -64,6 +64,14 @@ public interface AdminMapper {
 	/* 회원이 존재 하는가?  */
 	public String getCustAuth(String memberId);
 	
+	/* 관리자 -> 일반 사용자로 이동: cust_auth에서 권한 삭제 */
+	public int removeAdmin_custAuth(String memberId);
+	
+	/* 관리자 -> 일반 사용자로 이동: admin에서 내용 삭제 */
+	public int removeAdmin_admin(String cust_id);
+	
+	/* 관리자 -> 일반 사용자로 이동: cust에서 admin_yn 변경 */
+	public int modCust_adminYN(@Param("memberId")String memberId, @Param("loginId")String loginId);
 	
 	
 }

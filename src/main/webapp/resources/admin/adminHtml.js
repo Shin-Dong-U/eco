@@ -286,6 +286,7 @@ function showDetail_modify(memberVO){
 			+ "			<input type='radio' id='level1' name='acc_level_check' value='1'>총관리자 "
 			+ "			<input type='radio' id='level2' name='acc_level_check' value='2'>중간관리자"
 			+ "			<input type='radio' id='level3' name='acc_level_check' value='3'>신입관리자"
+			+ "			<input type='radio' id='level4' name='acc_level_check' value='-1'>일반사용자"
 			+ "		</td>"
 			+ " </tr>";
 	}

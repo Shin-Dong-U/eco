@@ -50,7 +50,12 @@
 		WHERE comp_seq = #{comp_seq}
 	</update>
 	
-
+	<!-- 회원 탈퇴시  -->
+	<update id="removeCompany">
+		update eco.company
+		set confirm_yn='N'
+		WHERE cust_id = #{cust_id}
+	</update>
 
 
 	
