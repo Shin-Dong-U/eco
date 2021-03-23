@@ -57,7 +57,7 @@
                                         <div class="cart-btn">
                                             <button class="cancelOrderBtn">주문 취소</button>
                                           	<button class="deliverySearch" data-target=".bd-example-modal-lg" data-toggle="modal">배송조회</button>
-                                           <!--  <button class="orderCommit">주문 확정</button> -->
+                                           <button class="orderCommit">주문 확정</button>
                                         </div>
                                         <div class="checkout-btn">
                                    			 <!-- <button class="deliverySearch">배송조회</button> -->
@@ -137,7 +137,23 @@
                                     </tbody>
                                     
                                 </table>
-                                
+                                <div class="shipBind shipImg">
+	                                <!-- <div class="shipSubBind shipYet">
+	                               		<i class="fas fa-dolly fa-5x"></i>
+	                               		<p>배송전</p>	                               		
+	                                </div>	                                
+	                                <div class="shipSubBind shipCheck">
+	                               		<i class="fas fa-shipping-fast fa-5x"></i>
+	                               		<p>배송중</p>
+	                                </div>
+	                                <div class="shipSubBind shipYet">
+	                               		<i class="fas fa-store-alt fa-5x"></i>
+	                               		<p>배송완료</p>
+	                                </div> -->
+                                	
+                                </div>
+                                <div class="shipLine">
+                                </div>
                   </div>
 		    </div>
 		  </div>
@@ -254,8 +270,22 @@
 			var str="";
 			var invoiceNum="";
 			var editDate="";
+			var shipImgSection=$(".shipImg");
 			var shipInfoTable=$(".shipInfo");
 			var shipplingStatus="배송전";
+			var shipImgStr=""
+			shipImgStr=' <div class="shipSubBind shipCheck">'
+           				+'<i class="fas fa-dolly fa-5x"></i>'
+           				+'<p>배송전</p>	    '                           		
+           		 		+'</div>'	                                
+           				+'<div class="shipSubBind shipYet ">'
+           				+'	<i class="fas fa-shipping-fast fa-5x"></i>'
+           				+'	<p>배송중</p>'
+            			+'</div>'
+            			+'<div class="shipSubBind shipYet">'
+           				+'	<i class="fas fa-store-alt fa-5x"></i>'
+           				+'	<p>배송완료</p>'
+            			+'</div>'
 			
 			for(var i=0,len=shipStatus.length||0;i<len;i++){
 				
@@ -274,6 +304,20 @@
 				
 				if(shipStatus[i].delivery_status==1){
 					shipplingStatus="배송중";
+					
+					
+					shipImgStr=' <div class="shipSubBind shipYet ">'
+           				+'<i class="fas fa-dolly fa-5x"></i>'
+           				+'<p>배송전</p>	    '                           		
+           		 		+'</div>'	                                
+           				+'<div class="shipSubBind  shipCheck ">'
+           				+'	<i class="fas fa-shipping-fast fa-5x"></i>'
+           				+'	<p>배송중</p>'
+            			+'</div>'
+            			+'<div class="shipSubBind shipYet">'
+           				+'	<i class="fas fa-store-alt fa-5x"></i>'
+           				+'	<p>배송완료</p>'
+            			+'</div>'
 				}
 				
 				
@@ -286,7 +330,7 @@
          		+"</tr>"
 			}
 			shipInfoTable.html(str);
-			
+			shipImgSection.html(shipImgStr);
 			
 			
 		});	
