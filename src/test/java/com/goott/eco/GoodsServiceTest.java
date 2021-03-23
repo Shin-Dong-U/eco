@@ -19,6 +19,8 @@ import com.goott.eco.common.PageDTO;
 import com.goott.eco.config.RootConfig;
 import com.goott.eco.config.ServletConfig;
 import com.goott.eco.config.WebConfig;
+import com.goott.eco.domain.GoodsCommentVO;
+import com.goott.eco.domain.GoodsVO;
 import com.goott.eco.mapper.GoodsMapper;
 import com.goott.eco.service.GoodsService;
 
@@ -58,4 +60,21 @@ public class GoodsServiceTest {
 		assertThat(goodsList.size(), is(namoji));
 	}
 
+	@Test
+	public void innerClassTest() {
+		GoodsVO vo = new GoodsVO();
+		vo.setGoodsCommentVO(new GoodsVO.GoodsCommentVO());
+		
+		GoodsCommentVO vo2 = new GoodsCommentVO();
+
+		GoodsVO.GoodsCommentVO vo3 = new GoodsVO.GoodsCommentVO();
+		System.out.println("@@@" + System.identityHashCode(vo.getGoodsCommentVO()));
+		System.out.println("@@@" + System.identityHashCode(vo2));
+		System.out.println("@@@" + System.identityHashCode(vo3));
+		
+		System.out.println(vo3.equals(vo.getGoodsCommentVO()));
+		
+//		assertThat(vo.getGoodsCommentVO(), is(vo2));
+		assertThat(vo.getGoodsCommentVO(), is(vo3));
+	}
 }

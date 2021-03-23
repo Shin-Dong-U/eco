@@ -1,36 +1,18 @@
 package com.goott.eco.controller;
 
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.goott.eco.common.Criteria;
-import com.goott.eco.domain.AttachFileDTO;
 import com.goott.eco.service.CommonService;
 import com.goott.eco.service.GoodsService;
 
@@ -66,6 +48,7 @@ public class GoodsController {
 		return mav;
 	}
 	
+	/*
 	//안쓸듯...
 	@PostMapping(value="/form/upload/images")//, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public String goodsDetailImagesUpload(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -140,8 +123,9 @@ public class GoodsController {
 		return sFileInfo;
 	}
 	
-		@GetMapping(value="/form/upload/images/thumb")//, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
-		public String goodsThumbnailImagesUpload(HttpServletRequest request, HttpServletResponse response) throws IOException {
-			return "goods/thumb_upload";
-		}
+	@GetMapping(value="/form/upload/images/thumb")//, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
+	public String goodsThumbnailImagesUpload(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		return "goods/thumb_upload";
+	}
+	*/
 }

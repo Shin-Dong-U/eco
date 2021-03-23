@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,6 +70,7 @@ public class RestGoodsController {
 	}
 	
 	//리뷰 수정
+	@Secured({"ROLE_CUST","ROLE_COMPANY", "ROLE_ADMIN"})
 	@PostMapping(value="/{goodsSeq}/review/{goodsCommentSeq}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public ResponseEntity<Integer> updateReview(HttpServletRequest request 
 												, @PathVariable int goodsSeq
@@ -83,6 +85,7 @@ public class RestGoodsController {
 	}
 	
 	//리뷰 삭제
+	@Secured({"ROLE_CUST","ROLE_COMPANY", "ROLE_ADMIN"})
 	@DeleteMapping(value="/{goodsSeq}/review/{goodsCommentSeq}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public ResponseEntity<Integer> deleteReview(HttpServletRequest request 
 			, @PathVariable int goodsSeq
@@ -97,6 +100,7 @@ public class RestGoodsController {
 	}
 	
 	//리뷰등록
+	@Secured({"ROLE_CUST","ROLE_COMPANY", "ROLE_ADMIN"})
 	@PutMapping(value="/{goodsSeq}/review", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public ResponseEntity<Integer> insertReview(HttpServletRequest request, @PathVariable int goodsSeq
 												, @RequestBody GoodsVO.GoodsCommentVO commentVO) {
@@ -110,6 +114,7 @@ public class RestGoodsController {
 	}
 	
 	//Naver smart editor에서 temp 폴더로 파일 임시 저장
+	@Secured({"ROLE_COMPANY", "ROLE_ADMIN"})
 	@PostMapping(value="/form/upload/images", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public ResponseEntity<String> goodsDetailImagesUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile[] multifile) throws IOException {
 		//파일정보
@@ -185,6 +190,7 @@ public class RestGoodsController {
 	}
 	
 	//상품등록
+	@Secured({"ROLE_COMPANY", "ROLE_ADMIN"})
 	@PutMapping(value="/form", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Integer> insertGoods(HttpServletRequest request, @RequestBody GoodsVO goodsVO){
 //		String[] option_name = request.getParameterValues("req_option_name");

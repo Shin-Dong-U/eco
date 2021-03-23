@@ -381,28 +381,26 @@
 		</div>
 		<!-- modal 시작 -->
 		
-<div class="modal" id="totalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header ">
-				<h5 id="total_header"></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div id="detail_chat"></div>
-			</div>
-			<div class="modal-footer">
-				<span class="basic">
-				<button type="button" id="close" class="btn close3" data-dismiss="modal">닫기</button>
-				</span>
+		<div class="modal" id="totalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header ">
+						<h5 id="total_header"></h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="detail_chat"></div>
+					</div>
+					<div class="modal-footer">
+						<span class="basic">
+						<button type="button" id="close" class="btn close3" data-dismiss="modal">닫기</button>
+						</span>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
-	
-        
         
         <!-- Back to Top -->
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
@@ -427,8 +425,6 @@
         	var rattingHtml = makeStarIconHtml(star);
         	$('#goods_ratting_div').html(rattingHtml);
         	
-			
-			
         	movePage(1);
      	});
         /* CSRF 데이터 변수 저장 */
@@ -485,9 +481,6 @@
     		callGetCommentList();
     	}
        	
-              	
-
-    
        	//선택상품 장바구니에 담기
        	$('.addCart').on("click",function(){
        		orderinfo={

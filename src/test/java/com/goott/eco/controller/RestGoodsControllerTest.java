@@ -47,7 +47,7 @@ public class RestGoodsControllerTest {
 		
 		mockMvc.perform(get("/goods/rest")
 				.contentType("application/json; charset=UTF-8"))
-		.andExpect(status().is(200));
+				.andExpect(status().is(200));
 	}
 	
 }

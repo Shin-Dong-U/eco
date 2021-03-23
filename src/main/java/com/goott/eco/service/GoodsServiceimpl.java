@@ -63,33 +63,6 @@ public class GoodsServiceimpl implements GoodsService{
 		return goods;
 	}
 	
-	public static String readCLOB(java.sql.Clob p_clob) throws IOException, SQLException{
-		  StringBuffer outBuffer = new StringBuffer();
-		  Reader l_clobStream = null;
-		  try{
-		    l_clobStream = p_clob.getCharacterStream();
-		    int l_nchars = 0;
-		    char[] l_buffer = new char[4096];
-		    while((l_nchars = l_clobStream.read(l_buffer))!=-1){
-		      outBuffer.append(l_buffer,0,l_nchars);
-		    }
-		 
-		  }catch(IOException e){
-		    throw e;
-		  }catch(SQLException e){
-		    throw e;
-		  }finally{
-		    try{
-		      l_clobStream.close();
-		    }catch(IOException e){
-		      throw e;
-		    }
-		  }
-		  return outBuffer.toString();
-		}
-
-	
-	
 	@Override
 	public Map<String, Object> goodsComment(int goodsSeq, int pageNum){
 		final int DEFAULT_COMMENT_PAGE_AMOUNT = 5;
@@ -114,7 +87,6 @@ public class GoodsServiceimpl implements GoodsService{
 	 * 5. 상품 상세 정보 변경 (변경 된 src 주소 적용) 후 UPDATE
 	 * 
 	 * Todo. 
-	 * transaction 작동안함
 	 * 코드 정리 ( 메서드 분리 등 ) 
 	 * 
 	 */
