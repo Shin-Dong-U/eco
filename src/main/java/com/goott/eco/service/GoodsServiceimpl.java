@@ -29,7 +29,7 @@ import com.goott.eco.mapper.GoodsMapper;
 import lombok.extern.log4j.Log4j;
 import oracle.sql.CLOB;
 
-//@Transactional
+@Transactional
 @Service
 @Log4j
 public class GoodsServiceimpl implements GoodsService{
@@ -221,4 +221,12 @@ public class GoodsServiceimpl implements GoodsService{
 		return thumbList;
 	}
 
+	//트랜잭션 정상 작동 확인 용
+	public void testTransaction() {
+		Map<String, Object> param = new HashMap<>();
+		param.put("no", 777);
+		param.put("val", "kkkk");
+		goodsDao.test(param);
+		goodsDao.test(param);
+	}
 }

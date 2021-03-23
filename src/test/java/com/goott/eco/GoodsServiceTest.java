@@ -27,14 +27,17 @@ import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = {RootConfig.class, ServletConfig.class})
+@ContextConfiguration(classes = {RootConfig.class})
 @Log4j
 public class GoodsServiceTest {
 
 	@Autowired private GoodsService service;
 	@Autowired private GoodsMapper dao;
 	
-
+	@Test(expected = Exception.class)
+	public void trTest() {
+		service.testTransaction();
+	}
 
 	
 	@Test

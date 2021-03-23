@@ -40,7 +40,7 @@ public class RootConfig {
 	}
 	
 	/*Connection pool*/
-	@Bean //(initMethod="init")
+	@Bean 
 	public DataSource dataSource() {
 		HikariConfig hikariConfig = new HikariConfig();
 		hikariConfig.setDriverClassName(jdbcDriver);
@@ -49,7 +49,6 @@ public class RootConfig {
 		hikariConfig.setPassword(jdbcPassword);
 		hikariConfig.setMaximumPoolSize(3); //자원줄이기
 
-		
 		return new HikariDataSource(hikariConfig);
 	}
 	
@@ -65,10 +64,9 @@ public class RootConfig {
 	}
 	
 	@Bean
-	public DataSourceTransactionManager txManager() {
+	public DataSourceTransactionManager transactionManager() {
 		return new DataSourceTransactionManager(dataSource());
 	}
-	
 	
 	
 }
