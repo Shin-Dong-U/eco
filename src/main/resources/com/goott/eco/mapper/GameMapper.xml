@@ -14,14 +14,50 @@
 		
 	</select>
 	
-		<select id="getCustPointMinusSum" resultType="Long">
+	<select id="getAfterResetCustPointMinusSum" resultType="Long">
 		
 		SELECT SUM(point_amount)
 		FROM POINT
-		WHERE cust_id = #{cust_id} and memo='minus'
+		WHERE cust_id = #{cust_id} and (memo='minus')
 		GROUP BY cust_id
 		
 	</select>
+	
+	<select id="getCustPointMinusSum" resultType="Long">
+		
+		SELECT SUM(point_amount)
+		FROM POINT
+		WHERE cust_id = #{cust_id} and (memo='minus' or memo='doneMinus')
+		GROUP BY cust_id
+		
+	</select>
+	
+	<select id="getCheckPlusCnt" resultType="hashMap">
+		
+		SELECT count(*) as "plusCnt"
+		FROM POINT
+		WHERE cust_id = #{cust_id} and memo='add'
+		
+	</select>
+	<select id="getCheckMinusCnt" resultType="hashMap">
+		
+		SELECT count(*) as "minusCnt"
+		FROM POINT
+		WHERE cust_id = #{cust_id} and (memo='minus' or memo='doneMinus')
+		
+	</select>
+	
+	<select id="getCheckRealMinusCnt" resultType="hashMap">
+		
+		SELECT count(*) as "minusCnt"
+		FROM POINT
+		WHERE cust_id = #{cust_id} and (memo='minus')
+		
+	</select>
+	<update id="resetMinus">
+		UPDATE POINT SET memo='doneMinus' WHERE cust_id=#{cust_id} AND memo='minus'
+	</update>
+	
 	
 	<insert id="insertUseItem">
 		INSERT INTO POINT values(seq_point_seq.nextval,#{cust_id},'',

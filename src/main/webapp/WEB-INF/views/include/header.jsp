@@ -52,6 +52,47 @@
 				display: flex;
 				text-align:center;
 			}
+			
+			.shipSubBind{
+				display: flex;
+				flex-direction:column;
+				justify-content:center;
+				align-items:center;
+				
+			}
+			
+			.shipCheck{
+				border:solid 8px #90c62b;
+				border-radius: 20%;
+			}
+			
+			.shipYet{
+				border:solid 8px rgba(0,0,0,0.5);
+				border-radius: 20%;
+			}
+			
+			
+			.shipBind{
+			display: flex;
+			justify-content: space-between;
+			margin: 0 30px 0 30px;
+			}
+			
+			.shipLine{
+			border: 2px solid rgba(0,0,0,0.5);
+			margin: 0 70px 30px 70px ;
+			border-radius:50px;
+			}
+			
+			.shipCircle{
+			width:30px;
+			height:30px;
+			background-color:#90c62b;
+			border-radius:50%;
+			}
+			
+		
+			
 		
 	</style>
 
