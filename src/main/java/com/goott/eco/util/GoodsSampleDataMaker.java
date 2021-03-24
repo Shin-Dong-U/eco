@@ -9,19 +9,11 @@ import java.util.*;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
-import org.jsoup.select.Elements;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import com.goott.eco.config.RootConfig;
 import com.goott.eco.domain.GoodsVO;
-import com.goott.eco.domain.GoodsVO.GoodsThumbNailVO;
 
-import lombok.Getter;
-import lombok.Setter;
 
 /*
 	쿠팡 사이트 전용 1회용 샘플데이터 생성 클래스입니다.
@@ -115,7 +107,7 @@ public class GoodsSampleDataMaker {
 //			goodsDao.insertGoodsThumbNail(vo.getGoodsThumbNailVO());
 		}
 		
-		
+		maker.driver.quit();//브라우져 종료
 	}
 	
 	//조회 된 상품 pk 값을 list에 담는다. 
