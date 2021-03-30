@@ -118,6 +118,9 @@
         	<input type="hidden" id="pageNum" name="pageNum" value="1">
         	<input type="hidden" id="goodsSeq" name="goodsSeq" value="${goodsDetail.GOODS_SEQ }">
         	<input type="hidden" id="star" name="star" value="${goodsDetail.STAR }">
+        	<input type="hidden" id="goodsName" value="${goodsDetail.GOODS_NAME }">
+        	<input type="hidden" id="category" value="${goodsDetail.CATEGORY }">
+        	
         
             <div class="container-fluid">
                 <div class="row">
@@ -426,7 +429,40 @@
         	$('#goods_ratting_div').html(rattingHtml);
         	
         	movePage(1);
+        	
+        	var category = document.getElementById('category').value;
+        	var goodsName = document.getElementById('goodsName').value;
+        	
+        	if(!category && category == 1){
+        		var msg = '신선하고 맛 좋은 ' + goodsName + ' 팝니다 ' + goodsName.substr(0,1) + goodsName.substr(0,1) + goodsName.substr(0,1) + goodsName.substr(0,1) + goodsName + '팔아요'; 
+        		
+	        	speak(msg, {
+	                rate: 10,
+	                pitch: 2,
+	            });
+        	}
      	});
+        
+        function speak(text, opt_prop) {
+            if (typeof SpeechSynthesisUtterance === "undefined" || typeof window.speechSynthesis === "undefined") {
+                console.log("이 브라우저는 음성 합성을 지원하지 않습니다.")
+                return
+            }
+            
+            window.speechSynthesis.cancel(); // 현재 읽고있다면 초기화
+
+            const prop = opt_prop || {};
+
+            const speechMsg = new SpeechSynthesisUtterance();
+            speechMsg.rate = prop.rate || 1; // 속도: 0.1 ~ 10      
+            speechMsg.pitch = prop.pitch || 1; // 음높이: 0 ~ 2
+            speechMsg.lang = prop.lang || "ko-KR";
+            speechMsg.text = text;
+            
+            // SpeechSynthesisUtterance에 저장된 내용을 바탕으로 음성합성 실행
+            window.speechSynthesis.speak(speechMsg);
+        }
+        
         /* CSRF 데이터 변수 저장 */
         var csrfHeaderName="${_csrf.headerName}";
         var csrfTokenValue="${_csrf.token}";
