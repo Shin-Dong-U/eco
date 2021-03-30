@@ -99,8 +99,12 @@ public class GoodsSampleDataMaker {
 		for(int i = 0; i < maker.detailUrlList.size(); i++) {
 			String tmpUrl = maker.getProductDetailUrl( maker.detailUrlList.get(i) );//상세페이지 url 획득
 			GoodsVO vo = maker.getProductInfo(tmpUrl);//데이터 크롤링
-			
-//			System.out.println(vo.getGoods_name());
+
+//			데이터 확인
+//			System.out.print(vo.getGoods_name() + " / ");
+//			System.out.print(vo.getPrice() + " / ");
+//			System.out.print(vo.getGoodsThumbNailVO().getImg_url().substring(0,10) + " / ");
+//			System.out.println(vo.getGoods_detail().substring(0, 10));
 //			상세정보 insert 
 //			goodsDao.insertThumbnail(vo);
 //			vo.getGoodsThumbNailVO.getGoods_seq(vo.getGoods_seq());

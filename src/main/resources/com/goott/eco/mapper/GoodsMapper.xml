@@ -36,6 +36,7 @@
 			</if>
 	</select>
 	
+	<!-- 12C이상 사용가능 
 	<select id="goodsList" resultType="hashmap" parameterType="com.goott.eco.common.Criteria">
 		SELECT 
 			  G.GOODS_SEQ, G.GOODS_NAME, G.PRICE, G.ECO_SCORE
@@ -53,6 +54,38 @@
 			</if>
 		ORDER BY G.GOODS_SEQ
 		OFFSET #{start} ROWS FETCH FIRST #{amount} ROWS ONLY
+	</select>
+	 -->
+	 
+	 <select id="goodsList" resultType="hashmap" parameterType="com.goott.eco.common.Criteria">
+		SELECT * 
+		FROM
+		(
+			SELECT ROWNUM RNUM, T.*
+			FROM 
+			(
+				SELECT 
+					  G.GOODS_SEQ, G.GOODS_NAME, G.PRICE, G.ECO_SCORE
+					, GTN.IMG_URL
+					, (SELECT NVL( ROUND( AVG( NVL(STAR,0) ), 1 ), 0) FROM GOODS_COMMENT WHERE GOODS_COMMENT.GOODS_SEQ = G.GOODS_SEQ) AS STAR
+				FROM GOODS G 
+					LEFT OUTER JOIN GOODS_THUMB_NAIL GTN ON G.GOODS_SEQ = GTN.GOODS_SEQ AND GTN.MAIN_YN = 'Y'
+				WHERE
+					G.SALE_YN = 'Y'
+					<if test="category != null and category != ''">
+					AND G.CATEGORY = #{category}	
+					</if>
+					<if test="keyword != null and keyword != ''">
+					AND G.GOODS_NAME LIKE '%' || #{keyword} || '%'
+					</if>
+				ORDER BY G.GOODS_SEQ
+			)T
+			<![CDATA[
+			WHERE ROWNUM <= #{start} + #{amount}
+		)TT
+		WHERE 	
+			TT.RNUM > #{start}
+	]]>		
 	</select>
 	
 	<select id="goodsDetail" parameterType="int" resultMap="goodsMap">
@@ -100,6 +133,7 @@
 		SELECT COUNT(*) FROM GOODS_COMMENT WHERE GOODS_SEQ = #{goodsSeq}
 	</select>
 	
+	<!-- OFFSET ORACLE 12C부터 사용가능
 	<select id="goodsComment" parameterType="map" resultType="map">
 		SELECT
 			  GC.GOODS_COMMENT_SEQ, GC.GOODS_SEQ, GC.CUST_ID, GC.STAR, GC.MEMO, TO_CHAR(GC.REGDATE, 'YY/MM/DD hh:mi:ss') AS REGDATE
@@ -112,6 +146,34 @@
 			GC.GOODS_SEQ = #{goodsSeq}
 		ORDER BY REGDATE DESC
 		OFFSET #{start} rows FETCH FIRST 5 ROWS ONLY
+	</select>
+	 -->
+	 
+	<select id="goodsComment" parameterType="map" resultType="map">
+	
+		SELECT * 
+		FROM
+		(
+			SELECT ROWNUM RNUM, T.*
+			FROM 
+			(
+				SELECT
+					  GC.GOODS_COMMENT_SEQ, GC.GOODS_SEQ, GC.CUST_ID, GC.STAR, GC.MEMO, TO_CHAR(GC.REGDATE, 'YY/MM/DD hh:mi:ss') AS REGDATE
+					, C.NAME
+					, G.GOODS_NAME
+				FROM GOODS_COMMENT GC
+					INNER JOIN CUST C ON GC.CUST_ID = C.MEMBERID
+					INNER JOIN GOODS G ON GC.GOODS_SEQ = G.GOODS_SEQ
+				WHERE 
+					GC.GOODS_SEQ = #{goodsSeq}
+				ORDER BY REGDATE DESC
+			)T
+			<![CDATA[
+			WHERE ROWNUM <= #{start} + 5
+		)TT
+		WHERE 	
+			TT.RNUM > #{start}
+		]]>	
 	</select>
 	
 	<select id="insertGoods" statementType="CALLABLE" parameterType="com.goott.eco.domain.GoodsVO">

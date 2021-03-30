@@ -64,7 +64,7 @@
 		<collection property="adminVO" resultMap="adminMap" />
 	</resultMap>
 
-	<!-- 모든 관리자 정보 가져오기 -->
+	<!-- 모든 관리자 정보 가져오기 
 	<select id="getAdminList" resultMap="memberMap">
 		SELECT /*+ Index_DESC(a regIndex) */ a.*,
 		b.cust_id, b.acc_level
@@ -73,6 +73,31 @@
 		WHERE a.admin_yn='Y'
 		OFFSET #{start} ROWS FETCH FIRST #{amount} ROWS ONLY
 	</select>
+	-->
+	<!-- 모든 관리자 정보 가져오기 --> 
+	<select id="getAdminList" resultMap="memberMap">
+	<![CDATA[
+		SELECT * 
+		FROM
+		(
+			SELECT ROWNUM RNUM, T.*
+			FROM 
+			(
+				SELECT /*+ Index_DESC(a regIndex) */ a.*,
+				b.cust_id, b.acc_level
+				FROM eco.cust a INNER JOIN eco.admin b
+				ON (a.memberId = b.cust_Id)
+				WHERE a.admin_yn='Y'
+				)T
+			WHERE ROWNUM <= #{start} + #{amount}
+		)TT
+		WHERE 	
+			TT.RNUM > #{start}
+	]]>	
+	</select>
+	
+	
+	
 	
 	<!-- 관리자 목록 갯수 -->
 	<select id="totalAdminList" resultType="int">
@@ -82,7 +107,7 @@
 		WHERE admin_yn='Y'
 	</select>
 	
-	<!-- 모든 업체 정보 가져오기 -->
+	<!-- 모든 업체 정보 가져오기 
 	<select id="getCompanyList" resultMap="memberMap">
 		SELECT /*+ Index_DESC(a regIndex) */ a.*,
     	b.cust_id, b.comp_seq, b.comp_name, b.confirm_yn, b.corp_num, b.memo
@@ -91,6 +116,29 @@
 		where a.company_yn='Y'
 		OFFSET #{start} ROWS FETCH FIRST #{amount} ROWS ONLY
 	</select>
+	-->
+	<!-- 모든 업체 정보 가져오기 -->
+	<select id="getCompanyList" resultMap="memberMap">
+	<![CDATA[
+		SELECT * 
+		FROM
+		(
+			SELECT ROWNUM RNUM, T.*
+			FROM 
+			(
+				SELECT /*+ Index_DESC(a regIndex) */ a.*,
+		    	b.cust_id, b.comp_seq, b.comp_name, b.confirm_yn, b.corp_num, b.memo
+				FROM eco.cust a INNER JOIN eco.company b
+				ON (a.memberId = b.cust_Id)
+				where a.company_yn='Y'
+			)T
+			WHERE ROWNUM <= #{start} + #{amount}
+		)TT
+		WHERE 	
+			TT.RNUM > #{start}
+	]]>
+	</select>
+	
 	
 	<!-- 업체 목록 갯수 -->
 	<select id="totalCompanyList" resultType="int">
@@ -100,14 +148,33 @@
 		where company_yn='Y'
 	</select>
 	
-	<!-- 모든 일반사용자 정보 가져오기 -->
+	<!-- 모든 일반사용자 정보 가져오기
  	<select id="getCustList" resultMap="memberMap">
 		SELECT /*+ Index_DESC(a regIndex) */ a.*
 		FROM eco.cust a
 		where company_yn='N' AND admin_yn='N'
 		OFFSET #{start} ROWS FETCH FIRST #{amount} ROWS ONLY
 	</select>
-	
+	 -->
+	<select id="getCustList" resultMap="memberMap">
+	<![CDATA[
+		SELECT * 
+		FROM
+		(
+			SELECT ROWNUM RNUM, T.*
+			FROM 
+			(
+				SELECT /*+ Index_DESC(a regIndex) */ a.*
+				FROM eco.cust a
+				where company_yn='N' AND admin_yn='N'
+			)T
+			WHERE ROWNUM <= #{start} + #{amount}
+		)TT
+		WHERE 	
+			TT.RNUM > #{start}
+	]]>
+	</select>
+	 
 	<!-- 일반사용자 목록 갯수 -->
 	<select id="totalCountCustList" resultType="int">
 		SELECT count(*)

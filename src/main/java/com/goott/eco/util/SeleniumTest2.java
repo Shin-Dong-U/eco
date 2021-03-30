@@ -47,7 +47,6 @@ public class SeleniumTest2 {
 		//WebDriver 객체 생성 (웹브라우져가 열림)
 		ChromeDriver driver = new ChromeDriver( options );
 		
-		/*
 		//자바 스크립트 실행. (여기서는 빈탭 추가) 
 		driver.executeScript("window.open('about:blank', '_blank');");
 		driver.executeScript("window.open('about:blank', '_blank');");
@@ -81,7 +80,7 @@ public class SeleniumTest2 {
         
 		
         //3탭 테스트
-        driver.switchTo().window(tabs.get(2));*/
+        driver.switchTo().window(tabs.get(2));
         
         driver.get("https://www.coupang.com/vp/products/4876596110?itemId=6344477945&vendorItemId=73639808549&q=%EC%B9%9C%ED%99%98%EA%B2%BD&itemsCount=36&searchId=0bcc9da576ce4a248f83b3dadb4c1e56&rank=0&isAddedCart=");
         
