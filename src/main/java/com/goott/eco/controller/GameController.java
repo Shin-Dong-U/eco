@@ -42,7 +42,7 @@ public class GameController {
 		
 		log.info("세션아이디: "+cust_id);
 		//세션사용시 삭제요망
-		cust_id = "basic";
+		cust_id = "xx12345";
 		
 		HashMap<String,Object> sessionId = new HashMap<>();
 		
