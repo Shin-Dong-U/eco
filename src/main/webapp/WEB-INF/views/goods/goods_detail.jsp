@@ -506,7 +506,7 @@
     			cartCnt(cust_id)
     			
     			$('.moveBasket').on("click",function(){
-    				window.location.href = 'http://localhost/orders/basket/list';
+    				window.location.href = '/orders/basket/list';
     			})
     		});
     		
@@ -558,7 +558,7 @@
 					    			$(".wishModal").modal("show");    			
 					    			heartCnt(cust_id);
 					    			$('.moveWish').on("click",function(){
-					    				window.location.href = 'http://localhost/orders/basket/wishlist';
+					    				window.location.href = '/orders/basket/wishlist';
 					    			})
 					    		});
 					    	

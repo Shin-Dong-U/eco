@@ -132,24 +132,24 @@
                             <!-- <a href="index.html" class="nav-item nav-link">Home</a> -->
                             
                             <div class="nav-item dropdown">
-                            <a href="http://localhost/goods" class="nav-link dropdown-toggle " data-toggle="dropdown" aria-expanded="false">상품</a>
+                            <a href="/goods" class="nav-link dropdown-toggle " data-toggle="dropdown" aria-expanded="false">상품</a>
                                 <div class="dropdown-menu">
-                                    <a href="http://localhost/goods?category=1" class="dropdown-item">식품</a>
-                                    <a href="http://localhost/goods?category=2" class="dropdown-item">가구</a>
-                                    <a href="http://localhost/goods?category=3" class="dropdown-item">의류</a>
-                                    <a href="http://localhost/goods?category=4" class="dropdown-item">생활용품</a>
-                                    <a href="http://localhost/goods?category=5" class="dropdown-item">잡화</a>
-                                    <a href="http://localhost/goods?category=21" class="dropdown-item">뷰티</a>
-                                    <a href="http://localhost/goods?category=22" class="dropdown-item">헬스/건강식품</a>
-                                    <a href="http://localhost/goods?category=23" class="dropdown-item">주방용품</a>
+                                    <a href="/goods?category=1" class="dropdown-item">식품</a>
+                                    <a href="/goods?category=2" class="dropdown-item">가구</a>
+                                    <a href="/goods?category=3" class="dropdown-item">의류</a>
+                                    <a href="/goods?category=4" class="dropdown-item">생활용품</a>
+                                    <a href="/goods?category=5" class="dropdown-item">잡화</a>
+                                    <a href="/goods?category=21" class="dropdown-item">뷰티</a>
+                                    <a href="/goods?category=22" class="dropdown-item">헬스/건강식품</a>
+                                    <a href="/goods?category=23" class="dropdown-item">주방용품</a>
                                 </div>
                             </div>
                       
   <!-- member5 pw5  -> 인증된 사용자일경우, 들어가게 .... -->    
   <!-- admin1 pw1 -->   
   <!--  http://localhost/cust/account-->                   
-                            <a href="http://localhost/orders/basket/list" class="nav-item nav-link">장바구니</a>
-                            <a href="http://localhost/cust/my-account" class="nav-item nav-link">마이페이지</a>
+                            <a href="/orders/basket/list" class="nav-item nav-link">장바구니</a>
+                            <a href="/cust/my-account" class="nav-item nav-link">마이페이지</a>
                             <sec:authorize access="isAnonymous()">
 										<a href="/home/login" class="nav-item nav-link">로그인</a>
 										<a href="/home/register" class="nav-item nav-link">회원가입</a>
@@ -202,7 +202,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-3">
                         <div class="logo">
-                            <a href="http://localhost/home/index">
+                            <a href="/home/index">
                                 <img src="/resources/template/img/ecoL.png" alt="Logo">
                             </a>
                         </div>

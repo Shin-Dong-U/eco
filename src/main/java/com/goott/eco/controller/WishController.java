@@ -18,7 +18,7 @@ import com.goott.eco.domain.GoodsVOtest;
 import com.goott.eco.service.WishService;
 
 import lombok.extern.log4j.Log4j;
-@CrossOrigin(origins ="http://localhost:3000")
+
 @RequestMapping("/wish/*")
 @RestController
 @Log4j
