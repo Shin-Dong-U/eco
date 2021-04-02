@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ import com.goott.eco.domain.CustVO;
 import com.goott.eco.domain.GameItemVO;
 import com.goott.eco.service.GameService;
 
-
+@CrossOrigin(origins = {"http://localhost:3000","http://172.16.5.1:3000","http://localhost:5000","http://172.16.5.1:5000"})
 @RequestMapping("/game/*")
 @RestController
 //@AllArgsConstructor

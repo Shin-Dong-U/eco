@@ -15,7 +15,7 @@ import com.goott.eco.service.ChartService;
 
 import lombok.extern.log4j.Log4j;
 
-@CrossOrigin(origins = {"http://localhost:3000","http://172.16.5.1:3000"})
+@CrossOrigin(origins = {"http://localhost:3000","http://172.16.5.1:3000","http://localhost:5000","http://172.16.5.1:5000"})
 @RequestMapping("/chart/*")
 @RestController
 @Log4j

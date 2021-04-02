@@ -20,7 +20,7 @@ import com.goott.eco.service.GameService;
 
 import lombok.extern.log4j.Log4j;
 
-@CrossOrigin(origins = {"http://localhost:3000","http://172.16.5.1:3000"})
+@CrossOrigin(origins = {"http://localhost:3000","http://172.16.5.1:3000","http://localhost:5000","http://172.16.5.1:5000"})
 @RequestMapping("/game")
 @Controller
 @Log4j
@@ -42,7 +42,7 @@ public class GameController {
 		
 		log.info("세션아이디: "+cust_id);
 		//세션사용시 삭제요망
-		cust_id = "basic";
+		cust_id = "xx12345";
 		
 		HashMap<String,Object> sessionId = new HashMap<>();
 		

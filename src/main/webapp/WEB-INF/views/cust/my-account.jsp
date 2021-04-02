@@ -124,7 +124,7 @@
               		</sec:authorize>
                     <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i> 내정보</a>
                     <sec:authorize access="hasAuthority('ROLE_ADMIN')">
-	                    <a class="nav-link" href="http://172.16.5.1:3000/" ><i class="fa fa-map-marker-alt"></i> 차트보기</a>
+	                    <a class="nav-link" href="http://172.16.5.1:5000/" ><i class="fa fa-map-marker-alt"></i> 차트보기</a>
 	                    <a class="nav-link" id="member-nav" data-toggle="pill" href="#member-tab" role="tab"><i class="fa fa-user"></i> 사용자 관리 </a>
                     </sec:authorize>
                     <a class="nav-link" href="http://172.16.5.1:3000/" ><i class="fa fa-map-marker-alt"></i> 나무키우기</a>

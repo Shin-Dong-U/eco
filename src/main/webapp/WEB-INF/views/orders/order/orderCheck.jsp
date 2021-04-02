@@ -340,7 +340,7 @@
 	//주문확정
 	$('.orderCommit').on('click',function(){
 		var totalPrice = $('.totalPrice').text();
-		var point = Number(totalPrice)*0.1;
+		var point = Number(totalPrice)*100;
 		var point2 = parseInt(totalPrice);
 		csrf={"csrfHeaderName":csrfHeaderName,
    				"csrfTokenValue":csrfTokenValue};
