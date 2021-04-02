@@ -1,4 +1,6 @@
 # eco 커뮤니티가 가미 된 친환경 쇼핑몰  
+> [Heroku 배포링크](https://eco-friends-mall.herokuapp.com/)
+- 개선해야할 사항: React부분 병함, 이미지 경로, 업로드 
 
 ## React 사용 부분 링크 (미니게임, 차트)
 - [미니게임](https://github.com/Leo-ground/ecogame)
