@@ -11,7 +11,7 @@
   <summary> 
     <b>장바구니/위시리스트/주문,결제/배송/게임/차트.</b>      
   </summary>
-   <img src=https://github.com/luckyjek/TIL_/blob/main/Java/image/blokTest.jpg>
+   <div>
     <h6>*구현방법
         - 클릭이벤트 발생시 해당 상품의 정보를 Ajax를 통해 JSON형태로 데이터를 송신해 DB에서
         해당 상품번호를 카운트로 조회해서 조건문을 통해 다른 결과가 반환되게 했습니다.
