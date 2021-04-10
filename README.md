@@ -23,8 +23,8 @@ Todo.
 ***
 ***
 
-<h1 align="center" >eco Friend - 친환경 쇼핑몰 </h1>
-> [Heroku 배포링크](https://eco-friends-mall.herokuapp.com/)
+<h1 align="center" > eco Friend - 친환경 쇼핑몰 </h1>
+> <p align="center" > [Heroku 배포링크](https://eco-friends-mall.herokuapp.com/) </p>
 
 <p align="center">
  <img src="https://user-images.githubusercontent.com/79494725/114126441-64e45700-9933-11eb-9083-5446ab3c8bf9.png" width="50%" height="50%">
